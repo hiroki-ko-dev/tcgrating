@@ -1,59 +1,6 @@
-<!DOCTYPE html>
-<html class="no-js no-svg" lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width,initial-scale=1, shrink-to-fit=no" name="viewport">
-    <title>MICE Platform</title>
-    <link href="{{ asset('files/bootstrap.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('/css/assets/index.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;display=swap&amp;subset=japanese" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:700&amp;display=swap&amp;subset=japanese" rel="stylesheet">
-<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192" href="images/favicon/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="images/favicon/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-<link rel="manifest" href="images/favicon/manifest.json" crossorigin="use-credentials">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="images/favicon/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff"><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-    <script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
-    <script>(function(){var isIe=/(trident|msie)/i.test(navigator.userAgent);if(isIe&&document.getElementById&&window.addEventListener){window.addEventListener('hashchange',function(){var id=location.hash.substring(1),element;if(!(/^[A-z0-9_-]+$/.test(id))){return}element=document.getElementById(id);if(element){if(!(/^(?:a|select|input|button|textarea)$/i.test(element.tagName))){element.tabIndex=-1}element.focus()}},!1)}})()</script>
-<link rel="stylesheet" href="{{ asset('/css/assets/index.css') }}">
-</head>
-  <body class="page page-lp1"><a class="skip-link screen-reader-text sr-only" href="#main">Skip to content</a>
-    <header class="header" id="header">
-      <div class="container">
-        <nav class="navbar navbar-expand-lg">
-          <h1><a class="navbar-brand" href="index.html" title="MICE Platform"><img src="images/logo.png" srcset="images/logo@2x.png 2x, images/logo@3x.png 3x" alt="MICE Platform"></a><span class="sr-only">MICE Platform</span></h1>
-          <h2 class="sr-only">MICE Platform</h2>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><span></span><span></span><span></span></span></button>
-          <div class="collapse navbar-collapse" id="navbar">
-            <ul class="navbar-nav">
-              <li class="menu-item"><a href="https://www.mice-platform.com/organizer/long_term_reservation" title="長期予約">長期予約</a></li>
-              <li class="menu-item"><a href="https://www.mice-platform.com/organizer/about" title="利用方法">利用方法</a></li>
-              <li class="menu-item"><a href="https://www.mice-platform.com/organizer/inquiry" title="会場探しを依頼">会場探しを依頼</a></li>
-              <li class="menu-item"><a href="https://www.mice-platform.com/organizer/login" title="ログイン">ログイン</a></li>
-              <li class="menu-item"><a class="bgs-33befc" href="https://www.mice-platform.com/venue/introduction/" title="スペースを登録する(無料)">スペースを登録する(無料)</a></li>
-              <li class="menu-item"><a class="bgs-f99f00" href="https://www.mice-platform.com/organizer/about" title="会員登録する（無料）">会員登録する（無料）</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <main class="main" id="main">
-      <div class="main-wrap">
+@extends('layout.common.common')
+
+@section('content')
 <section class="lp1-banner">
   <div class="container">
     <div class="section-title">
@@ -487,59 +434,8 @@
     </div>
   </div>
 </section>
-<section class="lp1-support">
-  <div class="container">
-    <div class="section-title">
-      <h3>その他、お問い合わせはこちらから</h3>
-    </div>
-    <div class="section-detail">
-      <p>その他、お問い合わせはこちらから</p><a href="mailto:support@mice-platform.com" title="support@mice-platform.com">support@mice-platform.com</a>
-    </div>
-  </div>
-</section>
-      </div>
-    </main>
-    <footer class="footer" id="footer">
-      <div class="footer-top">
-        <div class="container">
-          <div class="footer-top--wrap"><a href="/organizer/home">MICE Platformトップ</a>
-            <div class="footer-top-link"><ul>
-<li><a href="/organizer/about/">新規会員登録</a></li>
-<li><a href="/organizer/login">ログイン</a></li>
-<li><a href="/organizer/help">ヘルプ</a></li>
-<li><a href="mailto:support@mice-platform.com">お問い合わせ</a></li>
-</ul>
-<ul>
-<li><a href="/organizer/home/#rankingArea">ランキング</a></li>
-<li><a href="/organizer/home/#featureArea">特集記事一覧</a></li>
-<li><a href="/organizer/home/#formArea">会場検索</a></li>
-<li><a href="/organizer/terms" target="_blank">利用規約</a></li>
-</ul>
-<ul>
-<li><a href="/organizer/company/">会社概要</a></li>
-<li><a href="/organizer/topmessage">トップメッセージ</a></li>
-<li><a href="/organizer/partnership">パートナーシッププログラム</a></li>
-</ul>
-            </div><a href="/venue/introduction/"><img src="images/lp1/footer.png" alt="会場のご担当者さま 会場リアルタイム予約の「MICE Platform」で高い稼働率を実現しませんか？"></a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="container"><ul>
-<li><a href="https://www.mice-platform.com/organizer/company/">運営会社</a></li>
-<li><a href="http://www.softbank.jp/corp/group/sbiv/security/">情報セキュリティポリシー</a></li>
-<li><a href="http://www.softbank.jp/corp/group/sbiv/privacy/">個人情報の取り扱いについて</a></li>
-<li><a href="/organizer/law">特定商取引法に基づく表示</a></li>
-<li>メディア掲載</li>
-<li>利用企業</li>
-</ul>
-          <div class="footer-copyright">Copyright (C) 2018 MICE Platform. All Rights Reserved.</div>
-        </div>
-      </div>
-    </footer>
-    <script src="{{ asset('files/jquery.slim.min.js')}}"></script>
-    <script src="{{ asset('files/popper.min.js')}}"></script>
-    <script src="{{ asset('files/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('files/jquery.home.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('js/assets/pages/index.js')}}"></script></body>
-</html>
+
+@endsection
+
+@include('layout.common.header')
+@include('layout.common.footer')
