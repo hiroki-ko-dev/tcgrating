@@ -29,11 +29,11 @@
 </head>
 
 <body class="page page-lp1"><a class="skip-link screen-reader-text sr-only" href="#main">Skip to content</a>
-<header class="header" id="header">
+<header class="header pb-2" id="header">
     <div class="container">
         <nav class="navbar navbar-expand-lg">
         <h1><a class="navbar-brand" href="/" title="{{config('origin.site.title')}}">
-        <img src="{{ asset('/images/hashimu-icon.png') }}" alt="hashimu-icon}">{{config('origin.site.title')}}</a>
+        <img src="{{ asset('/images/site/hashimu-icon.png') }}" alt="hashimu-icon}">{{config('origin.site.title')}}</a>
         <span class="sr-only">{{config('origin.site.title')}}</span></h1>
         <h2 class="sr-only">{{config('origin.site.title')}}</h2>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><span></span><span></span><span></span></span></button>
