@@ -4,9 +4,9 @@
     <footer class="footer" id="footer">
       <div class="footer-top">
         <div class="container">
-          <div class="footer-top--wrap"><a href="/organizer/home">{{config('origin.site.title')}}</a>
+          <div class="footer-top--wrap"><a href="/">{{config('origin.site.title')}}</a>
             <div class="footer-top-link"><ul>
-<li><a href="/organizer/about/">新規会員登録</a></li>
+<li><a href="/administrator">管理者について</a></li>
 <li><a href="/organizer/login">ログイン</a></li>
 <li><a href="/organizer/help">ヘルプ</a></li>
 <li><a href="mailto:support@mice-platform.com">お問い合わせ</a></li>
