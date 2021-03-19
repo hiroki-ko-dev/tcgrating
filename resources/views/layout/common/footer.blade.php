@@ -8,7 +8,7 @@
                 <li><a href="">情報セキュリティポリシー</a></li>
                 <li><a href="">個人情報の取り扱いについて</a></li>
             </ul>
-            <div class="footer-copyright">Copyright (C) 2021 MICE Hashimu All Rights Reserved.</div>
+            <div class="footer-copyright">Copyright (C) 2021 Hashimu All Rights Reserved.</div>
         </div>
     </div>
 </footer>
