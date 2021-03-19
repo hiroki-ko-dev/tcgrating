@@ -1,6 +1,6 @@
 @section('header')
 
-  <head>
+<head>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width,initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -26,24 +26,24 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="images/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-
 </head>
-  <body class="page page-lp1"><a class="skip-link screen-reader-text sr-only" href="#main">Skip to content</a>
-    <header class="header" id="header">
-      <div class="container">
+
+<body class="page page-lp1"><a class="skip-link screen-reader-text sr-only" href="#main">Skip to content</a>
+<header class="header" id="header">
+    <div class="container">
         <nav class="navbar navbar-expand-lg">
-          <h1><a class="navbar-brand" href="/" title="{{config('origin.site.title')}}">
-            <img src="{{ asset('/images/hashimu-icon.png') }}" alt="hashimu-icon}">{{config('origin.site.title')}}</a>
-            <span class="sr-only">{{config('origin.site.title')}}</span></h1>
-          <h2 class="sr-only">{{config('origin.site.title')}}</h2>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><span></span><span></span><span></span></span></button>
-          <div class="collapse navbar-collapse" id="navbar">
-            <ul class="navbar-nav">
-              <li class="menu-item"><a class="bgs-33befc" href="" title="ログイン">ログイン</a></li>
-              <li class="menu-item"><a class="bgs-f99f00" href="" title="会員登録する（無料）">会員登録する（無料）</a></li>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
+        <h1><a class="navbar-brand" href="/" title="{{config('origin.site.title')}}">
+        <img src="{{ asset('/images/hashimu-icon.png') }}" alt="hashimu-icon}">{{config('origin.site.title')}}</a>
+        <span class="sr-only">{{config('origin.site.title')}}</span></h1>
+        <h2 class="sr-only">{{config('origin.site.title')}}</h2>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"><span></span><span></span><span></span></span></button>
+        <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav">
+            <li class="menu-item"><a class="bgs-33befc" href="" title="ログイン">ログイン</a></li>
+            <li class="menu-item"><a class="bgs-f99f00" href="" title="会員登録する（無料）">会員登録する（無料）</a></li>
+        </ul>
+        </div>
+    </nav>
+</div>
+</header>
 @endsection

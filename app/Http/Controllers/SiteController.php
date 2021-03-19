@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-    public function Administrator(){
+    public function administrator(){
+
         return view('site.administrator');
     }
 }

@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('site.index');
-});
+    Route::get('/', function () {
+        return view('site.index');
+    });
 
-Route::get('administrator', 'SiteController@Administrator');
+Route::get('/administrator', 'SiteController@administrator');
