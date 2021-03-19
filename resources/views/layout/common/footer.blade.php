@@ -39,10 +39,10 @@
         </div>
       </div>
     </footer>
-    <script src="{{ asset('files/jquery.slim.min.js')}}"></script>
-    <script src="{{ asset('files/popper.min.js')}}"></script>
-    <script src="{{ asset('files/bootstrap.min.js')}}"></script>
-    <script src="{{ asset('files/jquery.home.js')}}"></script>
+    <script src="{{ asset('js/jquery.slim.min.js')}}"></script>
+    <script src="{{ asset('js/popper.min.js')}}"></script>
+    <script src="{{ asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('js/jquery.home.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/assets/pages/index.js')}}"></script></body>
 </html>
 @endsection
