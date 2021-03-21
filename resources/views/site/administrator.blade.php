@@ -6,7 +6,7 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-2">
-                <img src="{{ asset('/images/site/hashimu-icon.png') }}" alt="hashimu-icon}">
+                <img class="img-responsive" src="{{ asset('/images/site/hashimu-icon.png') }}" alt="hashimu-icon}">
             </div>
             <div class="col-md-6">
                 名前：ハシム<br>
