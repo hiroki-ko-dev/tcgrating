@@ -13,9 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+    //直接TOPページを表示
     Route::get('/', function () {
         return view('site.index');
     });
 
-Route::get('/administrator', 'SiteController@administrator');
+    //ログイン
+    Route::get('/login', 'Auth\LoginController@login');
+    //footerの管理者情報を表示
+    Route::get('/administrator', 'SiteController@administrator');
 
