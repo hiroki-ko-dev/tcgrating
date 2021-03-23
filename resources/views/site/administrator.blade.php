@@ -17,5 +17,7 @@
     </div>
 @endsection
 
+
 @include('layouts.common.header')
+@include('layouts.common.adsense')
 @include('layouts.common.footer')
