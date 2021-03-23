@@ -3,9 +3,9 @@
     @yield('header')
     @yield('adsense')
     <main class="main" id="main">
-        <div class="main-wrap">
+{{--        <div class="main-wrap">--}}
             @yield('content')
-        </div>
+{{--        </div>--}}
     </main>
     @yield('footer')
 </html>
