@@ -5,9 +5,6 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width,initial-scale=1, shrink-to-fit=no" name="viewport">
     <title>{{config('origin.site.title')}}</title>
-    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('/css/assets/index.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/assets/common/header.css') }}">
 
     <link rel="stylesheet" href="{{ mix('/css/all.css') }}">
     <link rel="stylesheet" href="{{ mix('/js/all.js') }}">

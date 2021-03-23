@@ -13,7 +13,8 @@ const mix = require('laravel-mix');
 
 mix.styles([
         'resources/css/index.css',
-        'resources/css/bootstrap.min.css'
+        'resources/css/bootstrap.min.css',
+        'resources/css/common/header.css'
     ], 'public/css/all.css')
     .scripts([
         'resources/js/bootstrap.js',
