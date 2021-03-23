@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('/css/assets/index.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/assets/common/header.css') }}">
+
+    <link rel="stylesheet" href="{{ mix('/css/all.css') }}">
+    <link rel="stylesheet" href="{{ mix('/js/all.js') }}">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;display=swap&amp;subset=japanese" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:700&amp;display=swap&amp;subset=japanese" >
     <link rel="manifest" href="images/favicon/manifest.json" crossorigin="use-credentials">
