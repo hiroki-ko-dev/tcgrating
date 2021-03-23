@@ -28,7 +28,7 @@
 {{--                <h2 class="sr-only">{{config('assets.site.title')}}</h2>--}}
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-                    </span><span></span><span></span></button>
+                    </button>
                 <div class="navbar-collapse" id="navbar">
                     <div class="hamburger-menu">
                         <input type="checkbox" id="menu-btn-check">
