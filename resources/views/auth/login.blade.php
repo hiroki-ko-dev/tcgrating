@@ -1,42 +1,77 @@
 @extends('layouts.common.common')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 mx-auto">
-                <article class="card-body">
-                    <h4 class="card-title text-center mb-4 mt-1">ログイン画面</h4>
-                    <hr>
-                    <form>
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Login') }}</div>
+
+                <div class="card-body">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
                                 </div>
-                                <input name="" class="form-control" placeholder="Email or ユーザアカウント名" type="email">
-                            </div> <!-- input-group.// -->
-                        </div> <!-- form-group// -->
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                                </div>
-                                <input class="form-control" placeholder="******" type="password">
-                            </div> <!-- input-group.// -->
-                        </div> <!-- form-group// -->
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-                        </div> <!-- form-group// -->
-                        <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
-                        <p class="text-center"><a href="#" class="btn">アカウント新規作成</a></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Login') }}
+                                </button>
+
+                                @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
                     </form>
-                </article>
-            </div><!-- /card-container -->
+                </div>
+            </div>
         </div>
-    </div><!-- /container -->
+    </div>
+</div>
 @endsection
 
 @include('layouts.common.header')
 @include('layouts.common.adsense')
 @include('layouts.common.footer')
-

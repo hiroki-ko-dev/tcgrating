@@ -10,23 +10,28 @@
     <link rel="stylesheet" href="{{ mix('/css/scss.css') }}">
     <link rel="stylesheet" href="{{ mix('/js/all.js') }}">
 
+    <!-- デフォルト分 -->
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;display=swap&amp;subset=japanese" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:700&amp;display=swap&amp;subset=japanese" >
     <link rel="manifest" href="images/favicon/manifest.json" crossorigin="use-credentials">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 </head>
+@endsection
 
-<header class="header" id="header">
-    <div class="container">
-        <div class="row">
-            <nav class="navbar-expand-lg  d-flex align-items-center pt-md-3">
-                <h1><a class="navbar-brand d-flex align-items-center" href="/" title="{{config('assets.site.title')}}">
-                <img class="img-responsive" src="{{ asset('/images/site/hashimu-icon.png') }}" alt="hashimu-icon">
-                    <span class="header-site-title">  {{config('assets.site.title')}}</span></a>
-                </h1>
-{{--                <h2 class="sr-only">{{config('assets.site.title')}}</h2>--}}
-            </nav>
+@section('bodyHeader')
+    <nav class="navbar navbar-expand-md bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}" title="{{config('assets.site.title')}}">
+                <img class="img-fluid col-3" src="{{ asset('/images/site/hashimu-icon.png') }}" alt="hashimu-icon">
+                <h4 class="font-weight-bold" style="display:inline;">{{config('assets.site.title')}}</h4>
+            </a>
+        {{--                <h2 class="sr-only">{{config('assets.site.title')}}</h2>--}}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 </button>
             <div class="navbar-collapse" id="navbar">
@@ -46,8 +51,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </nav>
 @endsection
 
 

@@ -23,3 +23,7 @@ use Illuminate\Support\Facades\Route;
     //footerの管理者情報を表示
     Route::get('/administrator', 'SiteController@administrator');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
