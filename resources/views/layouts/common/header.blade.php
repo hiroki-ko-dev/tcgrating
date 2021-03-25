@@ -44,7 +44,16 @@
                             <li><a href="#">マイページ</a></li>
                             <li><a href="#">大会</a></li>
                             <li><a href="#">ランキング</a></li>
-                            <li><a href="/login">ログイン</a></li>
+                            @guest
+                                <li><a href="{{ route('login') }}">ログイン</a></li>
+                            @else
+                                <li><a href="/home">マイページ</a></li>
+                                <li><a  href="" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">ログアウト</a></li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            @endif
                         </ul>
                     </div>
                     <!--ここまでメニュー-->
