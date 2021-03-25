@@ -36,7 +36,7 @@
 }
 
 .menu-content {
-    width: 100%;
+    width: 50%;
     height: 100%;
     position: fixed;
     top: 0;
@@ -51,7 +51,7 @@
             list-style: none;
             a{
                 display: block;
-                width: 100%;
+                width: 50%;
                 font-size: 15px;
                 box-sizing: border-box;
                 color:#ffffff;
@@ -77,7 +77,7 @@
 #menu-btn-check {
     display: none;
     &:checked ~ .menu-content {
-        left: 0;/*メニューを画面内へ*/
+        left: 50%;/*メニューを画面内へ*/
     }
     &:checked ~ .menu-btn span{
         background-color: rgba(255, 255, 255, 0);/*メニューオープン時は真ん中の線を透明にする*/

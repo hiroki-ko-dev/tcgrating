@@ -39,7 +39,7 @@
 }
 
 .menu-content {
-  width: 100%;
+  width: 50%;
   height: 100%;
   position: fixed;
   top: 0;
@@ -62,7 +62,7 @@
 
 .menu-content ul li a {
   display: block;
-  width: 100%;
+  width: 50%;
   font-size: 15px;
   box-sizing: border-box;
   color: #ffffff;
@@ -88,7 +88,7 @@
 }
 
 #menu-btn-check:checked ~ .menu-content {
-  left: 0;
+  left: 50%;
   /*メニューを画面内へ*/
 }
 
