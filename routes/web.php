@@ -17,13 +17,14 @@ use Illuminate\Support\Facades\Route;
     Route::get('/', function () {
         return view('site.index');
     });
-
-    //ログイン
-    Route::get('/login', 'Auth\LoginController@login');
     //footerの管理者情報を表示
     Route::get('/administrator', 'SiteController@administrator');
 
 
-Auth::routes();
+    //権限関係
+    Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    //掲示板関係
+    Route::resource('post','PostController');
