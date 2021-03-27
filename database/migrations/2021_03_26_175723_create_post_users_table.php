@@ -15,8 +15,10 @@ class CreatePostUsersTable extends Migration
     {
         Schema::create('post_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('post_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->unsignedBigInteger('post_id')
+                    ->foreignId('post_id')->constrained();
+            $table->unsignedBigInteger('user_id')
+                    ->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

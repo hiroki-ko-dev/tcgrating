@@ -4,6 +4,13 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
+            <div class="col-md-8 offset-md-4">
+                <a class="btn btn-link" href="post/create?category_id=0">
+                    {{ __('新規スレッド作成') }}
+                </a>
+            </div>
+
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -13,7 +20,6 @@
                             {{$user->id}}
                         @endforeach
                     @endif
-                    {{ __('You are logged in!') }}
                 </div>
             </div>
         </div>

@@ -44,7 +44,7 @@
                             <li><a href="#">大会</a></li>
                             <li><a href="#">チーム</a></li>
                             <li><a href="#">ランキング</a></li>
-                            <li><a href="/post?category=2">掲示板</a></li>
+                            <li><a href="/post?category_id=0">掲示板</a></li>
                             @guest
                                 <li><a href="{{ route('login') }}">ログイン</a></li>
                             @else

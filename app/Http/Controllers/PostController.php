@@ -20,18 +20,20 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts =  $this->post_service->getPostsByPostCategoryAndPagination($request->query('category'),20);
+        $posts =  $this->post_service->getPostsByPostCategoryAndPagination($request->query('category_id'),20);
         return view('post.index',$posts);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        dd($this->middleware('auth'));
+
+        $category_id = $request->query('category_id');
+        return view('post.create', compact("category_id"));
     }
 
     /**
@@ -42,7 +44,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->post_service->createPost($request->query('category_id'));
     }
 
     /**

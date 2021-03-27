@@ -10,14 +10,14 @@ class PostCategory extends Model
     use HasFactory;
 
     //定数の定義
-    const FREE           = 0;
-    const DIRECT_MASSAGE = 1;
-    const TEAM           = 2;
-    const TEAM_WANTED    = 3;
-    const EVENT          = 4;
-    const PERSONAL       = 5;
+    const FREE           = 1;
+    const DIRECT_MASSAGE = 2;
+    const TEAM           = 3;
+    const TEAM_WANTED    = 4;
+    const EVENT          = 5;
+    const PERSONAL       = 6;
     const CATEGORY = [
-        'FREE'           => self::DIRECT_MASSAGE,
+        'FREE'           => self::FREE,
         'direct_massage' => self::DIRECT_MASSAGE,
         'team'           => self::TEAM,
         'team_wanted'    => self::TEAM_WANTED,
