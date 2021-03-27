@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Services\PostService;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -30,10 +31,13 @@ class PostController extends Controller
      */
     public function create(Request $request)
     {
-        dd($this->middleware('auth'));
+        //アカウント認証しているユーザーのみ新規作成可能
+        if(!Auth::check()){
+            return back()->with('flash_message', '新規投稿を行うにはログインしてください');
+        }
 
-        $category_id = $request->query('category_id');
-        return view('post.create', compact("category_id"));
+        $post_category_id = $request->query('post_category_id');
+        return view('post.create', compact('post_category_id'));
     }
 
     /**
@@ -44,7 +48,15 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $this->post_service->createPost($request->query('category_id'));
+        //アカウント認証しているユーザーのみ新規作成可能
+        $this->middleware('auth');
+
+        //追加
+        $request->merge(['user_id' => Auth::guard()->user()->id]);
+        $request->merge(['is_personal' => 1]);
+        $this->post_service->createPost($request);
+
+        return redirect('/post?post_category_id=0')->with('flash_message', '新規投稿を行いました');
     }
 
     /**

@@ -14,9 +14,9 @@ class PostService
         $this->post_repository = $post_repository;
     }
 
-    public function storePost($request)
+    public function createPost($request)
     {
-        return $this->post_repository->store($request);
+        return $this->post_repository->create($request);
     }
 
     public function getPostsByPostCategoryAndPagination($category_id, $paginate)
