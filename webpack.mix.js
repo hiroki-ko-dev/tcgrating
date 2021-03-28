@@ -35,6 +35,7 @@ mix.styles([
     ],'public/js/all.js')
     .sass('resources/sass/common/header.scss', 'public/css/scss.css')
     .sass('resources/sass/common/footer.scss', 'public/css/scss.css')
+    .sass('resources/sass/post/post.scss', 'public/css/scss.css')
 ;
 
 

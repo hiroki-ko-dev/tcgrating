@@ -1,17 +1,17 @@
 <?php
 
 namespace App\Repositories;
-use App\Models\Post;
+use App\Models\PostComment;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class PostRepository
+class PostCommentRepository
 {
 
     public function create($request)
     {
-        Post::insert([
+        PostComment::insert([
             [
                 'post_category_id' => $request->post_category_id,
                 'user_id'          => $request->user_id,
@@ -25,12 +25,12 @@ class PostRepository
     }
 
     public function find($id){
-        return Post::find($id);
+        return PostComment::find($id);
     }
 
-    public function findAllByPostCategoryIdAndPagination($post_category_id, $paginate)
+    public function findAllWithUserByPostIdAndPagination($post_id, $paginate)
     {
-        return Post::where('post_category_id', $post_category_id)->paginate($paginate);
+        return PostComment::where('post_id', $post_id)->paginate($paginate);
     }
 
 }

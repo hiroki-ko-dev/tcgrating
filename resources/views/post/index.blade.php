@@ -12,9 +12,7 @@
     </div>
 
     <div class="row justify-content-center">
-
         <div class="col-md-8">
-
             <div class="col-md-8 offset-md-4">
                 <a class="btn btn-link text-center" href="post/create?post_category_id={{\App\Models\PostCategory::FREE}}">
                     {{ __('新規スレッド作成') }}
@@ -22,16 +20,19 @@
             </div>
 
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('掲示板') }}</div>
 
                 <div class="card-body">
                     @if(!empty($posts))
                         @foreach($posts as $post)
-                            {{$user->id}}
+                            <div class="card-text border-bottom p-2">
+                                <a href="/post/{{$post->id}}">{{$post->title}}</a>
+                            </div>
                         @endforeach
                     @endif
                 </div>
             </div>
+            {{ $posts->appends(['sort' => 'votes'])->links() }}
         </div>
     </div>
 </div>

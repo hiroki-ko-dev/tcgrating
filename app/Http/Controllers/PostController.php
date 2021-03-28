@@ -21,8 +21,9 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts =  $this->post_service->getPostsByPostCategoryAndPagination($request->query('category_id'),20);
-        return view('post.index',$posts);
+        $posts =  $this->post_service->getPostsByPostCategoryAndPagination($request->query('post_category_id'),20);
+
+        return view('post.index',compact('posts'));
     }
 
     /**
@@ -62,12 +63,14 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $post_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($post_id)
     {
-        //
+        $post     = $this->post_service->findPost($post_id);
+        $comments = $this->post_service->findAllByPostCommentWithUserByPostIdAndPagination($post_id,20);
+        return view('post.show',compact('post','comments'));
     }
 
     /**
