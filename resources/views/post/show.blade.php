@@ -26,7 +26,7 @@
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div type="body">{{$post->body}}</div>
+                            <div type="body">{!! nl2br(e($post->body)) !!}}</div>
                         </div>
                     </div>
                 </div>
@@ -37,20 +37,19 @@
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
             @if(!empty($comments))
-                <div class="card">
-                    <div class="card-header">{{ __('掲示板') }}</div>
+                <div class="card  pb-2">
+                    <div class="card-header">{{ __('コメント一覧') }}</div>
                     <div class="card-body">
                         @foreach($comments as $comment)
                             <div class="col-md-12">
-                                <div class="post-user">{{$comment->name}} [{{$comment->created_at}}]</div>
+                                <div class="post-user">＠{{$comment->user->name}} [{{$comment->created_at}}]</div>
                             </div>
                             <div class="card-text border-bottom p-2">
-                                <a href="/post/{{$comment->id}}">{{$comment->body}}</a>
+                                {!! nl2br(e($comment->body)) !!}
                             </div>
                         @endforeach
                     </div>
                 </div>
-                {{ $comments->appends(['sort' => 'votes'])->links() }}
             @endif
         </div>
     </div>

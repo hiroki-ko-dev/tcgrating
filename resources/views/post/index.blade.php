@@ -27,6 +27,7 @@
                         @foreach($posts as $post)
                             <div class="card-text border-bottom p-2">
                                 <a href="/post/{{$post->id}}">{{$post->title}}</a>
+                                <span class="post-user">[{{$post->created_at}}]</span>
                             </div>
                         @endforeach
                     @endif

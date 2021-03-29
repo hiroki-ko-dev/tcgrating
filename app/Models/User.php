@@ -43,16 +43,16 @@ class User extends Authenticatable
 
     public function post()
     {
-        return $this->belongsTo('App\Post');
+        return $this->belongsTo('App\Models\Post');
     }
 
     public function postComment()
     {
-        return $this->belongsTo('App\PostComment');
+        return $this->hasMany('App\Models\PostComment','user_id','id');
     }
 
     public function postUser()
     {
-        return $this->belongsTo('App\PostComment');
+        return $this->belongsTo('App\Models\PostComment','post_id');
     }
 }

@@ -10,6 +10,6 @@ class PostComment extends Model
     use HasFactory;
 
     public function user(){
-        return $this->hasMany('App\Post');
+        return $this->belongsTo('App\Models\User','user_id','id');
     }
 }
