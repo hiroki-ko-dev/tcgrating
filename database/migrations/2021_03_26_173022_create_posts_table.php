@@ -17,6 +17,8 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->foreignId('post_category_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->foreignId('team_id')->nullable()->constrained();
+            $table->foreignId('competitions')->nullable()->constrained();
             $table->string('title',200);
             $table->string('body',2000);
             $table->boolean('is_personal');
