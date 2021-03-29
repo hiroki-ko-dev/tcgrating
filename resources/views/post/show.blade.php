@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <!-- フラッシュメッセージ -->
         @if (session('flash_message'))
-            <div class="text-center alert-danger rounded p-3">
+            <div class="text-center alert-danger rounded p-3 mb-3 col-md-7Z">
                 {{ session('flash_message') }}
             </div>
         @endif
@@ -51,6 +51,7 @@
                     </div>
                 </div>
             @endif
+                {{$comments->links('pagination::bootstrap-4')}}
         </div>
     </div>
 

@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <!-- フラッシュメッセージ -->
         @if (session('flash_message'))
-            <div class="text-center alert-danger rounded p-3">
+            <div class="text-center alert-danger rounded p-3 mb-3 col-md-7">
                 {{ session('flash_message') }}
             </div>
         @endif
@@ -33,7 +33,7 @@
                     @endif
                 </div>
             </div>
-            {{ $posts->appends(['sort' => 'votes'])->links() }}
+            {{$posts->links('pagination::bootstrap-4')}}
         </div>
     </div>
 </div>

@@ -29,9 +29,8 @@ class PostCommentRepository
     public function findAllWithUserByPostIdAndPagination($post_id, $paginate)
     {
         return PostComment::with('user:id,name')
-                              ->where('post_id', $post_id)
-//                            ->paginate($paginate);
-                              ->get();
+                            ->where('post_id', $post_id)
+                            ->paginate($paginate);
     }
 
 }
