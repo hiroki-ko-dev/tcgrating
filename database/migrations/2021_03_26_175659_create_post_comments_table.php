@@ -19,7 +19,7 @@ class CreatePostCommentsTable extends Migration
                   ->foreignId('post_id')->constrained();
             $table->unsignedBigInteger('user_id')
                   ->foreignId('user_id')->constrained();
-            $table->string('body',2000);
+            $table->string('body',2000)->nullable();
             $table->timestamps();
         });
     }
