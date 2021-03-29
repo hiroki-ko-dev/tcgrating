@@ -23,6 +23,11 @@ class PostService
         return $this->post_repository->create($request);
     }
 
+    public function createComment($request)
+    {
+        return $this->post_comment_repository->create($request);
+    }
+
     public function findPost($id)
     {
         return $this->post_repository->find($id);

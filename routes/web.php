@@ -26,5 +26,9 @@ use Illuminate\Support\Facades\Route;
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    //掲示板関係
-    Route::resource('post','PostController');
+    //掲示板スレッド
+    Route::resources([
+        'post'         => Post\PostController::class,
+    //掲示板コメント
+        'post/comment' => Post\CommentController::class,
+    ]);

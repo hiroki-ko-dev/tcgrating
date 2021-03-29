@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="container">
+    <div class="row justify-content-center">
+        <!-- フラッシュメッセージ -->
+        @if (session('flash_message'))
+            <div class="text-center alert-danger rounded p-3">
+                {{ session('flash_message') }}
+            </div>
+        @endif
+    </div>
+
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
             <div class="card">
@@ -17,7 +26,7 @@
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div id="body" type="body">{{$post->body}}</div>
+                            <div type="body">{{$post->body}}</div>
                         </div>
                     </div>
                 </div>
@@ -32,6 +41,9 @@
                     <div class="card-header">{{ __('掲示板') }}</div>
                     <div class="card-body">
                         @foreach($comments as $comment)
+                            <div class="col-md-12">
+                                <div class="post-user">{{$comment->name}} [{{$comment->created_at}}]</div>
+                            </div>
                             <div class="card-text border-bottom p-2">
                                 <a href="/post/{{$comment->id}}">{{$comment->body}}</a>
                             </div>
@@ -52,8 +64,8 @@
                 <div class="card-body">
                     <form method="POST" action="/post/comment">
                         @csrf
+                        <input type="hidden" name="post_id" value="{{$post->id}}">
                         <div class="form-group row">
-
                             <div class="col-md-12">
                                 <textarea id="body" type="body" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body"></textarea>
 

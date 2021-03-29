@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Post;
+use App\Http\Controllers\Controller;
 use App\Services\PostService;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use DB;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
     protected $post_service;
 
@@ -21,9 +23,6 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts =  $this->post_service->getPostsByPostCategoryAndPagination($request->query('post_category_id'),20);
-
-        return view('post.index',compact('posts'));
     }
 
     /**
@@ -50,14 +49,18 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //アカウント認証しているユーザーのみ新規作成可能
-        $this->middleware('auth');
+        if(!Auth::check()){
+            return back()->with('flash_message', 'コメントを行うにはログインをしてください');
+        }
 
         //追加
         $request->merge(['user_id' => Auth::guard()->user()->id]);
-        $request->merge(['is_personal' => 1]);
-        $this->post_service->createPost($request);
 
-        return redirect('/post?post_category_id=0')->with('flash_message', '新規投稿を行いました');
+        DB::transaction(function () use($request) {
+            $this->post_service->createComment($request);
+        });
+
+        return redirect('/post/'.$request->input('post_id'))->with('flash_message', '新規投稿を行いました');
     }
 
     /**
@@ -68,9 +71,6 @@ class PostController extends Controller
      */
     public function show($post_id)
     {
-        $post     = $this->post_service->findPost($post_id);
-        $comments = $this->post_service->findAllByPostCommentWithUserByPostIdAndPagination($post_id,20);
-        return view('post.show',compact('post','comments'));
     }
 
     /**
