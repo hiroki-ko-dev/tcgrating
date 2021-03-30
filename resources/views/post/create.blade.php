@@ -2,13 +2,18 @@
 
 @section('content')
 <div class="container">
+    <div class="jumbotron">
+        @if(\App\Models\PostCategory::FREE == $post_category_id)
+            <h1>{{ __('フリー掲示板') }}</h1>
+        @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
+            <h1>{{ __('チーム募集掲示板') }}</h1>
+        @endif
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    @if(\App\Models\PostCategory::FREE == $post_category_id)
-                    {{ __('自由掲示板') }}
-                    @endif
+                    {{ __('新規スレッド作成') }}
                 </div>
 
                 <div class="card-body">

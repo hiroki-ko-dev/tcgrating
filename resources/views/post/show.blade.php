@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="container">
+    <div class="jumbotron">
+        @if(\App\Models\PostCategory::FREE == $post_category_id)
+            <h1>{{ __('フリー掲示板') }}</h1>
+        @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
+            <h1>{{ __('チーム募集掲示板') }}</h1>
+        @endif
+    </div>
+
     <div class="row justify-content-center">
         <!-- フラッシュメッセージ -->
         @if (session('flash_message'))
