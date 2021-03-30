@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
     //footerの管理者情報を表示
     Route::get('/administrator', 'SiteController@administrator');
 
-
     //権限関係
     Auth::routes();
 

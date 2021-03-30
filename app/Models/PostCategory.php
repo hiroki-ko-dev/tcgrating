@@ -11,14 +11,14 @@ class PostCategory extends Model
 
     //定数の定義
     const FREE           = 1;
-    const DIRECT_MASSAGE = 2;
+    const DUEL           = 2;
     const TEAM           = 3;
     const TEAM_WANTED    = 4;
     const EVENT          = 5;
     const PERSONAL       = 6;
     const CATEGORY = [
         'FREE'           => self::FREE,
-        'direct_massage' => self::DIRECT_MASSAGE,
+        'direct_massage' => self::DUEL,
         'team'           => self::TEAM,
         'team_wanted'    => self::TEAM_WANTED,
         'event'          => self::EVENT,

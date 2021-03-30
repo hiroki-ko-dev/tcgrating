@@ -41,14 +41,20 @@
                     <!--ここからメニュー-->
                     <div class="menu-content">
                         <ul>
-                            <li><a href="#">大会</a></li>
-                            <li><a href="#">チーム</a></li>
+                            <li><a href="#">対戦ルール</a></li>
+                            <li><a href="#">1vs1決闘</a></li>
+                            <li><a href="#"><span class="text-secondary">ポイントバトル決闘</span></a></li>
+                            <li><a href="#"><span class="text-secondary">チーム決闘</span></a></li>
+                            <li><a href="#"><span class="text-secondary">大会</span></a></li>
                             <li><a href="#">ランキング</a></li>
-                            <li><a href="/post?post_category_id={{\App\Models\PostCategory::FREE}}">掲示板</a></li>
+                            <li><a href="#">チーム</a></li>
+                            <li><a href="/post?post_category_id={{\App\Models\PostCategory::FREE}}">チーム募集掲示板</a></li>
+                            <li><a href="/post?post_category_id={{\App\Models\PostCategory::FREE}}">フリー掲示板</a></li>
                             @guest
                                 <li><a href="{{ route('login') }}">ログイン</a></li>
                             @else
                                 <li><a href="/home">マイページ</a></li>
+                                <li><a href="/home">マイチーム</a></li>
                                 <li><a  href="" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">ログアウト</a></li>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
