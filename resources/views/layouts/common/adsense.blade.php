@@ -10,4 +10,6 @@
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
+    {{--広告の自動適用--}}
+    <script data-ad-client="ca-pub-9125683895360901" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 @endsection
