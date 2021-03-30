@@ -24,8 +24,8 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $posts =  $this->post_service->getPostsByPostCategoryAndPagination($request->query('post_category_id'),20);
-
-        return view('post.index',compact('posts'));
+        $post_category_id = $request->query('post_category_id');
+        return view('post.index',compact('posts','post_category_id'));
     }
 
     /**
@@ -62,7 +62,7 @@ class PostController extends Controller
             $this->post_service->createPost($request);
         });
 
-        return redirect('/post?post_category_id=1')->with('flash_message', '新規投稿を行いました');
+        return redirect('/post?post_category_id='.$request->input('post_category_id'))->with('flash_message', '新規投稿を行いました');
     }
 
     /**

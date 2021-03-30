@@ -14,7 +14,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="col-md-8 offset-md-4">
-                <a class="btn btn-link text-center" href="post/create?post_category_id={{$posts[0]->post_category_id}}">
+                <a class="btn btn-link text-center" href="post/create?post_category_id={{$post_category_id}}">
                     {{ __('新規スレッド作成') }}
                 </a>
             </div>
@@ -34,7 +34,7 @@
                     @endif
                 </div>
             </div>
-            {{$posts->appends(['post_category_id' => $posts[0]->post_category_id])->links('pagination::bootstrap-4')}}
+            {{$posts->appends(['post_category_id' => $post_category_id])->links('pagination::bootstrap-4')}}
         </div>
     </div>
 </div>

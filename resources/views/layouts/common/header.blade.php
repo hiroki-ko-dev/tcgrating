@@ -48,7 +48,7 @@
                             <li><a href="#"><span class="text-secondary">大会</span></a></li>
                             <li><a href="#">ランキング</a></li>
                             <li><a href="#">チーム</a></li>
-                            <li><a href="/post?post_category_id={{\App\Models\PostCategory::FREE}}">チーム募集掲示板</a></li>
+                            <li><a href="/post?post_category_id={{\App\Models\PostCategory::TEAM_WANTED}}">チーム募集掲示板</a></li>
                             <li><a href="/post?post_category_id={{\App\Models\PostCategory::FREE}}">フリー掲示板</a></li>
                             @guest
                                 <li><a href="{{ route('login') }}">ログイン</a></li>
