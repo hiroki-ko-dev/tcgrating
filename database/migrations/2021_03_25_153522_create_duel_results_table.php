@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDuelsTable extends Migration
+class CreateDuelResultsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateDuelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('duels', function (Blueprint $table) {
+        Schema::create('duel_results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('duel_category_id')->constrained();
+            $table->foreignId('duel_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->unsignedTinyInteger('status')->default(0);
-            $table->unsignedSmallInteger('max_member');
-            $table->mediumInteger('room_id');
-            $table->mediumInteger('watching_id')->nullable();
+            $table->unsignedTinyInteger('number');
+            $table->unsignedSmallInteger('ranking');
+            $table->mediumInteger('rating');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ class CreateDuelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('duels');
+        Schema::dropIfExists('duel_results');
     }
 }

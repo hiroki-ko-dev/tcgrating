@@ -15,10 +15,8 @@ class CreateTeamUsersTable extends Migration
     {
         Schema::create('team_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('team_id')
-                    ->foreignId('team_id')->constrained();
-            $table->unsignedBigInteger('user_id')
-                    ->foreignId('user_id')->constrained();
+            $table->foreignId('team_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

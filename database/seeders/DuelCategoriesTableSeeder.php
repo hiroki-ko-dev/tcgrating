@@ -15,7 +15,7 @@ class DuelCategoriesTableSeeder extends Seeder
     public function run()
     {
         DuelCategory::insert([
-            [ 'name' => '1vs1', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            [ 'name' => 'one_vs_one', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             [ 'name' => 'point','created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         ]);
     }

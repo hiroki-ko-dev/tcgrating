@@ -16,8 +16,7 @@ class CreateDuelUsersTable extends Migration
         Schema::create('duel_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('duel_id')->constrained();
-            $table->unsignedBigInteger('user_id')
-                ->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->unsignedSmallInteger('status')->default(0);
             $table->timestamps();
         });
