@@ -40,7 +40,7 @@ class PostService
 
     public function getPostsByPostCategoryAndPagination($post_category_id, $paginate)
     {
-        return $this->post_repository->findAllByPostCategoryIdAndPagination($post_category_id, $paginate);
+        return $this->post_repository->findAllAndCommentCountByPostCategoryIdAndPagination($post_category_id, $paginate);
     }
 
 }

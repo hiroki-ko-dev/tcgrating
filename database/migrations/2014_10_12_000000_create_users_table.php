@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('body',2000)->nullable();
             $table->string('image',255)->nullable();
+            $table->integer('rate')->default(0);
             $table->timestamps();
         });
     }

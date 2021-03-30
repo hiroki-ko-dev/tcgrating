@@ -28,9 +28,11 @@ class PostRepository
         return Post::find($id);
     }
 
-    public function findAllByPostCategoryIdAndPagination($post_category_id, $paginate)
+    public function findAllAndCommentCountByPostCategoryIdAndPagination($post_category_id, $paginate)
     {
-        return Post::where('post_category_id', $post_category_id)->paginate($paginate);
+        return Post::where('post_category_id', $post_category_id)
+                    ->withCount('postComment')
+                    ->paginate(1);
     }
 
 }

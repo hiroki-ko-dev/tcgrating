@@ -18,7 +18,7 @@ class PostCategory extends Model
     const PERSONAL       = 6;
     const CATEGORY = [
         'FREE'           => self::FREE,
-        'direct_massage' => self::DUEL,
+        'duel'           => self::DUEL,
         'team'           => self::TEAM,
         'team_wanted'    => self::TEAM_WANTED,
         'event'          => self::EVENT,

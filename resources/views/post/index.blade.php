@@ -14,7 +14,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="col-md-8 offset-md-4">
-                <a class="btn btn-link text-center" href="post/create?post_category_id={{\App\Models\PostCategory::FREE}}">
+                <a class="btn btn-link text-center" href="post/create?post_category_id={{$posts[0]->post_category_id}}">
                     {{ __('新規スレッド作成') }}
                 </a>
             </div>
@@ -27,13 +27,14 @@
                         @foreach($posts as $post)
                             <div class="card-text border-bottom p-2">
                                 <a href="/post/{{$post->id}}">{{$post->title}}</a>
+                                [{{$post->post_comment_count}}]
                                 <span class="post-user">[{{$post->created_at}}]</span>
                             </div>
                         @endforeach
                     @endif
                 </div>
             </div>
-            {{$posts->links('pagination::bootstrap-4')}}
+            {{$posts->appends(['post_category_id' => $posts[0]->post_category_id])->links('pagination::bootstrap-4')}}
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompetitionsTable extends Migration
+class CreateDuelUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateCompetitionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('competitions', function (Blueprint $table) {
+        Schema::create('duel_users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('status');
+            $table->foreignId('duel_id')->constrained();
+            $table->unsignedBigInteger('user_id')
+                ->foreignId('user_id')->constrained();
+            $table->unsignedSmallInteger('status')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateCompetitionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('competitions');
+        Schema::dropIfExists('duel_users');
     }
 }
