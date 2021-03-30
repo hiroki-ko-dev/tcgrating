@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .header-site-title {
-  font-size: 140%;
+  font-size: 100%;
   font-weight: bold;
 }
 
@@ -39,7 +39,7 @@
 }
 
 .menu-content {
-  width: 50%;
+  width: 70%;
   height: 100%;
   position: fixed;
   top: 0;
@@ -88,7 +88,7 @@
 }
 
 #menu-btn-check:checked ~ .menu-content {
-  left: 50%;
+  left: 30%;
   /*メニューを画面内へ*/
 }
 

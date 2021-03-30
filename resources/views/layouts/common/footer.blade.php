@@ -4,9 +4,8 @@
     <div class="footer-bottom">
         <div class="container">
             <ul>
-                <li><a href="/administrator">管理者について</a></li>
-                <li><a href="">情報セキュリティポリシー</a></li>
-                <li><a href="">個人情報の取り扱いについて</a></li>
+                <li><a href="/administrator">管理人について</a></li>
+                <li><a href="">お問い合わせ</a></li>
             </ul>
             <div class="footer-copyright">Copyright (C) 2021 Hashimu All Rights Reserved.</div>
         </div>

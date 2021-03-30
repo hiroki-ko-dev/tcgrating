@@ -32,7 +32,7 @@ class PostRepository
     {
         return Post::where('post_category_id', $post_category_id)
                     ->withCount('postComment')
-                    ->paginate(1);
+                    ->paginate($paginate);
     }
 
 }
