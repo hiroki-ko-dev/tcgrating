@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.common.common')
 
 @section('content')
 <div class="container">
@@ -47,3 +47,7 @@
     </div>
 </div>
 @endsection
+
+@include('layouts.common.header')
+@include('layouts.common.adsense')
+@include('layouts.common.footer')
