@@ -42,7 +42,7 @@
                     <div class="menu-content">
                         <ul>
                             <li><a href="#">対戦ルール</a></li>
-                            <li><a href="#">1vs1決闘</a></li>
+                            <li><a href="/duel?duel_category_id=1">1vs1決闘</a></li>
                             <li><a href="#"><span class="text-secondary">ポイントバトル決闘</span></a></li>
                             <li><a href="#"><span class="text-secondary">チーム決闘</span></a></li>
                             <li><a href="#"><span class="text-secondary">大会</span></a></li>
@@ -53,7 +53,7 @@
                             @guest
                                 <li><a href="{{ route('login') }}">ログイン</a></li>
                             @else
-                                <li><a href="/home">マイページ</a></li>
+                                <li><a href="/user">マイページ</a></li>
                                 <li><a href="/home">マイチーム</a></li>
                                 <li><a  href="" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">ログアウト</a></li>

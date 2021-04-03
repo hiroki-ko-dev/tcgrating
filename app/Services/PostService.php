@@ -33,7 +33,7 @@ class PostService
         return $this->post_repository->find($id);
     }
 
-    public function findAllByPostCommentWithUserByPostIdAndPagination($post_id, $paginate)
+    public function findAllPostCommentWithUserByPostIdAndPagination($post_id, $paginate)
     {
         return $this->post_comment_repository->findAllWithUserByPostIdAndPagination($post_id, $paginate);
     }

@@ -23,11 +23,21 @@ use Illuminate\Support\Facades\Route;
     //権限関係
     Auth::routes();
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
+
+    //デュエル系スレッド
+    Route::resources([
+        'user' => UserController::class,
+    ]);
 
     //掲示板スレッド
     Route::resources([
         'post'         => Post\PostController::class,
     //掲示板コメント
         'post/comment' => Post\CommentController::class,
+    ]);
+
+    //デュエル系スレッド
+    Route::resources([
+        'duel' => Duel\DuelController::class,
     ]);
