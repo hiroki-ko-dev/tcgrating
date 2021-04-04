@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-
+use DB;
 use App\Services\UserService;
 
 use Illuminate\Http\Request;
@@ -24,19 +24,40 @@ class UserController extends Controller
 
     /**
      * @param Request $request
+     * @param $user_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(Request $request)
+    public function show(Request $request,$user_id)
     {
-        if(empty($request->query('user_id'))){
-            $this->middleware('auth');
-            $user_id = Auth::id();
-        }else{
-            $user_id = $request->query('user_id');
-        }
 
         $user = $this->user_service->findUser($user_id);
 
-        return view('user.index',compact('user'));
+        return view('user.show',compact('user'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $user_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function edit(Request $request,$user_id)
+    {
+
+        $user = $this->user_service->findUser($user_id);
+
+        return view('user.edit',compact('user'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function store(Request $request)
+    {
+        DB::transaction(function () use($request){
+            $this->user_service->updateUser($request);
+        });
+
+        return redirect('/user/'.$request->input('id'))->with('flash_message', '保存しました');
     }
 }

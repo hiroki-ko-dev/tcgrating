@@ -19,4 +19,8 @@ class UserService
         return $this->user_repository->find($id);
     }
 
+    public function updateUser($request)
+    {
+        return $this->user_repository->update($request);
+    }
 }

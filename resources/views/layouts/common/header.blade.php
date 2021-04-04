@@ -53,7 +53,7 @@
                             @guest
                                 <li><a href="{{ route('login') }}">ログイン</a></li>
                             @else
-                                <li><a href="/user">マイページ</a></li>
+                                <li><a href="/user/{{Auth::id()}}">マイページ</a></li>
                                 <li><a href="/home">マイチーム</a></li>
                                 <li><a  href="" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">ログアウト</a></li>
