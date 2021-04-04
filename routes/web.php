@@ -25,9 +25,14 @@ use Illuminate\Support\Facades\Route;
 
 //    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
 
-    //デュエル系スレッド
+    //ユーザー系スレッド
     Route::resources([
         'user' => UserController::class,
+    ]);
+
+    //チーム系スレッド
+    Route::resources([
+        'team' => TeamController::class,
     ]);
 
     //掲示板スレッド

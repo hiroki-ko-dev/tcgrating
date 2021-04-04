@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TeamUser extends Model
+class Team extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function team(){
-        return $this->belongsTo('App\Models\Team','team_id','id');
+    public function teamUser(){
+        return $this->hasMany('App\Models\TeamUser','team_id','id');
     }
 }
