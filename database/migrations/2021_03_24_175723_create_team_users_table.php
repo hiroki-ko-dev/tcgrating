@@ -17,6 +17,7 @@ class CreateTeamUsersTable extends Migration
             $table->id();
             $table->foreignId('team_id')->constrained();
             $table->foreignId('user_id')->constrained();
+            $table->unsignedTinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

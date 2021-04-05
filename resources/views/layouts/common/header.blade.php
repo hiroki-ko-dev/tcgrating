@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="{{ mix('/css/all.css') }}">
     <link rel="stylesheet" href="{{ mix('/css/scss.css') }}">
-    <link rel="stylesheet" href="{{ mix('/js/all.js') }}">
+    <script src="{{ mix('/js/all.js') }}"></script>
 
     <!-- デフォルト分 -->
     <!-- Styles -->

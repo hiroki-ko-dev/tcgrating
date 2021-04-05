@@ -52,7 +52,7 @@ class TeamRepository
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function findWithUser($id){
-        return Team::with('teamUser')->find($id);
+        return Team::with('teamUser.user')->find($id);
     }
 
 }

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Team;
 use DB;
+use App\Http\Controllers\Controller;
 use App\Services\TeamService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

@@ -53,6 +53,11 @@ class User extends Authenticatable
 
     public function postUser()
     {
-        return $this->belongsTo('App\Models\PostComment','post_id');
+        return $this->belongsTo('App\Models\PostUser','user_id');
+    }
+
+    public function teamUser()
+    {
+        return $this->belongsTo('App\Models\TeamUser','user_id');
     }
 }

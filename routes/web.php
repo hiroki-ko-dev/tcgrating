@@ -32,7 +32,9 @@ use Illuminate\Support\Facades\Route;
 
     //チーム系スレッド
     Route::resources([
-        'team' => TeamController::class,
+        'team'      => Team\TeamController::class,
+    //チームユーザー系スレッド
+        'team/user' => Team\TeamUserController::class,
     ]);
 
     //掲示板スレッド

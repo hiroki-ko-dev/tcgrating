@@ -6,6 +6,31 @@
         <h1>{{ __('チームページ') }}</h1>
     </div>
 
+    @if(!empty($team->teamUser->where('id',Auth::user()->id)->where('status',0)))
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ __('リクエスト待ちユーザー') }}</div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <form method="POST" action="/team">
+                                    @foreach($team->teamUser as $teamUser)
+                                        <div type="body">
+                                            <a href="/user/{{$teamUser->user->id}}">{{$teamUser->user->name}}</a>
+                                            <input type="button" name="approval" value="承認" onClick="approvalCheck();">
+                                            <input type="button" name="reject" value="却下" onClick="rejectCheck();">
+                                        </div>
+                                    @endforeach
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row justify-content-center">
         <!-- フラッシュメッセージ -->
         @if (session('flash_message'))

@@ -28,14 +28,16 @@ mix.styles([
         'resources/js/jquery.home.js',
         'resources/js/jquery.slim.min.js',
         'resources/js/popper.min.js',
-        'resources/js/core/commons.js',
+        'resources/js/core/approval.js',
         'resources/js/core/runtime.js',
         'resources/js/core/vendor.js',
         'resources/js/pages/index.js',
+        'resources/js/common/approval.js',
     ],'public/js/all.js')
     .sass('resources/sass/common/header.scss', 'public/css/scss.css')
     .sass('resources/sass/common/footer.scss', 'public/css/scss.css')
     .sass('resources/sass/post/post.scss', 'public/css/scss.css')
+    .version()
 ;
 
 
