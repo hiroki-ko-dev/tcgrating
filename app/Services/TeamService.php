@@ -17,6 +17,14 @@ class TeamService
         $this->team_user_repository = $team_user_repository;
     }
 
+    public function createTeamByRequest($request)
+    {
+        $team = $this->team_repository->create($request);
+        //追加
+        $request->merge(['team_id' => $team->id]);
+        $this->team_user_repository->create($request);
+    }
+
     /**
      * @param $request
      * @param $paginage
@@ -27,11 +35,19 @@ class TeamService
         return $this->team_repository->findAllByRequestAndPaginate($request, $paginage);
     }
 
-    public function createTeamByRequest($request)
+    /**
+     * @param $request
+     * @param $paginage
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function findAllTeamAndUserByTeamId($team_id)
     {
-        $team = $this->team_repository->create($request);
-        //追加
-        $request->merge(['team_id' => $team->id]);
-        $this->team_user_repository->create($request);
+        return $this->team_repository->findWithUser($team_id);
     }
+
+    public function updateTeam($request)
+    {
+        return $this->team_repository->update($request);
+    }
+
 }

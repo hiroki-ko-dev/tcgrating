@@ -19,6 +19,18 @@ class TeamRepository
 
     /**
      * @param $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function update($request){
+        return Team::where('id',$request->id)
+                    ->update([
+                        'name'  => $request->name,
+                        'body'  => $request->body
+                    ]);
+    }
+
+    /**
+     * @param $request
      * @param $paginate
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -33,6 +45,14 @@ class TeamRepository
         });
 
         return $query->paginate($paginate);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function findWithUser($id){
+        return Team::with('teamUser')->find($id);
     }
 
 }

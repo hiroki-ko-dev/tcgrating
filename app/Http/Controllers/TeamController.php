@@ -34,6 +34,11 @@ class TeamController extends Controller
      */
     public function create()
     {
+        //アカウント認証しているユーザーのみ新規作成可能
+        if(!Auth::check()){
+            return back()->with('flash_message', '新規チーム作成を行うにはログインしてください');
+        }
+
         return view('team.create');
     }
 
@@ -45,6 +50,11 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+        //アカウント認証しているユーザーのみ新規作成可能
+        if(!Auth::check()){
+            return back()->with('flash_message', '新規チーム作成を行うにはログインしてください');
+        }
+
         //追加
         $request->merge(['user_id' => Auth::id()]);
         $this->team_service->createTeamByRequest($request);
@@ -59,8 +69,9 @@ class TeamController extends Controller
      */
     public function show(Request $request, $team_id)
     {
+        $team = $this->team_service->findAllTeamAndUserByTeamId($team_id);
 
-        return view('team.show');
+        return view('team.show',compact('team'));
     }
 
     /**
@@ -71,19 +82,22 @@ class TeamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $team = $this->team_service->findAllTeamAndUserByTeamId($id);
+
+        return view('team.edit',compact('team'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->team_service->updateTeam($request);
+
+        return redirect('/team/'.$request->input('id'))->with('flash_message', 'チーム情報を更新しました');
     }
 
     /**

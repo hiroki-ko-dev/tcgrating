@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="jumbotron">
-        <h1>{{ __('マイページ') }}</h1>
+        <h1>{{ __('チームページ') }}</h1>
     </div>
 
     <div class="row justify-content-center">
@@ -17,30 +17,20 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if($user->id === Auth::id())
+            @if($team->teamUser->find(Auth::user()->id))
                 <div class="col-md-8 offset-md-4">
-                    <a class="btn btn-link text-center" href="/user/{{$user->id}}/edit">
+                    <a class="btn btn-link text-center" href="/team/{{$team->id}}/edit">
                         {{ __('編集する') }}
                     </a>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">{{ __('メールアドレス') }}</div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <div type="body">{{$user->email}}</div>
-                            </div>
-                        </div>
-                    </div>
             @else
                 <div class="card">
             @endif
-                <div class="card-header">{{ __('名前') }}</div>
+                <div class="card-header">{{ __('チーム名') }}</div>
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div type="body">{!! nl2br(e($user->name)) !!}</div>
+                            <div type="body">{{$team->name}}</div>
                         </div>
                     </div>
                 </div>
@@ -49,7 +39,7 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div type="body">{{$user->raet}}</div>
+                            <div type="body">{{$team->rate}}</div>
                         </div>
                     </div>
                 </div>
@@ -58,7 +48,7 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div type="body">{!! nl2br(e($user->body)) !!}</div>
+                            <div type="body">{!! nl2br(e($team->body)) !!}</div>
                         </div>
                     </div>
                 </div>

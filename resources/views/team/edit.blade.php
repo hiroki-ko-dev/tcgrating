@@ -3,36 +3,24 @@
 @section('content')
 <div class="container">
     <div class="jumbotron">
-        <h1>{{ __('マイページ') }}</h1>
+        <h1>{{ __('チーム編集') }}</h1>
     </div>
 
     <div class="row justify-content-center">
         <div class="col-md-8">
 
             <div class="card">
-                <form method="POST" action="/user">
+                <form method="POST" action="/team/{{$team->id}}">
                     @csrf
-                    <input type="hidden" name="id" value="{{$user->id}}">
+                    @method('PUT')
+                    <input type="hidden" name="id" value="{{$team->id}}">
                     <div class="card">
-                        <div class="card-header">{{ __('メールアドレス') }}</div>
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <input id="email" type="text" class="form-control w-100 @error('email') is-invalid @enderror" name="email" value="{{ old('email',$user->email) }}" required autocomplete="email" autofocus>
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="card-header">{{ __('名前') }}</div>
+                        <div class="card-header">{{ __('チーム名') }}</div>
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <input id="name" type="text" class="form-control w-100 @error('name') is-invalid @enderror" name="name" value="{{ old('name',$user->name) }}" required autocomplete="name" autofocus>
+                                    <input id="name" type="text" class="form-control w-100 @error('name') is-invalid @enderror" name="name" value="{{ old('name',$team->name) }}" required autocomplete="name" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -46,7 +34,7 @@
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <textarea id="body" class="form-control w-100 @error('body') is-invalid @enderror" name="body" >{{ old('body',$user->body) }}</textarea>
+                                    <textarea id="body" class="form-control w-100 @error('body') is-invalid @enderror" name="body" >{{ old('body',$team->body) }}</textarea>
                                     @error('body')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

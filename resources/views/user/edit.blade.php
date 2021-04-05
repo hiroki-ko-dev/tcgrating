@@ -10,8 +10,9 @@
         <div class="col-md-8">
 
             <div class="card">
-                <form method="POST" action="/user">
+                <form method="POST" action="/user/{{$user->id}}">
                     @csrf
+                    @method('PUT')
                     <input type="hidden" name="id" value="{{$user->id}}">
                     <div class="card">
                         <div class="card-header">{{ __('メールアドレス') }}</div>
