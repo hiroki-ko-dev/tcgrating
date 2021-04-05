@@ -48,11 +48,24 @@ class UserController extends Controller
         return view('user.edit',compact('user'));
     }
 
+//    /**
+//     * @param Request $request
+//     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+//     */
+//    public function store(Request $request)
+//    {
+//        DB::transaction(function () use($request){
+//            $this->user_service->updateUser($request);
+//        });
+//
+//        return redirect('/user/'.$request->input('id'))->with('flash_message', '保存しました');
+//    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function store(Request $request)
+    public function update(Request $request)
     {
         DB::transaction(function () use($request){
             $this->user_service->updateUser($request);

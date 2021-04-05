@@ -40,7 +40,7 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div type="body">{!! nl2br(e($user->name)) !!}</div>
+                            <div type="body">{{$user->name}}</div>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div type="body">{{$user->raet}}</div>
+                            <div type="body">{{$user->rate}}</div>
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use DB;
 use App\Services\TeamService;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,7 +57,9 @@ class TeamController extends Controller
 
         //追加
         $request->merge(['user_id' => Auth::id()]);
-        $this->team_service->createTeamByRequest($request);
+        DB::transaction(function () use($request) {
+            $this->team_service->createTeamByRequest($request);
+        });
 
         return redirect('/team?user_id='.Auth::id())->with('flash_message', '新規チームを作成しました');
     }
@@ -95,7 +97,9 @@ class TeamController extends Controller
      */
     public function update(Request $request)
     {
-        $this->team_service->updateTeam($request);
+        DB::transaction(function () use($request) {
+            $this->team_service->updateTeam($request);
+        });
 
         return redirect('/team/'.$request->input('id'))->with('flash_message', 'チーム情報を更新しました');
     }
