@@ -82,6 +82,22 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card-header">{{ __('チームメンバー') }}</div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div type="body">
+                                @foreach($team->teamUser as $teamUser)
+                                    @if($teamUser->status === 1)
+                                        <div>{{$teamUser->user->name}}</div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
