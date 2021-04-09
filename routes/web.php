@@ -48,3 +48,8 @@ use Illuminate\Support\Facades\Route;
     Route::resources([
         'duel' => Duel\DuelController::class,
     ]);
+
+    //ランキング系スレッド
+    Route::resources([
+        'rank' => RankController::class,
+    ]);

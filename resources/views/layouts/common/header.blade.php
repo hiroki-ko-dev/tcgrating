@@ -29,7 +29,9 @@
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}" title="{{config('assets.site.title')}}">
                 <img class="img-fluid col-3" src="{{ asset('/images/site/hashimu-icon.png') }}" alt="hashimu-icon">
+                <span>
                 <h4 class="font-weight-bold" style="display:inline;">{{config('assets.site.title')}}</h4>
+                </span>
             </a>
         {{--                <h2 class="sr-only">{{config('assets.site.title')}}</h2>--}}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +48,7 @@
                             <li><a href="#"><span class="text-secondary">ポイントバトル決闘</span></a></li>
                             <li><a href="#"><span class="text-secondary">チーム決闘</span></a></li>
                             <li><a href="#"><span class="text-secondary">大会</span></a></li>
-                            <li><a href="#">ランキング</a></li>
+                            <li><a href="/rank">ランキング</a></li>
                             <li><a href="/post?post_category_id={{\App\Models\PostCategory::TEAM_WANTED}}">チーム募集掲示板</a></li>
                             <li><a href="/post?post_category_id={{\App\Models\PostCategory::FREE}}">フリー掲示板</a></li>
                             @guest
