@@ -17,4 +17,14 @@ class TeamUserRepository
             ]);
     }
 
+    public function updateStatus($request)
+    {
+        return TeamUser::where('user_id', $request->user_id)
+                        ->where('team_id', $request->team_id)
+                        ->update([
+                            'status'  => $request->status,
+                            'user_id'  => $request->user_id
+                        ]);
+    }
+
 }

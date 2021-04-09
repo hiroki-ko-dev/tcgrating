@@ -9,6 +9,16 @@ class TeamUser extends Model
 {
     use HasFactory;
 
+    //定数の定義
+    const NOT_SET        = 0;
+    const APPROVAL       = 1;
+    const REJECT         = 2;
+    const STATUS = [
+        'not_set'        => self::NOT_SET,
+        'approval'       => self::APPROVAL,
+        'reject'         => self::REJECT,
+    ];
+
     protected $guarded = [];
 
     public function team(){

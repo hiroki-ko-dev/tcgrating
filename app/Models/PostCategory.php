@@ -17,7 +17,7 @@ class PostCategory extends Model
     const EVENT          = 5;
     const PERSONAL       = 6;
     const CATEGORY = [
-        'FREE'           => self::FREE,
+        'free'           => self::FREE,
         'duel'           => self::DUEL,
         'team'           => self::TEAM,
         'team_wanted'    => self::TEAM_WANTED,

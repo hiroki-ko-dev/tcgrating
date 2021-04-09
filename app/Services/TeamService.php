@@ -45,9 +45,24 @@ class TeamService
         return $this->team_repository->findWithUser($team_id);
     }
 
+    /**
+     * チームページからeditにより編集
+     * @param $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function updateTeam($request)
     {
         return $this->team_repository->update($request);
+    }
+
+    /**
+     * チームページからリクエストユーザーのステータスを更新
+     * @param $request
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function updateUserStatus($request)
+    {
+        return $this->team_user_repository->updateStatus($request);
     }
 
 }

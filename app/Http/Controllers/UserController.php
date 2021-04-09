@@ -27,6 +27,16 @@ class UserController extends Controller
      * @param $user_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+    public function index(Request $request)
+    {
+        return redirect('/user/'.Auth::id());
+    }
+
+    /**
+     * @param Request $request
+     * @param $user_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function show(Request $request,$user_id)
     {
 

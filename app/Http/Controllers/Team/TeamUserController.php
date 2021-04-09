@@ -65,18 +65,25 @@ class TeamUserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $user_id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $user_id)
     {
-        DB::transaction(function () use($request) {
-            $this->team_service->updateTeam($request);
-        });
+        $message = null;
+        if($request->has('status')){
+            DB::transaction(function () use($request){
+                $this->team_service->updateUserStatus($request);
+            });
+            if($request->input('status') == \App\Models\TeamUser::APPROVAL){
+                $message = 'ユーザーリクエストを承認しました';
+            }elseif($request->input('status') == \App\Models\TeamUser::REJECT){
+                $message = 'ユーザーリクエストを却下しました';
+            }
+        }
 
-        return redirect('/team/'.$request->input('id'))->with('flash_message', 'チーム情報を更新しました');
+        return back()->with('flash_message', $message);
     }
 
     /**

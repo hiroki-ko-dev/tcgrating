@@ -6,7 +6,16 @@
         <h1>{{ __('チームページ') }}</h1>
     </div>
 
-    @if(!empty($team->teamUser->where('id',Auth::user()->id)->where('status',0)))
+    <div class="row justify-content-center">
+        <!-- フラッシュメッセージ -->
+        @if (session('flash_message'))
+            <div class="text-center alert-danger rounded p-3 mb-3 col-md-7Z">
+                {{ session('flash_message') }}
+            </div>
+        @endif
+    </div>
+
+    @if($team->teamUser->where('id',Auth::user()->id)->first()->status === 0)
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -14,12 +23,17 @@
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <form method="POST" action="/team">
+                                <form method="POST" name="form" action="/team/user">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="team_id" value="{{$team->id}}">
                                     @foreach($team->teamUser as $teamUser)
                                         <div type="body">
-                                            <a href="/user/{{$teamUser->user->id}}">{{$teamUser->user->name}}</a>
-                                            <input type="button" name="approval" value="承認" onClick="approvalCheck();">
-                                            <input type="button" name="reject" value="却下" onClick="rejectCheck();">
+                                            @if($teamUser->status === 0)
+                                                <a href="/user/{{$teamUser->user->id}}">{{$teamUser->user->name}}</a>
+                                                <input type="button" name="approval" value="承認" onClick="approvalCheck({{$teamUser->user->id}});">
+                                                <input type="button" name="reject" value="却下" onClick="rejectCheck({{$teamUser->user->id}});">
+                                            @endif
                                         </div>
                                     @endforeach
                                 </form>
@@ -30,15 +44,6 @@
             </div>
         </div>
     @endif
-
-    <div class="row justify-content-center">
-        <!-- フラッシュメッセージ -->
-        @if (session('flash_message'))
-            <div class="text-center alert-danger rounded p-3 mb-3 col-md-7Z">
-                {{ session('flash_message') }}
-            </div>
-        @endif
-    </div>
 
     <div class="row justify-content-center">
         <div class="col-md-8">
