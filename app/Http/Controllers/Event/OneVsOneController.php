@@ -1,28 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Duel;
+namespace App\Http\Controllers\Event;
 use App\Http\Controllers\Controller;
 
-use App\Services\DuelService;
 use Illuminate\Http\Request;
 
-class DuelController extends Controller
+class OneVsOneController extends Controller
 {
-
-    protected $duel_service;
-
-    public function __construct(DuelService $duel_service)
-    {
-        $this->duel_service = $duel_service;
-    }
-
-
     /**
-     * @param Request $request
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $this->duel_service->findAllDuelWithUserByDuelCategoryIdAndPaginate($request->query('duel_category_id'),20);
+        dd('aa');
     }
 
     /**

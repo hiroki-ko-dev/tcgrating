@@ -44,6 +44,11 @@ use Illuminate\Support\Facades\Route;
         'post/comment' => Post\CommentController::class,
     ]);
 
+    //1対1デュエル系スレッド
+    Route::resources([
+        'event/one_vs_one' => Event\OneVsOneController::class,
+    ]);
+
     //デュエル系スレッド
     Route::resources([
         'duel' => Duel\DuelController::class,

@@ -13,9 +13,9 @@ class DuelService
         $this->duel_repository = $duel_repository;
     }
 
-    public function findAllDuelWithUserByDuelCategoryIdAndPagination($duel_category_id,$pagenation)
+    public function findAllDuelWithUserByDuelCategoryIdAndPaginate($duel_category_id,$pagenation)
     {
-        return $this->duel_repository->findAllDuelWithUserByDuelCategoryIdAndPagination($duel_category_id,$pagenation);
+        return $this->duel_repository->findAllDuelWithUserByDuelCategoryIdAndPaginate($duel_category_id,$pagenation);
 
     }
 

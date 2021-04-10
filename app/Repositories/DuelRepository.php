@@ -28,7 +28,7 @@ class DuelRepository
         return Duel::find($id);
     }
 
-    public function findAllDuelWithUserByDuelCategoryIdAndPagination($duel_category_id, $paginate)
+    public function findAllDuelWithUserByDuelCategoryIdAndPaginate($duel_category_id, $paginate)
     {
         return Duel::where('duel_category_id', $duel_category_id)
                     ->with('DuelUser.User')

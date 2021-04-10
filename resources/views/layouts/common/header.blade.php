@@ -44,7 +44,7 @@
                     <div class="menu-content">
                         <ul>
                             <li><a href="#">対戦ルール</a></li>
-                            <li><a href="/duel?duel_category_id=1">1vs1決闘</a></li>
+                            <li><a href="/event/one_vs_one">1vs1決闘</a></li>
                             <li><a href="#"><span class="text-secondary">ポイントバトル決闘</span></a></li>
                             <li><a href="#"><span class="text-secondary">チーム決闘</span></a></li>
                             <li><a href="#"><span class="text-secondary">大会</span></a></li>
