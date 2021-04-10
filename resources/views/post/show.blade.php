@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="jumbotron">
-        @if(\App\Models\PostCategory::FREE == $post_category_id)
+        @if(\App\Models\PostCategory::FREE == $post->post_category_id)
             <h1>{{ __('フリー掲示板') }}</h1>
-        @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
+        @elseif(\App\Models\PostCategory::TEAM_WANTED == $post->post_category_id)
             <h1>{{ __('チーム募集掲示板') }}</h1>
         @endif
     </div>
@@ -34,7 +34,7 @@
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div type="body">{!! nl2br(e($post->body)) !!}}</div>
+                            <div type="body">{!! nl2br(e($post->body)) !!}</div>
                         </div>
                     </div>
                 </div>

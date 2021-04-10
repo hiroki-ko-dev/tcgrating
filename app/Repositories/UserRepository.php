@@ -24,7 +24,7 @@ class UserRepository
     }
 
     public function findAllByPaginateOrderByRank($pagination){
-        return User::OrderBy('rate')->paginate($pagination);
+        return User::OrderBy('rate','desc')->paginate($pagination);
     }
 
 }
