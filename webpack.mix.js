@@ -33,7 +33,9 @@ mix.styles([
         'resources/js/core/vendor.js',
         'resources/js/pages/index.js',
         'resources/js/common/approval.js',
+        'resources/js/common/jquery.js',
     ],'public/js/all.js')
+    .sourceMaps()
     .sass('resources/sass/common/header.scss', 'public/css/scss.css')
     .sass('resources/sass/common/footer.scss', 'public/css/scss.css')
     .sass('resources/sass/post/post.scss', 'public/css/scss.css')

@@ -13,9 +13,9 @@ class DuelService
         $this->duel_repository = $duel_repository;
     }
 
-    public function findAllDuelWithUserByDuelCategoryIdAndPaginate($duel_category_id,$pagenation)
+    public function createOneVsOneByRequest($request)
     {
-        return $this->duel_repository->findAllDuelWithUserByDuelCategoryIdAndPaginate($duel_category_id,$pagenation);
+        $duel = $this->duel_repository->create($request);
 
     }
 

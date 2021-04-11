@@ -102,3 +102,9 @@ function rejectCheck(user_id){
         return false;
     }
 }
+
+
+//カレンダー機能の実装
+$(function () {
+    $('#datepicker').datepicker();
+});

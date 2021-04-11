@@ -55,8 +55,8 @@ class PostController extends Controller
         $this->middleware('auth');
 
         //追加
-        $request->merge(['user_id' => Auth::guard()->user()->id]);
-        $request->merge(['is_personal' => 1]);
+        $request->merge(['user_id' => Auth::id()]);
+        $request->merge(['is_personal' => 0]);
 
         DB::transaction(function () use($request){
             $this->post_service->createPost($request);

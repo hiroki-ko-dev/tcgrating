@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Event;
 
+use DB;
 use Auth;
 
 use App\Http\Controllers\Controller;
 use App\Services\EventService;
+use App\Services\DuelService;
+use App\Services\UserService;
 
 use Illuminate\Http\Request;
 
@@ -13,10 +16,16 @@ class OneVsOneController extends Controller
 {
 
     protected $event_service;
+    protected $duel_service;
+    protected $user_service;
 
-    public function __construct(EventService $event_service)
+    public function __construct(EventService $event_service,
+                                DuelService $duel_service,
+                                UserService $user_service)
     {
-        $this->event_service = $event_service;
+        $this->event_service = $event_service ;
+        $this->duel_service  = $duel_service ;
+        $this->user_service  = $user_service ;
     }
 
     /**
@@ -58,9 +67,14 @@ class OneVsOneController extends Controller
         }
 
         //追加
-        $request->merge(['user_id' => Auth::id()]);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::ONE_VS_ONE]);
+        $request->merge(['user_id'           => Auth::id()]);
+        $request->merge(['max_member'        => 2]);
+        $request->merge(['title'             => '1vs1決闘']);
+
         DB::transaction(function () use($request) {
-            $this->event_service->createEventByOneVsOneAndRequest($request);
+            $request = $this->event_service->createEventByOneVsOneAndRequest($request);
+            $this->duel_service->createOneVsOneByRequest($request);
         });
 
         return redirect('/event/one_vs_one')->with('flash_message', '新規チームを作成しました');

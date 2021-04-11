@@ -1,36 +1,35 @@
 <?php
 
 namespace App\Repositories;
-use App\Models\Event;
+use App\Models\EventUser;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class EventRepository
+class EventUserRepository
 {
 
+    /**
+     * @param $request
+     * @return EventUser
+     */
     public function create($request)
     {
-        $event = new Event();
-        $event->fill([
-            'event_category_id' => $request->event_category_id,
+        $eventUser = new EventUser();
+        $eventUser->fill([
+            'event_id' => $request->_id,
             'user_id'           => $request->user_id,
-            'status'            => \APP\Models\Event::RECRUIT,
-            'max_member'        => $request->max_member,
-            'title'             => $request->title,
-            'body'              => $request->body,
-            'date'              => $request->date,
-            'time'              => $request->time,
+            'status'            => \APP\Models\EventUser::APPROVAL,
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now()
         ]);
-        $event->save();
+        $eventUser->save();
 
-        return $event;
+        return $eventUser;
     }
 
     public function find($id){
-        return Event::find($id);
+        return EventUser::find($id);
     }
 
     public function findAllWithUserByEventCategoryIdAndPaginate($event_category_id, $paginate)

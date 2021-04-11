@@ -22,7 +22,7 @@ class CreateEventsTable extends Migration
             $table->string('title',200);
             $table->string('body',2000)->nullable();
             $table->date('date');
-            $table->time('start_time');
+            $table->time('time');
             $table->timestamps();
         });
     }
