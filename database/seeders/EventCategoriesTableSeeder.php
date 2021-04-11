@@ -15,7 +15,7 @@ class EventCategoriesTableSeeder extends Seeder
     public function run()
     {
         EventCategory::insert([
-            [ 'name' => '1vs1決闘', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
+            [ 'name' => 'シングル決闘', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
         ]);
     }
 }

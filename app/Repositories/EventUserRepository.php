@@ -17,9 +17,9 @@ class EventUserRepository
     {
         $eventUser = new EventUser();
         $eventUser->fill([
-            'event_id' => $request->_id,
+            'event_id'          => $request->event_id,
             'user_id'           => $request->user_id,
-            'status'            => \APP\Models\EventUser::APPROVAL,
+            'status'            => EventUser::MASTER,
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now()
         ]);

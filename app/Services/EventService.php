@@ -24,7 +24,7 @@ class EventService
      * @param $request
      * @return mixed
      */
-    public function createEventByOneVsOneAndRequest($request)
+    public function createEventBySingleAndRequest($request)
     {
         $event = $this->event_repository->create($request);
         $request->merge(['event_id' => $event->id]);

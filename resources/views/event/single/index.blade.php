@@ -18,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="col-md-8 offset-md-4">
-                <a class="btn btn-link text-center" href="/event/one_vs_one/create">
+                <a class="btn btn-link text-center" href="/event/single/create">
                     {{ __('新規決闘作成') }}
                 </a>
             </div>

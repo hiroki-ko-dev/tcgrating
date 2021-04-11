@@ -12,7 +12,7 @@ use App\Services\UserService;
 
 use Illuminate\Http\Request;
 
-class OneVsOneController extends Controller
+class SingleController extends Controller
 {
 
     protected $event_service;
@@ -33,9 +33,9 @@ class OneVsOneController extends Controller
      */
     public function index()
     {
-        $events = $this->event_service->findAllEventAndUserByEventCategoryId(\App\Models\EventCategory::ONE_VS_ONE, 20);
+        $events = $this->event_service->findAllEventAndUserByEventCategoryId(\App\Models\EventCategory::SINGLE, 20);
 
-        return view('event.one_vs_one.index',compact('events'));
+        return view('event.single.index',compact('events'));
     }
 
     /**
@@ -50,7 +50,7 @@ class OneVsOneController extends Controller
             return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
         }
 
-        return view('event.one_vs_one.create');
+        return view('event.single.create');
     }
 
     /**
@@ -67,17 +67,21 @@ class OneVsOneController extends Controller
         }
 
         //追加
-        $request->merge(['event_category_id' => \App\Models\EventCategory::ONE_VS_ONE]);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
+        $request->merge(['duel_category_id'  => \App\Models\DuelCategory::SINGLE]);
         $request->merge(['user_id'           => Auth::id()]);
         $request->merge(['max_member'        => 2]);
         $request->merge(['title'             => '1vs1決闘']);
+        $request->merge(['status'            => \App\Models\EventUser::MASTER]);
 
         DB::transaction(function () use($request) {
-            $request = $this->event_service->createEventByOneVsOneAndRequest($request);
-            $this->duel_service->createOneVsOneByRequest($request);
+            $request = $this->event_service->createEventBySingleAndRequest($request);
+            $this->duel_service->createSingleByRequest($request);
         });
 
-        return redirect('/event/one_vs_one')->with('flash_message', '新規チームを作成しました');
+        dd('aa');
+
+        return redirect('/event/single')->with('flash_message', '新規チームを作成しました');
     }
 
     /**

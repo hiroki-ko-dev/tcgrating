@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <form method="POST" action="/event/one_vs_one">
+                <form method="POST" action="/event/single">
                     @csrf
 
                     <div class="card-header">{{ __('一言メッセージ') }}</div>

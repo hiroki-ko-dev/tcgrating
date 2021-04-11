@@ -46,7 +46,7 @@ use Illuminate\Support\Facades\Route;
 
     //1対1デュエル系スレッド
     Route::resources([
-        'event/one_vs_one' => Event\OneVsOneController::class,
+        'event/single' => Event\SingleController::class,
     ]);
 
     //デュエル系スレッド

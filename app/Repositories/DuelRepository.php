@@ -13,11 +13,12 @@ class DuelRepository
     {
         $duel = new Duel();
         $duel->fill([
-            'post_category_id' => $request->post_category_id,
+            'duel_category_id' => $request->duel_category_id,
             'user_id'          => $request->user_id,
-            'title'            => $request->title,
-            'body'             => $request->body,
-            'is_personal'      => $request->is_personal,
+            'status'           => \APP\Models\Duel::RECRUIT,
+            'max_member'       => $request->max_member,
+            'room_id'          => $request->room_id,
+            'watching_id'      => $request->watching_id,
             'created_at'       => Carbon::now(),
             'updated_at'       => Carbon::now()
         ]);
