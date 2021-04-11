@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-links-blue text-white rounded p-3 mb-3">
-        <h3>{{ __('チーム一覧') }}</h3>
+    <div class="bg-links-blue text-white rounded p-3">
+        <h2>{{ __('1vs1決闘') }}</h2>
     </div>
 
     <div class="row justify-content-center">
@@ -18,25 +18,26 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="col-md-8 offset-md-4">
-                <a class="btn btn-link text-center" href="/team/create">
-                    {{ __('新規チーム作成') }}
+                <a class="btn btn-link text-center" href="/event/one_vs_one/create">
+                    {{ __('新規決闘作成') }}
                 </a>
             </div>
 
             <div class="card">
-                <div class="card-header">{{ __('チーム一覧') }}</div>
+                <div class="card-header">{{ __('1vs1決闘一覧') }}</div>
 
                 <div class="card-body">
-                    @if(!empty($teams))
-                        @foreach($teams as $team)
+                    @if(!empty($events))
+                        @foreach($events as $event)
                             <div class="card-text border-bottom p-2">
-                                <a href="/team/{{$team->id}}">{{$team->name}}</a>
+                                <a href="/event/{{$event->id}}">{{$event->title}}</a>
+                                <span class="post-user">[{{$event->created_at}}]</span>
                             </div>
                         @endforeach
                     @endif
                 </div>
             </div>
-            {{$teams->links('pagination::bootstrap-4')}}
+            {{$events->links('pagination::bootstrap-4')}}
         </div>
     </div>
 </div>

@@ -2,21 +2,21 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-links-blue text-white rounded p-3 mb-3">
-        <h3>{{ __('新規チーム作成') }}</h3>
+    <div class="jumbotron">
+        <h1>{{ __('新規チーム作成') }}</h1>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <form method="POST" action="/team">
+                <form method="POST" action="/event/one_vs_one">
                     @csrf
 
-                    <div class="card-header">{{ __('チーム名') }}</div>
+                    <div class="card-header">{{ __('タイトル') }}</div>
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <input id="name" type="text" class="form-control w-100 @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                @error('name')
+                                <input id="title" type="text" class="form-control w-100 @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
+                                @error('title')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -25,7 +25,7 @@
                         </div>
                     </div>
 
-                    <div class="card-header">{{ __('プロフィール文') }}</div>
+                    <div class="card-header">{{ __('一言メッセージ') }}</div>
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">

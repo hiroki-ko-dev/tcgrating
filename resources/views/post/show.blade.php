@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container">
-    <div class="jumbotron">
+    <div class="bg-links-blue text-white rounded p-3 mb-3">
         @if(\App\Models\PostCategory::FREE == $post->post_category_id)
-            <h1>{{ __('フリー掲示板') }}</h1>
+            <h3>{{ __('フリー掲示板') }}</h3>
         @elseif(\App\Models\PostCategory::TEAM_WANTED == $post->post_category_id)
-            <h1>{{ __('チーム募集掲示板') }}</h1>
+            <h3>{{ __('チーム募集掲示板') }}</h3>
         @endif
     </div>
 

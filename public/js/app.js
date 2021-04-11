@@ -34495,6 +34495,19 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
+/***/ "./resources/sass/common/base.scss":
+/*!*****************************************!*\
+  !*** ./resources/sass/common/base.scss ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49775,7 +49788,8 @@ Vue.compile = compileToFunctions;
 /******/ 	__webpack_require__.O(undefined, ["css/scss","css/app"], () => (__webpack_require__("./resources/sass/app.scss")))
 /******/ 	__webpack_require__.O(undefined, ["css/scss","css/app"], () => (__webpack_require__("./resources/sass/common/header.scss")))
 /******/ 	__webpack_require__.O(undefined, ["css/scss","css/app"], () => (__webpack_require__("./resources/sass/common/footer.scss")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/scss","css/app"], () => (__webpack_require__("./resources/sass/post/post.scss")))
+/******/ 	__webpack_require__.O(undefined, ["css/scss","css/app"], () => (__webpack_require__("./resources/sass/post/post.scss")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/scss","css/app"], () => (__webpack_require__("./resources/sass/common/base.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

@@ -1,20 +1,32 @@
 <?php
 
 namespace App\Http\Controllers\Event;
+
+use Auth;
+
 use App\Http\Controllers\Controller;
+use App\Services\EventService;
 
 use Illuminate\Http\Request;
 
 class OneVsOneController extends Controller
 {
+
+    protected $event_service;
+
+    public function __construct(EventService $event_service)
+    {
+        $this->event_service = $event_service;
+    }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
-        dd('aa');
+        $events = $this->event_service->findAllEventAndUserByEventCategoryId(\App\Models\EventCategory::ONE_VS_ONE, 20);
+
+        return view('event.one_vs_one.index',compact('events'));
     }
 
     /**
@@ -24,7 +36,12 @@ class OneVsOneController extends Controller
      */
     public function create()
     {
-        //
+        //アカウント認証しているユーザーのみ新規作成可能
+        if(!Auth::check()){
+            return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
+        }
+
+        return view('event.one_vs_one.create');
     }
 
     /**
@@ -35,7 +52,18 @@ class OneVsOneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //アカウント認証しているユーザーのみ新規作成可能
+        if(!Auth::check()){
+            return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
+        }
+
+        //追加
+        $request->merge(['user_id' => Auth::id()]);
+        DB::transaction(function () use($request) {
+            $this->event_service->createEventByOneVsOneAndRequest($request);
+        });
+
+        return redirect('/event/one_vs_one')->with('flash_message', '新規チームを作成しました');
     }
 
     /**
