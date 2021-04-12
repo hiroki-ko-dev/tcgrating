@@ -31,7 +31,9 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div type="body">{!! nl2br(e($event->body)) !!}</div>
-                            <div><button class="btn btn-primary">決闘ページへ移動</button></div>
+                            <div class="col-md-6 offset-md-5">
+                                <button class="btn btn-primary" onclick="location.href='/duel/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
+                            </div>
                         </div>
                     </div>
                 </div>
