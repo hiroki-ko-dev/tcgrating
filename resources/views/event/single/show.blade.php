@@ -31,6 +31,7 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div type="body">{!! nl2br(e($event->body)) !!}</div>
+                            <div><button class="btn btn-primary">決闘ページへ移動</button></div>
                         </div>
                     </div>
                 </div>
@@ -82,6 +83,7 @@
                     <form method="POST" action="/post/comment">
                         @csrf
                         <input type="hidden" name="post_id" value="{{$post->id}}">
+                        <input type="hidden" name="event_id" value="{{$event->id}}">
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <textarea id="body" type="body" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body"></textarea>
