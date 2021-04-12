@@ -21,6 +21,11 @@ class DuelService
         $this->event_duel_repository = $event_duel_repository;
     }
 
+    /**
+     * シングル決闘の際のduel系作成
+     * @param $request
+     * @return mixed
+     */
     public function createSingleByRequest($request)
     {
         $duel = $this->duel_repository->create($request);
@@ -30,5 +35,14 @@ class DuelService
         return $request;
     }
 
+    /**
+     * シングル決闘の際のduel系作成
+     * @param $event_id
+     * @return mixed
+     */
+    public function findDuelWithUser($event_id)
+    {
+        return $this->duel_repository->findDuelWithUser($event_id);
+    }
 
 }

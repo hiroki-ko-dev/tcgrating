@@ -19,42 +19,19 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ $event->title }}
+                    {{ $duel->title }}
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user">主催：＠{{$event->eventUser[0]->user->name}}</div>
-                            <div class="body">決闘回数：{{$event->eventDuel[0]->duel->number_of_games}}</div>
+                            <div class="post-user">vs ＠{{$event->eventUser[0]->user->name}}</div>
+                            <div class="body">対戦回数：{{$event->eventDuel[0]->duel->number_of_games}}</div>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div type="body">{!! nl2br(e($event->body)) !!}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    {{ __('プレイヤー') }}
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            @if($event->status > \APP\Models\Event::RECRUIT )
-                                <div class="post-user">{{ __('マッチング済') }}</div>
-                                <div class="body">＠{{$event->eventUser[0]->user->name}} vs ＠{{$event->eventUser[1]->user->name}}</div>
-                            @else
-                                <div class="post-user">{{ __('対戦受付中') }}</div>
-                                <div class="post-user">＠{{$event->eventUser[0]->user->name}} vs </div>
-                            @endif
                         </div>
                     </div>
                 </div>

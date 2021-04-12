@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\DuelService;
 use Illuminate\Http\Request;
 
-class DuelController extends Controller
+class SingleController extends Controller
 {
 
     protected $duel_service;
@@ -22,7 +22,6 @@ class DuelController extends Controller
      */
     public function index(Request $request)
     {
-        $this->duel_service->findAllDuelWithUserByDuelCategoryIdAndPaginate($request->query('duel_category_id'),20);
     }
 
     /**
@@ -54,7 +53,8 @@ class DuelController extends Controller
      */
     public function show($id)
     {
-        //
+        $duel = $this->duel_service->findDuelWithUser($id);
+        return view('duel.single.show',compact('duel'));
     }
 
     /**
