@@ -1,6 +1,6 @@
 @section('adsense')
 
-{{--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>--}}
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 {{--    <ins class="adsbygoogle"--}}
 {{--         style="display:block; text-align:center;"--}}
 {{--         data-ad-layout="in-article"--}}
@@ -9,7 +9,7 @@
 {{--         data-ad-slot="6401800863"></ins>--}}
 
     {{--広告の自動適用--}}
-    <script data-ad-client="ca-pub-9125683895360901" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+{{--    <script data-ad-client="ca-pub-9125683895360901" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>--}}
     {{--画面上部のアンカー広告を無効にする処理--}}
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
