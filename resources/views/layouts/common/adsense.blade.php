@@ -22,12 +22,12 @@
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XFDXK7PGHL"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+{{--    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XFDXK7PGHL"></script>--}}
+{{--    <script>--}}
+{{--        window.dataLayer = window.dataLayer || [];--}}
+{{--        function gtag(){dataLayer.push(arguments);}--}}
+{{--        gtag('js', new Date());--}}
 
-        gtag('config', 'G-XFDXK7PGHL');
-    </script>
+{{--        gtag('config', 'G-XFDXK7PGHL');--}}
+{{--    </script>--}}
 @endsection

@@ -24,13 +24,30 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user">{{$event->title}} [{{$event->created_at}}]</div>
+                            <div class="post-user">vs ＠{{$event->eventUser[0]->user->name}}</div>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div type="body">{!! nl2br(e($event->body)) !!}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('対戦日時') }}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="post-user">{{$event->date}} {{$event->time}}</div> ※対戦日時になると決闘ページへのボタンが現れます
                             <div class="col-md-6 offset-md-5">
                                 <button class="btn btn-primary" onclick="location.href='/duel/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
                             </div>
