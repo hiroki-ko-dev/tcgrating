@@ -47,7 +47,7 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user">{{$event->date}} {{$event->time}}</div> ※対戦日時になると決闘ページへのボタンが現れます
+                            <div class="post-user">{{$event->date}} {{$event->time}}</div> ※対戦日時に決闘ページへ移動してください
                             <div class="col-md-6 offset-md-5">
                                 <button class="btn btn-primary" onclick="location.href='/duel/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
                             </div>
