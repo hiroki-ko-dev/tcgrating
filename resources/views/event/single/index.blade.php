@@ -30,8 +30,17 @@
                     @if(!empty($events))
                         @foreach($events as $event)
                             <div class="card-text border-bottom p-2">
-                                <a href="/event/{{$event->id}}">{{$event->title}}</a>
-                                <span class="post-user">[{{$event->created_at}}]</span>
+                                <a href="/event/single/{{$event->id}}">vs {{$event->eventUser[0]->user->name }}</a>
+                                <span class="post-user">[対戦日時:{{$event->date}} {{$event->time}}]</span>
+                                <span class="post-user">[
+                                    @if($event->status === \APP\Models\Event::RECRUIT)
+                                        {{ __('対戦受付中') }}
+                                    @elseif($event->status === \APP\Models\Event::READY)
+                                        {{ __('マッチング済') }}
+                                    @else
+                                        {{ __('対戦完了') }}
+                                    @endif
+                                ]</span>
                             </div>
                         @endforeach
                     @endif

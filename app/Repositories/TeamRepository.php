@@ -44,7 +44,7 @@ class TeamRepository
             }
         });
 
-        return $query->paginate($paginate);
+        return $query->OrderBy('id','desc')->paginate($paginate);;
     }
 
     /**

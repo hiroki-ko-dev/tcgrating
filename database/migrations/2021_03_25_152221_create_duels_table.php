@@ -18,6 +18,7 @@ class CreateDuelsTable extends Migration
             $table->foreignId('duel_category_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->unsignedTinyInteger('status')->default(0);
+            $table->unsignedSmallInteger('number_of_games');
             $table->unsignedSmallInteger('max_member');
             $table->mediumInteger('room_id');
             $table->mediumInteger('watching_id')->nullable();

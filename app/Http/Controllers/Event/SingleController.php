@@ -8,7 +8,7 @@ use Auth;
 use App\Http\Controllers\Controller;
 use App\Services\EventService;
 use App\Services\DuelService;
-use App\Services\UserService;
+use App\Services\PostService;
 
 use Illuminate\Http\Request;
 
@@ -17,15 +17,15 @@ class SingleController extends Controller
 
     protected $event_service;
     protected $duel_service;
-    protected $user_service;
+    protected $post_service;
 
     public function __construct(EventService $event_service,
                                 DuelService $duel_service,
-                                UserService $user_service)
+                                PostService $post_service)
     {
         $this->event_service = $event_service ;
         $this->duel_service  = $duel_service ;
-        $this->user_service  = $user_service ;
+        $this->post_service  = $post_service ;
     }
 
     /**
@@ -69,30 +69,35 @@ class SingleController extends Controller
         //追加
         $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
         $request->merge(['duel_category_id'  => \App\Models\DuelCategory::SINGLE]);
+        $request->merge(['post_category_id'  => \App\Models\PostCategory::EVENT]);
         $request->merge(['user_id'           => Auth::id()]);
         $request->merge(['max_member'        => 2]);
         $request->merge(['title'             => '1vs1決闘']);
         $request->merge(['status'            => \App\Models\EventUser::MASTER]);
+        $request->merge(['is_personal'       => 0]);
 
         DB::transaction(function () use($request) {
             $request = $this->event_service->createEventBySingleAndRequest($request);
             $this->duel_service->createSingleByRequest($request);
+            $this->post_service->createPost($request);
         });
 
-        dd('aa');
-
-        return redirect('/event/single')->with('flash_message', '新規チームを作成しました');
+        return redirect('/event/single/'.$request->event_id)->with('flash_message', '新規チームを作成しました');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $event_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($event_id)
     {
-        //
+        $event = $this->event_service->findEventWithUserAndDuel($event_id);
+        $post     = $this->post_service->findPostByEventId($event_id);
+        $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,20);
+
+        return view('event.single.show',compact('event','post','comments'));
     }
 
     /**

@@ -16,6 +16,7 @@ class DuelRepository
             'duel_category_id' => $request->duel_category_id,
             'user_id'          => $request->user_id,
             'status'           => \APP\Models\Duel::RECRUIT,
+            'number_of_games'   => $request->number_of_games,
             'max_member'       => $request->max_member,
             'room_id'          => $request->room_id,
             'watching_id'      => $request->watching_id,

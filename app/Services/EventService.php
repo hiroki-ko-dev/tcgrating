@@ -32,6 +32,12 @@ class EventService
         return $request;
     }
 
+
+    public function findEventWithUserAndDuel($event_id){
+        return $this->event_repository->findWithUserAndDuel($event_id);
+    }
+
+
     /**
      * イベントカテゴリIDによって一覧を取得
      * @param $event_category_id

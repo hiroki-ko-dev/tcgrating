@@ -48,6 +48,20 @@
                         </div>
                     </div>
 
+                    <div class="card-header">{{ __('対戦回数') }}</div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <input type="number" id="number_of_games" class="form-control w-100 @error('number_of_games') is-invalid @enderror" name="number_of_games" >{{ old('number_of_games') }}</input>
+                                @error('body')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card-header">{{ __('ルームID') }}</div>
                     <div class="card-body">
                         <div class="form-group row">

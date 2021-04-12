@@ -24,4 +24,8 @@ class Event extends Model
     public function eventUser(){
         return $this->hasMany('App\Models\EventUser','event_id','id');
     }
+
+    public function eventDuel(){
+        return $this->hasMany('App\Models\EventDuel','event_id','id');
+    }
 }

@@ -33,10 +33,17 @@ class EventRepository
         return Event::find($id);
     }
 
+    public function findWithUserAndDuel($id){
+        return Event::with('eventUser.user')
+                    ->with('eventDuel.duel')
+                    ->find($id);
+    }
+
     public function findAllWithUserByEventCategoryIdAndPaginate($event_category_id, $paginate)
     {
         return Event::where('event_category_id', $event_category_id)
                     ->with('eventUser.User')
+                    ->OrderBy('id','desc')
                     ->paginate($paginate);
     }
 
