@@ -17,6 +17,7 @@ class PostRepository
             'post_category_id' => $request->post_category_id,
             'user_id'          => $request->user_id,
             'event_id'         => $request->event_id,
+            'duel_id'          => $request->duel_id,
             'title'            => $request->title,
             'body'             => $request->body,
             'is_personal'      => $request->is_personal,
@@ -35,6 +36,11 @@ class PostRepository
     public function findByEventId($id){
         return Post::where('event_id',$id)->first();
     }
+
+    public function findByDuelId($id){
+        return Post::where('event_id',$id)->first();
+    }
+
 
     public function findAllAndCommentCountByPostCategoryIdAndPagination($post_category_id, $paginate)
     {

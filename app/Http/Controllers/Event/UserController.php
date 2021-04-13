@@ -1,32 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\Duel;
-use App\Http\Controllers\Controller;
-
-use App\Services\DuelService;
-use App\Services\PostService;
+namespace App\Http\Controllers\Event;
 
 use Illuminate\Http\Request;
 
-class SingleController extends Controller
+class UserController extends Controller
 {
 
+    protected $event_service;
     protected $duel_service;
-    protected $post_service;
 
-    public function __construct(DuelService $duel_service,
-                                PostService $post_service)
+    public function __construct(EventService $event_service,
+                                DuelService $duel_service)
     {
-        $this->duel_service = $duel_service ;
-        $this->post_service = $post_service ;
+        $this->event_service = $event_service ;
+        $this->duel_service  = $duel_service ;
     }
 
-
     /**
-     * @param Request $request
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
+        //
     }
 
     /**
@@ -58,10 +56,7 @@ class SingleController extends Controller
      */
     public function show($id)
     {
-        $duel     = $this->duel_service->findDuelWithUser($id);
-        $post     = $this->post_service->findPostByDuelId($duel->id);
-        $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
-        return view('duel.single.show',compact('duel','post', 'comments'));
+        //
     }
 
     /**

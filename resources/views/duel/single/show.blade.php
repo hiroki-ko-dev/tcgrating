@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="bg-links-blue text-white rounded p-3 mb-3">
-        <h2>{{ __('新規1vs1決闘') }}</h2>
+        <h2>{{ __('1vs1決闘(決闘ページ)') }}</h2>
     </div>
 
     <div class="row justify-content-center">
@@ -24,14 +24,8 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user">vs ＠{{$event->eventUser[0]->user->name}}</div>
-                            <div class="body">対戦回数：{{$event->eventDuel[0]->duel->number_of_games}}</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div type="body">{!! nl2br(e($event->body)) !!}</div>
+                            <div class="post-user"> ＠{{$duel->duelUser[0]->user->name}} vs ＠{{$duel->duelUser[0]->user->name}}</div>
+                            <div class="body">対戦回数：{{$duel->number_of_games}}</div>
                         </div>
                     </div>
                 </div>
@@ -43,27 +37,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ __('対戦日時') }}
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div class="post-user">{{$event->date}} {{$event->time}}</div> ※対戦日時に決闘ページへ移動してください
-                            <div class="col-md-6 offset-md-5">
-                                <button class="btn btn-primary" onclick="location.href='/duel/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    {{ __('対戦前掲示板') }}
+                    {{ __('対戦掲示板') }}
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -103,7 +77,7 @@
                     <form method="POST" action="/post/comment">
                         @csrf
                         <input type="hidden" name="post_id" value="{{$post->id}}">
-                        <input type="hidden" name="event_id" value="{{$event->id}}">
+                        <input type="hidden" name="event_id" value="{{$duel->id}}">
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <textarea id="body" type="body" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body"></textarea>

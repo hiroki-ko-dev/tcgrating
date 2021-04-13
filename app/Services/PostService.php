@@ -38,6 +38,10 @@ class PostService
         return $this->post_repository->findByEventId($event_id);
     }
 
+    public function findPostByDuelId($duel_id)
+    {
+        return $this->post_repository->findByDuelId($duel_id);
+    }
 
     public function findAllPostCommentWithUserByPostIdAndPagination($post_id, $paginate)
     {

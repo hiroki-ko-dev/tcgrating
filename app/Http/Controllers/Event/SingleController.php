@@ -78,11 +78,17 @@ class SingleController extends Controller
 
         DB::transaction(function () use($request) {
             $request = $this->event_service->createEventBySingleAndRequest($request);
-            $this->duel_service->createSingleByRequest($request);
+            //event用のpostを作成
+            $this->post_service->createPost($request);
+            $event_id = $request->event_id;
+
+            $request = $this->duel_service->createSingleByRequest($request);
+            //duel用のpostを作成
+            $request->merge(['event_id'=> null]);
             $this->post_service->createPost($request);
         });
 
-        return redirect('/event/single/'.$request->event_id)->with('flash_message', '新規チームを作成しました');
+        return redirect('/event/single/'.$request->event_id)->with('flash_message', '新規1vs1決闘を作成しました');
     }
 
     /**
@@ -95,7 +101,7 @@ class SingleController extends Controller
     {
         $event = $this->event_service->findEventWithUserAndDuel($event_id);
         $post     = $this->post_service->findPostByEventId($event_id);
-        $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,20);
+        $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
 
         return view('event.single.show',compact('event','post','comments'));
     }
