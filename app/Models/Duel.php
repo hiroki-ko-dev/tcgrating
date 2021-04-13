@@ -23,7 +23,26 @@ class Duel extends Model
         'cancel'   => self::CANCEL,
     ];
 
+    public function getGamesNumberAttribute()
+    {
+        $games_number = 0;
+        foreach($this->duelUser as $duelUser){
+            foreach($duelUser->duelResult as $duelResult) {
+                if ($duelResult > $games_number) {
+                    $games_number = $duelResult;
+                }
+            }
+        }
+        $games_number = $games_number + 1;
+
+        return $games_number;
+    }
+
     public function duelUser(){
         return $this->hasMany('App\Models\duelUser','duel_id','id');
+    }
+
+    public function duelResult(){
+        return $this->hasMany('App\Models\duelResult','duel_id','id');
     }
 }

@@ -61,6 +61,7 @@ class SingleController extends Controller
         $duel     = $this->duel_service->findDuelWithUser($id);
         $post     = $this->post_service->findPostByDuelId($duel->id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
+
         return view('duel.single.show',compact('duel','post', 'comments'));
     }
 

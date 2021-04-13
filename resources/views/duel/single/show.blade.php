@@ -25,7 +25,7 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div class="post-user"> ＠{{$duel->duelUser[0]->user->name}} vs ＠{{$duel->duelUser[0]->user->name}}</div>
-                            <div class="body">対戦回数：{{$duel->number_of_games}}</div>
+                            <div class="body">対戦回数：{{$duel->number_of_games}}　（現在{{ $duel->games_number }}試合目）</div>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ __('対戦結果報告') }}
+                    {{ $duel->games_number }} {{ __('試合目　ー　対戦結果報告') }}
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -118,12 +118,12 @@
                                 </button>
                             </span>
                             <span class="col-md-7">
-                                <button type="submit" class="btn btn-primary" name="lose">
+                                <button type="submit" class="btn btn-danger" name="lose">
                                     {{ __('　敗北　') }}
                                 </button>
                             </span>
                             <span class="col-md-10">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-secondary" name="Invalid">
                                     {{ __('無効試合') }}
                                 </button>
                             </span>
