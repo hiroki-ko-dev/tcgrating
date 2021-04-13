@@ -48,6 +48,10 @@ use Illuminate\Support\Facades\Route;
     Route::resources([
         'event/single' => Event\SingleController::class,
     ]);
+    //イベント系スレッド
+    Route::resources([
+        'event/user' => Event\UserController::class,
+    ]);
 
     //デュエル系スレッド
     Route::resources([

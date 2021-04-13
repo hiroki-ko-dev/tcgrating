@@ -56,6 +56,18 @@
                                 <div class="post-user">＠{{$event->eventUser[0]->user->name}} vs </div>
                             @endif
                         </div>
+                        <div class="col-md-6 offset-md-5">
+                            @if($event->user_id <> Auth::id() && $event->status == \APP\Models\Event::RECRUIT)
+                                <form method="POST" action="/event/user">
+                                    @csrf
+                                    <input type="hidden" name="event_id" value="{{$event->id}}">
+                                    <input type="hidden" name="duel_id" value="{{$event->eventDuel[0]->duel->id}}">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('対戦申込') }}
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>

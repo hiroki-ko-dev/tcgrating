@@ -15,9 +15,8 @@ class CreateDuelResultsTable extends Migration
     {
         Schema::create('duel_results', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('duel_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->unsignedTinyInteger('number');
+            $table->foreignId('duel_user_id')->constrained();
+            $table->unsignedTinyInteger('games_number');
             $table->unsignedSmallInteger('ranking');
             $table->mediumInteger('rating');
             $table->timestamps();

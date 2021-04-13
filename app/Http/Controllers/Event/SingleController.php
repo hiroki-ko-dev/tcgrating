@@ -77,7 +77,7 @@ class SingleController extends Controller
         $request->merge(['is_personal'       => 0]);
 
         DB::transaction(function () use($request) {
-            $request = $this->event_service->createEventBySingleAndRequest($request);
+            $request = $this->event_service->createEventBySingle($request);
             //event用のpostを作成
             $this->post_service->createPost($request);
             $event_id = $request->event_id;

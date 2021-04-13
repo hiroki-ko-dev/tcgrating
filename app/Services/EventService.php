@@ -24,7 +24,7 @@ class EventService
      * @param $request
      * @return mixed
      */
-    public function createEventBySingleAndRequest($request)
+    public function createEventBySingle($request)
     {
         $event = $this->event_repository->create($request);
         $request->merge(['event_id' => $event->id]);
@@ -32,11 +32,32 @@ class EventService
         return $request;
     }
 
+    /**
+     * イベントユーザーの追加
+     * @param $request
+     * @return mixed
+     */
+    public function createUser($request)
+    {
+        $this->event_user_repository->create($request);
+        return $request;
+    }
+
+    /**
+     * イベントステータスの更新
+     * @param $event_id
+     * @param $status
+     * @return bool
+     */
+    public function updateEventStatus($event_id, $status)
+    {
+        $event = $this->event_repository->updateStatus($event_id, $status);
+        return $event;
+    }
 
     public function findEventWithUserAndDuel($event_id){
         return $this->event_repository->findWithUserAndDuel($event_id);
     }
-
 
     /**
      * イベントカテゴリIDによって一覧を取得
@@ -49,6 +70,7 @@ class EventService
         return $this->event_repository->findAllWithUserByEventCategoryIdAndPaginate($event_category_id,$paginate);
 
     }
+
 
 
 }

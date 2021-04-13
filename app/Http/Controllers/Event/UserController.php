@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers\Event;
 
+use App\Http\Controllers\Controller;
+use Auth;
+use DB;
 use Illuminate\Http\Request;
+
+use App\Services\EventService;
+use App\Services\DuelService;
+
 
 class UserController extends Controller
 {
@@ -45,7 +52,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //アカウント認証しているユーザーのみ新規作成可能
+        if(!Auth::check()){
+            return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
+        }
+
+        //追加
+        $request->merge(['user_id' => Auth::id()]);
+
+        DB::transaction(function () use($request) {
+            $this->event_service->createUser($request) ;
+            $this->duel_service->createUser($request) ;
+
+            $event = $this->event_service->findEventWithUserAndDuel($request->event_id);
+            if($event->event_category_id === \App\Models\EventCategory::SINGLE){
+                $this->event_service->updateEventStatus($request->event_id, \APP\Models\Event::READY);
+            }
+        });
+
+        return back()->with('flash_message', '対戦申込が完了しました');
+
+
     }
 
     /**

@@ -60,11 +60,8 @@ class CommentController extends Controller
             $this->post_service->createComment($request);
         });
 
-        if($request->has('event_id')){
-            return redirect('/event/single/'.$request->input('event_id'))->with('flash_message', '新規投稿を行いました');
-        }
+        return back()->with('flash_message', '新規投稿を行いました');
 
-        return redirect('/post/'.$request->input('post_id'))->with('flash_message', '新規投稿を行いました');
     }
 
     /**

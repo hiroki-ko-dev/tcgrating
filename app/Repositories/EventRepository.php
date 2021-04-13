@@ -29,6 +29,15 @@ class EventRepository
         return $event;
     }
 
+    public function updateStatus($id, $status)
+    {
+        $event = Event::find($id);
+        $event->status = $status;
+        $event->save();
+
+        return $event;
+    }
+
     public function find($id){
         return Event::find($id);
     }
