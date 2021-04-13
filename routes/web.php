@@ -17,6 +17,12 @@ use Illuminate\Support\Facades\Route;
     Route::get('/', function () {
         return view('site.index');
     });
+
+    //ページ更新処理
+    Route::get('/reload', function () {
+        return back();
+    });
+
     //footerの管理者情報を表示
     Route::get('/administrator', 'SiteController@administrator');
 

@@ -19,7 +19,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ $duel->title }}
+                    {{ __('決闘詳細') }}
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -94,9 +94,41 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('投稿') }}
                                 </button>
+                                <a href="/reload">　　更新</a>
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('対戦結果報告') }}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <span class="col-md-3 ">
+                                <button type="submit" class="btn btn-primary" name="win">
+                                    {{ __('　勝利　') }}
+                                </button>
+                            </span>
+                            <span class="col-md-7">
+                                <button type="submit" class="btn btn-primary" name="lose">
+                                    {{ __('　敗北　') }}
+                                </button>
+                            </span>
+                            <span class="col-md-10">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('無効試合') }}
+                                </button>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
