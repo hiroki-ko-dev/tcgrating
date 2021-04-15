@@ -127,6 +127,12 @@ class DuelService
 
         //無効試合が選択された場合の処理
         for($i = 1; $i < $request->duel->number_of_games + 1; $i++) {
+            //決闘回数がまだ満たされていない、または相手の報告がまだの場合、決闘ページに戻す
+            if(!isset($myDuelUserResult->where('games_number', $i)->first()->result) ||
+                !isset($otherDuelUserResult->where('games_number', $i)->first()->result)
+                ){
+                    return $request ;
+                }
             $my_result    = $myDuelUserResult->where('games_number', $i)->first()->result;
             $other_result = $otherDuelUserResult->where('games_number', $i)->first()->result;
 
