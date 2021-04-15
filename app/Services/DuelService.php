@@ -50,9 +50,9 @@ class DuelService
      * @param $event_id
      * @return mixed
      */
-    public function findDuelWithUser($event_id)
+    public function findDuelWithUserAndEvent($event_id)
     {
-        return $this->duel_repository->findDuelWithUser($event_id);
+        return $this->duel_repository->findWithUserAndEvent($event_id);
     }
 
 }

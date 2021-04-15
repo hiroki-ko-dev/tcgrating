@@ -60,7 +60,7 @@ class SingleController extends Controller
      */
     public function show($id)
     {
-        $duel     = $this->duel_service->findDuelWithUser($id);
+        $duel     = $this->duel_service->findDuelWithUserAndEvent($id);
         $post     = $this->post_service->findPostByDuelId($duel->id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
 

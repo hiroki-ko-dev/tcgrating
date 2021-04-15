@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="bg-links-blue text-white rounded p-3 mb-3">
-        <h2>{{ __('新規1vs1決闘') }}</h2>
+        <h2>{{ __('新規1vs1決闘（受付ページ）') }}</h2>
     </div>
 
     <div class="row justify-content-center">
@@ -78,12 +78,12 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ __('対戦日時') }}
+                    {{ __('対戦開始時間') }}
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user">{{$event->date}} {{$event->time}}</div> ※対戦日時に決闘ページへ移動してください
+                            <div class="post-user">{{date('Y/m/d H:i', strtotime($event->date.' '.$event->time))}}</div> ※対戦開始日時になったら決闘ページへ移動してください
                             <div class="col-md-6 offset-md-5">
                                 <button class="btn btn-primary" onclick="location.href='/duel/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
                             </div>

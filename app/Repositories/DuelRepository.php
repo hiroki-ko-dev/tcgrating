@@ -36,8 +36,9 @@ class DuelRepository
      * @param $id
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
      */
-    public function findDuelWithUser($id){
+    public function findWithUserAndEvent($id){
         return Duel::with('duelUser.user')
+                    ->with('eventDuel.event')
                     ->find($id);
     }
 

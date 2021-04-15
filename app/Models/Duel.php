@@ -23,6 +23,10 @@ class Duel extends Model
         'cancel'   => self::CANCEL,
     ];
 
+    /**
+     * 現在が何試合目かをduelにカラムとして持たせる
+     * @return int
+     */
     public function getGamesNumberAttribute()
     {
         $games_number = 0;
@@ -44,5 +48,9 @@ class Duel extends Model
 
     public function duelResult(){
         return $this->hasMany('App\Models\duelResult','duel_id','id');
+    }
+
+    public function eventDuel(){
+        return $this->belongsTo('App\Models\EventDuel','id','duel_id');
     }
 }

@@ -19,13 +19,47 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
+                    {{ __('対戦開始時間') }}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="post-body">{{date('Y/m/d H:i', strtotime($duel->eventDuel->event->date.' '.$duel->eventDuel->event->time))}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('ルームID') }}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="post-body">{{$duel->room_id}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
                     {{ __('決闘詳細') }}
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div class="post-user"> ＠{{$duel->duelUser[0]->user->name}} vs ＠{{$duel->duelUser[0]->user->name}}</div>
-                            <div class="body">対戦回数：{{$duel->number_of_games}}　（現在{{ $duel->games_number }}試合目）</div>
+                            <div class="body">対戦回数：{{$duel->number_of_games}}　（現在{{ $duel->games_number }}試合目）※試合を開始してページ下部で結果を報告してください</div>
                         </div>
                     </div>
                 </div>
@@ -94,7 +128,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('投稿') }}
                                 </button>
-                                <a href="/reload">　　更新</a>
+                                <a href="/reload">　　返信を確認</a>
                             </div>
                         </div>
                     </form>
