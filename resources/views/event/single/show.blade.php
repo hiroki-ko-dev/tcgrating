@@ -98,6 +98,23 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
+                    {{ __('観戦ID') }}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="post-body">{{$event->eventDuel[0]->duel->watching_id}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
                     {{ __('対戦前掲示板') }}
                 </div>
                 <div class="card-body">
