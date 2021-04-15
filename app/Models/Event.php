@@ -14,11 +14,15 @@ class Event extends Model
     const RECRUIT   = 1;
     const READY     = 2;
     const FINISH    = 3;
+    const CANCEL    = 4;
+    const INVALID   = 5;
 
     const STATUS = [
         'recruit'  => self::RECRUIT,
         'ready'    => self::READY,
         'finish'   => self::FINISH,
+        'cancel'   => self::CANCEL,
+        'invalid'  => self::INVALID,
     ];
 
     public function eventUser(){

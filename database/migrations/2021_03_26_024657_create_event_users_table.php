@@ -18,6 +18,7 @@ class CreateEventUsersTable extends Migration
             $table->foreignId('event_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->unsignedTinyInteger('status')->default(0);
+            $table->string('stream_url',500);
             $table->timestamps();
         });
     }

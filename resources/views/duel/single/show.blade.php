@@ -58,8 +58,12 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user"> ＠{{$duel->duelUser[0]->user->name}} vs ＠{{$duel->duelUser[0]->user->name}}</div>
-                            <div class="body">対戦回数：{{$duel->number_of_games}}　（現在{{ $duel->games_number }}試合目）※試合を開始してページ下部で結果を報告してください</div>
+                            <div class="post-user"> ＠{{$duel->duelUser[0]->user->name}} vs ＠@if(isset($duel->duelUser[1])){{$duel->duelUser[1]->user->name}}@else対戦相手待ち@endif</div>
+                            @if($duel->number_of_games < $duel->games_number)
+                                <div class="body">対戦回数：{{$duel->number_of_games}}　※決闘終了です。お疲れ様でした</div>
+                            @else
+                                <div class="body">対戦回数：{{$duel->number_of_games}}　（現在{{ $duel->games_number }}試合目）※試合を開始してページ下部で結果を報告してください</div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -146,21 +150,35 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <span class="col-md-3 ">
-                                <button type="submit" class="btn btn-primary" name="win">
-                                    {{ __('　勝利　') }}
-                                </button>
-                            </span>
-                            <span class="col-md-7">
-                                <button type="submit" class="btn btn-danger" name="lose">
-                                    {{ __('　敗北　') }}
-                                </button>
-                            </span>
-                            <span class="col-md-10">
-                                <button type="submit" class="btn btn-secondary" name="Invalid">
-                                    {{ __('無効試合') }}
-                                </button>
-                            </span>
+                            {{ __('※お互いの報告結果が違うと無効試合となります。注意してください') }}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <form method="POST" action="/duel">
+                                @csrf
+                                <input type="hidden" name="duel_id" value="{{$duel->id}}">
+                                <span class="col-md-3 ">
+                                    <button type="submit" class="btn btn-primary" name="win" value="1">
+                                        {{ __('　勝利　') }}
+                                    </button>
+                                </span>
+                                <span class="col-md-7">
+                                    <button type="submit" class="btn btn-danger" name="lose" value="1">
+                                        {{ __('　敗北　') }}
+                                    </button>
+                                </span>
+                                <span class="col-md-7">
+                                    <button type="submit" class="btn btn-secondary" name="draw" value="1">
+                                        {{ __('　ドロー') }}
+                                    </button>
+                                </span>
+                                <span class="col-md-10">
+                                    <button type="submit" class="btn btn-secondary" name="invalid" value="1">
+                                        {{ __('無効試合') }}
+                                    </button>
+                                </span>
+                            </form>
                         </div>
                     </div>
                 </div>

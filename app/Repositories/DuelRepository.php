@@ -28,6 +28,22 @@ class DuelRepository
         return $duel;
     }
 
+    /**
+     *
+     * @param $duel_id
+     * @param $next_status
+     * @return Duel
+     */
+    public function updateStatus($id, $next_status)
+    {
+        $duel = Duel::find($id);
+        $duel->status = $next_status;
+        $duel->save();
+
+        return $duel;
+    }
+
+
     public function find($id){
         return Duel::find($id);
     }

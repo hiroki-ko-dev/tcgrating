@@ -7,6 +7,7 @@ use App\Services\DuelService;
 use App\Services\PostService;
 
 use Auth;
+use DB;
 
 use Illuminate\Http\Request;
 
@@ -21,6 +22,9 @@ class SingleController extends Controller
     {
         $this->duel_service = $duel_service ;
         $this->post_service = $post_service ;
+
+        //アカウント認証しているユーザーのみ新規作成可能
+        $this->middleware('auth');
     }
 
 
@@ -42,14 +46,33 @@ class SingleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $request->merge(['user_id'=> Auth::id()]);
+            DB::transaction(function () use($request) {
+                $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
+                $request->merge(['duel'=> $duel]);
+                $this->duel_service->createSingleResult($request);
+                $this->duel_service->updateSingleDuelByFinish($request);
+            });
+
+            //試合が終了したらイベントページに戻す
+            if($request->has('message')){
+                return redirect('/event/'.$request->duel->eventDuel[0]->event->id)->with('flash_message', $request->message);
+            }
+
+            //次の試合のため、決闘ページへ
+            return back()->with('flash_message', '次の試合を初めてください');
+
+        } catch (\Exception $e) {
+            report($e);
+            return back()->with('flash_message', $e->getMessage());
+        }
+
     }
 
     /**

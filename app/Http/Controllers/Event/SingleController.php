@@ -82,7 +82,7 @@ class SingleController extends Controller
             $this->post_service->createPost($request);
             $event_id = $request->event_id;
 
-            $request = $this->duel_service->createSingleByRequest($request);
+            $request = $this->duel_service->createSingle($request);
             //duel用のpostを作成
             $request->merge(['event_id'=> null]);
             $this->post_service->createPost($request);
