@@ -52,6 +52,11 @@ class UserController extends Controller
      */
     public function edit(Request $request,$user_id)
     {
+        //アカウント認証しているユーザーのみ新規作成可能
+        $this->middleware('auth');
+        if(Auth::id() <> $user_id){
+            return back();
+        }
 
         $user = $this->user_service->findUser($user_id);
 
@@ -77,6 +82,12 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        //アカウント認証しているユーザーのみ新規作成可能
+        $this->middleware('auth');
+        if(Auth::id() <> $request->id){
+            return back();
+        }
+
         DB::transaction(function () use($request){
             $this->user_service->updateUser($request);
         });
