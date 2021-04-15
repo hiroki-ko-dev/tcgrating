@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Services\DuelService;
 use App\Services\PostService;
 
+use Auth;
+
 use Illuminate\Http\Request;
 
 class SingleController extends Controller
@@ -61,6 +63,10 @@ class SingleController extends Controller
         $duel     = $this->duel_service->findDuelWithUser($id);
         $post     = $this->post_service->findPostByDuelId($duel->id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
+
+        if(empty($duel->duelUser->where('user_id',Auth::id())->first()->id)){
+            return back()->with('flash_message', '決闘ページへ行けるのは対戦を行うユーザーのみです');
+        }
 
         return view('duel.single.show',compact('duel','post', 'comments'));
     }
