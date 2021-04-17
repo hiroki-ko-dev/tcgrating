@@ -24,6 +24,8 @@ class TeamService
         $request->merge(['team_id' => $team->id]);
         $request->merge(['status'  => \App\Models\TeamUser::MASTER]);
         $this->team_user_repository->create($request);
+
+        return $team;
     }
 
     public function createUser($request)

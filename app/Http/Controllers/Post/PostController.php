@@ -39,8 +39,15 @@ class PostController extends Controller
             return back()->with('flash_message', '新規投稿を行うにはログインしてください');
         }
 
+        //チーム募集掲示板の処理
+        if(\App\Models\PostCategory::TEAM_WANTED == $request->post_category_id){
+            $team_id = $request->query('team_id');
+        }else{
+            $team_id = null;
+        }
+
         $post_category_id = $request->query('post_category_id');
-        return view('post.create', compact('post_category_id'));
+        return view('post.create', compact('post_category_id', 'team_id'));
     }
 
     /**
@@ -57,6 +64,8 @@ class PostController extends Controller
         //追加
         $request->merge(['user_id' => Auth::id()]);
         $request->merge(['is_personal' => 0]);
+        //チーム募集掲示板の処理
+        $request->merge(['team_id' => $request->team_id]);
 
         DB::transaction(function () use($request){
             $this->post_service->createPost($request);
@@ -73,7 +82,7 @@ class PostController extends Controller
      */
     public function show($post_id)
     {
-        $post     = $this->post_service->findPost($post_id);
+        $post     = $this->post_service->findPostWithUser($post_id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post_id,20);
         return view('post.show',compact('post','comments'));
     }

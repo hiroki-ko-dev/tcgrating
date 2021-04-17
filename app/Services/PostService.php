@@ -28,19 +28,24 @@ class PostService
         return $this->post_comment_repository->create($request);
     }
 
-    public function findPost($id)
+    public function findPostWithUser($id)
     {
-        return $this->post_repository->find($id);
+        return $this->post_repository->findWithUser($id);
     }
 
-    public function findPostByEventId($event_id)
+    public function findPostWithUserByEventId($event_id)
     {
-        return $this->post_repository->findByEventId($event_id);
+        return $this->post_repository->findWithUserByEventId($event_id);
     }
 
-    public function findPostByDuelId($duel_id)
+    public function findPostWithUserByDuelId($duel_id)
     {
-        return $this->post_repository->findByDuelId($duel_id);
+        return $this->post_repository->findWithUserByDuelId($duel_id);
+    }
+
+    public function findPostWithByPostCategoryTeam($team_id)
+    {
+        return $this->post_repository->findWithByPostCategoryTeam($team_id);
     }
 
     public function findAllPostCommentWithUserByPostIdAndPagination($post_id, $paginate)

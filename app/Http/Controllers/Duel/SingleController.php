@@ -84,7 +84,7 @@ class SingleController extends Controller
     public function show($id)
     {
         $duel     = $this->duel_service->findDuelWithUserAndEvent($id);
-        $post     = $this->post_service->findPostByDuelId($duel->id);
+        $post     = $this->post_service->findPostWithUserByDuelId($duel->id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
 
         if(empty($duel->duelUser->where('user_id',Auth::id())->first()->id)){

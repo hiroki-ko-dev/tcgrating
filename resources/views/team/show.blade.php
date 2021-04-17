@@ -51,14 +51,14 @@
                 </a>
             </div>
             <div class="col-md-8 offset-md-4">
-                <a class="btn btn-link text-center" href="/team/{{$team->id}}/edit">
+                <a class="btn btn-link text-center" href="/post/create?post_category_id=4&team_id={{$team->id}}">
                     {{ __('チーム募集掲示板に投稿する') }}
                 </a>
             </div>
         </div>
     @endif
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-5">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('チーム名') }}</div>
@@ -70,20 +70,20 @@
                     </div>
                 </div>
 
-                <div class="card-header">{{ __('レート') }}</div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div type="body">{{$team->rate}}</div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="card-header">{{ __('プロフィール文') }}</div>
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div type="body">{!! nl2br(e($team->body)) !!}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-header">{{ __('レート') }}</div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div type="body">{{$team->rate}}</div>
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,9 @@
                             <div type="body">
                                 @foreach($team->teamUser as $teamUser)
                                     @if($teamUser->status == \App\Models\TeamUser::APPROVAL || $teamUser->status == \App\Models\TeamUser::MASTER)
-                                        <div><a href="/user/{{$teamUser->user->id}}">{{$teamUser->user->name}}</div>
+                                        <div><a href="/user/{{$teamUser->user->id}}">{{$teamUser->user->name}}</a>
+                                            @if($teamUser->status == \App\Models\TeamUser::MASTER)（チームマスター）@endif
+                                        </div>
                                     @endif
                                 @endforeach
                             </div>
@@ -133,9 +135,12 @@
             </div>
         </div>
     </div>
+
+    @include('layouts.post.post_and_comment')
 </div>
 @endsection
 
 @include('layouts.common.header')
 @include('layouts.common.adsense')
+
 @include('layouts.common.footer')

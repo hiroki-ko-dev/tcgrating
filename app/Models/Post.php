@@ -13,4 +13,8 @@ class Post extends Model
     public function postComment(){
         return $this->hasMany('App\Models\PostComment','post_id','id');
     }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User','user_id','id');
+    }
 }

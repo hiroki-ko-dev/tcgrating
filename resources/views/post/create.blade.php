@@ -20,6 +20,7 @@
                     <form method="POST" action="/post">
                         @csrf
                         <input type="hidden" name="post_category_id" value="{{$post_category_id}}">
+                        <input type="hidden" name="team_id" value="{{$team_id}}">
 
                         <div class="form-group row">
                             <label for="title" class="col-md-0 col-form-label text-md-right">{{ __('件名') }}</label>

@@ -18,6 +18,7 @@ class PostRepository
             'user_id'          => $request->user_id,
             'event_id'         => $request->event_id,
             'duel_id'          => $request->duel_id,
+            'team_id'          => $request->team_id,
             'title'            => $request->title,
             'body'             => $request->body,
             'is_personal'      => $request->is_personal,
@@ -29,18 +30,21 @@ class PostRepository
         return $post;
     }
 
-    public function find($id){
-        return Post::find($id);
+    public function findWithUser($id){
+        return Post::with('user')->find($id);
     }
 
-    public function findByEventId($id){
-        return Post::where('event_id',$id)->first();
+    public function findWithUserByEventId($id){
+        return Post::where('event_id',$id)->with('user')->first();
     }
 
-    public function findByDuelId($id){
-        return Post::where('event_id',$id)->first();
+    public function findWithUserByDuelId($id){
+        return Post::where('event_id',$id)->with('user')->first();
     }
 
+    public function findWithByPostCategoryTeam($team){
+        return Post::where('team_id',$team)->where('post_category_id', \App\Models\PostCategory::TEAM)->with('user')->first();
+    }
 
     public function findAllAndCommentCountByPostCategoryIdAndPagination($post_category_id, $paginate)
     {

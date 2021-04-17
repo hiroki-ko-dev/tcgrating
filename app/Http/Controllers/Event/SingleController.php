@@ -100,7 +100,7 @@ class SingleController extends Controller
     public function show($event_id)
     {
         $event = $this->event_service->findEventWithUserAndDuel($event_id);
-        $post     = $this->post_service->findPostByEventId($event_id);
+        $post     = $this->post_service->findPostWithUserByEventId($event_id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
 
         return view('event.single.show',compact('event','post','comments'));

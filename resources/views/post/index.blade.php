@@ -21,11 +21,14 @@
 
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="col-md-8 offset-md-4">
-                <a class="btn btn-link text-center" href="post/create?post_category_id={{$post_category_id}}">
-                    {{ __('新規スレッド作成') }}
-                </a>
-            </div>
+            <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
+            @if($post_category_id <> \App\Models\PostCategory::TEAM_WANTED)
+                <div class="col-md-8 offset-md-4">
+                    <a class="btn btn-link text-center" href="post/create?post_category_id={{$post_category_id}}">
+                        {{ __('新規スレッド作成') }}
+                    </a>
+                </div>
+            @endif
 
             <div class="card">
                 <div class="card-header">{{ __('スレッド一覧') }}</div>
