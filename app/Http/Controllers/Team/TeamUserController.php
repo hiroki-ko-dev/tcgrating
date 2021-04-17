@@ -48,7 +48,7 @@ class TeamUserController extends Controller
 
             $team = $this->team_service->findAllTeamAndUserByTeamId($request->team_id);
             //すでにチームにリクエストを送付済なら追加せずにリターン
-            if($team->teamUser->where('user_id',Auth::id())->first()->isNotEmpty()){
+            if(!$team->teamUser->where('user_id',Auth::id())->isNotEmpty()){
                 return back();
             }
 

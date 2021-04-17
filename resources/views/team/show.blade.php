@@ -94,9 +94,8 @@
                         <div class="col-md-12">
                             <div type="body">
                                 @if($team->status == \App\Models\Team::RECRUIT)
-                                    <form method="GET" action="/post/create">
+                                    <form method="POST" action="/team/user">
                                         @csrf
-                                        <input type="hidden" name="post_category_id" value="{{\App\Models\PostCategory::TEAM_WANTED}}">
                                         <input type="hidden" name="team_id" value="{{$team->id}}">
                                         <span class="col-md-2">
                                             募集中
