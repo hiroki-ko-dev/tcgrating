@@ -19,6 +19,7 @@ class CreateTeamsTable extends Migration
             $table->string('body',2000)->nullable();
             $table->string('image',255)->nullable();
             $table->integer('rate')->default(0);
+            $table->unsignedTinyInteger('recruit_status')->default(0);
             $table->timestamps();
         });
     }

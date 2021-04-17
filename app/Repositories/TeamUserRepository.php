@@ -13,7 +13,8 @@ class TeamUserRepository
     {
         return TeamUser::create([
                 'team_id'  => $request->team_id,
-                'user_id'  => $request->user_id
+                'user_id'  => $request->user_id,
+                'status'   => $request->status
             ]);
     }
 

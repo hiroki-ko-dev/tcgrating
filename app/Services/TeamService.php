@@ -17,11 +17,17 @@ class TeamService
         $this->team_user_repository = $team_user_repository;
     }
 
-    public function createTeamByRequest($request)
+    public function createTeam($request)
     {
         $team = $this->team_repository->create($request);
         //追加
         $request->merge(['team_id' => $team->id]);
+        $request->merge(['status'  => \App\Models\TeamUser::MASTER]);
+        $this->team_user_repository->create($request);
+    }
+
+    public function createUser($request)
+    {
         $this->team_user_repository->create($request);
     }
 

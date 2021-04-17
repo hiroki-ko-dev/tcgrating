@@ -43,6 +43,14 @@ class TeamUserController extends Controller
     public function store(Request $request)
     {
 
+        DB::transaction(function () use($request){
+            $request->merge(['user_id' => Auth::id()]);
+            $request->merge(['status'  => \App\Models\TeamUser::REQUEST]);
+            $this->team_service->createUser($request);
+        });
+
+        return back()->with('flash_message', 'チーム参加リクエストを出しました');
+
     }
 
     /**

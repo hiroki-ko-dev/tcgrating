@@ -11,11 +11,11 @@ class Event extends Model
     protected $guarded = [];
 
     //定数の定義
-    const RECRUIT   = 1;
-    const READY     = 2;
-    const FINISH    = 3;
-    const CANCEL    = 4;
-    const INVALID   = 5;
+    const RECRUIT   = 0;
+    const READY     = 1;
+    const FINISH    = 2;
+    const CANCEL    = 3;
+    const INVALID   = 4;
 
     const STATUS = [
         'recruit'  => self::RECRUIT,

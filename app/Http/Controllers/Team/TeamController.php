@@ -59,7 +59,8 @@ class TeamController extends Controller
         //追加
         $request->merge(['user_id' => Auth::id()]);
         DB::transaction(function () use($request) {
-            $this->team_service->createTeamByRequest($request);
+            $request->merge(['status'  => \App\Models\TeamUser::REQUEST]);
+            $this->team_service->createTeam($request);
         });
 
         return redirect('/team?user_id='.Auth::id())->with('flash_message', '新規チームを作成しました');
