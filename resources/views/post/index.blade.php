@@ -6,7 +6,7 @@
         @if(\App\Models\PostCategory::FREE == $post_category_id)
             <h3>{{ __('フリー掲示板') }}</h3>
         @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
-            <h3>{{ __('チーム募集掲示板') }}</h3>
+            <h3>{{ __('チームメンバー募集掲示板') }}</h3>
         @endif
     </div>
 
