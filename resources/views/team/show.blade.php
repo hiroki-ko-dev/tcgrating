@@ -101,7 +101,7 @@
                                         <span class="col-md-2">
                                             募集中
                                         </span>
-                                        @if(Auth::check() && !($team->teamUser->find(Auth::id())))
+                                        @if(Auth::check() && !($team->teamUser->where('user_id',Auth::id())->first()))
                                             <span class="col-md-4">
                                                 <button type="submit" class="btn btn-primary" name="join_request" value="1">
                                                     {{ __('参加希望を出す') }}

@@ -5,7 +5,7 @@
             <div class="card-header">
                 @if($post->post_category_id == \App\Models\PostCategory::TEAM_WANTED)
                     <a href="\team\{{$post->team->id}}">{{$post->team->name}}</a>
-                    <br>　※参加リクエストはこちらのチームページから
+                    <br>　※参加リクエストはこちらのチーム名をクリック
                 @else
                     {{ __('掲示板') }}
                 @endif

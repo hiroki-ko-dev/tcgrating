@@ -24,8 +24,9 @@ class TeamRepository
     public function update($request){
         return Team::where('id',$request->id)
                     ->update([
-                        'name'  => $request->name,
-                        'body'  => $request->body
+                        'name'             => $request->name,
+                        'body'             => $request->body,
+                        'recruit_status'   => $request->recruit_status,
                     ]);
     }
 

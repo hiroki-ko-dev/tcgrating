@@ -44,7 +44,24 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="card-header">{{ __('メンバー募集ステータス') }}</div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <select name="recruit_status" class="form-select" aria-label="Default select example">
+                                        <option value="{{\App\Models\Team::RECRUIT}}" @if(old('recruit_status',$team->recruit_status == \App\Models\Team::RECRUIT))selected @endif>募集中</option>
+                                        <option value="{{\App\Models\Team::FINISH}}" @if(old('recruit_status',$team->recruit_status == \App\Models\Team::FINISH))selected @endif>募集しない</option>
+                                    </select>
+                                    @error('recruit_status')
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-3">
                             <div class="col-md-6 offset-md-5">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('保存') }}
