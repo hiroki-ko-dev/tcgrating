@@ -51,13 +51,17 @@ class SingleController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+//        try {
             $request->merge(['user_id'=> Auth::id()]);
             DB::transaction(function () use($request) {
                 $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
                 $request->merge(['duel'=> $duel]);
                 $request->merge(['event_id'=> $duel->eventDuel->event->id]);
                 $this->duel_service->createSingleResult($request);
+
+                //updateSingleDuelByFinishでcreateSingleResultを反映したduelが欲しいので再取得
+                $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
+                $request->merge(['duel'=> $duel]);
                 $this->duel_service->updateSingleDuelByFinish($request);
             });
 
@@ -69,22 +73,22 @@ class SingleController extends Controller
             //次の試合のため、決闘ページへ
             return back()->with('flash_message', '次の試合を初めてください');
 
-        } catch (\Exception $e) {
-            report($e);
-            return back()->with('flash_message', $e->getMessage());
-        }
+//        } catch (\Exception $e) {
+//            report($e);
+//            return back()->with('flash_message', $e->getMessage());
+//        }
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $duel_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($duel_id)
     {
-        $duel     = $this->duel_service->findDuelWithUserAndEvent($id);
+        $duel     = $this->duel_service->findDuelWithUserAndEvent($duel_id);
         $post     = $this->post_service->findPostWithUserByDuelId($duel->id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
 

@@ -13,11 +13,11 @@ class Duel extends Model
     protected $guarded = [];
 
     //定数の定義
-    const RECRUIT   = 1;
-    const READY     = 2;
-    const FINISH    = 3;
-    const CANCEL    = 4;
-    const INVALID   = 5;
+    const RECRUIT   = 0;
+    const READY     = 1;
+    const FINISH    = 2;
+    const CANCEL    = 3;
+    const INVALID   = 4;
 
     const STATUS = [
         'recruit'  => self::RECRUIT,
@@ -35,9 +35,11 @@ class Duel extends Model
     {
         $games_number = 0;
 
-        foreach($this->duelUser->where('user_id',Auth::id())->first()->duelUserResult as $duelUserResult) {
-            if ($duelUserResult->games_number > $games_number) {
-                $games_number = $duelUserResult->games_number;
+        foreach($this->duelUser as $duelUser) {
+            foreach ($duelUser->duelUserResult as $duelUserResult) {
+                if ($duelUserResult->games_number > $games_number) {
+                    $games_number = $duelUserResult->games_number;
+                }
             }
         }
         $games_number = $games_number + 1;

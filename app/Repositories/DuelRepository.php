@@ -30,7 +30,7 @@ class DuelRepository
 
     /**
      *
-     * @param $duel_id
+     * @param $id
      * @param $next_status
      * @return Duel
      */
@@ -48,15 +48,10 @@ class DuelRepository
         return Duel::find($id);
     }
 
-    /**
-     * @param $id
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
-     */
     public function findWithUserAndEvent($id){
         return Duel::with('duelUser.user')
-                    ->with('eventDuel.event')
-                    ->find($id);
+            ->with('eventDuel.event')
+            ->find($id);
     }
-
 
 }

@@ -88,7 +88,11 @@ class DuelService
         $duelUserResultObj = new \stdClass();
         $duelUserResultObj->duel_user_id = $request->duel->duelUser->where('user_id',$request->user_id)->first()->id ;
         $duelUserResultObj->duel_user_id = $request->duel->duelUser->where('user_id',$request->user_id)->first()->id ;
-        $duelUserResultObj->games_number = $request->duel->games_number ;
+        if($duelUserResult->isEmpty()){
+            $duelUserResultObj->games_number = 1;
+        }else{
+            $duelUserResultObj->games_number = $duelUserResult->count() + 1 ;
+        }
 
         if($request->has('win')){
             $duelUserResultObj->result  = \App\Models\DuelUserResult::WIN ;
@@ -99,7 +103,7 @@ class DuelService
             $duelUserResultObj->ranking = 2 ;
             $duelUserResultObj->rating  = -1000 ;
         }elseif($request->has('draw')){
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::DRAL ;
+            $duelUserResultObj->result  = \App\Models\DuelUserResult::DRAW ;
             $duelUserResultObj->ranking = 0 ;
             $duelUserResultObj->rating  = 0 ;
         }elseif($request->has('invalid')){
@@ -111,6 +115,7 @@ class DuelService
         }
 
         $this->duel_user_result_repository->create($duelUserResultObj);
+
         return $request;
     }
 
@@ -127,6 +132,7 @@ class DuelService
 
         //無効試合が選択された場合の処理
         for($i = 1; $i < $request->duel->number_of_games + 1; $i++) {
+
             //決闘回数がまだ満たされていない、または相手の報告がまだの場合、決闘ページに戻す
             if(!isset($myDuelUserResult->where('games_number', $i)->first()->result) ||
                 !isset($otherDuelUserResult->where('games_number', $i)->first()->result)
@@ -141,11 +147,15 @@ class DuelService
             if($my_result == \App\Models\DuelUserResult::INVALID || $other_result == \App\Models\DuelUserResult::INVALID ||
             //お互いドロー選択でないのに同じ選択をしていたら無効
                 (!($my_result == \App\Models\DuelUserResult::DRAW && $other_result == \App\Models\DuelUserResult::DRAW) &&
-                    $my_result == $other_result)
+                    $my_result == $other_result) ||
+            //自分がドローで相手がドローでない
+                ($my_result == \App\Models\DuelUserResult::DRAW && $other_result <> \App\Models\DuelUserResult::DRAW) ||
+            //相手がドローで自分がドローでない
+                ($my_result <> \App\Models\DuelUserResult::DRAW && $other_result == \App\Models\DuelUserResult::DRAW)
             ){
-                $this->duel_repository->updateStatus($request->duel->id, \App\Models\Duel::INVALID) ;
+                $duel = $this->duel_repository->updateStatus($request->duel->id, \App\Models\Duel::INVALID) ;
                 $this->event_repository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::INVALID) ;
-                $request->merge(['message' => '無効試合が選択されたので試合が無効になりました']);
+                $request->merge(['message' => '無効試合が選択されたかお互いの勝敗報告が矛盾したので試合が無効になりました']);
                 return $request ;
             }
         }
@@ -163,13 +173,13 @@ class DuelService
     }
 
     /**
-     * シングル決闘の際のduel系作成
-     * @param $event_id
+     * シングル決闘の際のduelを取得
+     * @param $duel_id
      * @return mixed
      */
-    public function findDuelWithUserAndEvent($event_id)
+    public function findDuelWithUserAndEvent($duel_id)
     {
-        return $this->duel_repository->findWithUserAndEvent($event_id);
+        return $this->duel_repository->findWithUserAndEvent($duel_id);
     }
 
 }

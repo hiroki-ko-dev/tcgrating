@@ -79,7 +79,7 @@
                             @if($event->status > \APP\Models\Event::RECRUIT )
                                 <div class="post-user">{{ __('マッチング済') }}</div>
                                 <div class="body"><a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a>
-                                    vs <a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[1]->user->name}}</a></div>
+                                    vs <a href="/user/{{$event->eventUser[1]->user_id}}">＠{{$event->eventUser[1]->user->name}}</a></div>
                             @else
                                 <div class="post-user">{{ __('対戦受付中') }}</div>
                                 <div class="post-user"><a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a> vs </div>
