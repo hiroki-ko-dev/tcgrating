@@ -46,12 +46,13 @@ class PostRepository
         return Post::where('team_id',$team)->where('post_category_id', \App\Models\PostCategory::TEAM)->with('user')->first();
     }
 
-    public function findAllAndCommentCountByPostCategoryIdAndPagination($post_category_id, $paginate)
+    public function findAllAndCommentCountByPostCategoryIdAndPaginate($post_category_id, $paginate)
     {
         return Post::where('post_category_id', $post_category_id)
                     ->withCount('postComment')
+                    ->withCount('postComment')
                     ->OrderBy('id','desc')
-                    ->paginate($paginate);;
+                    ->paginate($paginate);
     }
 
 }

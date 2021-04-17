@@ -3,7 +3,12 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                {{ __('掲示板') }}
+                @if($post->post_category_id == \App\Models\PostCategory::TEAM_WANTED)
+                    <a href="\team\{{$post->team->id}}">{{$post->team->name}}</a>
+                    <br>　※参加リクエストはこちらのチームページから
+                @else
+                    {{ __('掲示板') }}
+                @endif
             </div>
             <div class="card-body">
                 <div class="form-group row">

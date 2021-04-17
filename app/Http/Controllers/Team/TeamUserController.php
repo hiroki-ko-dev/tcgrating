@@ -36,6 +36,7 @@ class TeamUserController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * チームに参加希望リクエストを加える処理
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -44,6 +45,13 @@ class TeamUserController extends Controller
     {
 
         DB::transaction(function () use($request){
+
+            $team = $this->team_service->findAllTeamAndUserByTeamId($request->team_id);
+            //すでにチームにリクエストを送付済なら追加せずにリターン
+            if($team->teamUser->where('user_id',Auth::id())->first()->isNotEmpty()){
+                return back();
+            }
+
             $request->merge(['user_id' => Auth::id()]);
             $request->merge(['status'  => \App\Models\TeamUser::REQUEST]);
             $this->team_service->createUser($request);

@@ -15,7 +15,7 @@
         @endif
     </div>
 
-    @if($team->teamUser->find(Auth::id()) && $team->teamUser->find(Auth::id())->status == \App\Models\TeamUser::MASTER)
+    @if($team->teamUser->where('user_id',Auth::id())->first() && $team->teamUser->where('user_id',Auth::id())->first()->status == \App\Models\TeamUser::MASTER)
         <div class="row justify-content-center mb-3">
             <div class="col-md-8">
                 <div class="card">

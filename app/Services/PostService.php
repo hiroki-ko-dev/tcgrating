@@ -53,9 +53,9 @@ class PostService
         return $this->post_comment_repository->findAllWithUserByPostIdAndPagination($post_id, $paginate);
     }
 
-    public function getPostsByPostCategoryAndPagination($post_category_id, $paginate)
+    public function findAllPostWithTeamByPostCategoryAndPaginate($post_category_id, $paginate)
     {
-        return $this->post_repository->findAllAndCommentCountByPostCategoryIdAndPagination($post_category_id, $paginate);
+        return $this->post_repository->findAllAndCommentCountByPostCategoryIdAndPaginate($post_category_id, $paginate);
     }
 
 }

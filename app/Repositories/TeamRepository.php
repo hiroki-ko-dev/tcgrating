@@ -30,6 +30,7 @@ class TeamRepository
     }
 
     /**
+     * マイチームを出す時のメソッド
      * @param $request
      * @param $paginate
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator

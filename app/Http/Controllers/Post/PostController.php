@@ -23,7 +23,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts =  $this->post_service->getPostsByPostCategoryAndPagination($request->query('post_category_id'),20);
+        $posts =  $this->post_service->findAllPostWithTeamByPostCategoryAndPaginate($request->query('post_category_id'),20);
         $post_category_id = $request->query('post_category_id');
         return view('post.index',compact('posts','post_category_id'));
     }
