@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user">主催：＠{{$event->eventUser[0]->user->name}}</div>
+                            <div class="post-user">主催：<a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a></div>
                             <div class="body">決闘回数：{{$event->eventDuel[0]->duel->number_of_games}}</div>
                         </div>
                     </div>
@@ -32,6 +32,34 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div type="body">{!! nl2br(e($event->body)) !!}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('試合ステータス') }}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="body">
+                                @if($event->status == \App\Models\Event::RECRUIT)
+                                    {{ __('対戦相手募集中') }}
+                                @elseif($event->status == \App\Models\Event::READY)
+                                    {{ __('対戦準備中') }}
+                                @elseif($event->status == \App\Models\Event::FINISH)
+                                    {{ __('対戦完了') }}
+                                @elseif($event->status == \App\Models\Event::INVALID)
+                                    {{ __('無効試合') }}
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,10 +78,11 @@
                         <div class="col-md-12">
                             @if($event->status > \APP\Models\Event::RECRUIT )
                                 <div class="post-user">{{ __('マッチング済') }}</div>
-                                <div class="body">＠{{$event->eventUser[0]->user->name}} vs ＠{{$event->eventUser[1]->user->name}}</div>
+                                <div class="body"><a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a>
+                                    vs <a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[1]->user->name}}</a></div>
                             @else
                                 <div class="post-user">{{ __('対戦受付中') }}</div>
-                                <div class="post-user">＠{{$event->eventUser[0]->user->name}} vs </div>
+                                <div class="post-user"><a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a> vs </div>
                             @endif
                         </div>
                         <div class="col-md-6 offset-md-5">

@@ -56,13 +56,14 @@ class SingleController extends Controller
             DB::transaction(function () use($request) {
                 $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
                 $request->merge(['duel'=> $duel]);
+                $request->merge(['event_id'=> $duel->eventDuel->event->id]);
                 $this->duel_service->createSingleResult($request);
                 $this->duel_service->updateSingleDuelByFinish($request);
             });
 
             //試合が終了したらイベントページに戻す
             if($request->has('message')){
-                return redirect('/event/'.$request->duel->eventDuel[0]->event->id)->with('flash_message', $request->message);
+                return redirect('/event/single/'.$request->event_id)->with('flash_message', $request->message);
             }
 
             //次の試合のため、決闘ページへ

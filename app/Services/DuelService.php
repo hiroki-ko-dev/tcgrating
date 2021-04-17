@@ -138,13 +138,13 @@ class DuelService
 
             //無効試合かを判定
             //どちらかが無効試合が選択していたら無効
-            if($my_result === \App\Models\DuelUserResult::INVALID || $other_result === \App\Models\DuelUserResult::INVALID ||
+            if($my_result == \App\Models\DuelUserResult::INVALID || $other_result == \App\Models\DuelUserResult::INVALID ||
             //お互いドロー選択でないのに同じ選択をしていたら無効
-                (!($my_result === \App\Models\DuelUserResult::DRAW && $other_result === \App\Models\DuelUserResult::DRAW) &&
-                    $my_result === $other_result)
+                (!($my_result == \App\Models\DuelUserResult::DRAW && $other_result == \App\Models\DuelUserResult::DRAW) &&
+                    $my_result == $other_result)
             ){
                 $this->duel_repository->updateStatus($request->duel->id, \App\Models\Duel::INVALID) ;
-                $this->event_repository->updateStatus($request->duel->eventDuel[0]->event->id, \App\Models\Event::INVALID) ;
+                $this->event_repository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::INVALID) ;
                 $request->merge(['message' => '無効試合が選択されたので試合が無効になりました']);
                 return $request ;
             }
