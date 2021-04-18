@@ -51,7 +51,7 @@ class SingleController extends Controller
      */
     public function store(Request $request)
     {
-//        try {
+        try {
             $request->merge(['user_id'=> Auth::id()]);
             DB::transaction(function () use($request) {
                 $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
@@ -73,10 +73,10 @@ class SingleController extends Controller
             //次の試合のため、決闘ページへ
             return back()->with('flash_message', '次の試合を初めてください');
 
-//        } catch (\Exception $e) {
-//            report($e);
-//            return back()->with('flash_message', $e->getMessage());
-//        }
+        } catch (\Exception $e) {
+            report($e);
+            return back()->with('flash_message', $e->getMessage());
+        }
 
     }
 
