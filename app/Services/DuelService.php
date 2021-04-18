@@ -143,6 +143,9 @@ class DuelService
             if(!isset($myDuelUserResult->where('games_number', $i)->first()->result) ||
                 !isset($otherDuelUserResult->where('games_number', $i)->first()->result)
                 ){
+                    if(!($myDuelUserResult->where('games_number', $request->duel->number_of_games)->isEmpty())){
+                        $request->merge(['message' => '試合が終了しました。対戦相手の報告をお待ちください']);
+                    }
                     return $request ;
                 }
             $my_result    = $myDuelUserResult->where('games_number', $i)->first()->result;
@@ -175,15 +178,15 @@ class DuelService
         }
 
         //お互いが最終戦報告が終わったらレートを更新
-        if($myDuelUserResult->where('games_number', $request->duel->number_of_games)->first()->isNotEmpty() &&
-            $otherDuelUserResult->where('games_number', $request->duel->number_of_games)->first()->isNotEmpty()
+        if($myDuelUserResult->where('games_number', $request->duel->number_of_games)->isNotEmpty() &&
+            $otherDuelUserResult->where('games_number', $request->duel->number_of_games)->isNotEmpty()
         ) {
             //試合終了に伴うステータスの更新
             $duel = $this->duel_repository->updateStatus($request->duel->id, \App\Models\Duel::FINISH) ;
             $this->event_repository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::FINISH) ;
 
             $this->user_repository->updateRate($request->user_id, $myDuelUserResult->sum('rating'));
-            $this->user_repository->updateRate($request->duel->duelUser->whereNotIn('user_id',[$request->user_id])->first()->user_id, $myDuelUserResult->sum('rating'));
+            $this->user_repository->updateRate($request->duel->duelUser->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->sum('rating'));
             $request->merge(['message' => '試合が終了しました']);
         }
 

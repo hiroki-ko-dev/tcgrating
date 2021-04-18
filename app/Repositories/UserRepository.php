@@ -19,6 +19,21 @@ class UserRepository
             ]);
     }
 
+    /**
+     * ユーザーrateが変動があった時の操作
+     * @param $id
+     * @param $rate
+     * @return mixed
+     */
+    public function updateRate($id, $rate)
+    {
+        $user = User::find($id);
+        $user->rate = $user->rate + $rate ;
+        $user->save() ;
+
+        return $user ;
+    }
+
     public function find($id){
         return User::find($id);
     }
