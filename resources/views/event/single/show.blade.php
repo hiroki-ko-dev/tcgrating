@@ -78,8 +78,24 @@
                         <div class="col-md-12">
                             @if($event->status > \APP\Models\Event::RECRUIT )
                                 <div class="post-user">{{ __('マッチング済') }}</div>
-                                <div class="body"><a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a>
-                                    vs <a href="/user/{{$event->eventUser[1]->user_id}}">＠{{$event->eventUser[1]->user->name}}</a></div>
+                                <div class="body">
+                                    @if($event->status == \APP\Models\Event::FINISH)
+                                        <a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a>
+                                        @if(isset($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult))
+                                            　レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->sum('rating')}}
+                                        @endif
+                                        <br>
+                                        vs<br>
+                                        <a href="/user/{{$event->eventUser[1]->user_id}}">＠{{$event->eventUser[1]->user->name}}</a>
+                                        @if(isset($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult))
+                                            　レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->sum('rating')}}
+                                        @endif
+                                    @else
+                                        <a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a><br>
+                                        vs<br>
+                                        <a href="/user/{{$event->eventUser[1]->user_id}}">＠{{$event->eventUser[1]->user->name}}</a>
+                                    @endif
+                                </div>
                             @else
                                 <div class="post-user">{{ __('対戦受付中') }}</div>
                                 <div class="post-user"><a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a> vs </div>
