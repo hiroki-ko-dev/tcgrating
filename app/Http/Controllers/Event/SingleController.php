@@ -79,12 +79,15 @@ class SingleController extends Controller
         DB::transaction(function () use($request) {
             $request = $this->event_service->createEventBySingle($request);
             //event用のpostを作成
+            $request->merge(['body' => '1vs1決闘に関する質問・雑談をコメントしましょう']);
             $this->post_service->createPost($request);
             $event_id = $request->event_id;
 
+            $request->merge(['status' => \App\Models\Duel::READY]);
             $request = $this->duel_service->createSingle($request);
             //duel用のpostを作成
-            $request->merge(['event_id'=> null]);
+            $request->merge(['event_id' => null]);
+            $request->merge(['body' => 'この掲示板は自分と対戦相手のみ見えます。対戦についてコミュニケーションをとりましょう']);
             $this->post_service->createPost($request);
         });
 

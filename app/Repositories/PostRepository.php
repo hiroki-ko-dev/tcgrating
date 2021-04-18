@@ -39,7 +39,7 @@ class PostRepository
     }
 
     public function findWithUserByDuelId($id){
-        return Post::where('event_id',$id)->with('user')->first();
+        return Post::where('duel_id',$id)->with('user')->first();
     }
 
     public function findWithByPostCategoryTeam($team){
