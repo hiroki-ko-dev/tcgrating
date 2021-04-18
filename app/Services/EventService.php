@@ -68,9 +68,12 @@ class EventService
     public function findAllEventAndUserByEventCategoryId($event_category_id,$paginate)
     {
         return $this->event_repository->findAllWithUserByEventCategoryIdAndPaginate($event_category_id,$paginate);
-
     }
 
+    public function findAllEventByUserId($user_id)
+    {
+        return $this->event_repository->findAllByUserId($user_id);
+    }
 
 
 }

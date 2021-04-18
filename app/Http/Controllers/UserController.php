@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use Auth;
 use DB;
 use App\Services\UserService;
+use App\Services\EventService;
 
 use Illuminate\Http\Request;
 
@@ -12,14 +14,18 @@ class UserController extends Controller
 {
 
     protected $user_service;
+    protected $event_service;
 
     /**
      * UserController constructor.
      * @param UserService $user_service
+     * @param EventService $event_service
      */
-    public function __construct(UserService $user_service)
+    public function __construct(UserService $user_service,
+                                EventService $event_service)
     {
-        $this->user_service = $user_service;
+        $this->user_service  = $user_service;
+        $this->event_service = $event_service;
     }
 
     /**
@@ -40,9 +46,10 @@ class UserController extends Controller
     public function show(Request $request,$user_id)
     {
 
-        $user = $this->user_service->findUser($user_id);
+        $user   = $this->user_service->findUser($user_id);
+        $events = $this->event_service->findAllEventByUserId($user_id);
 
-        return view('user.show',compact('user'));
+        return view('user.show',compact('user','events'));
     }
 
     /**

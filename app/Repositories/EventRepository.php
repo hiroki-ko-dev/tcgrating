@@ -48,6 +48,17 @@ class EventRepository
                     ->find($id);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     */
+    public function findAllByUserId($id){
+        return Event::wherehas('eventUser.user' , function($query) use($id){
+                    $query->where('user_id', $id);
+                })->get();
+    }
+
+
     public function findAllWithUserByEventCategoryIdAndPaginate($event_category_id, $paginate)
     {
         return Event::where('event_category_id', $event_category_id)
