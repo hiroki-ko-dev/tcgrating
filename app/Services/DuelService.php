@@ -66,7 +66,14 @@ class DuelService
 
         //相手より2回以上報告が多くならない制御
         if($duelUserResult->isNotEmpty()){
+            //自分のデュエル結果
             $myDuelUserResult    = $request->duel->duelUser->where('user_id',$request->user_id)->first()->duelUserResult;
+
+            //相手の報告がない場合、今回報告をすると+2の差がつくのでエラー
+            if(!isset($request->duel->duelUser->whereNotIn('user_id',[$request->user_id])->first()->duelUserResult)){
+                throw new \Exception("相手の報告より2回以上多い報告はできません");
+            }
+            //相手のデュエル結果
             $otherDuelUserResult = $request->duel->duelUser->whereNotIn('user_id',[$request->user_id])->first()->duelUserResult;
 
             //すでに試合が終了した後の報告をエラーとする
@@ -74,10 +81,6 @@ class DuelService
                 throw new \Exception("終了した試合です");
             }
 
-            //相手の報告がない場合、今回報告をすると+2の差がつくのでエラー
-            if($otherDuelUserResult->isEmpty()){
-                throw new \Exception("相手の報告より2回以上多い報告はできません");
-            }
             //自分がまだ報告していない場合は報告してOK
             if($myDuelUserResult->isNotEmpty()) {
                 //すでに1回以上報告差がある場合に同じくエラー
@@ -134,6 +137,10 @@ class DuelService
     {
         //すでに結果報告が終わっていないかチェック
         $myDuelUserResult    = $request->duel->duelUser->where('user_id',$request->user_id)->first()->duelUserResult;
+        //相手の初期報告がまだなら次の試合へ
+        if(!isset($request->duel->duelUser->whereNotIn('user_id',[$request->user_id])->first()->duelUserResult)){
+            return $request ;
+        }
         $otherDuelUserResult = $request->duel->duelUser->whereNotIn('user_id',[$request->user_id])->first()->duelUserResult;
 
         //無効試合が選択された場合の処理
