@@ -25,16 +25,15 @@ mix.styles([
     .scripts([
         'resources/js/bootstrap.js',
         'resources/js/bootstrap.min.js',
-        'resources/js/jquery.home.js',
-        'resources/js/jquery.slim.min.js',
-        'resources/js/popper.min.js',
-        'resources/js/core/approval.js',
-        'resources/js/core/runtime.js',
-        'resources/js/core/vendor.js',
-        'resources/js/pages/index.js',
+        // 'resources/js/jquery.home.js',
+        // 'resources/js/jquery.slim.min.js',
+        // 'resources/js/popper.min.js',
+        // 'resources/js/core/approval.js',
+        // 'resources/js/core/runtime.js',
+        // 'resources/js/core/vendor.js',
+        // 'resources/js/pages/index.js',
         'resources/js/common/approval.js',
         'resources/js/common/jquery.js',
-        'resources/js/common/base.js',
     ],'public/js/all.js')
     .sourceMaps()
     .sass('resources/sass/common/header.scss', 'public/css/scss.css')

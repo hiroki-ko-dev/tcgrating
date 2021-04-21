@@ -38,6 +38,11 @@
         document.getElementById( "datepicker" ).value = year + "/" + month + "/" + day ;
         document.getElementById( 'time' ).value = hour + ":" + minute ;
     });
+
+    //submitのボタン連打防止
+    $('form').on('submit', function () {
+        $('button').prop('disabled', true);
+    });
 </script>
 
 @endsection
