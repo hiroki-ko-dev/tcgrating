@@ -48,7 +48,7 @@ class Duel extends Model
     }
 
     public function duelUser(){
-        return $this->hasMany('App\Models\duelUser','duel_id','id');
+        return $this->hasMany('App\Models\DuelUser','duel_id','id');
     }
 
     public function eventDuel(){
