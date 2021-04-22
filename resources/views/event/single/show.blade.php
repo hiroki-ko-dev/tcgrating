@@ -59,6 +59,7 @@
                                 @elseif($event->status == \App\Models\Event::INVALID)
                                     {{ __('無効試合') }}
                                 @endif
+                                <br><br><div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1決闘の使い方</a>」動画を視聴してください</div>
                             </div>
                         </div>
                     </div>
