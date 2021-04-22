@@ -107,7 +107,9 @@ class SingleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $duel = $this->duel_service->findDuelWithUserAndEvent($id);
+
+        return view('duel.single.edit',compact('duel'));
     }
 
     /**
@@ -119,7 +121,10 @@ class SingleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->duel_service->updateDuel($request);
+        $duel = $this->duel_service->findDuelWithUserAndEvent($id);
+
+        return redirect('event/single/'.$duel->eventDuel->event_id)->with('flash_message', '保存しました');
     }
 
     /**

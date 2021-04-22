@@ -59,7 +59,7 @@ use Illuminate\Support\Facades\Route;
 
     //デュエル系スレッド
     Route::resources([
-        'duel' => Duel\SingleController::class,
+        'duel/single' => Duel\SingleController::class,
     ]);
 
     //ランキング系スレッド

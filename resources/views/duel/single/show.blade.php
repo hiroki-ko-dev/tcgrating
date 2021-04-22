@@ -41,7 +41,11 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-body">{{$duel->room_id}}</div>
+                            <div class="post-body">{{$duel->room_id}}
+                                @if($duel->duelUser[0]->user_id == Auth::id())
+                                    （<a href="/duel/single/{{$duel->id}}/edit">編集する</a>）
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>

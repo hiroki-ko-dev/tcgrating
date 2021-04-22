@@ -129,6 +129,17 @@ class DuelService
     }
 
     /**
+     * シングル決闘の際のduel系作成
+     * @param $request
+     * @return mixed
+     */
+    public function updateDuel($request)
+    {
+        $duel = $this->duel_repository->update($request);
+        return $duel;
+    }
+
+    /**
      * シングル決闘の完了確認とステータス処理とレート処理
      * @param $request
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null

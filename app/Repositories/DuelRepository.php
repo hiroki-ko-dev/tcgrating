@@ -43,6 +43,21 @@ class DuelRepository
         return $duel;
     }
 
+    /**
+     * 今のところroom_idとwatching_idの編集
+     * @param $request
+     * @return mixed
+     */
+    public function update($request)
+    {
+        $duel = Duel::find($request->id);
+        $duel->room_id     = $request->room_id;
+        $duel->watching_id = $request->watching_id;
+        $duel->save();
+
+        return $duel;
+    }
+
 
     public function find($id){
         return Duel::find($id);

@@ -66,7 +66,7 @@
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <input id="room_id" type="number" class="form-control w-100 @error('room_id') is-invalid @enderror" name="room_id" value="{{ old('room_id') }}" required autocomplete="room_id" autofocus>
+                                <input id="room_id" type="number" placeholder="※後から編集できます。わからない場合は今は適当に入れてください。" class="form-control w-100 @error('room_id') is-invalid @enderror" name="room_id" value="{{ old('room_id') }}" required autocomplete="room_id" autofocus>
                                 @error('room_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -80,7 +80,8 @@
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <input id="watching_id" type="number" class="form-control w-100 @error('watching_id') is-invalid @enderror" name="watching_id" value="{{ old('watching_id') }}" autofocus>
+                                <input id="watching_id" type="number" placeholder="※後から編集できます。わからない場合は入れないでください。" class="form-control w-100 @error('watching_id') is-invalid @enderror" name="watching_id" value="{{ old('watching_id') }}" autofocus>
+
                                 @error('watching_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
