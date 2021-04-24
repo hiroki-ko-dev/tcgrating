@@ -91,7 +91,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <form method="POST" action="/duel">
+                            <form method="POST" action="/duel/single">
                                 @csrf
                                 <input type="hidden" name="duel_id" value="{{$duel->id}}">
                                 <span class="col-md-3 ">
