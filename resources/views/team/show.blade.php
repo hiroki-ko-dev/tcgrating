@@ -93,7 +93,7 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div type="body">
-                                @if($team->status == \App\Models\Team::RECRUIT)
+                                @if($team->recruit_status == \App\Models\Team::RECRUIT)
                                     <form method="POST" action="/team/user">
                                         @csrf
                                         <input type="hidden" name="team_id" value="{{$team->id}}">
