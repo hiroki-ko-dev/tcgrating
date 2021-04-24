@@ -95,24 +95,16 @@
                                 @csrf
                                 <input type="hidden" name="duel_id" value="{{$duel->id}}">
                                 <span class="col-md-3 ">
-                                    <button type="submit" class="btn btn-primary" name="win" value="1">
-                                        {{ __('　勝利　') }}
-                                    </button>
+                                    <input type="submit" class="btn btn-primary" name="win" value="　勝利　">
                                 </span>
                                 <span class="col-md-7">
-                                    <button type="submit" class="btn btn-danger" name="lose" value="1">
-                                        {{ __('　敗北　') }}
-                                    </button>
+                                    <input type="submit" class="btn btn-danger" name="lose" value="　敗北　">
                                 </span>
                                 <span class="col-md-7">
-                                    <button type="submit" class="btn btn-secondary" name="draw" value="1">
-                                        {{ __('　ドロー') }}
-                                    </button>
+                                    <input type="submit" class="btn btn-secondary" name="draw" value="　ドロー">
                                 </span>
                                 <span class="col-md-10">
-                                    <button type="submit" class="btn btn-secondary" name="invalid" value="1">
-                                        {{ __('無効試合') }}
-                                    </button>
+                                    <input type="submit" class="btn btn-secondary" name="invalid" value="無効試合">
                                 </span>
                             </form>
                         </div>
