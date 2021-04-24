@@ -30,7 +30,7 @@
                     @if(!empty($teams))
                         @foreach($teams as $team)
                             <div class="card-text border-bottom p-2">
-                                <a href="/team/{{$team->id}}">{{$team->name}}</a>
+                                <a href="/team/{{$team->id}}">{{$team->name}}</a> (レート：{{$team->rate}}）
                             </div>
                         @endforeach
                     @endif
