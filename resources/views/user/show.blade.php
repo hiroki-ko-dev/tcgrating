@@ -84,5 +84,5 @@
 @endsection
 
 @include('layouts.common.header')
-@include('layouts.common.adsense')
+@include('layouts.common.google')
 @include('layouts.common.footer')

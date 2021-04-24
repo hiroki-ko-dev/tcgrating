@@ -1,6 +1,4 @@
 @section('header')
-
-<head>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width,initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -27,7 +25,7 @@
     <link rel="manifest" href="images/favicon/manifest.json" crossorigin="use-credentials">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-</head>
+
 @endsection
 
 @section('bodyHeader')
