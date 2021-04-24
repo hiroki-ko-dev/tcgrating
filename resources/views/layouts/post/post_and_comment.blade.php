@@ -29,7 +29,7 @@
                     <div class="card-header">{{ __('コメント一覧') }}</div>
                     <div class="card-body">
                         @foreach($comments as $comment)
-                            <div class="col-md-12">
+                            <div class="col-md-12 pt-3">
                                 <div class="post-user"><a href="/user/{{$comment->user_id}}">＠{{$comment->user->name}}</a> [{{$comment->created_at}}]</div>
                             </div>
                             <div class="card-text border-bottom p-2">
