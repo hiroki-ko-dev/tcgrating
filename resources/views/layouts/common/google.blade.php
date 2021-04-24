@@ -27,11 +27,21 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108878672-4"></script>
     <script>
+        //トラッキングコード
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'UA-108878672-4');
+
+        //user-idコード
+        @if(Auth::check())
+            ga('create', 'UA-108878672-4', 'auto');
+            gtag('set',{'user_id': '{{Auth::id()}}'}); // ログインしている user_id を使用してUser-ID を設定します。
+            ga('set', 'user_id', '{{Auth::id()}}'); // ログインしている user_id を使用してUser-ID を設定します。
+            ga('send', 'pageview');
+        @endif
+
     </script>
 
 @endsection
