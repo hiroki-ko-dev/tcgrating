@@ -32,7 +32,7 @@
                             <div class="col-md-12 pt-3">
                                 <div class="post-user"><a href="/user/{{$comment->user_id}}">＠{{$comment->user->name}}</a> [{{$comment->created_at}}]</div>
                             </div>
-                            <div class="card-text border-bottom p-2">
+                            <div class="card-text border-bottom pt-2 pb-2">
                                 {!! nl2br(e($comment->body)) !!}
                             </div>
                         @endforeach
