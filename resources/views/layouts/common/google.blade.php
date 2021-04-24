@@ -9,19 +9,31 @@
 @endsection
 
 @section('analitics')
+{{--    <!-- Global site tag (gtag.js) - Google Analytics -->--}}
+{{--    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XFDXK7PGHL"></script>--}}
+{{--    <script>--}}
+{{--        window.dataLayer = window.dataLayer || [];--}}
+{{--        function gtag(){dataLayer.push(arguments);}--}}
+{{--        gtag('js', new Date());--}}
+
+{{--        gtag('config', 'G-XFDXK7PGHL');--}}
+
+{{--        ga('create', 'UA-xxxxxxx-1', 'auto');--}}
+{{--        ga('set', '&uid', 'User-ID');--}}
+{{--        ga('send', 'pageview');--}}
+{{--    </script>--}}
+
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XFDXK7PGHL"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108878672-4"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-XFDXK7PGHL');
-
-        ga('create', 'UA-xxxxxxx-1', 'auto');
-        ga('set', '&uid', 'User-ID');
-        ga('send', 'pageview');
+        gtag('config', 'UA-108878672-4');
     </script>
+
 @endsection
 
 
