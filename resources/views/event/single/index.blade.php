@@ -34,15 +34,15 @@
                                 <span class="post-user">[対戦日時:{{$event->date}} {{$event->time}}]</span>
                                 <span class="post-user">[
                                 @if($event->status == \APP\Models\Event::RECRUIT )
-                                        <div class="post-user">{{ __('対戦受付中') }}</div>
+                                        {{ __('対戦受付中') }}
                                     @elseif($event->status == \APP\Models\Event::READY )
-                                        <div class="post-user">{{ __('マッチング済') }}</div>
+                                        {{ __('マッチング済') }}
                                     @elseif($event->status == \APP\Models\Event::FINISH )
-                                        <div class="post-user">{{ __('対戦完了') }}</div>
+                                        {{ __('対戦完了') }}
                                     @elseif($event->status == \APP\Models\Event::CANCEL )
-                                        <div class="post-user">{{ __('対戦キャンセル') }}</div>
+                                        {{ __('対戦キャンセル') }}
                                     @elseif($event->status == \APP\Models\Event::INVALID )
-                                        <div class="post-user">{{ __('無効試合') }}</div>
+                                        {{ __('無効試合') }}
                                     @endif
                                 ]</span>
                             </div>
