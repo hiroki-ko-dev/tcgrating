@@ -31,20 +31,19 @@
                         @foreach($events as $event)
                             <div class="card-text border-bottom p-2">
                                 <a href="/event/single/{{$event->id}}">vs {{$event->eventUser[0]->user->name }}</a>
-                                <span class="post-user">[対戦日時:{{$event->date}} {{$event->time}}]</span>
-                                <span class="post-user">[
+
+
                                 @if($event->status == \APP\Models\Event::RECRUIT )
-                                        {{ __('対戦受付中') }}
+                                        <span class="post-user">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('対戦受付中') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::READY )
-                                        {{ __('マッチング済') }}
+                                        <span class="post-user">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('マッチング済') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::FINISH )
-                                        {{ __('対戦完了') }}
+                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('対戦完了') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::CANCEL )
-                                        {{ __('対戦キャンセル') }}
+                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('対戦キャンセル') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::INVALID )
-                                        {{ __('無効試合') }}
+                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('無効試合') }}]</span>
                                     @endif
-                                ]</span>
                             </div>
                         @endforeach
                     @endif
