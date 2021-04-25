@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Event;
 
 use DB;
 use Auth;
+use Mail;
 
 use App\Http\Controllers\Controller;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\PostService;
+
+use App\Mail\AdminNoticeCreateEventSingleMail;
 
 use Illuminate\Http\Request;
 
@@ -76,7 +79,7 @@ class SingleController extends Controller
         $request->merge(['status'            => \App\Models\EventUser::MASTER]);
         $request->merge(['is_personal'       => 0]);
 
-        DB::transaction(function () use($request) {
+        $event_id = DB::transaction(function () use($request) {
             $request = $this->event_service->createEventBySingle($request);
             //event用のpostを作成
             $request->merge(['body' => '1vs1決闘に関する質問・雑談をコメントしましょう']);
@@ -89,9 +92,11 @@ class SingleController extends Controller
             $request->merge(['event_id' => null]);
             $request->merge(['body' => 'この掲示板は自分と対戦相手のみ見えます。対戦についてコミュニケーションをとりましょう']);
             $this->post_service->createPost($request);
+            Mail::send(new AdminNoticeCreateEventSingleMail('/event/single/'.$event_id));
+            return $event_id;
         });
 
-        return redirect('/event/single/'.$request->event_id)->with('flash_message', '新規1vs1決闘を作成しました');
+        return redirect('/event/single/'.$event_id)->with('flash_message', '新規1vs1決闘を作成しました');
     }
 
     /**
