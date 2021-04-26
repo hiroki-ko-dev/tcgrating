@@ -32,7 +32,7 @@ class AdminNoticeCreateEventSingleMail extends Mailable
     {
         return $this->to(env('MAIL_FROM_ADDRESS'))  // 送信先アドレス
         ->subject('【遊戯王レーティング】イベントが作成されました')// 件名
-        ->view('emails.admin_notice_create_event_single')  // 本文
+        ->text('emails.admin_notice_create_event_single')  // 本文
         ->with(['url' => $this->url]);    // 本文に送る値
     }
 }
