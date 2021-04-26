@@ -88,7 +88,7 @@
                                 vs<br>
                                 @isset($event->eventUser[1])
                                 <a href="/user/{{$event->eventUser[1]->user_id}}">＠{{$event->eventUser[1]->user->name}}</a>
-                                    @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->isEmpty())
+                                    @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->isNotEmpty())
                                         　レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->sum('rating')}}
                                     @endif
                                 @endisset
