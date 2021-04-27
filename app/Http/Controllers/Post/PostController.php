@@ -83,7 +83,7 @@ class PostController extends Controller
     public function show($post_id)
     {
         $post     = $this->post_service->findPostWithUser($post_id);
-        $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post_id,20);
+        $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post_id,100);
         return view('post.show',compact('post','comments'));
     }
 
