@@ -34,7 +34,7 @@
     <script>
         //トラッキングコード
         window.dataLayer = window.dataLayer || [];
-        function gta(){dataLayer.push(arguments);}
+        function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'UA-108878672-4');
