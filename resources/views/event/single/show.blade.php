@@ -96,7 +96,7 @@
                         </div>
                         <div class="col-md-6 offset-md-5">
                             @if($event->user_id <> Auth::id() && $event->status == \APP\Models\Event::RECRUIT)
-                                <form method="POST" action="/event/user">
+                                <form method="POST" action="/event/user" onClick="return requestConfirm();">
                                     @csrf
                                     <input type="hidden" name="event_id" value="{{$event->id}}">
                                     <input type="hidden" name="duel_id" value="{{$event->eventDuel[0]->duel->id}}">
