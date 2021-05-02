@@ -55,6 +55,16 @@ class EventService
         return $event;
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function updateEventUser($request)
+    {
+        $eventUser = $this->event_user_repository->update($request);
+        return $eventUser;
+    }
+
     public function findEventWithUserAndDuel($event_id){
         return $this->event_repository->findWithUserAndDuel($event_id);
     }

@@ -117,24 +117,30 @@ class SingleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $event_id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($event_id)
     {
-        //
+        $event = $this->event_service->findEventWithUserAndDuel($event_id);
+
+        return view('event.single.edit',compact('event'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $event_id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $event_id)
     {
-        //
+        $request->merge(['event_id' => $event_id]);
+        $request->merge(['user_id' => Auth::id()]);
+        $this->event_service->updateEventUser($request, $event_id);
+
+        return redirect('/event/single/'.$event_id)->with('flash_message', '保存しました');
     }
 
     /**

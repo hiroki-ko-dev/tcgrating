@@ -155,6 +155,31 @@
         </div>
     </div>
 
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('配信URL') }}
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="post-body">
+                                {{$event->eventUser[0]->user->name}}視点：{{$event->eventUser[0]->stream_url}}<br>
+                                @isset($event->eventUser[1])
+                                {{$event->eventUser[1]->user->name}}視点：{{$event->eventUser[1]->stream_url}}<br>
+                                @endisset
+                                @if($event->eventUser->where('user_id',Auth::id())->isNotEmpty())
+                                    （<a href="/event/single/{{$event->id}}/edit">編集する</a>）
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @include('layouts.post.post_and_comment')
 </div>
 

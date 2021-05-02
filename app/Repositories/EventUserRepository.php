@@ -28,6 +28,17 @@ class EventUserRepository
         return $eventUser;
     }
 
+    public function update($request)
+    {
+        $eventUser = EventUser::where('event_id',$request->event_id)
+                                ->where('user_id',$request->user_id)
+                                ->first();
+        $eventUser->stream_url = $request->stream_url;
+        $eventUser->save();
+
+        return $eventUser;
+    }
+
     public function find($id){
         return EventUser::find($id);
     }
