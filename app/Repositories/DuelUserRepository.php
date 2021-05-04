@@ -15,7 +15,7 @@ class DuelUserRepository
         $duelUser->fill([
             'duel_id'           => $request->duel_id,
             'user_id'           => $request->user_id,
-            'status'            => DuelUser::MASTER,
+            'status'            => $request->status,
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now()
         ]);

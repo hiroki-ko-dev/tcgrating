@@ -19,7 +19,7 @@ class EventUserRepository
         $eventUser->fill([
             'event_id'          => $request->event_id,
             'user_id'           => $request->user_id,
-            'status'            => EventUser::MASTER,
+            'status'            => $request->status,
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now()
         ]);

@@ -59,6 +59,7 @@ class UserController extends Controller
 
         //追加
         $request->merge(['user_id' => Auth::id()]);
+        $request->merge(['status'  => \App\Models\EventUser::APPROVAL]);
 
         DB::transaction(function () use($request) {
             $this->event_service->createUser($request) ;
