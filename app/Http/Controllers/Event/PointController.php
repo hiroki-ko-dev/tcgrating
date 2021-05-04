@@ -77,6 +77,8 @@ class PointController extends Controller
         $request->merge(['title'             => 'ポイントバトル決闘']);
         $request->merge(['status'            => \App\Models\EventUser::MASTER]);
         $request->merge(['is_personal'       => 0]);
+        $request->merge(['number_of_games'   => 1]);
+
 
         $event_id = DB::transaction(function () use($request) {
             $request = $this->event_service->createEventBySingle($request);

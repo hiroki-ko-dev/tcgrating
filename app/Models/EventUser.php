@@ -11,10 +11,10 @@ class EventUser extends Model
     protected $guarded = [];
 
     //定数の定義
-    const REQUEST   = 1;
-    const APPROVAL  = 2;
-    const REJECT    = 3;
-    const MASTER    = 4;
+    const REQUEST   = 0;
+    const APPROVAL  = 1;
+    const REJECT    = 2;
+    const MASTER    = 3;
 
     const STATUS = [
         'request'  => self::REQUEST,
