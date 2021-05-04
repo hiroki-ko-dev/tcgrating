@@ -32,11 +32,16 @@
         var day    = today.getDate();
 
         //日・時・分を取得
-        var hour   = today.getHours();
-        var minute = today.getMinutes();
+        var start_hour   = today.getHours();
+        var start_minute = today.getMinutes();
+
+        //日・時・分を取得
+        var end_hour   = today.getHours();
+        var end_minute = today.getMinutes();
 
         document.getElementById( "datepicker" ).value = year + "/" + month + "/" + day ;
-        document.getElementById( 'start_time' ).value = hour + ":" + minute ;
+        document.getElementById( 'start_time' ).value = start_hour + ":" + start_minute ;
+        document.getElementById( 'end_time' ).value   = (end_hour + 1) + ":" + end_minute ;
     });
 
     //submitのボタン連打防止

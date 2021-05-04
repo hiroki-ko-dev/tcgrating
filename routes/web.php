@@ -51,6 +51,7 @@ use Illuminate\Support\Facades\Route;
     //1対1デュエル系スレッド
     Route::resources([
         'event/single' => Event\SingleController::class,
+        'event/point'  => Event\PointController::class,
     ]);
     //イベント系スレッド
     Route::resources([
@@ -60,6 +61,7 @@ use Illuminate\Support\Facades\Route;
     //デュエル系スレッド
     Route::resources([
         'duel/single' => Duel\SingleController::class,
+        'duel/point'  => Duel\PointController::class,
     ]);
 
     //ランキング系スレッド
