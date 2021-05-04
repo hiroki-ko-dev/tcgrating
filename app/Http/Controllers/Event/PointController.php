@@ -71,19 +71,18 @@ class PointController extends Controller
 
         //追加
         $request->merge(['event_category_id' => \App\Models\EventCategory::POINT]);
-        $request->merge(['duel_category_id'  => \App\Models\DuelCategory::SINGLE]);
+        $request->merge(['duel_category_id'  => \App\Models\DuelCategory::POINT]);
         $request->merge(['post_category_id'  => \App\Models\PostCategory::EVENT]);
         $request->merge(['user_id'           => Auth::id()]);
+        $request->merge(['number_of_games'   => 1]);
         $request->merge(['title'             => 'ポイントバトル決闘']);
         $request->merge(['status'            => \App\Models\EventUser::MASTER]);
         $request->merge(['is_personal'       => 0]);
-        $request->merge(['number_of_games'   => 1]);
-
 
         $event_id = DB::transaction(function () use($request) {
             $request = $this->event_service->createEventBySingle($request);
             //event用のpostを作成
-            $request->merge(['body' => '1vs1決闘に関する質問・雑談をコメントしましょう']);
+            $request->merge(['body' => 'ポイントバトル決闘に関する質問・雑談をコメントしましょう']);
             $this->post_service->createPost($request);
             $event_id = $request->event_id;
 
@@ -93,11 +92,11 @@ class PointController extends Controller
             $request->merge(['event_id' => null]);
             $request->merge(['body' => 'この掲示板は自分と対戦相手のみ見えます。対戦についてコミュニケーションをとりましょう']);
             $this->post_service->createPost($request);
-            Mail::send(new AdminNoticeCreateEventSingleMail('/event/single/'.$event_id));
+            Mail::send(new AdminNoticeCreateEventSingleMail('/event/point/'.$event_id));
             return $event_id;
         });
 
-        return redirect('/event/single/'.$event_id)->with('flash_message', '新規1vs1決闘を作成しました');
+        return redirect('/event/point/'.$event_id)->with('flash_message', '新規ポイントバトル決闘を作成しました');
     }
 
     /**

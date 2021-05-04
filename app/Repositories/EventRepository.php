@@ -21,6 +21,7 @@ class EventRepository
             'body'              => $request->body,
             'date'              => $request->date,
             'start_time'        => $request->start_time,
+            'end_time'          => $request->end_time,
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now()
         ]);

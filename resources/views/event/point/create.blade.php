@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <form method="POST" action="/event/single">
+                <form method="POST" action="/event/point">
                     @csrf
 
                     <div class="card-header">{{ __('一言メッセージ') }}</div>
@@ -56,20 +56,6 @@
                             <div class="col-md-3">
                                 <input type="time" id="end_time" class="form-control w-100 @error('end_time') is-invalid @enderror" name="end_time" >{{ old('end_time') }}</input>
                                 @error('end_time')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-header">{{ __('対戦回数') }}</div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <input type="number" id="number_of_games" class="form-control w-100 @error('number_of_games') is-invalid @enderror" name="number_of_games" >{{ old('number_of_games') }}</input>
-                                @error('number_of_games')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
