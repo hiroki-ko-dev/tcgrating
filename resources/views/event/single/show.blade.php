@@ -121,7 +121,7 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user">{{date('Y/m/d H:i', strtotime($event->date.' '.$event->time))}}</div> ※対戦開始日時になったら決闘ページへ移動してください
+                            <div class="post-user">{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}</div> ※対戦開始日時になったら決闘ページへ移動してください
                             @if($event->status <> \App\Models\Event::RECRUIT)
                                 <div class="col-md-6 offset-md-5">
                                     <button class="btn btn-primary" onclick="location.href='/duel/single/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>

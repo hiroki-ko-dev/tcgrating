@@ -34,15 +34,15 @@
 
 
                                 @if($event->status == \APP\Models\Event::RECRUIT )
-                                        <span class="post-user">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('対戦受付中') }}]</span>
+                                        <span class="post-user">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('対戦受付中') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::READY )
-                                        <span class="post-user">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('マッチング済') }}]</span>
+                                        <span class="post-user">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('マッチング済') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::FINISH )
-                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('対戦完了') }}]</span>
+                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('対戦完了') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::CANCEL )
-                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('対戦キャンセル') }}]</span>
+                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('対戦キャンセル') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::INVALID )
-                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->time}}][{{ __('無効試合') }}]</span>
+                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('無効試合') }}]</span>
                                     @endif
                             </div>
                         @endforeach

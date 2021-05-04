@@ -69,9 +69,9 @@
                         <div class="col-md-12">
                             @foreach($events as $event)
                                 @if($event->status == \App\Models\Event::RECRUIT)
-                                    <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->time))}}(対戦相手受付中)</a></div>
+                                    <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(対戦相手受付中)</a></div>
                                 @elseif($event->status == \App\Models\Event::READY)
-                                    <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->time))}}(マッチング済)</a></div>
+                                    <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(マッチング済)</a></div>
                                 @endif
                             @endforeach
                         </div>

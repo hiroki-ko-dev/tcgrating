@@ -36,7 +36,7 @@
         var minute = today.getMinutes();
 
         document.getElementById( "datepicker" ).value = year + "/" + month + "/" + day ;
-        document.getElementById( 'time' ).value = hour + ":" + minute ;
+        document.getElementById( 'start_time' ).value = hour + ":" + minute ;
     });
 
     //submitのボタン連打防止

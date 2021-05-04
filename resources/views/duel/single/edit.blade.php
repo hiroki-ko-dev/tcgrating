@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <div class="post-body">{{date('Y/m/d H:i', strtotime($duel->eventDuel->event->date.' '.$duel->eventDuel->event->time))}}</div>
+                                    <div class="post-body">{{date('Y/m/d H:i', strtotime($duel->eventDuel->event->date.' '.$duel->eventDuel->event->start_time))}}</div>
                                 </div>
                             </div>
                         </div>

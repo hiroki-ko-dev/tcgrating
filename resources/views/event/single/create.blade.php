@@ -38,8 +38,8 @@
                             </div>
 
                             <div class="col-md-3">
-                                <input type="time" id="time" class="form-control w-100 @error('time') is-invalid @enderror" name="time" >{{ old('time') }}</input>
-                                @error('time')
+                                <input type="time" id="start_time" class="form-control w-100 @error('start_time') is-invalid @enderror" name="start_time" >{{ old('start_time') }}</input>
+                                @error('start_time')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
