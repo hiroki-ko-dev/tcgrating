@@ -29,5 +29,14 @@ class UserService
         return $this->user_repository->findAllByPaginateOrderByRank($pagination);
     }
 
+    /**
+     * 全員にメールを一斉送信する際の処理
+     * @param $user_id
+     * @return mixed
+     */
+    public function findAllUserBySendMail($user_id)
+    {
+        return $this->user_repository->findAllBySendMail($user_id);
+    }
 
 }

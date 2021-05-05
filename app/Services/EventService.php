@@ -29,7 +29,7 @@ class EventService
         $event = $this->event_repository->create($request);
         $request->merge(['event_id' => $event->id]);
         $this->event_user_repository->create($request);
-        return $request;
+        return $event;
     }
 
     /**

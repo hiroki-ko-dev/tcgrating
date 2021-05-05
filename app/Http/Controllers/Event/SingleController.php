@@ -10,8 +10,10 @@ use App\Http\Controllers\Controller;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\PostService;
+use App\Services\UserService;
 
 use App\Mail\AdminNoticeCreateEventSingleMail;
+use App\Mail\CreateEventSingleMail;
 
 use Illuminate\Http\Request;
 
@@ -21,14 +23,17 @@ class SingleController extends Controller
     protected $event_service;
     protected $duel_service;
     protected $post_service;
+    protected $user_service;
 
     public function __construct(EventService $event_service,
                                 DuelService $duel_service,
-                                PostService $post_service)
+                                PostService $post_service,
+                                UserService $user_service)
     {
         $this->event_service = $event_service ;
         $this->duel_service  = $duel_service ;
         $this->post_service  = $post_service ;
+        $this->user_service  = $user_service ;
     }
 
     /**
@@ -80,8 +85,9 @@ class SingleController extends Controller
         $request->merge(['is_personal'       => 0]);
 
         $event_id = DB::transaction(function () use($request) {
-            $request = $this->event_service->createEventBySingle($request);
+            $event = $this->event_service->createEventBySingle($request);
             //event用のpostを作成
+            $request->merge(['event_id' => $event->id]);
             $request->merge(['body' => '1vs1決闘に関する質問・雑談をコメントしましょう']);
             $this->post_service->createPost($request);
             $event_id = $request->event_id;
@@ -93,6 +99,9 @@ class SingleController extends Controller
             $request->merge(['body' => 'この掲示板は自分と対戦相手のみ見えます。対戦についてコミュニケーションをとりましょう']);
             $this->post_service->createPost($request);
             Mail::send(new AdminNoticeCreateEventSingleMail('/event/single/'.$event_id));
+
+            $users = $this->user_service->findAllUserBySendMail($event->user_id);
+            Mail::send(new CreateEventSingleMail($event, $users));
             return $event_id;
         });
 

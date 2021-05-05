@@ -42,4 +42,8 @@ class UserRepository
         return User::OrderBy('rate','desc')->paginate($pagination);
     }
 
+    public function findAllBySendMail($id){
+        return User::whereNotIn('id',[$id])->where('email', 'not like', '%test@test.jp%')->get();
+    }
+
 }
