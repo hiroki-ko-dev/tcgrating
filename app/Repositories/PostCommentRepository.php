@@ -11,15 +11,17 @@ class PostCommentRepository
 
     public function create($request)
     {
-        PostComment::insert([
-            [
-                'post_id'          => $request->post_id,
-                'user_id'          => $request->user_id,
-                'body'             => $request->body,
-                'created_at'       => Carbon::now(),
-                'updated_at'       => Carbon::now()
-            ],
+        $comment = new PostComment();
+        $comment->fill([
+            'post_id'          => $request->post_id,
+            'user_id'          => $request->user_id,
+            'body'             => $request->body,
+            'created_at'       => Carbon::now(),
+            'updated_at'       => Carbon::now()
         ]);
+        $comment->save();
+
+        return $comment ;
     }
 
     public function find($id){
