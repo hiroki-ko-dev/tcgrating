@@ -12,8 +12,8 @@ use App\Services\DuelService;
 use App\Services\PostService;
 use App\Services\UserService;
 
-use App\Mail\AdminNoticeCreateEventSingleMail;
-use App\Mail\CreateEventSingleMail;
+//use App\Mail\AdminNoticeCreateEventSingleMail;
+use App\Mail\EventSingleCreateMail;
 
 use Illuminate\Http\Request;
 
@@ -98,10 +98,10 @@ class SingleController extends Controller
             $request->merge(['event_id' => null]);
             $request->merge(['body' => 'この掲示板は自分と対戦相手のみ見えます。対戦についてコミュニケーションをとりましょう']);
             $this->post_service->createPost($request);
-            Mail::send(new AdminNoticeCreateEventSingleMail('/event/single/'.$event_id));
+//            Mail::send(new AdminNoticeCreateEventSingleMail('/event/single/'.$event_id));
 
             $users = $this->user_service->findAllUserBySendMail($event->user_id);
-            Mail::send(new CreateEventSingleMail($event, $users));
+            Mail::send(new EventSingleCreateMail($event, $users));
             return $event_id;
         });
 

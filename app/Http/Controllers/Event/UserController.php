@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Event;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
+use Mail;
+
 use Illuminate\Http\Request;
 
 use App\Services\EventService;
 use App\Services\DuelService;
+use App\Services\UserService;
+
+use App\Mail\EventSingleJoinRequestMail;
 
 
 class UserController extends Controller
@@ -16,12 +21,15 @@ class UserController extends Controller
 
     protected $event_service;
     protected $duel_service;
+    protected $user_service;
 
     public function __construct(EventService $event_service,
-                                DuelService $duel_service)
+                                DuelService $duel_service,
+                                UserService $user_service)
     {
         $this->event_service = $event_service ;
         $this->duel_service  = $duel_service ;
+        $this->user_service  = $user_service ;
     }
 
     /**
@@ -69,6 +77,8 @@ class UserController extends Controller
             if($event->event_category_id === \App\Models\EventCategory::SINGLE){
                 $this->event_service->updateEventStatus($request->event_id, \APP\Models\Event::READY);
             }
+
+            Mail::send(new EventSingleJoinRequestMail($event));
         });
 
         return back()->with('flash_message', '対戦申込が完了しました');
