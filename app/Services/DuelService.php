@@ -216,6 +216,16 @@ class DuelService
      * @param $duel_id
      * @return mixed
      */
+    public function findDuel($duel_id)
+    {
+        return $this->duel_repository->find($duel_id);
+    }
+
+    /**
+     * シングル決闘の際のduelを取得
+     * @param $duel_id
+     * @return mixed
+     */
     public function findDuelWithUserAndEvent($duel_id)
     {
         return $this->duel_repository->findWithUserAndEvent($duel_id);

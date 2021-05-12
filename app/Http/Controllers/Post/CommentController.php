@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Post;
 use App\Http\Controllers\Controller;
 use App\Services\PostService;
 use App\Services\EventService;
+use App\Services\DuelService;
 use App\Services\UserService;
 
 use Illuminate\Support\Facades\Auth;
@@ -12,19 +13,23 @@ use DB;
 use Mail;
 
 use App\Mail\PostCommentEventMail;
+use App\Mail\PostCommentDuelMail;
 
 class CommentController extends Controller
 {
     protected $post_service;
     protected $event_service;
+    protected $duel_service;
     protected $user_service;
 
     public function __construct(PostService $post_service,
                                 EventService $event_service,
+                                DuelService $duel_service,
                                 UserService $user_service)
     {
         $this->post_service  = $post_service;
         $this->event_service = $event_service ;
+        $this->duel_service  = $duel_service ;
         $this->user_service  = $user_service ;
     }
 
@@ -71,16 +76,27 @@ class CommentController extends Controller
             $comment = $this->post_service->createComment($request);
 
             $post = $this->post_service->findPostWithUser($request->post_id);
+
             //書き込みがイベント掲示板ならコメントがついたことをコメント者以外にメール通知
-            if($post->post_category_id == \App\Models\PostCategory::EVENT){
+            if($post->post_category_id == \App\Models\PostCategory::EVENT) {
                 $event = $this->event_service->findEventWithUserAndDuel($post->event_id);
                 //コメントをした本人以外に通知を送る
-                $eventUsers = $event->eventUser->whereNotIn('user_id',[Auth::id()]);
+                $eventUsers = $event->eventUser->whereNotIn('user_id', [Auth::id()]);
                 $emails = [];
-                foreach($eventUsers as $eventUser){
+                foreach ($eventUsers as $eventUser) {
                     $emails[] = $eventUser->user->email;
                 }
                 Mail::send(new PostCommentEventMail($emails, $post, $comment));
+            //書き込みが決闘掲示板ならコメントがついたことをコメント者以外にメール通知
+            }elseif($post->post_category_id == \App\Models\PostCategory::DUEL){
+                    $duel = $this->duel_service->findDuel($post->duel_id);
+                    //コメントをした本人以外に通知を送る
+                    $duelUsers = $duel->duelUser->whereNotIn('user_id',[Auth::id()]);
+                    $emails = [];
+                    foreach($duelUsers as $duelUser){
+                        $emails[] = $duelUser->user->email;
+                    }
+                    Mail::send(new PostCommentDuelMail($emails, $post, $comment));
 
             }
         });

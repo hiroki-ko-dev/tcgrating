@@ -95,6 +95,7 @@ class SingleController extends Controller
             $request->merge(['status' => \App\Models\Duel::READY]);
             $request = $this->duel_service->createSingle($request);
             //duel用のpostを作成
+            $request->merge(['post_category_id'  => \App\Models\PostCategory::DUEL]);
             $request->merge(['event_id' => null]);
             $request->merge(['body' => 'この掲示板は自分と対戦相手のみ見えます。対戦についてコミュニケーションをとりましょう']);
             $this->post_service->createPost($request);
