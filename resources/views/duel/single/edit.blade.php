@@ -54,7 +54,7 @@
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <input id="watching_id" type="number" placeholder="※編集できます。わからない場合は入れないでください。" class="form-control w-100 @error('watching_id') is-invalid @enderror" name="watching_id" value="{{ old('watching_id',$duel->watching_id) }}" required autocomplete="watching_id" autofocus>
+                                    <input id="watching_id" type="number" placeholder="※編集できます。わからない場合は入れないでください。" class="form-control w-100 @error('watching_id') is-invalid @enderror" name="watching_id" value="{{ old('watching_id',$duel->watching_id) }}" >
                                     @error('watching_id')
                                     <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
