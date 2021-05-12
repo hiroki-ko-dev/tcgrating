@@ -53,6 +53,8 @@
         </div>
     </div>
 
+    @include('layouts.post.post_and_comment')
+
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
             <div class="card">
@@ -70,12 +72,61 @@
                             @endif
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">対戦回数</th>
+                                <th scope="col">{{$duel->duelUser[0]->user->name}}報告内容</th>
+                                <th scope="col">{{$duel->duelUser[1]->user->name}}報告内容</th>
+                            </tr>
+                            </thead>
+                            @for($i = 1; $i < $duel->number_of_games + 1; $i++)
+                                <tr>
+                                    <td>{{$i}}</td>
+                                    @isset($duel->duelUser[0]->duelUserResult->where('games_number',$i)->first()->result)
+                                        @switch($duel->duelUser[0]->duelUserResult->where('games_number',$i)->first()->result)
+                                            @case(\App\Models\DuelUserResult::WIN)
+                                            <td>{{ __('勝利') }}</td>
+                                            @break
+                                            @case(\App\Models\DuelUserResult::LOSE)
+                                            <td>{{ __('敗北') }}</td>
+                                            @break
+                                            @case(\App\Models\DuelUserResult::DRAW)
+                                            <td>{{ __('ドロー') }}</td>
+                                            @break
+                                            @default
+                                            <td>{{ __('無効試合') }}</td>
+                                        @endswitch
+                                    @else
+                                        <td>-</td>
+                                    @endif
+                                    @isset($duel->duelUser[1]->duelUserResult->where('games_number',$i)->first()->result)
+                                        @switch($duel->duelUser[1]->duelUserResult->where('games_number',$i)->first()->result)
+                                            @case(\App\Models\DuelUserResult::WIN)
+                                            <td>{{ __('勝利') }}</td>
+                                            @break
+                                            @case(\App\Models\DuelUserResult::LOSE)
+                                            <td>{{ __('敗北') }}</td>
+                                            @break
+                                            @case(\App\Models\DuelUserResult::DRAW)
+                                            <td>{{ __('ドロー') }}</td>
+                                            @break
+                                            @default
+                                            <td>{{ __('無効試合') }}</td>
+                                        @endswitch
+                                    @else
+                                        <td>-</td>
+                                    @endif
+                                </tr>
+                            @endfor
+
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    @include('layouts.post.post_and_comment')
 
     <div class="row justify-content-center mb-4">
         <div class="col-md-8">
