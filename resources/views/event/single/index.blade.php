@@ -30,13 +30,13 @@
                     @if(!empty($events))
                         @foreach($events as $event)
                             <div class="card-text border-bottom p-2">
-                                <a href="/event/single/{{$event->id}}">vs {{$event->eventUser[0]->user->name }}</a>
+                                <a href="/event/single/{{$event->id}}">{{$event->eventUser[0]->user->name }} vs @isset($event->eventUser[1]){{$event->eventUser[1]->user->name}}@else（募集中）@endisset</a>
 
 
                                 @if($event->status == \APP\Models\Event::RECRUIT )
                                         <span class="post-user">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('対戦受付中') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::READY )
-                                        <span class="post-user">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('マッチング済') }}]</span>
+                                        <span class="post-user text-warning">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('マッチング済') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::FINISH )
                                         <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('対戦完了') }}]</span>
                                     @elseif($event->status == \APP\Models\Event::CANCEL )
