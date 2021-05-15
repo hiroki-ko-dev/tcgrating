@@ -46,8 +46,9 @@
             m=s.getElementsByTagName(o)
                     [0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
             ga('create', 'UA-108878672-4', 'auto');
-            ga('set', 'user_id', '{{Auth::id()}}'); // ログインしている user_id を使用してUser-ID を設定します。
+            ga('set', '&uid', '{{Auth::id()}}'); // ログインしている user_id を使用してUser-ID を設定します。
             ga('send', 'pageview');
         @endif
 
