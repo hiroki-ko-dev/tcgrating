@@ -140,6 +140,18 @@ class DuelService
     }
 
     /**
+     * シングル決闘の際のduelステータス系操作
+     * @param $duel_id
+     * @param $nextt_status
+     * @return \App\Models\Duel
+     */
+    public function updateDuelStatus($duel_id, $nextt_status)
+    {
+        $duel = $this->duel_repository->updateStatus($duel_id, $nextt_status);
+        return $duel;
+    }
+
+    /**
      * シングル決闘の完了確認とステータス処理とレート処理
      * @param $request
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null

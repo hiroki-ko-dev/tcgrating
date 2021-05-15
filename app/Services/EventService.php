@@ -51,8 +51,7 @@ class EventService
      */
     public function updateEventStatus($event_id, $status)
     {
-        $event = $this->event_repository->updateStatus($event_id, $status);
-        return $event;
+        return $this->event_repository->updateStatus($event_id, $status);
     }
 
     /**

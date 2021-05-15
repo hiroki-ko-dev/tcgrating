@@ -51,7 +51,22 @@
                         <div class="col-md-12">
                             <div class="body">
                                 @if($event->status == \APP\Models\Event::RECRUIT )
-                                    <div class="post-user">{{ __('対戦受付中') }}</div>
+                                    <div class="form-group row">
+                                        <span class="col-md-2">
+                                            <div class="post-user">{{ __('対戦受付中') }}</div>
+                                        </span>
+                                        <span class="col-md-3">
+                                            @if(Auth::id() == $event->user_id)
+                                                <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" name="event_cancel" class="btn btn-secondary" >
+                                                        {{ __('キャンセルする') }}
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </span>
+                                    </div>
                                 @elseif($event->status == \APP\Models\Event::READY )
                                     <div class="post-user">{{ __('マッチング済') }}</div>
                                 @elseif($event->status == \APP\Models\Event::FINISH )
@@ -100,7 +115,7 @@
                                     @csrf
                                     <input type="hidden" name="event_id" value="{{$event->id}}">
                                     <input type="hidden" name="duel_id" value="{{$event->eventDuel[0]->duel->id}}">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" name="event_add_user" value="1" class="btn btn-primary">
                                         {{ __('対戦申込') }}
                                     </button>
                                 </form>
