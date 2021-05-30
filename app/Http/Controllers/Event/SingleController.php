@@ -75,6 +75,7 @@ class SingleController extends Controller
         }
 
         //追加
+        $request->merge(['game_id' => 1]);
         $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
         $request->merge(['duel_category_id'  => \App\Models\DuelCategory::SINGLE]);
         $request->merge(['post_category_id'  => \App\Models\PostCategory::EVENT]);

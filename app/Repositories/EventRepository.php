@@ -13,6 +13,7 @@ class EventRepository
     {
         $event = new Event();
         $event->fill([
+            'game_id'           => $request->game_id,
             'event_category_id' => $request->event_category_id,
             'user_id'           => $request->user_id,
             'status'            => \APP\Models\Event::RECRUIT,

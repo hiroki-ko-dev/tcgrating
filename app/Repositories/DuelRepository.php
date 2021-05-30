@@ -14,6 +14,7 @@ class DuelRepository
 
         $duel = new Duel();
         $duel->fill([
+            'game_id'          => $request->game_id,
             'duel_category_id' => $request->duel_category_id,
             'user_id'          => $request->user_id,
             'status'           => $request->status,
