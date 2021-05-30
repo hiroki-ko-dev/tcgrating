@@ -28,7 +28,7 @@ class UserRepository
     public function updateRate($id, $rate)
     {
         $user = User::find($id);
-        $user->rate_yugioh_links = $user->rate + $rate ;
+        $user->rate_yugioh_links = $user->rate_yugioh_links + $rate ;
         $user->save() ;
 
         return $user ;
