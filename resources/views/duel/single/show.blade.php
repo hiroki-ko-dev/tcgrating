@@ -123,6 +123,12 @@
 
                         </table>
                     </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <a href="/event/single/{{$duel->eventDuel->event->id}}">受付ページに戻る</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
