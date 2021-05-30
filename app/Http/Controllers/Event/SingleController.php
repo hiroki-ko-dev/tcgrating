@@ -41,7 +41,7 @@ class SingleController extends Controller
      */
     public function index()
     {
-        $events = $this->event_service->findAllEventAndUserByEventCategoryId(\App\Models\EventCategory::SINGLE, 20);
+        $events = $this->event_service->findAllEventAndUserByEventCategoryId(\App\Models\EventCategory::SINGLE, 50);
 
         return view('event.single.index',compact('events'));
     }
