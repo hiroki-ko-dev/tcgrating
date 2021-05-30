@@ -37,7 +37,7 @@
                                     <td scope="col">{{$users->firstItem()+$i}}</td>
                                     <td scope="col">{{$user->id}}</td>
                                     <td scope="col">{{$user->name}}</td>
-                                    <td scope="col">{{$user->rate}}</td>
+                                    <td scope="col">{{$user->rate_yugioh_links}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

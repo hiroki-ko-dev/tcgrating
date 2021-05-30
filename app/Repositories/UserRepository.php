@@ -28,7 +28,7 @@ class UserRepository
     public function updateRate($id, $rate)
     {
         $user = User::find($id);
-        $user->rate = $user->rate + $rate ;
+        $user->rate_yugioh_links = $user->rate + $rate ;
         $user->save() ;
 
         return $user ;
@@ -39,7 +39,7 @@ class UserRepository
     }
 
     public function findAllByPaginateOrderByRank($pagination){
-        return User::OrderBy('rate','desc')->paginate($pagination);
+        return User::OrderBy('rate_yugioh_links','desc')->paginate($pagination);
     }
 
     public function findAllBySendMail($id){
