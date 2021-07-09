@@ -2,22 +2,28 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-links-blue text-white rounded p-3 mb-3">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="bg-links-blue text-white rounded p-3 mb-3">
         @if(\App\Models\PostCategory::FREE == $post_category_id)
             <h3>{{ __('フリー掲示板') }}</h3>
         @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
             <h3>{{ __('チームメンバー募集掲示板') }}</h3>
         @endif
+      </div>
     </div>
+  </div>
 
-    <div class="row justify-content-center">
-        <!-- フラッシュメッセージ -->
-        @if (session('flash_message'))
-            <div class="text-center alert-danger rounded p-3 mb-3 col-md-7">
-                {{ session('flash_message') }}
-            </div>
-        @endif
-    </div>
+  <div class="row justify-content-center">
+    <!-- フラッシュメッセージ -->
+    @if (session('flash_message'))
+      <div class="col-md-8">
+        <div class="text-center alert-danger rounded p-3 mb-3">
+          {{ session('flash_message') }}
+        </div>
+      </div>
+    @endif
+  </div>
 
     <div class="row justify-content-center">
         <div class="col-md-8">

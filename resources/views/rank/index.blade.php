@@ -2,18 +2,24 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-links-blue text-white rounded p-3 mb-3">
-        <h3>{{ __('ランキング') }}</h3>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="bg-links-blue text-white rounded p-3 mb-3">
+        <h5>{{ __('ランキング') }}</h5>
+      </div>
     </div>
+  </div>
 
-    <div class="row justify-content-center">
-        <!-- フラッシュメッセージ -->
-        @if (session('flash_message'))
-            <div class="text-center alert-danger rounded p-3 mb-3 col-md-7">
-                {{ session('flash_message') }}
-            </div>
-        @endif
-    </div>
+  <div class="row justify-content-center">
+    <!-- フラッシュメッセージ -->
+    @if (session('flash_message'))
+      <div class="col-md-8">
+        <div class="text-center alert-danger rounded p-3 mb-3">
+          {{ session('flash_message') }}
+        </div>
+      </div>
+    @endif
+  </div>
 
     <div class="row justify-content-center">
         <div class="col-md-8">
