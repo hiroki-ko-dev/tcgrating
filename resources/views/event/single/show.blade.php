@@ -34,7 +34,7 @@
                     </div>
                     <div class="d-flex flex-row mb-3">
                     @if($event->status == \APP\Models\Event::RECRUIT )
-                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                        <div class="w-50"><span class="font-weight-bold">状態</span>：
                             <span class="post-user">{{ __('対戦受付中') }}</span>
                         </div>
                         <div class="w-50">
@@ -49,19 +49,19 @@
                             @endif
                         </div>
                     @elseif($event->status == \APP\Models\Event::READY )
-                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                        <div class="w-50"><span class="font-weight-bold">状態</span>：
                             <span class="post-user">{{ __('マッチング済') }}</span>
                         </div>
                     @elseif($event->status == \APP\Models\Event::FINISH )
-                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                        <div class="w-50"><span class="font-weight-bold">状態</span>：
                             <span class="post-user">{{ __('対戦完了') }}</span>
                         </div>
                     @elseif($event->status == \APP\Models\Event::CANCEL )
-                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                        <div class="w-50"><span class="font-weight-bold">状態</span>：
                             <span class="post-user">{{ __('対戦キャンセル') }}</span>
                         </div>
                     @elseif($event->status == \APP\Models\Event::INVALID )
-                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                        <div class="w-50"><span class="font-weight-bold">状態</span>：
                             <span class="post-user">{{ __('無効試合') }}</span>
                         </div>
                     @endif
