@@ -29,8 +29,10 @@
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-row mb-3">
-                        <div class="w-50"><span class="font-weight-bold">主催</span>：<a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a></div>
-                        <div class="w-50"><span class="font-weight-bold">決闘回数</span>：{{$event->eventDuel[0]->duel->number_of_games}}</div>
+                        <div><span class="font-weight-bold">主催</span>：<a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a></div>
+                    </div>
+                    <div class="d-flex flex-row mb-3">
+                        <div><span class="font-weight-bold">決闘回数</span>：{{$event->eventDuel[0]->duel->number_of_games}}</div>
                     </div>
                     <div class="d-flex flex-row mb-3">
                     @if($event->status == \APP\Models\Event::RECRUIT )
