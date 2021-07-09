@@ -2,14 +2,18 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-links-blue text-white rounded p-3 mb-3">
-        <h3>{{ __('マイページ') }}</h3>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="bg-links-blue text-white rounded p-3 mb-3">
+                <h5>{{ __('マイページ') }}</h5>
+            </div>
+        </div>
     </div>
 
     <div class="row justify-content-center">
         <!-- フラッシュメッセージ -->
         @if (session('flash_message'))
-            <div class="text-center alert-danger rounded p-3 mb-3 col-md-7Z">
+            <div class="text-center alert-danger rounded p-3 mb-3 col-md-8">
                 {{ session('flash_message') }}
             </div>
         @endif
@@ -38,15 +42,14 @@
             @endif
 
                 <div class="card-header">{{ __('基本情報') }}</div>
-                    <div class="card-body">
-                        <div class="d-flex flex-row mb-3">
-                            <div class="w-25 font-weight-bold">{{ __('ユーザー名') }}</div>
-                            <div class="w-75">{{$user->name}}</div>
-                        </div>
-                        <div class="d-flex flex-row">
-                            <div class="w-25 font-weight-bold">{{ __('レート') }}</div>
-                            <div class="w-75">{{number_format($user->rate_yugioh_links)}}</div>
-                        </div>
+                <div class="card-body">
+                    <div class="d-flex flex-row mb-3">
+                        <div class="w-25 font-weight-bold">{{ __('ユーザー名') }}</div>
+                        <div class="w-75">{{$user->name}}</div>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <div class="w-25 font-weight-bold">{{ __('レート') }}</div>
+                        <div class="w-75">{{number_format($user->rate_yugioh_links)}}</div>
                     </div>
                 </div>
 
