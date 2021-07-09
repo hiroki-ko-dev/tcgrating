@@ -13,8 +13,10 @@
     <div class="row justify-content-center">
         <!-- フラッシュメッセージ -->
         @if (session('flash_message'))
-            <div class="text-center alert-danger rounded p-3 mb-3 col-md-8">
-                {{ session('flash_message') }}
+            <div class="col-md-8">
+                <div class="text-center alert-danger rounded p-3 mb-3">
+                    {{ session('flash_message') }}
+                </div>
             </div>
         @endif
     </div>
@@ -44,12 +46,12 @@
                 <div class="card-header">{{ __('基本情報') }}</div>
                 <div class="card-body">
                     <div class="d-flex flex-row mb-3">
-                        <div class="w-25 font-weight-bold">{{ __('ユーザー名') }}</div>
-                        <div class="w-75">{{$user->name}}</div>
+                        <div class="w-30 font-weight-bold">{{ __('ユーザー名') }}</div>
+                        <div class="w-70">{{$user->name}}</div>
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="w-25 font-weight-bold">{{ __('レート') }}</div>
-                        <div class="w-75">{{number_format($user->rate_yugioh_links)}}</div>
+                        <div class="w-30 font-weight-bold">{{ __('レート') }}</div>
+                        <div class="w-70">{{number_format($user->rate_yugioh_links)}}</div>
                     </div>
                 </div>
 

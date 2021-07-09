@@ -2,15 +2,21 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-links-blue text-white rounded p-3 mb-3">
-        <h2>{{ __('新規1vs1決闘（受付ページ）') }}</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="bg-links-blue text-white rounded p-3 mb-3">
+                <h5>{{ __('新規1vs1決闘（受付ページ）') }}</h5>
+            </div>
+        </div>
     </div>
 
     <div class="row justify-content-center">
         <!-- フラッシュメッセージ -->
         @if (session('flash_message'))
-            <div class="text-center alert-danger rounded p-3 mb-3 col-md-7Z">
-                {{ session('flash_message') }}
+            <div class="col-md-8">
+                <div class="text-center alert-danger rounded p-3 mb-3">
+                    {{ session('flash_message') }}
+                </div>
             </div>
         @endif
     </div>
@@ -22,62 +28,51 @@
                     {{ $event->title }}
                 </div>
                 <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div class="post-user">主催：<a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a></div>
-                            <div class="body">決闘回数：{{$event->eventDuel[0]->duel->number_of_games}}</div>
+                    <div class="d-flex flex-row mb-3">
+                        <div class="w-50"><span class="font-weight-bold">主催</span>：<a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a></div>
+                        <div class="w-50"><span class="font-weight-bold">決闘回数</span>：{{$event->eventDuel[0]->duel->number_of_games}}</div>
+                    </div>
+                    <div class="d-flex flex-row mb-3">
+                    @if($event->status == \APP\Models\Event::RECRUIT )
+                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                            <span class="post-user">{{ __('対戦受付中') }}</span>
                         </div>
+                        <div class="w-50">
+                            @if(Auth::id() == $event->user_id)
+                                <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" name="event_cancel" class="btn btn-secondary" >
+                                        {{ __('キャンセルする') }}
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                    @elseif($event->status == \APP\Models\Event::READY )
+                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                            <span class="post-user">{{ __('マッチング済') }}</span>
+                        </div>
+                    @elseif($event->status == \APP\Models\Event::FINISH )
+                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                            <span class="post-user">{{ __('対戦完了') }}</span>
+                        </div>
+                    @elseif($event->status == \APP\Models\Event::CANCEL )
+                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                            <span class="post-user">{{ __('対戦キャンセル') }}</span>
+                        </div>
+                    @elseif($event->status == \APP\Models\Event::INVALID )
+                        <div class="w-50"><span class="font-weight-bold">試合ステータス</span>：
+                            <span class="post-user">{{ __('無効試合') }}</span>
+                        </div>
+                    @endif
+                    </div>
+                    <div class="d-flex flex-row mb-3">
+                        <div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1決闘の使い方</a>」動画を視聴してください</div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div type="body">{!! nl2br(e($event->body)) !!}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    {{ __('試合ステータス') }}
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div class="body">
-                                @if($event->status == \APP\Models\Event::RECRUIT )
-                                    <div class="form-group row">
-                                        <span class="col-md-2">
-                                            <div class="post-user">{{ __('対戦受付中') }}</div>
-                                        </span>
-                                        <span class="col-md-3">
-                                            @if(Auth::id() == $event->user_id)
-                                                <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" name="event_cancel" class="btn btn-secondary" >
-                                                        {{ __('キャンセルする') }}
-                                                    </button>
-                                                </form>
-                                            @endif
-                                        </span>
-                                    </div>
-                                @elseif($event->status == \APP\Models\Event::READY )
-                                    <div class="post-user">{{ __('マッチング済') }}</div>
-                                @elseif($event->status == \APP\Models\Event::FINISH )
-                                    <div class="post-user">{{ __('対戦完了') }}</div>
-                                @elseif($event->status == \APP\Models\Event::CANCEL )
-                                    <div class="post-user">{{ __('対戦キャンセル') }}</div>
-                                @elseif($event->status == \APP\Models\Event::INVALID )
-                                    <div class="post-user">{{ __('無効試合') }}</div>
-                                @endif
-                                <br><br><div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1決闘の使い方</a>」動画を視聴してください</div>
-                            </div>
                         </div>
                     </div>
                 </div>
