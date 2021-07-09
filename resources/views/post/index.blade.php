@@ -45,7 +45,7 @@
                             <div class="card-text border-bottom p-2">
                                 <a href="/post/{{$post->id}}">{{$post->title}}</a>
                                 [{{$post->post_comment_count}}]
-                                @if(isset($post->team))＠{{$post->team->name}}@endif
+                                @if(isset($post->team)){{$post->team->name}}@endif
                                 <span class="post-user">[{{$post->created_at}}]</span>
                             </div>
                         @endforeach

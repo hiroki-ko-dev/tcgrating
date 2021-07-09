@@ -92,14 +92,14 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div class="body">
-                                <a href="/user/{{$event->eventUser[0]->user_id}}">＠{{$event->eventUser[0]->user->name}}</a>
+                                <a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a>
                                 @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->isNotEmpty())
                                     　レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->sum('rating')}}
                                 @endif
                                 <br>
                                 vs<br>
                                 @isset($event->eventUser[1])
-                                <a href="/user/{{$event->eventUser[1]->user_id}}">＠{{$event->eventUser[1]->user->name}}</a>
+                                <a href="/user/{{$event->eventUser[1]->user_id}}">{{$event->eventUser[1]->user->name}}</a>
                                     @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->isNotEmpty())
                                         　レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->sum('rating')}}
                                     @endif

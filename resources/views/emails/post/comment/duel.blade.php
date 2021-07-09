@@ -5,7 +5,7 @@
 もしよろしければ以下のURLから確認してください。
 {{env('APP_URL')}}/duel/single/{{$post->duel_id}}
 
-＠{{Auth::user()->name}}さん
+{{Auth::user()->name}}さん
 【コメント文】
 {{$comment->body}}
 

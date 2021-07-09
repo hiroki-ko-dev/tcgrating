@@ -64,7 +64,7 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user"> ＠{{$duel->duelUser[0]->user->name}} vs ＠@if(isset($duel->duelUser[1])){{$duel->duelUser[1]->user->name}}@else対戦相手待ち@endif</div>
+                            <div class="post-user"> {{$duel->duelUser[0]->user->name}} vs @if(isset($duel->duelUser[1])){{$duel->duelUser[1]->user->name}}@else対戦相手待ち@endif</div>
                             @if($duel->number_of_games < $duel->games_number)
                                 <div class="body">対戦回数：{{$duel->number_of_games}}　※決闘終了です。お疲れ様でした</div>
                             @else

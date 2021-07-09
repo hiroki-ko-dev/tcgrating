@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="form-group row">
                     <div class="col-md-12">
-                        <div class="post-user">{{$post->title}}  <a href="/user/{{$post->user_id}}">＠{{$post->user->name}}</a>[{{$post->created_at}}]</div>
+                        <div class="post-user">{{$post->title}}  <a href="/user/{{$post->user_id}}">{{$post->user->name}}</a>[{{$post->created_at}}]</div>
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                     <div class="card-body">
                         @foreach($comments as $comment)
                             <div class="col-md-12 pt-3">
-                                <div class="post-user"><a href="/user/{{$comment->user_id}}">＠{{$comment->user->name}}</a> [{{$comment->created_at}}]</div>
+                                <div class="post-user"><a href="/user/{{$comment->user_id}}">{{$comment->user->name}}</a> [{{$comment->created_at}}]</div>
                             </div>
                             <div class="card-text border-bottom pt-2 pb-2">
                                 {!! nl2br(e($comment->body)) !!}
