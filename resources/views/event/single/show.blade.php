@@ -47,7 +47,7 @@
                                   @csrf
                                   @method('PUT')
                                   <button type="submit" name="event_cancel" class="btn btn-secondary w-40" >
-                                      {{ __('キャンセルする') }}
+                                      {{ __('キャンセル') }}
                                   </button>
                               </form>
                           @endif
@@ -68,6 +68,21 @@
                     <div class="d-flex flex-row mb-3">
                         <div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1決闘の使い方</a>」動画を視聴してください</div>
                     </div>
+
+                    <div class="d-flex flex-row mb-3">
+                      <div class="w-30 font-weight-bold">対戦開始</div>
+                      <div class="w-70">：<span class="post-user">{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}</span></div>
+                    </div>
+
+                    <div class="d-flex flex-row mb-3">
+                      <div class="small">※対戦開始日時になったら決闘ページへ移動してください</div>
+                    </div>
+
+                    @if($event->status <> \App\Models\Event::RECRUIT)
+                      <div class="d-flex flex-row mb-3">
+                        <button class="btn btn-primary" onclick="location.href='/duel/single/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
+                      </div>
+                    @endif
 
                     <div class="form-group row">
                         <div class="col-md-12">
@@ -113,28 +128,6 @@
                                         {{ __('対戦申込') }}
                                     </button>
                                 </form>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    {{ __('対戦開始時間') }}
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div class="post-user">{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}</div> ※対戦開始日時になったら決闘ページへ移動してください
-                            @if($event->status <> \App\Models\Event::RECRUIT)
-                                <div class="col-md-6 offset-md-5">
-                                    <button class="btn btn-primary" onclick="location.href='/duel/single/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
-                                </div>
                             @endif
                         </div>
                     </div>
