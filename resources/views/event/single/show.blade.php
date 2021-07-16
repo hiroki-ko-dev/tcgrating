@@ -76,11 +76,11 @@
                       <div class="w-70">：<span class="post-user">{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}</span></div>
                     </div>
 
-                    <div class="d-flex flex-row mb-3">
-                      <div class="small">※対戦開始日時になったら決闘ページへ移動してください</div>
-                    </div>
-
-                    @if($event->status <> \App\Models\Event::RECRUIT)
+                    @if($event->status <> \App\Models\Event::RECRUIT && $event->status <> \App\Models\Event::CANCEL )
+                      <div class="d-flex flex-row mb-3">
+                        <div class="small">※対戦開始日時になったら決闘ページへ移動してください</div>
+                      </div>
+  
                       <div class="d-flex flex-row mb-3">
                         <button class="btn btn-primary" onclick="location.href='/duel/single/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
                       </div>
