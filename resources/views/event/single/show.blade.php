@@ -42,15 +42,17 @@
                         <span class="post-user w-30">{{ __('：対戦受付中') }}</span>
                       </div>
                       <div class="w-50">
-                          @if(Auth::id() == $event->user_id)
-                              <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">
-                                  @csrf
-                                  @method('PUT')
-                                  <button type="submit" name="event_cancel" class="btn btn-secondary w-40" >
-                                      {{ __('キャンセル') }}
-                                  </button>
-                              </form>
-                          @endif
+                        @if(Auth::id() == $event->user_id)
+                          <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">
+                            @csrf
+                            @method('PUT')
+                            {{--  なぜかputだとsubmitに値を持たせられないので判定用にhidden--}}
+                            <input type="hidden" name="event_cancel" value="1" >
+                            <button type="submit" class="btn btn-secondary w-40">
+                              {{ __('キャンセル') }}
+                            </button>
+                          </form>
+                        @endif
                       </div>
                     @elseif($event->status == \APP\Models\Event::READY )
                         <span class="post-user">{{ __('：マッチング済') }}</span>
