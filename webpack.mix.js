@@ -12,9 +12,7 @@ const mix = require('laravel-mix');
  */
 
 //デフォルト
-mix.js('resources/js/app.js', 'public/js')
-    .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/app.js', 'public/js');
 
 //追加分
 mix.styles([
@@ -37,6 +35,7 @@ mix.styles([
         'resources/js/common/request.js',
     ],'public/js/all.js')
     .sourceMaps()
+    .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/common/header.scss', 'public/css/scss.css')
     .sass('resources/sass/common/footer.scss', 'public/css/scss.css')
     .sass('resources/sass/post/post.scss', 'public/css/scss.css')

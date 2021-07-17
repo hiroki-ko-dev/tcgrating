@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
     //サイトの情報ページ
+    Route::get('/sample', function () {return view('sample');});     //直接TOPページを表示
     Route::get('/', function () {return view('site.index');});     //直接TOPページを表示
     Route::get('/site/administrator', function () {return view('site.administrator');}); //管理人を表示
     Route::get('/site/inquiry', function () {return view('site.inquiry');}); //お問い合わせ用の動画を表示
