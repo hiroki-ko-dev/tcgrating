@@ -1,7 +1,7 @@
 @extends('layouts.common.common')
 
 @section('addJs')
-  <script src="{{mix('/js/app.js')}}"></script>
+  <script src="{{mix('/js/sample/sample.js')}}" defer></script>
 @endsection
 
 @section('content')

@@ -14,6 +14,8 @@ const mix = require('laravel-mix');
 //デフォルト
 mix.js('resources/js/app.js', 'public/js');
 
+mix.js('resources/js/sample.js', 'public/js/sample').react();
+
 //追加分
 mix.styles([
     // 'resources/css/index.css',
