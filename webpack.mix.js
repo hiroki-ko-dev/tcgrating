@@ -12,7 +12,8 @@ const mix = require('laravel-mix');
  */
 
 //デフォルト
-mix.js('resources/js/app.js', 'public/js');
+mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/common/calendar.js', 'public/js/common');
 
 mix.js('resources/js/sample.js', 'public/js/sample').react();
 

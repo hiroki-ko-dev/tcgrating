@@ -1,5 +1,9 @@
 @extends('layouts.common.common')
 
+@section('addJs')
+  <script src="{{mix('/js/common/calendar.js')}}" defer></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="bg-links-blue text-white rounded p-3 mb-3">
