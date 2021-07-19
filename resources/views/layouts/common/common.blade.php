@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html class="no-js no-svg" lang="ja">
 <head>
-    @yield('tag_manager_header')
-    @yield('analitics')
-    @yield('header')
+  @yield('tag_manager_header')
+  @yield('analitics')
+  @yield('header')
+  @yield('addCss')
 </head>
   <body>
 

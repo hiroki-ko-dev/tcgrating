@@ -1,11 +1,15 @@
 @extends('layouts.common.common')
 
+@section('addCss')
+  <script src="{{mix('/css/sample/sample.css')}}" defer></script>
+@endsection
+
 @section('addJs')
   <script src="{{mix('/js/sample/sample.js')}}" defer></script>
 @endsection
 
 @section('content')
-  <div id="example">test</div>
+  <div id="root"></div>
 @endsection
 
 @include('layouts.common.header')

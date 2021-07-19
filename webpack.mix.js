@@ -43,6 +43,7 @@ mix.styles([
     .sass('resources/sass/common/footer.scss', 'public/css/scss.css')
     .sass('resources/sass/post/post.scss', 'public/css/scss.css')
     .sass('resources/sass/common/base.scss', 'public/css/scss.css')
+    .styles('resources/css/sample/sample.css', 'public/css/sample/sample.css')
     .version()
 ;
 
