@@ -42,12 +42,16 @@
                 <div class="card-body">
                     @if(!empty($posts))
                         @foreach($posts as $post)
-                            <div class="card-text border-bottom p-2">
+                          <div class="d-md-flex flex-row mb-3">
+                            <div class="card-text">
+                              <span class="post-user">[{{$post->created_at}}]</span>　
+                            </div>
+                            <div class="card-text border-bottom">
                                 <a href="/post/{{$post->id}}">{{$post->title}}</a>
                                 [{{$post->post_comment_count}}]
                                 @if(isset($post->team)){{$post->team->name}}@endif
-                                <span class="post-user">[{{$post->created_at}}]</span>
                             </div>
+                          </div>
                         @endforeach
                     @endif
                 </div>
