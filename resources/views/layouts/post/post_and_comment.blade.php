@@ -29,8 +29,8 @@
                     <div class="card-header">{{ __('コメント一覧') }}</div>
                     <div class="card-body">
                         @foreach($comments as $comment)
-                            <div class="col-md-12 pt-3">
-                                <div class="post-user"><a href="/user/{{$comment->user_id}}">{{$comment->user->name}}</a> [{{$comment->created_at}}]</div>
+                            <div class="pt-3">
+                              <span class="post-user"><a href="/user/{{$comment->user_id}}">{{$comment->user->name}}</a> [{{$comment->created_at}}]</span>
                             </div>
                             <div class="card-text border-bottom pt-2 pb-2">
                                 {!! nl2br(e($comment->body)) !!}
