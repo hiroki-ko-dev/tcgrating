@@ -52,4 +52,9 @@ $app->singleton(
 |
 */
 
+
+if(strstr($_SERVER['REQUEST_URI'], 'pokemon')){
+    $app->loadEnvironmentFrom('.env.pokemon');
+}
+
 return $app;
