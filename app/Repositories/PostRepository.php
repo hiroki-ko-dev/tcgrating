@@ -14,6 +14,7 @@ class PostRepository
 
         $post = new Post();
         $post->fill([
+            'game_id'          => 1,
             'post_category_id' => $request->post_category_id,
             'user_id'          => $request->user_id,
             'event_id'         => $request->event_id,
