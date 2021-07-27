@@ -70,13 +70,13 @@ class EventService
 
     /**
      * イベントカテゴリIDによって一覧を取得
-     * @param $event_category_id
+     * @param $request
      * @param $paginate
      * @return mixed
      */
-    public function findAllEventAndUserByEventCategoryId($event_category_id,$paginate)
+    public function findAllEventAndUserByEventCategoryId($request, $paginate)
     {
-        return $this->event_repository->findAllWithUserByEventCategoryIdAndPaginate($event_category_id,$paginate);
+        return $this->event_repository->findAllWithUserByEventCategoryIdAndPaginate($request, $paginate);
     }
 
     public function findAllEventByUserId($user_id)

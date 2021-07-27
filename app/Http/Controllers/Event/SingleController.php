@@ -37,11 +37,19 @@ class SingleController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $events = $this->event_service->findAllEventAndUserByEventCategoryId(\App\Models\EventCategory::SINGLE, 50);
+        // 選択しているゲームでフィルタ
+        if(\Illuminate\Support\Facades\Auth::check()) {
+            $request->merge(['game_id' => Auth::user()->selected_game_id]);
+        }else{
+            $request->merge(['game_id' => session('selected_game_id')]);
+        }
+        $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
+        $events = $this->event_service->findAllEventAndUserByEventCategoryId($request, 50);
 
         return view('event.single.index',compact('events'));
     }
