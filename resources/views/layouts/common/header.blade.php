@@ -44,10 +44,16 @@
               <div class="selected_game mr-2">
                 Game Mode：
                 <select name="sex">
-                  @foreach(config('assets.site.games') as $game)
+                  @foreach(config('assets.site.games') as $key => $game)
                     <option value="game_id"
-                      @if(Auth::check() && Auth::user()->selected_game_id)
-                      selected @endif>{{$game}}</option>
+                      @if(Auth::check())
+                        @if(Auth::user()->selected_game_id == $key)
+                          selected
+                        @endif
+                      @elseif(session('game_id') == $key)
+                        selected
+                      @endif
+                    >{{$game}}</option>
                   @endforeach
                 </select>
               </div>
