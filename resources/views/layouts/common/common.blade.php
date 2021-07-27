@@ -5,13 +5,14 @@
   @yield('analitics')
   @yield('header')
   @yield('addCss')
+
+  @yield('addJs')
 </head>
   <body>
 
     @yield('tag_manager_body')
     @yield('bodyHeader')
     @yield('adsense')
-    @yield('addJs')
     <main class="py-4" id="main">
   {{-- <div class="main-wrap">--}}
       @yield('content')
