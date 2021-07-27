@@ -39,7 +39,8 @@ class TeamRepository
     public function findAllByRequestAndPaginate($request,$paginate){
 
         $query = Team::query();
-
+        $query->where('game_id', $request->game_id);
+        
         $query->wherehas('teamUser' , function($q) use($request){
             if($request->has('user_id')){
                 $q->where('user_id', $request->query('user_id'));

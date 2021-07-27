@@ -26,6 +26,12 @@ class TeamController extends Controller
      */
     public function index(Request $request)
     {
+        // 選択しているゲームでフィルタ
+        if(Auth::check()) {
+            $request->merge(['game_id' => Auth::user()->selected_game_id]);
+        }else{
+            $request->merge(['game_id' => session('selected_game_id')]);
+        }
         $teams = $this->team_service->findAllTeamByRequestAndPaginate($request, 20);
 
         return view('team.index',compact('teams'));
