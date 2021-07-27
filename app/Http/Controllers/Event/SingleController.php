@@ -41,8 +41,6 @@ class SingleController extends Controller
      */
     public function index()
     {
-        dd(Auth::user()->selected_game_id);
-
         $events = $this->event_service->findAllEventAndUserByEventCategoryId(\App\Models\EventCategory::SINGLE, 50);
 
         return view('event.single.index',compact('events'));

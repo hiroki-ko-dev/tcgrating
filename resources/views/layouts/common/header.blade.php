@@ -45,7 +45,9 @@
                 Game Mode：
                 <select name="sex">
                   @foreach(config('assets.site.games') as $game)
-                    <option value="game_id" @if(Auth::check() && Auth::user()->selected_game_id) selected @endif>{{$game}}</option>
+                    <option value="game_id"
+                      @if(Auth::check() && Auth::user()->selected_game_id)
+                      selected @endif>{{$game}}</option>
                   @endforeach
                 </select>
               </div>
