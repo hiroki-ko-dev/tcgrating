@@ -94,9 +94,13 @@ class SingleController extends Controller
         $request->merge(['is_personal'       => 0]);
 
         $event_id = DB::transaction(function () use($request) {
+            // 選択しているゲームでフィルタ
+            $request->merge(['game_id' => Auth::user()->selected_game_id]);
+
             $event = $this->event_service->createEventBySingle($request);
             //event用のpostを作成
             $request->merge(['event_id' => $event->id]);
+
             $request->merge(['body' => '1vs1決闘に関する質問・雑談をコメントしましょう']);
             $this->post_service->createPost($request);
             $event_id = $request->event_id;

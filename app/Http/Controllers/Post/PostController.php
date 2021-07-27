@@ -72,6 +72,9 @@ class PostController extends Controller
         $this->middleware('auth');
 
         //追加
+        // 選択しているゲームでフィルタ
+        $request->merge(['game_id' => Auth::user()->selected_game_id]);
+
         $request->merge(['user_id' => Auth::id()]);
         $request->merge(['is_personal' => 0]);
         //チーム募集掲示板の処理

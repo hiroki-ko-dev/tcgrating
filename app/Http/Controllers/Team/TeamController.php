@@ -69,6 +69,9 @@ class TeamController extends Controller
         $request->merge(['user_id' => Auth::id()]);
         DB::transaction(function () use($request) {
             $request->merge(['status'  => \App\Models\TeamUser::REQUEST]);
+            // 選択しているゲームでフィルタ
+            $request->merge(['game_id' => Auth::user()->selected_game_id]);
+
             $team = $this->team_service->createTeam($request);
 
             $request->merge(['post_category_id'  => \App\Models\PostCategory::TEAM]);

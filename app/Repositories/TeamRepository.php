@@ -12,7 +12,8 @@ class TeamRepository
     public function create($request)
     {
         return Team::create([
-                'name'  => $request->name,
+                'name'    => $request->name,
+                'game_id' => $request->game_id,
                 'body'  => $request->body
             ]);
     }
@@ -40,7 +41,7 @@ class TeamRepository
 
         $query = Team::query();
         $query->where('game_id', $request->game_id);
-        
+
         $query->wherehas('teamUser' , function($q) use($request){
             if($request->has('user_id')){
                 $q->where('user_id', $request->query('user_id'));
