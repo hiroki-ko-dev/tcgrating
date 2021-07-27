@@ -31,6 +31,11 @@
 @section('bodyHeader')
     <nav class="navbar navbar-expand-md bg-white shadow-sm">
         <div class="container">
+            <a class="navbar-brand" href="{{ url('/') }}" title="{{config('assets.site.title')}}">
+                <span>
+                <h4 class="font-weight-bold site-title" style="display:inline;">{{config('assets.site.title')}}</h4>
+                </span>
+            </a>
           Game Mode：
           <div class="selected_game mr-2">
             <select name="sex">
@@ -39,11 +44,6 @@
               @endforeach
             </select>
           </div>
-            <a class="navbar-brand" href="{{ url('/') }}" title="{{config('assets.site.title')}}">
-                <span>
-                <h4 class="font-weight-bold site-title" style="display:inline;">{{config('assets.site.title')}}</h4>
-                </span>
-            </a>
         {{--                <h2 class="sr-only">{{config('assets.site.title')}}</h2>--}}
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
                 </button>
