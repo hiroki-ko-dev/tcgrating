@@ -31,8 +31,11 @@
 @section('bodyHeader')
     <nav class="navbar navbar-expand-md bg-white shadow-sm">
         <div class="container">
+          Game Mode：
+          <div class="selected_game mr-2">
+            {{Form::select('selected_game_id', config('assets.site.games'))}}
+          </div>
             <a class="navbar-brand" href="{{ url('/') }}" title="{{config('assets.site.title')}}">
-                <img class="img-fluid col-3" src="{{ asset('/images/site/hashimu-icon.png') }}" alt="hashimu-icon">
                 <span>
                 <h4 class="font-weight-bold site-title" style="display:inline;">{{config('assets.site.title')}}</h4>
                 </span>
