@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/site/administrator', function () {return view('site.administrator');}); //管理人を表示
     Route::get('/site/inquiry', function () {return view('site.inquiry');}); //お問い合わせ用の動画を表示
     Route::get('/site/how_to_use', function () {return view('site.how_to_use');}); //管理人を表示
+    Route::post('/site/update_selected_game', [App\Http\Controllers\SiteController::class, 'update_selected_game']); //管理人を表示
 
     //ページ更新処理
     Route::get('/reload', function () {

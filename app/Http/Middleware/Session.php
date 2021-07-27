@@ -19,14 +19,14 @@ class Session
     {
         // URLによってゲームを選択
         foreach(config('assets.site.games') as $key => $game){
-            if($request->query('game_id') == $key){
-                session(['game_id' => $key]);
+            if($request->query('selected_game_id') == $key){
+                session(['selected_game_id' => $key]);
             }
         }
 
         // URLに何もなかったらポケモンカードにしておく
-        if(empty(session('game_id'))){
-            session(['game_id' => 3]);
+        if(empty(session('selected_game_id'))){
+            session(['selected_game_id' => 3]);
         }
 
         return $next($request);

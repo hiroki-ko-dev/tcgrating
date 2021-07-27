@@ -19,6 +19,11 @@ class UserService
         return $this->user_repository->update($request);
     }
 
+    public function updateSelectedGameId($request)
+    {
+        return $this->user_repository->updateSelectedGameId($request);
+    }
+
     public function findUser($id)
     {
         return $this->user_repository->find($id);

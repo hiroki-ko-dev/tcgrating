@@ -22,6 +22,11 @@
 $('form').on('submit', function () {
   $('button').prop('disabled', true);
 });
+
+$('#selected_game_id').change(function() {
+  $("#selected_game_form").submit();
+});
+
 </script>
 
 @endsection

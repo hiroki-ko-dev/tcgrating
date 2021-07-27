@@ -15,8 +15,6 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/common/calendar.js', 'public/js/common');
 
-mix.js('resources/js/sample.js', 'public/js/sample').react();
-
 //追加分
 mix.styles([
     // 'resources/css/index.css',
@@ -46,5 +44,12 @@ mix.styles([
     .styles('resources/css/sample/sample.css', 'public/css/sample/sample.css')
     .version()
 ;
+
+mix.js('resources/js/sample.js', 'public/js/sample').react()
+  .js('resources/js/common/select_game.js', 'public/js/common/select_game.js')
+  .sourceMaps()
+  .autoload({
+    "jquery": ['$', 'window.jQuery'],
+  });
 
 

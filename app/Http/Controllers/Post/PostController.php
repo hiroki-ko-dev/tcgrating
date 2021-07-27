@@ -23,8 +23,18 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts =  $this->post_service->findAllPostWithTeamByPostCategoryAndPaginate($request->query('post_category_id'),20);
+        // 選択しているゲームでフィルタ
+        if(Auth::check()) {
+            $request->merge(['game_id' => Auth::user()->selected_game_id]);
+        }else{
+            $request->merge(['selected_game_id' => session('selected_game_id')]);
+        }
+
+        $request->merge(['post_category_id' => $request->query('post_category_id')]);
+
+        $posts =  $this->post_service->getPostAndCommentCountWithPagination($request,20);
         $post_category_id = $request->query('post_category_id');
+
         return view('post.index',compact('posts','post_category_id'));
     }
 

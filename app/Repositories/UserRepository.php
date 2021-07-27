@@ -34,6 +34,15 @@ class UserRepository
         return $user ;
     }
 
+    public function updateSelectedGameId($request)
+    {
+        $user = User::find($request->id);
+        $user->selected_game_id = $request->selected_game_id;
+        $user->save();
+
+        return $user;
+    }
+
     public function find($id){
         return User::find($id);
     }

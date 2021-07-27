@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ mix('/css/all.css') }}">
     <link rel="stylesheet" href="{{ mix('/css/scss.css') }}">
     <script src="{{ mix('/js/all.js') }}"></script>
+    <script src="{{ mix('/js/common/select_game.js') }}"></script>
 
     <!-- デフォルト分 -->
     <!-- Styles -->
@@ -41,22 +42,25 @@
             </div>
             <div>
 
-              <div class="selected_game mr-2">
-                Game Mode：
-                <select name="sex">
-                  @foreach(config('assets.site.games') as $key => $game)
-                    <option value="game_id"
-                      @if(Auth::check())
-                        @if(Auth::user()->selected_game_id == $key)
+              <form id="selected_game_form" method="post" action="/site/update_selected_game">
+                @csrf
+                <div class="selected_game mr-2">
+                  Game Mode：
+                  <select id="selected_game_id" name="selected_game_id">
+                    @foreach(config('assets.site.games') as $key => $game)
+                      <option value="{{$key}}"
+                        @if(Auth::check())
+                          @if(Auth::user()->selected_game_id == $key)
+                            selected
+                          @endif
+                        @elseif(session('selected_game_id') == $key)
                           selected
                         @endif
-                      @elseif(session('game_id') == $key)
-                        selected
-                      @endif
-                    >{{$game}}</option>
-                  @endforeach
-                </select>
-              </div>
+                      >{{$game}}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </form>
             </div>
           </div>
         {{--                <h2 class="sr-only">{{config('assets.site.title')}}</h2>--}}

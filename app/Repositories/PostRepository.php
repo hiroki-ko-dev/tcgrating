@@ -31,6 +31,20 @@ class PostRepository
         return $post;
     }
 
+    public function composeWhereClause($request)
+    {
+        $query = Post::query();
+        $query->where('game_id', $request->game_id);
+        $query->where('post_category_id', $request->post_category_id);
+        return $query;
+    }
+
+    public function findAll($request)
+    {
+        $query = $this->composeWhereClause($request);
+        return $query->get();
+    }
+
     public function findWithUser($id){
         return Post::with('user')->find($id);
     }
@@ -47,11 +61,10 @@ class PostRepository
         return Post::where('team_id',$team)->where('post_category_id', \App\Models\PostCategory::TEAM)->with('user')->first();
     }
 
-    public function findAllAndCommentCountByPostCategoryIdAndPaginate($post_category_id, $paginate)
+    public function findAllAndCommentCountWithPagination($request, $paginate)
     {
-        return Post::where('post_category_id', $post_category_id)
-                    ->withCount('postComment')
-                    ->withCount('postComment')
+        $query = $this->composeWhereClause($request);
+        return $query->withCount('postComment')
                     ->OrderBy('id','desc')
                     ->paginate($paginate);
     }
