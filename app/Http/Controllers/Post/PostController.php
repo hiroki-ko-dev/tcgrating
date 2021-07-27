@@ -27,7 +27,7 @@ class PostController extends Controller
         if(Auth::check()) {
             $request->merge(['game_id' => Auth::user()->selected_game_id]);
         }else{
-            $request->merge(['selected_game_id' => session('selected_game_id')]);
+            $request->merge(['game_id' => session('selected_game_id')]);
         }
 
         $request->merge(['post_category_id' => $request->query('post_category_id')]);
