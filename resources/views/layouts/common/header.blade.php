@@ -33,7 +33,11 @@
         <div class="container">
           Game Mode：
           <div class="selected_game mr-2">
-            {{Form::select('selected_game_id', config('assets.site.games'))}}
+            <select name="sex">
+              @foreach(config('assets.site.games') as $game)
+                <option value="game_id" @if(Auth::check() && Auth::user()->selected_game_id) selected @endif>{{$game}}</option>
+              @endforeach
+            </select>
           </div>
             <a class="navbar-brand" href="{{ url('/') }}" title="{{config('assets.site.title')}}">
                 <span>
