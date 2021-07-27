@@ -34,7 +34,7 @@
             <a class="navbar-brand" href="{{ url('/') }}" title="{{config('assets.site.title')}}">
                 <img class="img-fluid col-3" src="{{ asset('/images/site/hashimu-icon.png') }}" alt="hashimu-icon">
                 <span>
-                <h4 class="font-weight-bold" style="display:inline;">{{config('assets.site.title')}}</h4>
+                <h4 class="font-weight-bold site-title" style="display:inline;">{{config('assets.site.title')}}</h4>
                 </span>
             </a>
         {{--                <h2 class="sr-only">{{config('assets.site.title')}}</h2>--}}

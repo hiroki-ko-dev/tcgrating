@@ -1,7 +1,5 @@
 <?php
 
 return [
-
-    'title' => '遊戯王レーティング(β版)'
-
+    'title' => 'CARD GAME リモート決闘'
 ];
