@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Auth;
 use DB;
 use App\Services\UserService;
 
@@ -21,15 +22,20 @@ class RankController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->user_service->findAllUserByPaginateOrderByRank(20);
+        // 選択しているゲームでフィルタ
+        if(\Illuminate\Support\Facades\Auth::check()) {
+            $request->merge(['game_id' => Auth::user()->selected_game_id]);
+        }else{
+            $request->merge(['game_id' => session('selected_game_id')]);
+        }
+        $rates = $this->user_service->getRatesWithPaginateOrderByRank($request, 50);
 
-        return view('rank.index',compact('users'));
+        return view('rank.index',compact('rates'));
     }
 
     /**

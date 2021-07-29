@@ -47,8 +47,10 @@ class UserRepository
         return User::find($id);
     }
 
-    public function findAllByPaginateOrderByRank($pagination){
-        return User::OrderBy('rate_yugioh_links','desc')->paginate($pagination);
+    public function composeWhereClause($request)
+    {
+        $query = User::query();
+        return $query;
     }
 
     public function findAllBySendMail($id){

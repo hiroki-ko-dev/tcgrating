@@ -38,12 +38,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $i => $user)
+                            @foreach($rates as $i => $rate)
                                 <tr>
-                                    <td scope="col">{{$users->firstItem()+$i}}</td>
-                                    <td scope="col">{{$user->id}}</td>
-                                    <td scope="col">{{$user->name}}</td>
-                                    <td scope="col">{{$user->rate_yugioh_links}}</td>
+                                    <td scope="col">{{$rates->firstItem()+$i}}</td>
+                                    <td scope="col">{{$rate->user->id}}</td>
+                                    <td scope="col">{{$rate->user->name}}</td>
+                                    <td scope="col">{{$rate->rate}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            {{$users->links('pagination::bootstrap-4')}}
+            {{$rates->links('pagination::bootstrap-4')}}
         </div>
     </div>
 </div>

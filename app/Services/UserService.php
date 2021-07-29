@@ -2,36 +2,40 @@
 
 namespace App\Services;
 use App\Repositories\UserRepository;
+use App\Repositories\RateRepository;
 
 use Illuminate\Http\Request;
 
 class UserService
 {
-    protected $user_repository;
+    protected $userRepository;
+    protected $rateRepository;
 
-    public function __construct(UserRepository $user_repository)
+    public function __construct(UserRepository $userRepository,
+                                RateRepository $rateRepository)
     {
-        $this->user_repository = $user_repository;
+        $this->userRepository = $userRepository;
+        $this->rateRepository = $rateRepository;
     }
 
     public function updateUser($request)
     {
-        return $this->user_repository->update($request);
+        return $this->userRepository->update($request);
     }
 
     public function updateSelectedGameId($request)
     {
-        return $this->user_repository->updateSelectedGameId($request);
+        return $this->userRepository->updateSelectedGameId($request);
     }
 
     public function findUser($id)
     {
-        return $this->user_repository->find($id);
+        return $this->userRepository->find($id);
     }
 
-    public function findAllUserByPaginateOrderByRank($pagination)
+    public function getRatesWithPaginateOrderByRank($request, $pagination)
     {
-        return $this->user_repository->findAllByPaginateOrderByRank($pagination);
+        return $this->rateRepository->findAllByPaginateOrderByRank($request, $pagination);
     }
 
     /**

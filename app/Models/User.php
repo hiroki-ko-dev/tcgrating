@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\TeamUser','user_id');
     }
+
+    public function rates()
+    {
+        return $this->hasMany('App\Models\Rate','user_id');
+    }
 }

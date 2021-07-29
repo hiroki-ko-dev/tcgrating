@@ -41,12 +41,11 @@
               </a>
             </div>
             <div>
-
               <form id="selected_game_form" method="post" action="/site/update_selected_game">
                 @csrf
                 <div class="selected_game mr-2">
                   Game Mode：
-                  <select id="selected_game_id" name="selected_game_id">
+                  <select id="selected_game_id" name="selected_game_id" class="form-control">
                     @foreach(config('assets.site.games') as $key => $game)
                       <option value="{{$key}}"
                         @if(Auth::check())
