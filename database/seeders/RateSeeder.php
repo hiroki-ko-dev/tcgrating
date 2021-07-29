@@ -21,6 +21,18 @@ class RateSeeder extends Seeder
             $rate->user_id =$user->id;
             $rate->rate = $user->rate_yugioh_links;
             $rate->save();
+
+            $rate = new Rate();
+            $rate->game_id = 2;
+            $rate->user_id =$user->id;
+            $rate->rate = 0;
+            $rate->save();
+
+            $rate = new Rate();
+            $rate->game_id = 3;
+            $rate->user_id =$user->id;
+            $rate->rate = 0;
+            $rate->save();
         }
 
     }
