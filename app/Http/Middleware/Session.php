@@ -20,6 +20,7 @@ class Session
         // URLによってゲームを選択
         foreach(config('assets.site.games') as $key => $game){
             if($request->query('selected_game_id') == $key){
+                session()->forget('selected_game_id');
                 session(['selected_game_id' => $key]);
             }
         }

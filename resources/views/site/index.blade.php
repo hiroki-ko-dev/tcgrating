@@ -4,7 +4,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <img class="img-fluid" src="{{ asset('/images/site/top.jpg') }}" alt="hashimu-icon">
+              @if(session('selected_game_id') == 3)
+                <img class="img-fluid" src="{{ asset('/images/site/top/003_pokemon_card.jpg') }}" alt="hashimu-icon">
+              @else
+                <img class="img-fluid" src="{{ asset('/images/site/top/001_yugioh_duellinks.jpg') }}" alt="hashimu-icon">
+              @endif
             </div>
         </div>
     </div>

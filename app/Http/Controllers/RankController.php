@@ -28,7 +28,7 @@ class RankController extends Controller
     public function index(Request $request)
     {
         // 選択しているゲームでフィルタ
-        if(\Illuminate\Support\Facades\Auth::check()) {
+        if(Auth::check()) {
             $request->merge(['game_id' => Auth::user()->selected_game_id]);
         }else{
             $request->merge(['game_id' => session('selected_game_id')]);
