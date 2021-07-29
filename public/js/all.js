@@ -89,20 +89,6 @@ function rejectCheck(user_id){
 }
 
 
-
-$(function () {
-    //カレンダー機能の実装
-    $('#datepicker').datepicker();
-
-    //submitのボタン連打防止
-    $('form').on('submit', function () {
-        $('button').prop('disabled', true);
-    });
-});
-
-
-
-
 function requestConfirm(){
     if( window.confirm('実行してよろしいですか？') ) {
         return true;
@@ -110,3 +96,14 @@ function requestConfirm(){
         return false;
     }
 }
+
+
+
+$(function () {
+    //submitのボタン連打防止
+    $('form').on('submit', function () {
+        $('button').prop('disabled', true);
+    });
+});
+
+

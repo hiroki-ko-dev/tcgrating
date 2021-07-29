@@ -11,10 +11,6 @@ const mix = require('laravel-mix');
  |
  */
 
-//デフォルト
-mix.js('resources/js/app.js', 'public/js')
-    .js('resources/js/common/calendar.js', 'public/js/common');
-
 //追加分
 mix.styles([
     // 'resources/css/index.css',
@@ -32,8 +28,8 @@ mix.styles([
         // 'resources/js/core/vendor.js',
         // 'resources/js/pages/index.js',
         'resources/js/common/approval.js',
-        'resources/js/common/jquery.js',
         'resources/js/common/request.js',
+      'resources/js/common/submit.js',
     ],'public/js/all.js')
     .sourceMaps()
     .sass('resources/sass/app.scss', 'public/css')
@@ -45,8 +41,12 @@ mix.styles([
     .version()
 ;
 
+//デフォルト
+mix.js('resources/js/app.js', 'public/js')
+  .js('resources/js/common/calendar.js', 'public/js/common');
+
 mix.js('resources/js/sample.js', 'public/js/sample').react()
-  .js('resources/js/common/select_game.js', 'public/js/common/select_game.js')
+  .js('resources/js/common/selected_game.js', 'public/js/common/selected_game.js')
   .sourceMaps()
   .autoload({
     "jquery": ['$', 'window.jQuery'],

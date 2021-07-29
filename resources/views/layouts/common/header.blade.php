@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ mix('/css/all.css') }}">
     <link rel="stylesheet" href="{{ mix('/css/scss.css') }}">
     <script src="{{ mix('/js/all.js') }}"></script>
-    <script src="{{ mix('/js/common/select_game.js') }}"></script>
+    <script src="{{ mix('/js/common/selected_game.js') }}"></script>
 
     <!-- デフォルト分 -->
     <!-- Styles -->

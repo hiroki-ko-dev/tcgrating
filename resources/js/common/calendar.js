@@ -1,7 +1,9 @@
 
 //カレンダー機能の実装
-$("#datepicker").datepicker({
+$(function () {
+  $("#datepicker").datepicker({
     dateFormat: 'yy/mm/dd',
+  });
 });
 
 $(document).ready( function(){
