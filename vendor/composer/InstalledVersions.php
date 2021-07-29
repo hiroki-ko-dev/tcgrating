@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '5971b67c8f40136dba1cb775b689b6c928ff854e',
+    'reference' => '68151565cf41c6c2e4f2604f3fbdb1fd2efbf364',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -75,15 +75,6 @@ private static $installed = array (
       array (
         0 => '*',
       ),
-    ),
-    'dnoegel/php-xdg-base-dir' => 
-    array (
-      'pretty_version' => 'v0.1.1',
-      'version' => '0.1.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8f8a6e48c5ecb0f991c2fdcf5f154a47d85f9ffd',
     ),
     'doctrine/cache' => 
     array (
@@ -514,7 +505,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '5971b67c8f40136dba1cb775b689b6c928ff854e',
+      'reference' => '68151565cf41c6c2e4f2604f3fbdb1fd2efbf364',
     ),
     'laravel/sail' => 
     array (
