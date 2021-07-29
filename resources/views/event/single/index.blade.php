@@ -5,7 +5,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="bg-links-blue text-white rounded p-3 mb-3">
-        <h5>{{ __('1vs1決闘') }}</h5>
+        <h5>{{ __('1vs1対戦') }}</h5>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="card">
-                <div class="card-header">{{ __('1vs1決闘一覧') }}</div>
+                <div class="card-header">{{ __('1vs1対戦一覧') }}</div>
 
                 <div class="card-body">
                     @if(!empty($events))

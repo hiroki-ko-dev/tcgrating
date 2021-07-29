@@ -89,7 +89,7 @@ class SingleController extends Controller
         $request->merge(['post_category_id'  => \App\Models\PostCategory::EVENT]);
         $request->merge(['user_id'           => Auth::id()]);
         $request->merge(['max_member'        => 2]);
-        $request->merge(['title'             => '1vs1決闘']);
+        $request->merge(['title'             => '1vs1対戦']);
         $request->merge(['status'            => \App\Models\EventUser::MASTER]);
         $request->merge(['is_personal'       => 0]);
 
@@ -101,7 +101,7 @@ class SingleController extends Controller
             //event用のpostを作成
             $request->merge(['event_id' => $event->id]);
 
-            $request->merge(['body' => '1vs1決闘に関する質問・雑談をコメントしましょう']);
+            $request->merge(['body' => '1vs1対戦に関する質問・雑談をコメントしましょう']);
             $this->post_service->createPost($request);
             $event_id = $request->event_id;
 
@@ -119,7 +119,7 @@ class SingleController extends Controller
             return $event_id;
         });
 
-        return redirect('/event/single/'.$event_id)->with('flash_message', '新規1vs1決闘を作成しました');
+        return redirect('/event/single/'.$event_id)->with('flash_message', '新規1vs1対戦を作成しました');
     }
 
     /**

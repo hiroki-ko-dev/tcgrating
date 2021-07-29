@@ -21,7 +21,7 @@
 
         <div class="row pt-10 pb-5">
             <div class="col-md-6">
-                <a href="https://youtu.be/PJ8rJ5rwuhg">1vs1決闘の使い方動画</a><br>
+                <a href="https://youtu.be/PJ8rJ5rwuhg">1vs1対戦の使い方動画</a><br>
             </div>
         </div>
     </div>

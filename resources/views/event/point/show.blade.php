@@ -61,7 +61,7 @@
                                 @elseif($event->status == \APP\Models\Event::INVALID )
                                     <div class="post-user">{{ __('無効試合') }}</div>
                                 @endif
-                                <br><br><div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1決闘の使い方</a>」動画を視聴してください</div>
+                                <br><br><div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1対戦の使い方</a>」動画を視聴してください</div>
                             </div>
                         </div>
                     </div>

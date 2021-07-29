@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="bg-links-blue text-white rounded p-3 mb-3">
-                <h5>{{ __('新規1vs1決闘（受付ページ）') }}</h5>
+                <h5>{{ __('新規1vs1対戦（受付ページ）') }}</h5>
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
                       </div>
                     @endif
                     <div class="d-flex flex-row mb-3">
-                        <div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1決闘の使い方</a>」動画を視聴してください</div>
+                        <div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1対戦の使い方</a>」動画を視聴してください</div>
                     </div>
 
                     <div class="d-flex flex-row mb-3">
@@ -80,7 +80,7 @@
                       <div class="d-flex flex-row mb-3">
                         <div class="small">※対戦開始日時になったら決闘ページへ移動してください</div>
                       </div>
-  
+
                       <div class="d-flex flex-row mb-3">
                         <button class="btn btn-primary" onclick="location.href='/duel/single/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
                       </div>
