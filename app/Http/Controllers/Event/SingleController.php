@@ -82,8 +82,8 @@ class SingleController extends Controller
             return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
         }
 
-        //追加
-        $request->merge(['game_id' => 1]);
+        // 選択しているゲームでフィルタ
+        $request->merge(['game_id' => Auth::user()->selected_game_id]);
         $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
         $request->merge(['duel_category_id'  => \App\Models\DuelCategory::SINGLE]);
         $request->merge(['post_category_id'  => \App\Models\PostCategory::EVENT]);
@@ -94,8 +94,6 @@ class SingleController extends Controller
         $request->merge(['is_personal'       => 0]);
 
         $event_id = DB::transaction(function () use($request) {
-            // 選択しているゲームでフィルタ
-            $request->merge(['game_id' => Auth::user()->selected_game_id]);
 
             $event = $this->event_service->createEventBySingle($request);
             //event用のpostを作成
@@ -114,7 +112,7 @@ class SingleController extends Controller
             $this->post_service->createPost($request);
 //            Mail::send(new AdminNoticeCreateEventSingleMail('/event/single/'.$event_id));
 
-            $users = $this->user_service->findAllUserBySendMail($event->user_id);
+            $users = $this->user_service->findAllUserBySendMail($request);
             Mail::send(new EventSingleCreateMail($event, $users));
             return $event_id;
         });

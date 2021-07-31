@@ -53,8 +53,16 @@ class UserRepository
         return $query;
     }
 
-    public function findAllBySendMail($id){
-        return User::whereNotIn('id',[$id])->where('email', 'not like', '%test@test.jp%')->get();
+    public function findAllBySendMail($request){
+        $query = $this->composeWhereClause($request);
+
+        return $query->whereNotIn('id',[$request->user_id])
+                    ->whereHas('gameUsers',  function($query, $request){
+                        $query->where('game_id', $request->game_id);
+                        $query->where('is_mail_send', true);
+                    })
+                    ->where('email', 'not like', '%test@test.jp%')->get();
+
     }
 
 }

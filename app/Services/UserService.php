@@ -40,12 +40,12 @@ class UserService
 
     /**
      * 全員にメールを一斉送信する際の処理
-     * @param $user_id
+     * @param $request
      * @return mixed
      */
-    public function findAllUserBySendMail($user_id)
+    public function findAllUserBySendMail($request)
     {
-        return $this->userRepository->findAllBySendMail($user_id);
+        return $this->userRepository->findAllBySendMail($request);
     }
 
 }

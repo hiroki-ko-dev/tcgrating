@@ -97,7 +97,6 @@ class CommentController extends Controller
                         $emails[] = $duelUser->user->email;
                     }
                     Mail::send(new PostCommentDuelMail($emails, $post, $comment));
-
             }
         });
 
