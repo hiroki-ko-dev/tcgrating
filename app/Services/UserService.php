@@ -45,7 +45,7 @@ class UserService
      */
     public function findAllUserBySendMail($user_id)
     {
-        return $this->user_repository->findAllBySendMail($user_id);
+        return $this->userRepository->findAllBySendMail($user_id);
     }
 
 }

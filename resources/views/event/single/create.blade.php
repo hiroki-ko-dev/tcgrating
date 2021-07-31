@@ -2,38 +2,6 @@
 
 @section('addJs')
   <script src="{{mix('/js/common/calendar.js')}}" defer></script>
-
-  <script>
-  //カレンダー機能の実装
-  $("#datepicker").datepicker({
-  dateFormat: 'yy/mm/dd',
-  });
-
-  $(document).ready( function(){
-
-  var today = new Date();
-
-  var year   = today.getFullYear();
-  var month  = today.getMonth()+1
-  var day    = today.getDate();
-
-  //日・時・分を取得
-  var start_hour   = ('00' + today.getHours()).slice( -2 );
-  var start_minute = ('00' + today.getMinutes()).slice( -2 );
-
-  //日・時・分を取得
-  var end_hour   = ('00' + today.getHours() + 1).slice( -2 );
-  var end_minute = ('00' + today.getMinutes()).slice( -2 );
-
-  console.log(start_hour);
-  console.log(start_minute);
-
-  document.getElementById( "datepicker" ).value = year + "/" + month + "/" + day ;
-  document.getElementById( 'start_time' ).value = start_hour + ":" + start_minute ;
-  document.getElementById( 'end_time' ).value   = end_hour + ":" + end_minute ;
-  });
-  </script>
-
 @endsection
 
 @section('content')
@@ -98,33 +66,30 @@
                         </div>
                     </div>
 
-                    <div class="card-header">{{ __('ルームID') }}</div>
+                    <div class="card-header">{{ __('デュエルリンクス対戦ID') }}</div>
                     <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <input id="room_id" type="number" placeholder="※後から編集できます。わからない場合は今は適当に入れてください。" class="form-control w-100 @error('room_id') is-invalid @enderror" name="room_id" value="{{ old('room_id') }}" required autocomplete="room_id" autofocus>
-                                @error('room_id')
-                                <span class="invalid-feedback" role="alert">
+                      <div class="d-flex flex-row mb-3">
+                        <div class="w-30 font-weight-bold">{{ __('ルームID') }}</div>
+                        <div class="w-70">
+                          <input id="room_id" type="number" placeholder="※後から編集できます。わからない場合は今は適当に入れてください。" class="form-control w-100 @error('room_id') is-invalid @enderror" name="room_id" value="{{ old('room_id') }}" required autocomplete="room_id" autofocus>
+                          @error('room_id')
+                          <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                                @enderror
-                            </div>
+                          @enderror
                         </div>
-                    </div>
-
-                    <div class="card-header">{{ __('観戦ID ※任意入力') }}</div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <input id="watching_id" type="number" placeholder="※後から編集できます。わからない場合は入れないでください。" class="form-control w-100 @error('watching_id') is-invalid @enderror" name="watching_id" value="{{ old('watching_id') }}" autofocus>
-
-                                @error('watching_id')
-                                <span class="invalid-feedback" role="alert">
+                      </div>
+                      <div class="d-flex flex-row mb-3">
+                        <div class="w-30 font-weight-bold">{{ __('観戦ID ※任意入力') }}</div>
+                        <div class="w-70">
+                          <input id="watching_id" type="number" placeholder="※後から編集できます。わからない場合は入れないでください。" class="form-control w-100 @error('watching_id') is-invalid @enderror" name="watching_id" value="{{ old('watching_id') }}" autofocus>
+                          @error('watching_id')
+                          <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                                @enderror
-                            </div>
+                          @enderror
                         </div>
+                      </div>
                     </div>
 
                     <div class="form-group row mb-0">
