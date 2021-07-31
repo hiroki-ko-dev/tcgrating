@@ -15,20 +15,6 @@
                 <form method="POST" action="/event/single">
                     @csrf
 
-                    <div class="card-header">{{ __('一言メッセージ') }}</div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-md-12">
-                                <textarea id="body" class="form-control w-100 @error('body') is-invalid @enderror" name="body" >{{ old('body') }}</textarea>
-                                @error('body')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="card-header">{{ __('対戦開始日時') }}</div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -130,6 +116,20 @@
                       </div>
                     </div>
                   @endif
+
+                  <div class="card-header">{{ __('一言メッセージ') }}</div>
+                  <div class="card-body">
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <textarea id="body" class="form-control w-100 @error('body') is-invalid @enderror" name="body" >{{ old('body') }}</textarea>
+                        @error('body')
+                        <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
+                      </div>
+                    </div>
+                  </div>
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-5 mb-3">
