@@ -57,7 +57,7 @@ class UserRepository
         $query = $this->composeWhereClause($request);
 
         return $query->whereNotIn('id',[$request->user_id])
-                    ->whereHas('gameUsers',  function($query, $request){
+                    ->whereHas('gameUsers',  function($query) use($request){
                         $query->where('game_id', $request->game_id);
                         $query->where('is_mail_send', true);
                     })
