@@ -58,8 +58,18 @@ class DuelRepository
     public function update($request)
     {
         $duel = Duel::find($request->id);
-        $duel->room_id     = $request->room_id;
-        $duel->watching_id = $request->watching_id;
+        if(isset($request->room_id)) {
+            $duel->room_id = $request->room_id;
+        }
+        if(isset($request->watching_id)) {
+            $duel->watching_id = $request->watching_id;
+        }
+        if(isset($request->tool_id)) {
+            $duel->tool_id = $request->tool_id;
+        }
+        if(isset($request->tool_code)) {
+            $duel->tool_code = $request->tool_code;
+        }
         $duel->save();
 
         return $duel;

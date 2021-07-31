@@ -36,33 +36,72 @@
                             </div>
                         </div>
 
+                      <div class="card-header">{{ __('対戦ゲーム') }}</div>
+                      <div class="card-body">
+                        @if($duel->game_id == config('assets.site.game_ids.yugioh_duellinks'))
+                          <div class="font-weight-bold">{{ __('遊戯王デュエルリンクス') }}</div>
+                        @elseif($duel->game_id == config('assets.site.game_ids.yugioh_ocg'))
+                          <div class="font-weight-bold">{{ __('遊戯王OCG リモート対戦') }}</div>
+                        @elseif($duel->game_id == config('assets.site.game_ids.pokemon_card'))
+                          <div class="font-weight-bold">{{ __('ポケモンカード リモート対戦') }}</div>
+                        @endif
+                      </div>
+
+                      @if($duel->game_id == config('assets.site.game_ids.yugioh_duellinks'))
                         <div class="card-header">{{ __('ルームID') }}</div>
                         <div class="card-body">
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <input id="room_id" type="number" placeholder="※編集できます。わからない場合は今は適当に入れてください。" class="form-control w-100 @error('room_id') is-invalid @enderror" name="room_id" value="{{ old('room_id',$duel->room_id) }}" required autocomplete="room_id" autofocus>
-                                    @error('room_id')
-                                    <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                    @enderror
-                                </div>
+                          <div class="form-group row">
+                            <div class="col-md-12">
+                              <input id="room_id" type="number" class="form-control w-100 @error('room_id') is-invalid @enderror" name="room_id" value="{{ old('room_id',$duel->room_id) }}" required autocomplete="room_id" autofocus>
+                              @error('room_id')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                              @enderror
                             </div>
+                          </div>
                         </div>
-
                         <div class="card-header">{{ __('観戦ID') }}</div>
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <input id="watching_id" type="number" placeholder="※編集できます。わからない場合は入れないでください。" class="form-control w-100 @error('watching_id') is-invalid @enderror" name="watching_id" value="{{ old('watching_id',$duel->watching_id) }}" >
+                                    <input id="watching_id" type="number" class="form-control w-100 @error('watching_id') is-invalid @enderror" name="watching_id" value="{{ old('watching_id',$duel->watching_id) }}" >
                                     @error('watching_id')
                                     <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+                      @else
+                        <div class="card-header">{{ __('対戦ツール') }}</div>
+                        <div class="card-body">
+                          <div class="d-flex flex-row mb-3">
+                            <div class="w-30">{{ __('ツール名') }}</div>
+                            <div class="w-70">
+                              <input id="tool_id" type="number" placeholder="※後から編集できます" class="form-control w-100 @error('tool_id') is-invalid @enderror" name="tool_id" value="{{ old('tool_id', $duel->tool_id) }}" required autocomplete="tool_id" autofocus>
+                              @error('tool_id')
+                              <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
+                            </div>
+                          </div>
+                          <div class="d-flex flex-row mb-3">
+                            <div class="w-30">{{ __('対戦コード') }}</div>
+                            <div class="w-70">
+                              <input id="tool_code" type="text" placeholder="※後から編集できます" class="form-control w-100 @error('tool_code') is-invalid @enderror" name="tool_code" value="{{ old('tool_code', $duel->tool_code) }}" autofocus>
+                              @error('tool_code')
+                              <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
+                            </div>
+                          </div>
+                        </div>
+                      @endif
+
 
                         <div class="form-group row mb-3">
                             <div class="col-md-6 offset-md-5">
