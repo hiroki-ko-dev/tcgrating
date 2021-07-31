@@ -157,13 +157,15 @@
                 <div class="card-body">
 
                   @if($event->eventDuel[0]->duel->game_id == config('assets.site.game_ids.yugioh_duellinks'))
-                    <div class="d-flex flex-row mb-3">
-                      <div class="w-30">{{ __('ルームID') }}</div>
-                      <div class="w-70">{{$event->eventDuel[0]->duel->room_id}}</div>
-                    </div>
-                    <div class="d-flex flex-row mb-3">
-                      {{ __('※ルームIDは対戦プレイヤーにのみ表示されます')}}
-                    </div>
+                    @if(!is_null($event->eventDuel[0]->duel->duelUser->where('user_id',Auth::id())->first()))
+                      <div class="d-flex flex-row mb-3">
+                        <div class="w-30">{{ __('ルームID') }}</div>
+                        <div class="w-70">{{$event->eventDuel[0]->duel->room_id}}</div>
+                      </div>
+                      <div class="d-flex flex-row mb-3 text-secondary ">
+                        {{ __('※ルームIDは対戦プレイヤーにのみ表示されます')}}
+                      </div>
+                    @endif
                     <div class="d-flex flex-row mb-3">
                       <div class="w-30">{{ __('観戦ID') }}</div>
                       <div class="w-70">{{$event->eventDuel[0]->duel->watching_id}}</div>
@@ -171,15 +173,20 @@
                   @else
                     <div class="d-flex flex-row mb-3">
                       <div class="w-30">{{ __('ツール') }}</div>
-                      <div class="w-70">{{$event->eventDuel[0]->duel->tool_id}}</div>
+                      <div class="w-70">{{config('assets.duel.tool')[$event->eventDuel[0]->duel->tool_id]}}</div>
                     </div>
-                    <div class="d-flex flex-row mb-3">
-                      <div class="w-30">{{ __('対戦コード') }}</div>
-                      <div class="w-70">{{$event->eventDuel[0]->duel->tool_code}}</div>
-                    </div>
-                    <div class="d-flex flex-row mb-3">
-                      {{ __('※フレンドコード,ルームID、招待URL等')}}
-                    </div>
+                    @if(!is_null($event->eventDuel[0]->duel->duelUser->where('user_id',Auth::id())->first()))
+                      <div class="d-flex flex-row mb-3">
+                        <div class="w-30">{{ __('対戦コード') }}</div>
+                        <div class="w-70">{{$event->eventDuel[0]->duel->tool_code}}</div>
+                      </div>
+                      <div class="d-flex flex-row mb-3 text-secondary">
+                        {{ __('※フレンドコード,ルームID、招待URL等')}}
+                      </div>
+                      <div class="d-flex flex-row mb-3 text-secondary">
+                        {{ __('※対戦コードは対戦プレイヤーにのみ表示されます')}}
+                      </div>
+                    @endif
                   @endif
                 </div>
             </div>

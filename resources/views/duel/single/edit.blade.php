@@ -80,7 +80,15 @@
                           <div class="d-flex flex-row mb-3">
                             <div class="w-30">{{ __('ツール名') }}</div>
                             <div class="w-70">
-                              <input id="tool_id" type="number" placeholder="※後から編集できます" class="form-control w-100 @error('tool_id') is-invalid @enderror" name="tool_id" value="{{ old('tool_id', $duel->tool_id) }}" required autocomplete="tool_id" autofocus>
+                              <select id="tool_id" name="tool_id" class="form-control">
+                                @foreach(config('assets.duel.tool') as $key => $tool)
+                                  <option value="{{$key}}"
+                                          @if(old('tool_id') == $key)
+                                          selected
+                                    @endif
+                                  >{{$tool}}</option>
+                                @endforeach
+                              </select>
                               @error('tool_id')
                               <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
