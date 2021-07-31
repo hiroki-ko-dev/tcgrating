@@ -12,20 +12,16 @@ class EventRepository
     public function create($request)
     {
         $event = new Event();
-        $event->fill([
-            'game_id'           => $request->game_id,
-            'event_category_id' => $request->event_category_id,
-            'user_id'           => $request->user_id,
-            'status'            => \APP\Models\Event::RECRUIT,
-            'max_member'        => $request->max_member,
-            'title'             => $request->title,
-            'body'              => $request->body,
-            'date'              => $request->date,
-            'start_time'        => $request->start_time,
-            'end_time'          => $request->end_time,
-            'created_at'        => Carbon::now(),
-            'updated_at'        => Carbon::now()
-        ]);
+        $event->game_id           = $request->game_id;
+        $event->event_category_id = $request->event_category_id;
+        $event->user_id           = $request->user_id;
+        $event->status            = \APP\Models\Event::RECRUIT;
+        $event->max_member        = $request->max_member;
+        $event->title             = $request->title;
+        $event->body              = $request->body;
+        $event->date              = $request->date;
+        $event->start_time        = $request->start_time;
+        $event->end_time          = $request->end_time;
         $event->save();
 
         return $event;

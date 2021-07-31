@@ -10,8 +10,8 @@ return [
     ],
 
     'game_ids' => [
-    'yugioh_duellinks' => '1',
-    'yugioh_ocg' => '2',
-    'pokemon_card' => '3'
+        'yugioh_duellinks' => '1',
+        'yugioh_ocg' => '2',
+        'pokemon_card' => '3'
     ]
 ];

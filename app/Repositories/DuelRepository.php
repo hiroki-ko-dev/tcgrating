@@ -11,20 +11,25 @@ class DuelRepository
 
     public function create($request)
     {
-
         $duel = new Duel();
-        $duel->fill([
-            'game_id'          => $request->game_id,
-            'duel_category_id' => $request->duel_category_id,
-            'user_id'          => $request->user_id,
-            'status'           => $request->status,
-            'number_of_games'  => $request->number_of_games,
-            'max_member'       => $request->max_member,
-            'room_id'          => $request->room_id,
-            'watching_id'      => $request->watching_id,
-            'created_at'       => Carbon::now(),
-            'updated_at'       => Carbon::now()
-        ]);
+        $duel->game_id          = $request->game_id;
+        $duel->duel_category_id = $request->duel_category_id;
+        $duel->user_id          = $request->user_id;
+        $duel->status           = $request->status;
+        $duel->number_of_games  = $request->number_of_games;
+        $duel->max_member       = $request->max_member;
+        if(isset($request->room_id)) {
+            $duel->room_id = $request->room_id;
+        }
+        if(isset($request->watching_id)) {
+            $duel->watching_id = $request->watching_id;
+        }
+        if(isset($request->tool_id)) {
+            $duel->tool_id = $request->tool_id;
+        }
+        if(isset($request->tool_code)) {
+            $duel->tool_code = $request->tool_code;
+        }
         $duel->save();
 
         return $duel;

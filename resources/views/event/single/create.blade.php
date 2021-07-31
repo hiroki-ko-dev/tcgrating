@@ -106,7 +106,7 @@
                       <div class="d-flex flex-row mb-3">
                         <div class="w-30">{{ __('対戦コード') }}</div>
                         <div class="w-70">
-                          <input id="tool_code" type="number" placeholder="※後から編集できます" class="form-control w-100 @error('tool_code') is-invalid @enderror" name="tool_code" value="{{ old('tool_code') }}" autofocus>
+                          <input id="tool_code" type="text" placeholder="※後から編集できます" class="form-control w-100 @error('tool_code') is-invalid @enderror" name="tool_code" value="{{ old('tool_code') }}" autofocus>
                           @error('tool_code')
                           <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
