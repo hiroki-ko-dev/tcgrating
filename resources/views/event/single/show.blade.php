@@ -162,7 +162,7 @@
                         <div class="w-30">{{ __('ルームID') }}</div>
                         <div class="w-70">{{$event->eventDuel[0]->duel->room_id}}</div>
                       </div>
-                      <div class="d-flex flex-row mb-3 text-secondary ">
+                      <div class="d-flex flex-row mb-3 text-secondary">
                         {{ __('※ルームIDは対戦プレイヤーにのみ表示されます')}}
                       </div>
                     @endif

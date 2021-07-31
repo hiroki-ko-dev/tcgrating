@@ -122,10 +122,10 @@
                           @enderror
                         </div>
                       </div>
-                      <div class="d-flex flex-row mb-3">
+                      <div class="d-flex flex-row mb-3 text-secondary">
                         {{ __('※ツールの招待URL、フレンドコード等を記載してください') }}
                       </div>
-                      <div class="d-flex flex-row mb-3">
+                      <div class="d-flex flex-row mb-3 text-secondary">
                         {{ __('※書ききれない場合は詳細を一言メッセージに記載してください') }}
                       </div>
                     </div>
