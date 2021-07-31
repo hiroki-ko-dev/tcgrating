@@ -51,7 +51,13 @@
                     </div>
                     <div class="d-flex flex-row">
                         <div class="w-30 font-weight-bold">{{ __('レート') }}</div>
-                        <div class="w-70">{{number_format($user->rate_yugioh_links)}}</div>
+                        <div class="w-70">
+                          @if(!is_null($user->rates->where('game_id', Auth::user()->selected_game_id)->first()))
+                            {{number_format($user->rates->where('game_id', Auth::user()->selected_game_id)->first()->rate)}}
+                          @else
+                            0
+                          @endif
+                        </div>
                     </div>
                 </div>
 
@@ -69,11 +75,13 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             @foreach($events as $event)
+                              @if($event->game_id == Auth::user()->selected_game_id)
                                 @if($event->status == \App\Models\Event::RECRUIT)
                                     <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(対戦相手受付中)</a></div>
                                 @elseif($event->status == \App\Models\Event::READY)
                                     <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(マッチング済)</a></div>
                                 @endif
+                              @endif
                             @endforeach
                         </div>
                     </div>
