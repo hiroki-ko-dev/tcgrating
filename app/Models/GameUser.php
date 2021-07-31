@@ -7,10 +7,15 @@ use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rate extends Model
+class GameUser extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function game()
+    {
+        return $this->belongsTo('App\Models\Game','game_id');
+    }
 
     public function user()
     {

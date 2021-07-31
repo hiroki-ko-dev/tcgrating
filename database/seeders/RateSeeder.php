@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Rate;
+use App\Models\GameUser;
 use Illuminate\Database\Seeder;
 
 class RateSeeder extends Seeder
@@ -16,19 +16,19 @@ class RateSeeder extends Seeder
     {
         $users = \App\Models\User::get();
         foreach ($users as $user) {
-            $rate = new Rate();
+            $rate = new GameUser();
             $rate->game_id = 1;
             $rate->user_id =$user->id;
             $rate->rate = $user->rate_yugioh_links;
             $rate->save();
 
-            $rate = new Rate();
+            $rate = new GameUser();
             $rate->game_id = 2;
             $rate->user_id =$user->id;
             $rate->rate = 0;
             $rate->save();
 
-            $rate = new Rate();
+            $rate = new GameUser();
             $rate->game_id = 3;
             $rate->user_id =$user->id;
             $rate->rate = 0;

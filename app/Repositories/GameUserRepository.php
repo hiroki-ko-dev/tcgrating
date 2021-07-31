@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 use App\Models\User;
-use App\Models\Rate;
+use App\Models\GameUser;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class RateRepository
+class GameUserRepository
 {
 
     /**
@@ -19,26 +19,26 @@ class RateRepository
     public function updateRate($game_id, $user_id, $add_rate)
     {
         // rateレコードがすでに存在するなら抽出
-        $rate = Rate::where('game_id', $game_id)
+        $gameUser = GameUser::where('game_id', $game_id)
                     ->where('user_id', $user_id)
                     ->first();
 
         // 存在しないならここで新規作成
-        if(is_null($rate)){
-            $rate = new Rate();
-            $rate->game_id = $game_id;
-            $rate->user_id = $user_id;
+        if(is_null($gameUser)){
+            $gameUser = new GameUser();
+            $gameUser->game_id = $game_id;
+            $gameUser->user_id = $user_id;
         }
 
-        $rate->rate = $rate->rate + $add_rate ;
-        $rate->save() ;
+        $gameUser->rate = $gameUser->rate + $add_rate ;
+        $gameUser->save() ;
 
-        return $rate ;
+        return $gameUser ;
     }
 
     public function composeWhereClause($request)
     {
-        $query = Rate::query();
+        $query = GameUser::query();
         $query->where('game_id', $request->game_id);
         return $query;
     }

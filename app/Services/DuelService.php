@@ -6,7 +6,7 @@ use App\Repositories\DuelUserRepository;
 use App\Repositories\DuelUserResultRepository;
 use App\Repositories\EventDuelRepository;
 use App\Repositories\EventRepository;
-use App\Repositories\RateRepository;
+use App\Repositories\GameUserRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
@@ -18,7 +18,7 @@ class DuelService
     protected $event_duel_repository;
     protected $event_repository;
     protected $user_repository;
-    protected $rate_repository;
+    protected $gameUserRepository;
 
     public function __construct(DuelRepository $duel_repository,
                                 DuelUserRepository $duel_user_repository,
@@ -26,7 +26,7 @@ class DuelService
                                 EventDuelRepository $event_duel_repository,
                                 EventRepository $event_repository,
                                 UserRepository $user_repository,
-                                RateRepository $rate_repository)
+                                GameUserRepository $gameUserRepository)
     {
         $this->duel_repository              = $duel_repository;
         $this->duel_user_repository         = $duel_user_repository;
@@ -34,7 +34,7 @@ class DuelService
         $this->event_duel_repository        = $event_duel_repository;
         $this->event_repository             = $event_repository;
         $this->user_repository              = $user_repository;
-        $this->rate_repository              = $rate_repository;
+        $this->gameUserRepository           = $gameUserRepository;
     }
 
     /**
@@ -221,8 +221,8 @@ class DuelService
 
             // 試合終了に伴うユーザーレートの更新
             $game_id = $request->duel->eventDuel->event->game_id;
-            $this->rate_repository->updateRate($game_id, $request->user_id, $myDuelUserResult->sum('rating'));
-            $this->rate_repository->updateRate($game_id, $request->duel->duelUser->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->sum('rating'));
+            $this->gameUserRepository->updateRate($game_id, $request->user_id, $myDuelUserResult->sum('rating'));
+            $this->gameUserRepository->updateRate($game_id, $request->duel->duelUser->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->sum('rating'));
             $request->merge(['message' => '試合が終了しました']);
         }
 

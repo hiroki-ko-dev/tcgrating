@@ -63,6 +63,6 @@ class User extends Authenticatable
 
     public function rates()
     {
-        return $this->hasMany('App\Models\Rate','user_id');
+        return $this->hasMany('App\Models\GameUser','user_id');
     }
 }
