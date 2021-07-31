@@ -25,7 +25,14 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ $event->title }}
+                    @if($event->eventDuel[0]->duel->game_id == config('assets.site.game_ids.yugioh_duellinks'))
+                      {{ __('遊戯王デュエルリンクス') }}
+                    @elseif($event->eventDuel[0]->duel->game_id == config('assets.site.game_ids.yugioh_ocg'))
+                      {{ __('遊戯王OCG リモート対戦') }}
+                    @elseif($event->eventDuel[0]->duel->game_id == config('assets.site.game_ids.pokemon_card'))
+                      {{ __('ポケモンカード リモート対戦') }}
+                    @endif
+                      {{ $event->title }}
                 </div>
                 <div class="card-body">
                     <div class="d-flex flex-row mb-3">
@@ -33,7 +40,7 @@
                       <div class="w-70">：<a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a></div>
                     </div>
                     <div class="d-flex flex-row mb-3">
-                        <div class="w-30 font-weight-bold">決闘回数</div>
+                        <div class="w-30 font-weight-bold">対戦回数</div>
                         <div class="w-70">：{{$event->eventDuel[0]->duel->number_of_games}}</div>
                     </div>
                     <div class="d-flex flex-row mb-3">
@@ -142,18 +149,38 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    {{ __('観戦ID') }}
+                  {{ __('対戦方法') }}　
+                    @if($event->eventDuel[0]->duel->duelUser[0]->user_id == Auth::id())
+                      （<a href="/duel/single/{{$event->eventDuel[0]->duel->id}}/edit">編集する</a>）
+                    @endif
                 </div>
                 <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div class="post-body">{{$event->eventDuel[0]->duel->watching_id}}
-                                @if($event->eventDuel[0]->duel->duelUser[0]->user_id == Auth::id())
-                                    （<a href="/duel/single/{{$event->eventDuel[0]->duel->id}}/edit">編集する</a>）
-                                @endif
-                            </div>
-                        </div>
+
+                  @if($event->eventDuel[0]->duel->game_id == config('assets.site.game_ids.yugioh_duellinks'))
+                    <div class="d-flex flex-row mb-3">
+                      <div class="w-30">{{ __('ルームID') }}</div>
+                      <div class="w-70">{{$event->eventDuel[0]->duel->room_id}}</div>
                     </div>
+                    <div class="d-flex flex-row mb-3">
+                      {{ __('※ルームIDは対戦プレイヤーにのみ表示されます')}}
+                    </div>
+                    <div class="d-flex flex-row mb-3">
+                      <div class="w-30">{{ __('観戦ID') }}</div>
+                      <div class="w-70">{{$event->eventDuel[0]->duel->watching_id}}</div>
+                    </div>
+                  @else
+                    <div class="d-flex flex-row mb-3">
+                      <div class="w-30">{{ __('ツール') }}</div>
+                      <div class="w-70">{{$event->eventDuel[0]->duel->tool_id}}</div>
+                    </div>
+                    <div class="d-flex flex-row mb-3">
+                      <div class="w-30">{{ __('対戦コード') }}</div>
+                      <div class="w-70">{{$event->eventDuel[0]->duel->tool_code}}</div>
+                    </div>
+                    <div class="d-flex flex-row mb-3">
+                      {{ __('※フレンドコード,ルームID、招待URL等')}}
+                    </div>
+                  @endif
                 </div>
             </div>
         </div>
