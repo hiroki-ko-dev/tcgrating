@@ -30,18 +30,18 @@
 @endsection
 
 @section('bodyHeader')
-    <nav class="navbar navbar-expand-md bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md bg-links-blue shadow-sm">
         <div class="container">
           <div class="d-sm-flex flex-row mb-3">
             <div>
               <a class="navbar-brand" href="{{ url('/') }}" title="{{config('assets.site.title')}}">
                   <span>
                     @if(session('selected_game_id') == 1)
-                      <h4 class="font-weight-bold site-title" style="display:inline;">遊戯王DUEL LINKSレーティング</h4>
+                      <h4 class="font-weight-bold text-white" style="display:inline;">遊戯王DUEL LINKSレーティング</h4>
                     @elseif(session('selected_game_id') == 2)
-                      <h4 class="font-weight-bold site-title" style="display:inline;">遊戯王OCG リモート対戦マッチング</h4>
+                      <h4 class="font-weight-bold text-white" style="display:inline;">遊戯王OCG リモート対戦マッチング</h4>
                     @else
-                      <h4 class="font-weight-bold site-title" style="display:inline;">ポケモンカード リモート対戦マッチング</h4>
+                      <h4 class="font-weight-bold text-white" style="display:inline;">ポケモンカード リモート対戦マッチング</h4>
                     @endif
                   </span>
               </a>
@@ -50,7 +50,7 @@
               <form id="selected_game_form" method="post" action="/site/update_selected_game">
                 @csrf
                 <div class="selected_game mr-2">
-                  Game Mode：
+                  <span class=" text-white">Game Mode：</span>>
                   <select id="selected_game_id" name="selected_game_id" class="form-control">
                     @foreach(config('assets.site.games') as $key => $game)
                       <option value="{{$key}}"
