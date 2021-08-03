@@ -9,6 +9,18 @@ use Illuminate\Http\Request;
 class UserRepository
 {
 
+    public function create($request)
+    {
+        $user                   = new User();
+        $user->selected_game_id = $request->game_id;
+        $user->name             = $request->name;
+        $user->email            = $request->email;
+        $user->password         = $request->password;
+        $user->save();
+
+        return $user;
+    }
+
     public function update($request)
     {
         User::where('id',$request->id)
@@ -17,21 +29,6 @@ class UserRepository
                 'name'  => $request->name,
                 'body'  => $request->body
             ]);
-    }
-
-    /**
-     * ユーザーrateが変動があった時の操作
-     * @param $id
-     * @param $rate
-     * @return mixed
-     */
-    public function updateRate($id, $rate)
-    {
-        $user = User::find($id);
-        $user->rate_yugioh_links = $user->rate_yugioh_links + $rate ;
-        $user->save() ;
-
-        return $user ;
     }
 
     public function updateSelectedGameId($request)

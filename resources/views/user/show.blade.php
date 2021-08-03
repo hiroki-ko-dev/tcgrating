@@ -52,8 +52,8 @@
                     <div class="d-flex flex-row">
                         <div class="w-30 font-weight-bold">{{ __('レート') }}</div>
                         <div class="w-70">
-                          @if(!is_null($user->rates->where('game_id', Auth::user()->selected_game_id)->first()))
-                            {{number_format($user->rates->where('game_id', Auth::user()->selected_game_id)->first()->rate)}}
+                          @if(!is_null($user->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()))
+                            {{number_format($user->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()->rate)}}
                           @else
                             0
                           @endif

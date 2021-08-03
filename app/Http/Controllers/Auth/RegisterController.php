@@ -9,6 +9,11 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use DB;
+use Illuminate\Http\Request;
+
+use App\Services\UserService;
+
 class RegisterController extends Controller
 {
     /*
@@ -30,14 +35,16 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    protected $userService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
         $this->middleware('guest');
     }
 
@@ -64,10 +71,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $request = new Request();
+        $request->game_id  = session('selected_game_id');
+        $request->name     = $data['name'];
+        $request->email    = $data['email'];
+        $request->password = Hash::make($data['password']);
+
+        $user = DB::transaction(function () use ($request){
+            return $this->userService->makeUser($request);
+        });
+
+        return $user;
     }
 }

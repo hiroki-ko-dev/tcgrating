@@ -10,6 +10,20 @@ use Illuminate\Http\Request;
 class GameUserRepository
 {
 
+    public function create($request)
+    {
+        $gameUser               = new GameUser();
+        $gameUser->game_id      = $request->game_id;
+        $gameUser->user_id      = $request->user_id;
+        $gameUser->is_mail_send = true;
+        $gameUser->rate    = 0;
+        $gameUser->save();
+
+        return $gameUser;
+    }
+
+
+
     /**
      * @param $game_id
      * @param $user_id

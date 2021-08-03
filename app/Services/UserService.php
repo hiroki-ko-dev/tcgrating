@@ -18,6 +18,20 @@ class UserService
         $this->gameUserRepository = $gameUserRepository;
     }
 
+    /**
+     * 新規ユーザーの作成処理
+     * @param $request
+     * @return mixed
+     */
+    public function makeUser($request)
+    {
+        $user = $this->userRepository->create($request);
+        $request->merge(['user_id' => $user->id]);
+        $gameUser = $this->gameUserRepository->create($request);
+
+        return $user;
+    }
+
     public function updateUser($request)
     {
         return $this->userRepository->update($request);
@@ -47,5 +61,6 @@ class UserService
     {
         return $this->userRepository->findAllBySendMail($request);
     }
+
 
 }
