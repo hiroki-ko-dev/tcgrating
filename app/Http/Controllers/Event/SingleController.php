@@ -112,6 +112,9 @@ class SingleController extends Controller
             $this->post_service->createPost($request);
 //            Mail::send(new AdminNoticeCreateEventSingleMail('/event/single/'.$event_id));
 
+            // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
+            $this->user_service->makeGameUser($request);
+
             $users = $this->user_service->findAllUserBySendMail($request);
             Mail::send(new EventSingleCreateMail($event, $users));
             return $event_id;

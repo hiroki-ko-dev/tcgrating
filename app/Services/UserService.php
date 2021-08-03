@@ -32,6 +32,21 @@ class UserService
         return $user;
     }
 
+    /**
+     * イベント作成時にgameUserがなかったら作成する
+     * @param $request
+     * @return mixed
+     */
+    public function makeGameUser($request)
+    {
+        $gameUser = $this->gameUserRepository->findByGameIdAndUserId($request);
+        if(is_null($gameUser)){
+            $this->gameUserRepository->create($request);
+        }
+
+        return $gameUser;
+    }
+
     public function updateUser($request)
     {
         return $this->userRepository->update($request);

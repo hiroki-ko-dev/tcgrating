@@ -50,6 +50,13 @@ class GameUserRepository
         return $gameUser ;
     }
 
+    public function findByGameIdAndUserId($request)
+    {
+        return GameUser::where('game_id', $request->game_id)
+                        ->where('user_id', $request->user_id)
+                        ->first();
+    }
+
     public function composeWhereClause($request)
     {
         $query = GameUser::query();
@@ -66,10 +73,6 @@ class GameUserRepository
         $query = $this->composeWhereClause($request);
         $query->orderBy('rate','desc');
         return $query->paginate($pagination);
-    }
-
-    public function findAllBySendMail($id){
-        return User::whereNotIn('id',[$id])->where('email', 'not like', '%test@test.jp%')->get();
     }
 
 }
