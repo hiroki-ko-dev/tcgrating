@@ -47,6 +47,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.js('resources/js/sample.js', 'public/js/sample').react()
   .js('resources/js/common/selected_game.js', 'public/js/common/selected_game.js')
+  .js('resources/js/duel/duel.js', 'public/js/duel/duel.js')
   .sourceMaps()
   .autoload({
     "jquery": ['$', 'window.jQuery'],

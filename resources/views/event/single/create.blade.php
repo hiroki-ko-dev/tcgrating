@@ -2,6 +2,7 @@
 
 @section('addJs')
   <script src="{{mix('/js/common/calendar.js')}}" defer></script>
+  <script src="{{mix('/js/duel/duel.js')}}" defer></script>
 @endsection
 
 @section('content')
