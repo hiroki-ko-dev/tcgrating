@@ -37,11 +37,11 @@
               <a class="navbar-brand" href="{{ url('/') }}" title="{{config('assets.site.title')}}">
                   <span>
                     @if(session('selected_game_id') == 1)
-                      <h4 class="font-weight-bold text-white" style="display:inline;">遊戯王DUEL LINKSレーティング</h4>
+                      <h4 class="font-weight-bold text-white header-site-title" style="display:inline;">遊戯王DUEL LINKSレーティング</h4>
                     @elseif(session('selected_game_id') == 2)
-                      <h4 class="font-weight-bold text-white" style="display:inline;">遊戯王OCG リモート対戦マッチング</h4>
+                      <h4 class="font-weight-bold text-white header-site-title" style="display:inline;">遊戯王OCG リモート対戦マッチング</h4>
                     @else
-                      <h4 class="font-weight-bold text-white" style="display:inline;">ポケモンカード リモート対戦マッチング</h4>
+                      <h4 class="font-weight-bold text-white header-site-title" style="display:inline;">ポケモンカード リモート対戦マッチング</h4>
                     @endif
                   </span>
               </a>
