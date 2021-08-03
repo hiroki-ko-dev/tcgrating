@@ -72,8 +72,9 @@ class GameUserRepository
      */
     public function findAllByPaginateOrderByRank($request, $pagination){
         $query = $this->composeWhereClause($request);
-        $query->orderBy('user_id','asc');
         $query->orderBy('rate','desc');
+        $query->orderBy('user_id','asc');
+
 
         return $query->paginate($pagination);
     }
