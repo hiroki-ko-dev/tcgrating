@@ -32,4 +32,8 @@ class Event extends Model
     public function eventDuel(){
         return $this->hasMany('App\Models\EventDuel','event_id','id');
     }
+
+    public function game(){
+        return $this->belongsTo('App\Models\Game','game_id','id');
+    }
 }

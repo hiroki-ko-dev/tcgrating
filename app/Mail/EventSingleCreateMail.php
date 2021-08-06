@@ -37,7 +37,7 @@ class EventSingleCreateMail extends Mailable
         $emails = $this->users->pluck('email')->toArray();
 
         return $this->bcc($emails)  // 送信先アドレス
-        ->subject('【遊戯王レーティング】1vs1対戦が作成されました')// 件名
+        ->subject('【カードゲーム対戦サイト】1vs1対戦が作成されました')// 件名
         ->text('emails.event.single.create')  // 本文
         ->with([
             'event' => $this->event

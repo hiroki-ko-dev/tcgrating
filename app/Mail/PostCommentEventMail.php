@@ -38,7 +38,7 @@ class PostCommentEventMail extends Mailable
     {
         //メールアドレスの取得
         return $this->bcc($this->emails)  // 送信先アドレス
-        ->subject('【遊戯王レーティング】あなたの参加しているイベント掲示板に返信が来ました')// 件名
+        ->subject('【カードゲーム対戦サイト】あなたの参加しているイベント掲示板に返信が来ました')// 件名
         ->text('emails.post.comment.event')  // 本文
         ->with([
             'post'    => $this->post,

@@ -54,4 +54,8 @@ class Duel extends Model
     public function eventDuel(){
         return $this->belongsTo('App\Models\EventDuel','id','duel_id');
     }
+
+    public function game(){
+        return $this->belongsTo('App\Models\Game','game_id','id');
+    }
 }
