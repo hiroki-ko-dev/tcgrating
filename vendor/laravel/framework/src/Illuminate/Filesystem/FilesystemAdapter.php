@@ -11,6 +11,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
 use League\Flysystem\Adapter\Ftp;
 use League\Flysystem\Adapter\Local as LocalAdapter;
@@ -32,6 +33,10 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  */
 class FilesystemAdapter implements CloudFilesystemContract
 {
+    use Macroable {
+        __call as macroCall;
+    }
+
     /**
      * The Flysystem filesystem implementation.
      *
@@ -621,7 +626,7 @@ class FilesystemAdapter implements CloudFilesystemContract
     }
 
     /**
-     * Replace the scheme and host of the given UriInterface with values from the given URL.
+     * Replace the scheme, host and port of the given UriInterface with values from the given URL.
      *
      * @param  \Psr\Http\Message\UriInterface  $uri
      * @param  string  $url
@@ -631,7 +636,10 @@ class FilesystemAdapter implements CloudFilesystemContract
     {
         $parsed = parse_url($url);
 
-        return $uri->withScheme($parsed['scheme'])->withHost($parsed['host']);
+        return $uri
+            ->withScheme($parsed['scheme'])
+            ->withHost($parsed['host'])
+            ->withPort($parsed['port'] ?? null);
     }
 
     /**
@@ -781,6 +789,10 @@ class FilesystemAdapter implements CloudFilesystemContract
      */
     public function __call($method, array $parameters)
     {
+        if (static::hasMacro($method)) {
+            return $this->macroCall($method, $parameters);
+        }
+
         return $this->driver->{$method}(...array_values($parameters));
     }
 }

@@ -2,9 +2,7 @@
 
 namespace Illuminate\Cache;
 
-use Aws\DynamoDb\DynamoDbClient;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Cache\Adapter\Psr16Adapter;
 
@@ -33,20 +31,11 @@ class CacheServiceProvider extends ServiceProvider implements DeferrableProvider
             return new MemcachedConnector;
         });
 
-        $this->app->singleton('cache.dynamodb.client', function ($app) {
-            $config = $app['config']->get('cache.stores.dynamodb');
-
-            return new DynamoDbClient([
-                'region' => $config['region'],
-                'version' => 'latest',
-                'endpoint' => $config['endpoint'] ?? null,
-                'credentials' => Arr::only(
-                    $config, ['key', 'secret', 'token']
-                ),
-            ]);
+        $this->app->singleton(RateLimiter::class, function ($app) {
+            return new RateLimiter($app->make('cache')->driver(
+                $app['config']->get('cache.limiter')
+            ));
         });
-
-        $this->app->singleton(RateLimiter::class);
     }
 
     /**
@@ -57,7 +46,7 @@ class CacheServiceProvider extends ServiceProvider implements DeferrableProvider
     public function provides()
     {
         return [
-            'cache', 'cache.store', 'cache.psr6', 'memcached.connector', 'cache.dynamodb.client', RateLimiter::class,
+            'cache', 'cache.store', 'cache.psr6', 'memcached.connector', RateLimiter::class,
         ];
     }
 }

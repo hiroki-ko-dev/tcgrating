@@ -1776,6 +1776,8 @@ abstract class AbstractPlatform
                     'Can only create primary or unique constraints, no common indexes with getCreateConstraintSQL().'
                 );
             }
+        } elseif ($constraint instanceof UniqueConstraint) {
+            $query .= ' UNIQUE';
         } elseif ($constraint instanceof ForeignKeyConstraint) {
             $query .= ' FOREIGN KEY';
 
@@ -3529,10 +3531,9 @@ abstract class AbstractPlatform
      * @deprecated Implement {@link createReservedKeywordsList()} instead.
      *
      * @return string
+     * @psalm-return class-string<KeywordList>
      *
      * @throws Exception If not supported on this platform.
-     *
-     * @psalm-return class-string<KeywordList>
      */
     protected function getReservedKeywordsClass()
     {
