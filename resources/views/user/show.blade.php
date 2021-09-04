@@ -48,6 +48,15 @@
                         </div>
                       </div>
                     </div>
+                  @else
+                    <div class="card-header">{{ __('Twitterアカウント') }}</div>
+                    <div class="card-body">
+                      <div class="col-md-5">
+                        <div class="d-flex flex-row mb-3">
+                          <a href="https://twitter.com/{{$user->twitter_nickname}}"><div type="body">＠{{$user->twitter_nickname}}</div></a>
+                        </div>
+                      </div>
+                    </div>
                   @endif
             @else
                 <div class="card">
