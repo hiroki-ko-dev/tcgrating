@@ -3,9 +3,19 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="bg-site-black text-white rounded p-3 mb-3">
-        <h5>{{ __('1vs1対戦') }}</h5>
+        <div class="d-flex flex-row mb-3">
+          <div>
+            <h5>{{ __('1vs1対戦') }}</h5>
+          </div>
+          <div class="ml-auto">
+            <btton class="btn btn-outline-light btn-link text-center"
+                   onclick="location.href='/event/single/create'">
+              {{ __('新規決闘作成') }}
+            </btton>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -13,7 +23,7 @@
   <div class="row justify-content-center">
     <!-- フラッシュメッセージ -->
     @if (session('flash_message'))
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="text-center alert-danger rounded p-3 mb-3">
           {{ session('flash_message') }}
         </div>
@@ -22,16 +32,8 @@
   </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="col-md-8 offset-md-4">
-                <a class="btn btn-link text-center" href="/event/single/create">
-                    {{ __('新規決闘作成') }}
-                </a>
-            </div>
-
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('1vs1対戦一覧') }}</div>
-
                 <div class="card-body">
                     @if(!empty($events))
                         @foreach($events as $event)

@@ -11,7 +11,7 @@
         <h2>{{ __('新規1vs1対戦作成') }}</h2>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <form method="POST" action="/event/single">
                     @csrf

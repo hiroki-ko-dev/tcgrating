@@ -6,7 +6,7 @@
     <div class="col-md-12">
       <div class="bg-site-black text-white rounded p-3 mb-3">
         <div class="d-flex flex-row mb-3">
-          <div >
+          <div>
             @if(\App\Models\PostCategory::FREE == $post_category_id)
                 <h3>{{ __('フリー掲示板') }}</h3>
             @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
