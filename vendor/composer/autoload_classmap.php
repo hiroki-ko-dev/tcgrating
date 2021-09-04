@@ -6,6 +6,17 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Abraham\\TwitterOAuth\\Config' => $vendorDir . '/abraham/twitteroauth/src/Config.php',
+    'Abraham\\TwitterOAuth\\Consumer' => $vendorDir . '/abraham/twitteroauth/src/Consumer.php',
+    'Abraham\\TwitterOAuth\\HmacSha1' => $vendorDir . '/abraham/twitteroauth/src/HmacSha1.php',
+    'Abraham\\TwitterOAuth\\Request' => $vendorDir . '/abraham/twitteroauth/src/Request.php',
+    'Abraham\\TwitterOAuth\\Response' => $vendorDir . '/abraham/twitteroauth/src/Response.php',
+    'Abraham\\TwitterOAuth\\SignatureMethod' => $vendorDir . '/abraham/twitteroauth/src/SignatureMethod.php',
+    'Abraham\\TwitterOAuth\\Token' => $vendorDir . '/abraham/twitteroauth/src/Token.php',
+    'Abraham\\TwitterOAuth\\TwitterOAuth' => $vendorDir . '/abraham/twitteroauth/src/TwitterOAuth.php',
+    'Abraham\\TwitterOAuth\\TwitterOAuthException' => $vendorDir . '/abraham/twitteroauth/src/TwitterOAuthException.php',
+    'Abraham\\TwitterOAuth\\Util' => $vendorDir . '/abraham/twitteroauth/src/Util.php',
+    'Abraham\\TwitterOAuth\\Util\\JsonDecoder' => $vendorDir . '/abraham/twitteroauth/src/Util/JsonDecoder.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -177,6 +188,7 @@ return array(
     'Collective\\Html\\HtmlBuilder' => $vendorDir . '/laravelcollective/html/src/HtmlBuilder.php',
     'Collective\\Html\\HtmlFacade' => $vendorDir . '/laravelcollective/html/src/HtmlFacade.php',
     'Collective\\Html\\HtmlServiceProvider' => $vendorDir . '/laravelcollective/html/src/HtmlServiceProvider.php',
+    'Composer\\CaBundle\\CaBundle' => $vendorDir . '/composer/ca-bundle/src/CaBundle.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Cron\\AbstractField' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
     'Cron\\CronExpression' => $vendorDir . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',

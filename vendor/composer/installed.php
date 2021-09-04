@@ -6,11 +6,20 @@
     'aliases' => 
     array (
     ),
-    'reference' => '17fd81e011efc70508305836bc4326bcc47ea0b8',
+    'reference' => '1edf519737b11b4e49be49dd4201fecc6c24d5e0',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
   array (
+    'abraham/twitteroauth' => 
+    array (
+      'pretty_version' => '3.1.0',
+      'version' => '3.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '51a502cde3c4f414ea0f98827afbeca1f19dfe2d',
+    ),
     'asm89/stack-cors' => 
     array (
       'pretty_version' => 'v2.0.3',
@@ -28,6 +37,15 @@
       array (
       ),
       'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
+    ),
+    'composer/ca-bundle' => 
+    array (
+      'pretty_version' => '1.2.10',
+      'version' => '1.2.10.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9fdb22c2e97a614657716178093cd1da90a64aa8',
     ),
     'composer/package-versions-deprecated' => 
     array (
@@ -490,7 +508,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '17fd81e011efc70508305836bc4326bcc47ea0b8',
+      'reference' => '1edf519737b11b4e49be49dd4201fecc6c24d5e0',
     ),
     'laravel/sail' => 
     array (

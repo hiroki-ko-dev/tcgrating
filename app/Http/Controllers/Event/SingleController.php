@@ -11,6 +11,7 @@ use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\PostService;
 use App\Services\UserService;
+use App\Services\TwitterService;
 
 //use App\Mail\AdminNoticeCreateEventSingleMail;
 use App\Mail\EventSingleCreateMail;
@@ -24,16 +25,19 @@ class SingleController extends Controller
     protected $duel_service;
     protected $post_service;
     protected $user_service;
+    protected $twitterService;
 
     public function __construct(EventService $event_service,
                                 DuelService $duel_service,
                                 PostService $post_service,
-                                UserService $user_service)
+                                UserService $user_service,
+                                TwitterService $twitterService)
     {
         $this->event_service = $event_service ;
         $this->duel_service  = $duel_service ;
         $this->post_service  = $post_service ;
         $this->user_service  = $user_service ;
+        $this->twitterService = $twitterService;
     }
 
     /**
@@ -114,6 +118,9 @@ class SingleController extends Controller
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
             $this->user_service->makeGameUser($request);
+
+            //twitterに投稿
+            $this->twitterService->tweetByMakeEvent($event);
 
             $users = $this->user_service->findAllUserBySendMail($request);
             Mail::send(new EventSingleCreateMail($event, $users));

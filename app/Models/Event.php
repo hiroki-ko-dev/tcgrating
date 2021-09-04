@@ -25,6 +25,10 @@ class Event extends Model
         'invalid'  => self::INVALID,
     ];
 
+    public function user(){
+        return $this->belongsTo('App\Models\User','user_id','id');
+    }
+
     public function eventUser(){
         return $this->hasMany('App\Models\EventUser','event_id','id');
     }
