@@ -12,10 +12,25 @@ class UserRepository
     public function create($request)
     {
         $user                   = new User();
+        if(isset($request->twitter_id)){
+            $user->twitter_id = $request->twitter_id;
+        }
         $user->selected_game_id = $request->game_id;
         $user->name             = $request->name;
         $user->email            = $request->email;
         $user->password         = $request->password;
+        if(isset($request->body)){
+            $user->body         = $request->body;
+        }
+        if(isset($request->twitter_nickname)){
+            $user->twitter_nickname = $request->twitter_nickname;
+        }
+        if(isset($request->twitter_image_url)){
+            $user->twitter_image_url = $request->twitter_image_url;
+        }
+        if(isset($request->twitter_simple_image_url)){
+            $user->twitter_simple_image_url = $request->twitter_simple_image_url;
+        }
         $user->save();
 
         return $user;
@@ -23,12 +38,31 @@ class UserRepository
 
     public function update($request)
     {
-        User::where('id',$request->id)
-            ->update([
-                'email' => $request->email,
-                'name'  => $request->name,
-                'body'  => $request->body
-            ]);
+        $user = User::find($request->id);
+        if(isset($request->email)) {
+            $user->email = $request->email;
+        }
+        if(isset($request->name)) {
+            $user->name = $request->name;
+        }
+        if(isset($request->body)) {
+            $user->body = $request->body;
+        }
+        if(isset($request->twitter_id)){
+            $user->twitter_id = $request->twitter_id;
+        }
+        if(isset($request->twitter_nickname)){
+            $user->twitter_nickname = $request->twitter_nickname;
+        }
+        if(isset($request->twitter_image_url)){
+            $user->twitter_image_url = $request->twitter_image_url;
+        }
+        if(isset($request->twitter_simple_image_url)){
+            $user->twitter_simple_image_url = $request->twitter_simple_image_url;
+        }
+        $user->save();
+
+        return $user;
     }
 
     public function updateSelectedGameId($request)
@@ -42,6 +76,10 @@ class UserRepository
 
     public function find($id){
         return User::find($id);
+    }
+
+    public function findByTwitterId($id){
+        return User::where('twitter_id',$id)->first();
     }
 
     public function composeWhereClause($request)

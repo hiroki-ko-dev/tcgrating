@@ -584,6 +584,7 @@ class ComposerStaticInitbeaf35961655b9344fa12aa33ef78b8e
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\Auth\\TwitterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/TwitterController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Duel\\SingleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Duel/SingleController.php',

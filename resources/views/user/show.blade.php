@@ -39,6 +39,16 @@
                             </div>
                         </div>
                     </div>
+                  @if($user->twitter_id == null)
+                    <div class="card-header">{{ __('Twitter連携') }}</div>
+                    <div class="card-body">
+                      <div class="col-md-5">
+                        <div class="d-flex flex-row mb-3">
+                          <a href="/auth/twitter/login"><img class="img-fluid" src="{{ asset('/images/site/twitter/relation.png') }}" alt="hashimu-icon"></a>
+                        </div>
+                      </div>
+                    </div>
+                  @endif
             @else
                 <div class="card">
             @endif

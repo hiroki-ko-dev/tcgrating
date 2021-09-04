@@ -29,6 +29,16 @@ use Illuminate\Support\Facades\Route;
     //権限関係
     Auth::routes();
 
+    // twitterログイン
+    Route::prefix('auth')->group(function () {
+        // TwitterログインURL
+        Route::get('/twitter/login', 'Auth\TwitterController@redirectToProvider');
+        // TwitterコールバックURL
+        Route::get('/twitter/callback', 'Auth\TwitterController@handleProviderCallback');
+        // TwitterログアウトURL
+        Route::get('/twitter/logout', 'Auth\TwitterController@logout');
+    });
+
 //    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
 
     //ユーザー系スレッド
