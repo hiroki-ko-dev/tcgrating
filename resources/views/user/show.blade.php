@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="bg-site-black text-white rounded p-3 mb-3">
                 <h5>{{ __('マイページ') }}</h5>
             </div>
@@ -13,7 +13,7 @@
     <div class="row justify-content-center">
         <!-- フラッシュメッセージ -->
         @if (session('flash_message'))
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="text-center alert-danger rounded p-3 mb-3">
                     {{ session('flash_message') }}
                 </div>
@@ -22,9 +22,9 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             @if($user->id === Auth::id())
-                <div class="col-md-8 offset-md-4">
+                <div class="col-md-12 offset-md-4">
                     <a class="btn btn-link text-center" href="/user/{{$user->id}}/edit">
                         {{ __('編集する') }}
                     </a>
