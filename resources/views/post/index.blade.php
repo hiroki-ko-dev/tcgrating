@@ -3,17 +3,17 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="bg-site-black text-white rounded p-3 mb-3">
         <div class="d-flex flex-row mb-3">
-          <div class="w-70">
+          <div >
             @if(\App\Models\PostCategory::FREE == $post_category_id)
                 <h3>{{ __('フリー掲示板') }}</h3>
             @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
                 <h3>{{ __('チームメンバー募集掲示板') }}</h3>
             @endif
           </div>
-          <div class="w-30">
+          <div class="ml-auto">
             <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
             @if($post_category_id <> \App\Models\PostCategory::TEAM_WANTED)
               <btton class="btn btn-outline-light btn-link text-center"
@@ -30,7 +30,7 @@
   <div class="row justify-content-center">
     <!-- フラッシュメッセージ -->
     @if (session('flash_message'))
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="text-center alert-danger rounded p-3 mb-3">
           {{ session('flash_message') }}
         </div>
@@ -39,8 +39,7 @@
   </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
-
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     @if(!empty($posts))
