@@ -15,7 +15,7 @@
     justify-content: center;
     align-items: center;
     z-index: 90;
-    background-color: #58ACFA;
+  background-color: #000000;
 }
 .menu-btn {
     span {
@@ -44,7 +44,7 @@
     top: 0;
     left: 100%;/*leftの値を変更してメニューを画面外へ*/
     z-index: 80;
-    background-color: #0404B4;
+    background-color: #000000;
     transition: all 0.5s;/*アニメーション設定*/
     ul{
         padding: 70px 10px 0;
@@ -86,10 +86,12 @@
         &::before{
             bottom: 0;
             transform: rotate(45deg);
+          background-color: #ffffff;
         }
         &::after{
             top: 0;
             transform: rotate(-45deg);
+          background-color: #ffffff;
         }
     }
 }

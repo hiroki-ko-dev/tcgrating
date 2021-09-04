@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-links-blue text-white rounded p-3 mb-3">
+    <div class="bg-site-black text-white rounded p-3 mb-3">
         <h3>{{ __('新規チーム作成') }}</h3>
     </div>
     <div class="row justify-content-center">

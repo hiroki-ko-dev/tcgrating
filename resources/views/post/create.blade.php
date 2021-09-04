@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-links-blue text-white rounded p-3 mb-3">
+    <div class="bg-site-black text-white rounded p-3 mb-3">
         @if(\App\Models\PostCategory::FREE == $post_category_id)
             <h3>{{ __('フリー掲示板') }}</h3>
         @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)

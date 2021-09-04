@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="bg-links-blue text-white rounded p-3 mb-3">
+            <div class="bg-site-black text-white rounded p-3 mb-3">
                 <h5>{{ __('マイページ') }}</h5>
             </div>
         </div>

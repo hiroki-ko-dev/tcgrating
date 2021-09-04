@@ -30,7 +30,7 @@
 @endsection
 
 @section('bodyHeader')
-    <nav class="navbar navbar-expand-md bg-links-blue shadow-sm">
+    <nav class="navbar navbar-expand-md bg-site-black shadow-sm">
         <div class="container">
           <div class="d-sm-flex flex-row mb-3">
             <div>

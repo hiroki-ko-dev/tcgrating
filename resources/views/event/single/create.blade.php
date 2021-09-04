@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-links-blue text-white rounded p-3 mb-3">
+    <div class="bg-site-black text-white rounded p-3 mb-3">
         <h2>{{ __('新規1vs1対戦作成') }}</h2>
     </div>
     <div class="row justify-content-center">
