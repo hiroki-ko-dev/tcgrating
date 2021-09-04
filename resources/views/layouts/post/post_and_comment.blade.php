@@ -1,6 +1,6 @@
 
 <div class="row justify-content-center mb-4">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header">
                 @if($post->post_category_id == \App\Models\PostCategory::TEAM_WANTED)

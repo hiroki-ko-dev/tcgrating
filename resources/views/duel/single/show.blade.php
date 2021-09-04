@@ -16,7 +16,7 @@
     </div>
 
     <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     {{ __('対戦開始時間') }}
@@ -33,7 +33,7 @@
     </div>
 
     <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     {{ __('ルームID') }}
@@ -56,7 +56,7 @@
     @include('layouts.post.post_and_comment')
 
     <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     {{ __('決闘詳細') }}
@@ -135,7 +135,7 @@
     </div>
 
     <div class="row justify-content-center mb-4">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     {{ $duel->games_number }} {{ __('試合目　ー　対戦結果報告') }}
