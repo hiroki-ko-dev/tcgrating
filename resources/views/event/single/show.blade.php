@@ -21,24 +21,49 @@
         @endif
     </div>
 
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="body">
+                <a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a>
+                @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->isNotEmpty())
+                  レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->sum('rating')}}
+                @endif
+                <br>
+                vs<br>
+                @isset($event->eventUser[1])
+                  <a href="/user/{{$event->eventUser[1]->user_id}}">{{$event->eventUser[1]->user->name}}</a>
+                  @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->isNotEmpty())
+                    レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->sum('rating')}}
+                  @endif
+                @endisset
+              </div>
+            </div>
+            <div class="col-md-6 offset-md-5">
+              @if($event->user_id <> Auth::id() && $event->status == \APP\Models\Event::RECRUIT)
+                <form method="POST" action="/event/user" onClick="return requestConfirm();">
+                  @csrf
+                  <input type="hidden" name="event_id" value="{{$event->id}}">
+                  <input type="hidden" name="duel_id" value="{{$event->eventDuel[0]->duel->id}}">
+                  <button type="submit" name="event_add_user" value="1" class="btn btn-primary">
+                    {{ __('対戦申込') }}
+                  </button>
+                </form>
+              @endif
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <div class="row justify-content-center mb-4">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    @if($event->eventDuel[0]->duel->game_id == config('assets.site.game_ids.yugioh_duellinks'))
-                      {{ __('遊戯王デュエルリンクス') }}
-                    @elseif($event->eventDuel[0]->duel->game_id == config('assets.site.game_ids.yugioh_ocg'))
-                      {{ __('遊戯王OCG リモート対戦') }}
-                    @elseif($event->eventDuel[0]->duel->game_id == config('assets.site.game_ids.pokemon_card'))
-                      {{ __('ポケモンカード リモート対戦') }}
-                    @endif
-                      {{ $event->title }}
-                </div>
                 <div class="card-body">
-                    <div class="d-flex flex-row mb-3">
-                      <div class="w-30 font-weight-bold">主催</div>
-                      <div class="w-70">：<a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a></div>
-                    </div>
                     <div class="d-flex flex-row mb-3">
                         <div class="w-30 font-weight-bold">対戦回数</div>
                         <div class="w-70">：{{$event->eventDuel[0]->duel->number_of_games}}</div>
@@ -96,48 +121,6 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div type="body">{!! nl2br(e($event->body)) !!}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row justify-content-center mb-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    {{ __('プレイヤー') }}
-                </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <div class="col-md-12">
-                            <div class="body">
-                                <a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a>
-                                @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->isNotEmpty())
-                                    　レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->sum('rating')}}
-                                @endif
-                                <br>
-                                vs<br>
-                                @isset($event->eventUser[1])
-                                <a href="/user/{{$event->eventUser[1]->user_id}}">{{$event->eventUser[1]->user->name}}</a>
-                                    @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->isNotEmpty())
-                                        　レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->sum('rating')}}
-                                    @endif
-                                @endisset
-                            </div>
-                        </div>
-                        <div class="col-md-6 offset-md-5">
-                            @if($event->user_id <> Auth::id() && $event->status == \APP\Models\Event::RECRUIT)
-                                <form method="POST" action="/event/user" onClick="return requestConfirm();">
-                                    @csrf
-                                    <input type="hidden" name="event_id" value="{{$event->id}}">
-                                    <input type="hidden" name="duel_id" value="{{$event->eventDuel[0]->duel->id}}">
-                                    <button type="submit" name="event_add_user" value="1" class="btn btn-primary">
-                                        {{ __('対戦申込') }}
-                                    </button>
-                                </form>
-                            @endif
                         </div>
                     </div>
                 </div>
