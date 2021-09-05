@@ -96,7 +96,9 @@ class UserRepository
                         $query->where('game_id', $request->game_id);
                         $query->where('is_mail_send', true);
                     })
-                    ->where('email', 'not like', '%test@test.jp%')->get();
+                    ->where('email', 'not like', '%test@test.jp%')
+                    ->whereNotNull('email')
+                    ->get();
 
     }
 

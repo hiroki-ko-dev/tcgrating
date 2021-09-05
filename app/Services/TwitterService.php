@@ -27,8 +27,9 @@ class TwitterService
             $apiKeys = config('assets.twitter.pokemon');
         }
 
-        $this->twitterRepository->tweet($apiKeys, $event);
-
+        if(config('assets.common.appEnv') == 'production'){
+            $this->twitterRepository->tweet($apiKeys, $event);
+        }
     }
 
 
