@@ -34,7 +34,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body pl-2 pr-2">
+                <div class="card-body pl-1 pr-1">
                     @if(!empty($events))
                         @foreach($events as $event)
                           <div class="card-text border-bottom p-2">

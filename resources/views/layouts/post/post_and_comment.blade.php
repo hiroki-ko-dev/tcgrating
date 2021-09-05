@@ -44,7 +44,7 @@
             <div class="card-header">
                 {{ __('コメントを投稿する' )}}
             </div>
-            <div class="card-body pl-2 pr-2">
+            <div class="card-body pl-1 pr-1">
                 <form method="POST" action="/post/comment">
                     @csrf
                     <input type="hidden" name="post_id" value="{{$post->id}}">
