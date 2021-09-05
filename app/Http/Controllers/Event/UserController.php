@@ -30,6 +30,8 @@ class UserController extends Controller
         $this->event_service = $event_service ;
         $this->duel_service  = $duel_service ;
         $this->user_service  = $user_service ;
+
+        $this->middleware('auth');
     }
 
     /**
@@ -60,11 +62,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //アカウント認証しているユーザーのみ新規作成可能
-        if(!Auth::check()){
-            return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
-        }
-
         //追加
         $request->merge(['user_id' => Auth::id()]);
         $request->merge(['status'  => \App\Models\EventUser::APPROVAL]);
