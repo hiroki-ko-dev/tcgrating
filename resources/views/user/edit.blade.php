@@ -59,7 +59,7 @@
 
                         <div class="form-group row mb-3">
                             <div class="col-md-6 offset-md-5">
-                                <button type="submit" class="btn btn-dark rounded-pill text-center pl-5 pr-5">
+                                <button type="submit" class="btn btn-dark rounded-pill btn-outline-secondary text-light text-center pl-5 pr-5">
                                     {{ __('保存') }}
                                 </button>
                             </div>

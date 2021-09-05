@@ -11,7 +11,7 @@
                 </div>
                 <div class="ml-auto">
                   @if($user->id === Auth::id())
-                      <button class="btn rounded-pill btn-outline-light btn-link text-center"
+                      <button class="btn rounded-pill btn-outline-light text-center"
                               onclick="location.href='/user/{{$user->id}}/edit'">
                         {{ __('編集する') }}
                       </button>
