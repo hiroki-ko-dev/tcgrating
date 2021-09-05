@@ -23,7 +23,7 @@ class TwitterRepository
                 '対戦日時' . date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time)) . PHP_EOL .
                 PHP_EOL .
                 '以下のURLから対戦を受けましょう!' . PHP_EOL .
-                'https://hashimu.com/event/single' . $event->id . ' '
+                'https://hashimu.com/event/single/' . $event->id . '?selected_game_id=' . $event->game_id . ' '
         ]);
 
         return $twitter;
