@@ -25,7 +25,7 @@
             </div>
 
             @if(!empty($comments))
-                <div class="card  pb-2">
+                <div class="card pb-2">
                     <div class="card-header">{{ __('コメント一覧') }}</div>
                     <div class="card-body">
                         @foreach($comments as $comment)
@@ -44,7 +44,7 @@
             <div class="card-header">
                 {{ __('コメントを投稿する' )}}
             </div>
-            <div class="card-body pl-1 pr-1">
+            <div class="card-body">
                 <form method="POST" action="/post/comment">
                     @csrf
                     <input type="hidden" name="post_id" value="{{$post->id}}">

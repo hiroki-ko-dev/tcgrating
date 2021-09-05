@@ -39,13 +39,23 @@
     width: 90%;
 }
 
-.col-md-12{
-  padding-right: 0px;
-  padding-left: 0px;
-}
-
 @media screen and (max-width: 767px) {
   .sm-mr-5 {
     margin-right: 5rem !important;
+  }
+
+  .form-group{
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .col-md-12{
+    padding-right: 0.25rem;
+    padding-left: 0.25rem;
+  }
+
+  .card-body{
+    padding-right: 0.25rem;
+    padding-left: 0.25rem;
   }
 }
