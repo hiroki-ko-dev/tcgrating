@@ -52,7 +52,7 @@
                                   <span class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('無効試合') }}]</span>
                                 @endif
                               </span>
-                              <span class="mr-3">
+                              <span class="mr-3 sm-mr-5">
                                 [対戦日時:{{$event->date}} {{$event->start_time}}]
                               </span>
                               <span>
