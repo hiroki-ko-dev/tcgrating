@@ -114,7 +114,7 @@
                       </div>
 
                       <div class="d-flex flex-row mb-3">
-                        <button class="btn btn-primary" onclick="location.href='/duel/single/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
+                        <button class="btn btn-dark rounded-pill" onclick="location.href='/duel/single/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
                       </div>
                     @endif
 
@@ -155,12 +155,12 @@
                     </div>
                   @else
                     <div class="d-flex flex-row mb-3">
-                      <div class="w-30">{{ __('ツール') }}</div>
+                      <div class="w-30 font-weight-bold">{{ __('ツール') }}</div>
                       <div class="w-70">{{config('assets.duel.tool')[$event->eventDuel[0]->duel->tool_id]}}</div>
                     </div>
                     @if(!is_null($event->eventDuel[0]->duel->duelUser->where('user_id',Auth::id())->first()))
                       <div class="d-flex flex-row mb-3">
-                        <div class="w-30">{{ __('対戦コード') }}</div>
+                        <div class="w-30 font-weight-bold">{{ __('対戦コード') }}</div>
                         <div class="w-70">{{$event->eventDuel[0]->duel->tool_code}}</div>
                       </div>
                       <div class="d-flex flex-row mb-3 text-secondary">
