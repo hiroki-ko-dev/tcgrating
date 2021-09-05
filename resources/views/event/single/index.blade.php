@@ -41,15 +41,15 @@
                             <span class="d-flex flex-row flex-wrap">
                               <span>
                                 @if($event->status == \APP\Models\Event::RECRUIT )
-                                  <span class="post-user mr-5">[{{ __('対戦受付中') }}]</span>
+                                  <span class="post-user mr-3 sm-mr-5">[{{ __('対戦受付中') }}]</span>
                                 @elseif($event->status == \APP\Models\Event::READY )
-                                  <span class="post-user text-warning mr-5">[{{ __('マッチング済') }}]</span>
+                                  <span class="post-user text-warning mr-3 sm-mr-5">[{{ __('マッチング済') }}]</span>
                                 @elseif($event->status == \APP\Models\Event::FINISH )
-                                  <span class="text-secondary font-weight-bold mr-5">[{{ __('対戦完了') }}]</span>
+                                  <span class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('対戦完了') }}]</span>
                                 @elseif($event->status == \APP\Models\Event::CANCEL )
-                                  <span class="text-secondary font-weight-bold mr-5">[{{ __('対戦キャンセル') }}]</span>
+                                  <span class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('対戦キャンセル') }}]</span>
                                 @elseif($event->status == \APP\Models\Event::INVALID )
-                                  <span class="text-secondary font-weight-bold mr-5">[{{ __('無効試合') }}]</span>
+                                  <span class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('無効試合') }}]</span>
                                 @endif
                               </span>
                               <span class="mr-3">
