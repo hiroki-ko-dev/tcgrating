@@ -7,7 +7,7 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 class TwitterRepository
 {
 
-    public function tweet($apiKeys, $event)
+    public function tweet($apiKeys, $tweet)
     {
         $twitter = new TwitterOAuth(
             $apiKeys['API_KEY'],
@@ -17,13 +17,7 @@ class TwitterRepository
         );
 
         $twitter->post("statuses/update", [
-            "status" =>
-                $event->user->name. 'さんが対戦相手を探しています' . PHP_EOL .
-                '対戦ゲーム：' . $event->game->name . PHP_EOL .
-                '対戦日時' . date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time)) . PHP_EOL .
-                PHP_EOL .
-                '以下のURLから対戦を受けましょう!' . PHP_EOL .
-                'https://hashimu.com/event/single/' . $event->id . '?selected_game_id=' . $event->game_id . ' '
+            "status" => $tweet
         ]);
 
         return $twitter;
