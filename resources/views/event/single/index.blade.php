@@ -37,20 +37,29 @@
                 <div class="card-body">
                     @if(!empty($events))
                         @foreach($events as $event)
-                            <div class="card-text border-bottom p-2">
-                                <a href="/event/single/{{$event->id}}">{{$event->eventUser[0]->user->name }} vs @isset($event->eventUser[1]){{$event->eventUser[1]->user->name}}@else（　　）@endisset</a>
+                          <div class="card-text border-bottom p-2">
+                            <span class="d-flex flex-row flex-wrap">
+                              <span>
                                 @if($event->status == \APP\Models\Event::RECRUIT )
-                                        <span class="post-user">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('対戦受付中') }}]</span>
-                                    @elseif($event->status == \APP\Models\Event::READY )
-                                        <span class="post-user text-warning">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('マッチング済') }}]</span>
-                                    @elseif($event->status == \APP\Models\Event::FINISH )
-                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('対戦完了') }}]</span>
-                                    @elseif($event->status == \APP\Models\Event::CANCEL )
-                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('対戦キャンセル') }}]</span>
-                                    @elseif($event->status == \APP\Models\Event::INVALID )
-                                        <span class="text-secondary font-weight-bold">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('無効試合') }}]</span>
-                                    @endif
-                            </div>
+                                  <span class="post-user">[{{ __('対戦受付中') }}]</span>
+                                @elseif($event->status == \APP\Models\Event::READY )
+                                  <span class="post-user text-warning">[{{ __('マッチング済') }}]</span>
+                                @elseif($event->status == \APP\Models\Event::FINISH )
+                                  <span class="text-secondary font-weight-bold">[{{ __('対戦完了') }}]</span>
+                                @elseif($event->status == \APP\Models\Event::CANCEL )
+                                  <span class="text-secondary font-weight-bold">[{{ __('対戦キャンセル') }}]</span>
+                                @elseif($event->status == \APP\Models\Event::INVALID )
+                                  <span class="text-secondary font-weight-bold">[{{ __('無効試合') }}]</span>
+                                @endif
+                              </span>
+                              <span>
+                                [対戦日時:{{$event->date}} {{$event->start_time}}]
+                              </span>
+                              <span>
+                                <a href="/event/single/{{$event->id}}">{{$event->eventUser[0]->user->name }} vs @isset($event->eventUser[1]){{$event->eventUser[1]->user->name}}@else（　　）@endisset</a>
+                              </span>
+                            </span>
+                          </div>
                         @endforeach
                     @endif
                 </div>
