@@ -44,20 +44,20 @@
             <div class="card-header">
                 {{ __('コメントを投稿する' )}}
             </div>
-            <div class="card-body">
+            <div class="card-body pl-2 pr-2">
                 <form method="POST" action="/post/comment">
                     @csrf
                     <input type="hidden" name="post_id" value="{{$post->id}}">
                     <div class="form-group row">
-                        <div class="col-md-12">
-                            <textarea id="body" type="body" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body"></textarea>
+                      <div class="col-md-12">
+                        <textarea id="body" type="body" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body"></textarea>
 
-                            @error('body')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
+                        @error('body')
+                        <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
+                      </div>
                     </div>
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-5">

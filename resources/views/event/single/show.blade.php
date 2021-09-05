@@ -80,7 +80,7 @@
                             @method('PUT')
                             {{--  なぜかputだとsubmitに値を持たせられないので判定用にhidden--}}
                             <input type="hidden" name="event_cancel" value="1" >
-                            <button type="submit" class="btn btn-secondary w-40">
+                            <button type="submit" class="btn btn-secondary">
                               {{ __('キャンセル') }}
                             </button>
                           </form>
