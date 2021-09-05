@@ -7,7 +7,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
 
             <div class="card">
                 <form method="POST" action="/user/{{$user->id}}">
@@ -57,9 +57,9 @@
                             </div>
                         </div>
 
-                        <div class="form-group row mb-0">
+                        <div class="form-group row mb-3">
                             <div class="col-md-6 offset-md-5">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-dark rounded-pill text-center pl-5 pr-5">
                                     {{ __('保存') }}
                                 </button>
                             </div>

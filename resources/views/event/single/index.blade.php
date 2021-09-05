@@ -10,7 +10,7 @@
             <h5>{{ __('1vs1対戦') }}</h5>
           </div>
           <div class="ml-auto">
-            <btton class="btn btn-outline-light btn-link text-center"
+            <btton class="btn rounded-pill btn-outline-light btn-link text-center"
                    onclick="location.href='/event/single/create'">
               {{ __('新規決闘作成') }}
             </btton>

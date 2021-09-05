@@ -48,7 +48,7 @@
                   @csrf
                   <input type="hidden" name="event_id" value="{{$event->id}}">
                   <input type="hidden" name="duel_id" value="{{$event->eventDuel[0]->duel->id}}">
-                  <button type="submit" name="event_add_user" value="1" class="btn btn-primary">
+                  <button type="submit" name="event_add_user" value="1" class="btn btn-dark rounded-pill">
                     {{ __('対戦申込') }}
                   </button>
                 </form>

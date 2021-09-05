@@ -16,7 +16,7 @@
           <div class="ml-auto">
             <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
             @if($post_category_id <> \App\Models\PostCategory::TEAM_WANTED)
-              <btton class="btn btn-outline-light btn-link text-center"
+              <btton class="btn rounded-pill btn-outline-light btn-link text-center"
                      onclick="location.href='/post/create?post_category_id={{$post_category_id}}'">
                 {{ __('新規スレッド作成') }}
               </btton>
