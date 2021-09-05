@@ -35,26 +35,6 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -75,7 +55,10 @@ class UserController extends Controller
                 $this->event_service->updateEventStatus($request->event_id, \APP\Models\Event::READY);
             }
 
-            Mail::send(new EventSingleJoinRequestMail($event));
+            if(!is_null($event->user->email)){
+                Mail::send(new EventSingleJoinRequestMail($event));
+            }
+
         });
 
         return back()->with('flash_message', '対戦申込が完了しました');

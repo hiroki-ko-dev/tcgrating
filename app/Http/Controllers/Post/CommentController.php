@@ -84,19 +84,27 @@ class CommentController extends Controller
                 $eventUsers = $event->eventUser->whereNotIn('user_id', [Auth::id()]);
                 $emails = [];
                 foreach ($eventUsers as $eventUser) {
-                    $emails[] = $eventUser->user->email;
+                    if(!is_null($eventUser->user->email)) {
+                        $emails[] = $eventUser->user->email;
+                    }
                 }
-                Mail::send(new PostCommentEventMail($emails, $post, $comment));
+                if(!empty($emails)) {
+                    Mail::send(new PostCommentEventMail($emails, $post, $comment));
+                }
             //書き込みが決闘掲示板ならコメントがついたことをコメント者以外にメール通知
             }elseif($post->post_category_id == \App\Models\PostCategory::DUEL){
-                    $duel = $this->duel_service->findDuel($post->duel_id);
-                    //コメントをした本人以外に通知を送る
-                    $duelUsers = $duel->duelUser->whereNotIn('user_id',[Auth::id()]);
-                    $emails = [];
-                    foreach($duelUsers as $duelUser){
+                $duel = $this->duel_service->findDuel($post->duel_id);
+                //コメントをした本人以外に通知を送る
+                $duelUsers = $duel->duelUser->whereNotIn('user_id',[Auth::id()]);
+                $emails = [];
+                foreach($duelUsers as $duelUser){
+                    if(!is_null($duelUser->user->email)){
                         $emails[] = $duelUser->user->email;
                     }
+                }
+                if(!empty($emails)) {
                     Mail::send(new PostCommentDuelMail($emails, $post, $comment));
+                }
             }
         });
 
