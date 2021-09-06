@@ -23,8 +23,8 @@ class TwitterController extends Controller
     }
 
     // Twitterログイン
-    public function redirectToProvider(){
-
+    public function redirectToProvider()
+    {
         return Socialite::driver('twitter')->redirect();
     }
 
@@ -77,6 +77,12 @@ class TwitterController extends Controller
             return redirect('/login')->with('flash_message', 'エラーが発生しました');
         }
 
+        // duelページなどからTwitterログインしてきた場合に元のページに戻す
+        if(session('loginAfterRedirectUrl')){
+            $redirectUrl = session('loginAfterRedirectUrl');
+            session()->forget('loginAfterRedirectUrl');
+            return redirect($redirectUrl);
+        }
         return redirect('/user/'.Auth::user()->id);
     }
 }

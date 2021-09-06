@@ -35,6 +35,7 @@ class UserController extends Controller
         $this->user_service  = $user_service ;
         $this->twitterService = $twitterService;
 
+        session(['loginAfterRedirectUrl' => url()->previous()]);
         $this->middleware('auth');
     }
 
@@ -47,6 +48,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // ログインしてこのページに入れたらforgetする
+        session()->forget('loginAfterRedirectUrl');
+
         //追加
         $request->merge(['user_id' => Auth::id()]);
         $request->merge(['status'  => \App\Models\EventUser::APPROVAL]);
