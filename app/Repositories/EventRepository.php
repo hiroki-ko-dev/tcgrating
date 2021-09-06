@@ -41,7 +41,7 @@ class EventRepository
     }
 
     public function findWithUserAndDuel($id){
-        return Event::with('eventUser.user')
+        return Event::with('eventUsers.user')
                     ->with('eventDuels.duel.duelUsers.duelUserResult')
                     ->find($id);
     }
@@ -51,7 +51,7 @@ class EventRepository
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
      */
     public function findAllByUserId($id){
-        return Event::wherehas('eventUser.user' , function($query) use($id){
+        return Event::wherehas('eventUsers.user' , function($query) use($id){
                     $query->where('user_id', $id);
                 })->get();
     }
@@ -61,7 +61,7 @@ class EventRepository
     {
         return Event::where('event_category_id', $request->event_category_id)
                     ->where('game_id', $request->game_id)
-                    ->with('eventUser.User')
+                    ->with('eventUsers.User')
                     ->OrderBy('id','desc')
                     ->paginate($paginate);
     }

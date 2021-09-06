@@ -148,7 +148,7 @@
 
                     <div class="form-group row mb-0">
                         <div class="col-md-6 offset-md-5 mb-3">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-dark rounded-pill pl-4 pr-4">
                                 {{ __('新規作成') }}
                             </button>
                         </div>

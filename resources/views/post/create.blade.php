@@ -53,7 +53,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-5">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn btn-dark rounded-pill pl-5 pr-5">
                                     {{ __('投稿') }}
                                 </button>
                             </div>

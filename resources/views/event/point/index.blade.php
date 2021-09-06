@@ -30,7 +30,7 @@
                     @if(!empty($events))
                         @foreach($events as $event)
                             <div class="card-text border-bottom p-2">
-                                <a href="/event/single/{{$event->id}}">vs {{$event->eventUser[0]->user->name }}</a>
+                                <a href="/event/single/{{$event->id}}">vs {{$event->eventUsers[0]->user->name }}</a>
 
                                 @if($event->status == \APP\Models\Event::RECRUIT )
                                         <span class="post-user">[対戦日時:{{$event->date}} {{$event->start_time}}][{{ __('対戦受付中') }}]</span>

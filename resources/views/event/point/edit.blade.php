@@ -16,7 +16,7 @@
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <input id="stream_url" type="text" class="form-control w-100 @error('stream_url') is-invalid @enderror" name="stream_url" value="{{ old('stream_url',$event->eventUser->where('user_id',Auth::id())->first()->stream_url) }}" required autocomplete="stream_url" autofocus>
+                                <input id="stream_url" type="text" class="form-control w-100 @error('stream_url') is-invalid @enderror" name="stream_url" value="{{ old('stream_url',$event->eventUsers->where('user_id',Auth::id())->first()->stream_url) }}" required autocomplete="stream_url" autofocus>
                                 @error('stream_url')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

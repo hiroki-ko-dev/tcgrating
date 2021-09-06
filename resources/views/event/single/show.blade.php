@@ -28,16 +28,16 @@
           <div class="form-group row">
             <div class="col-md-12">
               <div class="body">
-                <a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a>
-                @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->isNotEmpty())
-                  レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->sum('rating')}}
+                <a href="/user/{{$event->eventUsers[0]->user_id}}">{{$event->eventUsers[0]->user->name}}</a>
+                @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[0]->user_id)->first()->duelUserResult->isNotEmpty())
+                  レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[0]->user_id)->first()->duelUserResult->sum('rating')}}
                 @endif
                 <br>
                 vs<br>
-                @isset($event->eventUser[1])
-                  <a href="/user/{{$event->eventUser[1]->user_id}}">{{$event->eventUser[1]->user->name}}</a>
-                  @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->isNotEmpty())
-                    レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->sum('rating')}}
+                @isset($event->eventUsers[1])
+                  <a href="/user/{{$event->eventUsers[1]->user_id}}">{{$event->eventUsers[1]->user->name}}</a>
+                  @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[1]->user_id)->first()->duelUserResult->isNotEmpty())
+                    レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[1]->user_id)->first()->duelUserResult->sum('rating')}}
                   @endif
                 @endisset
               </div>
@@ -80,7 +80,7 @@
                             @method('PUT')
                             {{--  なぜかputだとsubmitに値を持たせられないので判定用にhidden--}}
                             <input type="hidden" name="event_cancel" value="1" >
-                            <button type="submit" class="btn btn-secondary">
+                            <button type="submit" class="btn btn-secondary rounded-pill pl-4 pr-4">
                               {{ __('キャンセル') }}
                             </button>
                           </form>
@@ -186,11 +186,11 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div class="post-body">
-                                {{$event->eventUser[0]->user->name}}視点：{{$event->eventUser[0]->stream_url}}<br>
-                                @isset($event->eventUser[1])
-                                {{$event->eventUser[1]->user->name}}視点：{{$event->eventUser[1]->stream_url}}<br>
+                                {{$event->eventUsers[0]->user->name}}視点：{{$event->eventUsers[0]->stream_url}}<br>
+                                @isset($event->eventUsers[1])
+                                {{$event->eventUsers[1]->user->name}}視点：{{$event->eventUsers[1]->stream_url}}<br>
                                 @endisset
-                                @if($event->eventUser->where('user_id',Auth::id())->isNotEmpty())
+                                @if($event->eventUsers->where('user_id',Auth::id())->isNotEmpty())
                                     （<a href="/event/single/{{$event->id}}/edit">編集する</a>）
                                 @endif
                             </div>

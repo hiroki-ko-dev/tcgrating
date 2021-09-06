@@ -32,7 +32,7 @@ class EventSingleJoinRequestMail extends Mailable
     public function build()
     {
         //メールアドレスの取得
-        return $this->to($this->event->eventUser[0]->user->email)  // 送信先アドレス
+        return $this->to($this->event->eventUsers[0]->user->email)  // 送信先アドレス
         ->subject('【カードゲーム対戦サイト】あなたの作成した1vs1対戦がマッチングしました')// 件名
         ->text('emails.event.single.join_request')  // 本文
         ->with([

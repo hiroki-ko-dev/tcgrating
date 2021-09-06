@@ -29,7 +29,7 @@ class Event extends Model
         return $this->belongsTo('App\Models\User','user_id','id');
     }
 
-    public function eventUser(){
+    public function eventUsers(){
         return $this->hasMany('App\Models\EventUser','event_id','id');
     }
 

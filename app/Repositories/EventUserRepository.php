@@ -46,7 +46,7 @@ class EventUserRepository
     public function findAllWithUserByEventCategoryIdAndPaginate($event_category_id, $paginate)
     {
         return Event::where('event_category_id', $event_category_id)
-                    ->with('eventUser.User')
+                    ->with('eventUsers.User')
                     ->paginate($paginate);
     }
 

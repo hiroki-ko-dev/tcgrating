@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Services\DuelService;
 use App\Services\PostService;
+use App\Services\TwitterService;
 
 use Auth;
 use DB;
@@ -16,34 +17,20 @@ class SingleController extends Controller
 
     protected $duel_service;
     protected $post_service;
+    protected $twitterService;
 
     public function __construct(DuelService $duel_service,
-                                PostService $post_service)
+                                PostService $post_service,
+                                TwitterService $twitterService)
     {
         $this->duel_service = $duel_service ;
         $this->post_service = $post_service ;
+        $this->twitterService = $twitterService;
 
         //アカウント認証しているユーザーのみ新規作成可能
         $this->middleware('auth');
     }
 
-
-    /**
-     * @param Request $request
-     */
-    public function index(Request $request)
-    {
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * @param Request $request
@@ -53,7 +40,7 @@ class SingleController extends Controller
     {
         try {
             $request->merge(['user_id'=> Auth::id()]);
-            DB::transaction(function () use($request) {
+            $duel = DB::transaction(function () use($request) {
                 $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
                 $request->merge(['duel'=> $duel]);
                 $request->merge(['event_id'=> $duel->eventDuel->event->id]);
@@ -63,10 +50,16 @@ class SingleController extends Controller
                 $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
                 $request->merge(['duel'=> $duel]);
                 $this->duel_service->updateSingleDuelByFinish($request);
+                return $duel;
             });
 
             //試合が終了したらイベントページに戻す
             if($request->has('message')){
+                // twitterで試合が終了したことを通知
+                if($request->message == '試合が終了しました'){
+                    $this->twitterService->tweetByDuelFinish($duel);
+                }
+
                 return redirect('/event/single/'.$request->event_id)->with('flash_message', $request->message);
             }
 
@@ -92,7 +85,7 @@ class SingleController extends Controller
         $post     = $this->post_service->findPostWithUserByDuelId($duel->id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
 
-        if(empty($duel->duelUser->where('user_id',Auth::id())->first()->id)){
+        if(empty($duel->duelUsers->where('user_id',Auth::id())->first()->id)){
             return back()->with('flash_message', '決闘ページへ行けるのは対戦を行うユーザーのみです');
         }
 

@@ -56,7 +56,7 @@
                                 [対戦日時:{{$event->date}} {{$event->start_time}}]
                               </span>
                               <span>
-                                <a href="/event/single/{{$event->id}}">{{$event->eventUser[0]->user->name }} vs @isset($event->eventUser[1]){{$event->eventUser[1]->user->name}}@else（　　）@endisset</a>
+                                <a href="/event/single/{{$event->id}}">{{$event->eventUsers[0]->user->name }} vs @isset($event->eventUsers[1]){{$event->eventUsers[1]->user->name}}@else（　　）@endisset</a>
                               </span>
                             </span>
                           </div>

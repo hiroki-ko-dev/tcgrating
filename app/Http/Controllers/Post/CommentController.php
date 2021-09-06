@@ -81,7 +81,7 @@ class CommentController extends Controller
             if($post->post_category_id == \App\Models\PostCategory::EVENT) {
                 $event = $this->event_service->findEventWithUserAndDuel($post->event_id);
                 //コメントをした本人以外に通知を送る
-                $eventUsers = $event->eventUser->whereNotIn('user_id', [Auth::id()]);
+                $eventUsers = $event->eventUsers->whereNotIn('user_id', [Auth::id()]);
                 $emails = [];
                 foreach ($eventUsers as $eventUser) {
                     if(!is_null($eventUser->user->email)) {
