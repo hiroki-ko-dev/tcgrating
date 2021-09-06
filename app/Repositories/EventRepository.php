@@ -42,7 +42,7 @@ class EventRepository
 
     public function findWithUserAndDuel($id){
         return Event::with('eventUsers.user')
-                    ->with('eventDuels.duel.duelUsers.duelUserResult')
+                    ->with('eventDuels.duel.duelUsers.duelUserResults')
                     ->find($id);
     }
 

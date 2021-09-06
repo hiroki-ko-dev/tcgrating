@@ -71,14 +71,14 @@ class DuelService
         //相手より2回以上報告が多くならない制御
         if($duelUserResult->isNotEmpty()){
             //自分のデュエル結果
-            $myDuelUserResult    = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->duelUserResult;
+            $myDuelUserResult    = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->duelUserResults;
 
             //相手の報告がない場合、今回報告をすると+2の差がつくのでエラー
-            if(!isset($request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResult)){
+            if(!isset($request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResults)){
                 throw new \Exception("相手の報告より2回以上多い報告はできません");
             }
             //相手のデュエル結果
-            $otherDuelUserResult = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResult;
+            $otherDuelUserResult = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResults;
 
             //すでに試合が終了した後の報告をエラーとする
             if($myDuelUserResult->count() == $otherDuelUserResult->count() && $request->duel->status <> \App\Models\Duel::READY){
@@ -163,12 +163,12 @@ class DuelService
     public function updateSingleDuelByFinish($request)
     {
         //すでに結果報告が終わっていないかチェック
-        $myDuelUserResult    = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->duelUserResult;
+        $myDuelUserResult    = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->duelUserResults;
         //相手の初期報告がまだなら次の試合へ
-        if(!isset($request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResult)){
+        if(!isset($request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResults)){
             return $request ;
         }
-        $otherDuelUserResult = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResult;
+        $otherDuelUserResult = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResults;
 
         //無効試合が選択された場合の処理
         for($i = 1; $i < $request->duel->number_of_games + 1; $i++) {

@@ -36,7 +36,7 @@ class Duel extends Model
         $games_number = 0;
 
         foreach($this->duelUsers as $duelUser) {
-            foreach ($duelUser->duelUserResult as $duelUserResult) {
+            foreach ($duelUser->duelUserResults as $duelUserResult) {
                 if ($duelUserResult->games_number > $games_number) {
                     $games_number = $duelUserResult->games_number;
                 }

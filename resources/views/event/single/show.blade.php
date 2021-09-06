@@ -29,15 +29,15 @@
             <div class="col-md-12">
               <div class="body">
                 <a href="/user/{{$event->eventUsers[0]->user_id}}">{{$event->eventUsers[0]->user->name}}</a>
-                @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[0]->user_id)->first()->duelUserResult->isNotEmpty())
-                  レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[0]->user_id)->first()->duelUserResult->sum('rating')}}
+                @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[0]->user_id)->first()->duelUserResults->isNotEmpty())
+                  レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[0]->user_id)->first()->duelUserResults->sum('rating')}}
                 @endif
                 <br>
                 vs<br>
                 @isset($event->eventUsers[1])
                   <a href="/user/{{$event->eventUsers[1]->user_id}}">{{$event->eventUsers[1]->user->name}}</a>
-                  @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[1]->user_id)->first()->duelUserResult->isNotEmpty())
-                    レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[1]->user_id)->first()->duelUserResult->sum('rating')}}
+                  @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[1]->user_id)->first()->duelUserResults->isNotEmpty())
+                    レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[1]->user_id)->first()->duelUserResults->sum('rating')}}
                   @endif
                 @endisset
               </div>

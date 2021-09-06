@@ -31,7 +31,7 @@ class DuelUser extends Model
         return $this->belongsTo('App\Models\User','user_id','id');
     }
 
-    public function duelUserResult(){
+    public function duelUserResults(){
         return $this->hasMany('App\Models\DuelUserResult','duel_user_id','id');
     }
 }

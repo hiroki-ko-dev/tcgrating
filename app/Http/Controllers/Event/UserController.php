@@ -60,6 +60,7 @@ class UserController extends Controller
                 $this->event_service->updateEventStatus($request->event_id, \APP\Models\Event::READY);
             }
 
+
             // 対戦作成者にtwitterアカウントがあれば通知
             if(!is_null($event->user->twitter_id)){
                 $this->twitterService->tweetByMatching($event);
