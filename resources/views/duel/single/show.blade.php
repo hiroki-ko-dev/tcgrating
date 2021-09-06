@@ -42,7 +42,7 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <div class="post-body">{{$duel->room_id}}
-                                @if($duel->duelUser[0]->user_id == Auth::id())
+                                @if($duel->duelUsers[0]->user_id == Auth::id())
                                     （<a href="/duel/single/{{$duel->id}}/edit">編集する</a>）
                                 @endif
                             </div>
@@ -64,7 +64,7 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <div class="post-user"> {{$duel->duelUser[0]->user->name}} vs @if(isset($duel->duelUser[1])){{$duel->duelUser[1]->user->name}}@else対戦相手待ち@endif</div>
+                            <div class="post-user"> {{$duel->duelUsers[0]->user->name}} vs @if(isset($duel->duelUsers[1])){{$duel->duelUsers[1]->user->name}}@else対戦相手待ち@endif</div>
                             @if($duel->number_of_games < $duel->games_number)
                                 <div class="body">対戦回数：{{$duel->number_of_games}}　※決闘終了です。お疲れ様でした</div>
                             @else
@@ -77,15 +77,15 @@
                             <thead>
                             <tr>
                                 <th scope="col">対戦回数</th>
-                                <th scope="col">{{$duel->duelUser[0]->user->name}}報告内容</th>
-                                <th scope="col">{{$duel->duelUser[1]->user->name}}報告内容</th>
+                                <th scope="col">{{$duel->duelUsers[0]->user->name}}報告内容</th>
+                                <th scope="col">{{$duel->duelUsers[1]->user->name}}報告内容</th>
                             </tr>
                             </thead>
                             @for($i = 1; $i < $duel->number_of_games + 1; $i++)
                                 <tr>
                                     <td>{{$i}}</td>
-                                    @isset($duel->duelUser[0]->duelUserResult->where('games_number',$i)->first()->result)
-                                        @switch($duel->duelUser[0]->duelUserResult->where('games_number',$i)->first()->result)
+                                    @isset($duel->duelUsers[0]->duelUserResult->where('games_number',$i)->first()->result)
+                                        @switch($duel->duelUsers[0]->duelUserResult->where('games_number',$i)->first()->result)
                                             @case(\App\Models\DuelUserResult::WIN)
                                             <td>{{ __('勝利') }}</td>
                                             @break
@@ -101,8 +101,8 @@
                                     @else
                                         <td>-</td>
                                     @endif
-                                    @isset($duel->duelUser[1]->duelUserResult->where('games_number',$i)->first()->result)
-                                        @switch($duel->duelUser[1]->duelUserResult->where('games_number',$i)->first()->result)
+                                    @isset($duel->duelUsers[1]->duelUserResult->where('games_number',$i)->first()->result)
+                                        @switch($duel->duelUsers[1]->duelUserResult->where('games_number',$i)->first()->result)
                                             @case(\App\Models\DuelUserResult::WIN)
                                             <td>{{ __('勝利') }}</td>
                                             @break

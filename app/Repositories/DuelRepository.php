@@ -81,7 +81,7 @@ class DuelRepository
     }
 
     public function findWithUserAndEvent($id){
-        return Duel::with('duelUser.user')
+        return Duel::with('duelUsers.user')
             ->with('eventDuel.event')
             ->find($id);
     }

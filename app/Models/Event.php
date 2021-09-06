@@ -33,7 +33,7 @@ class Event extends Model
         return $this->hasMany('App\Models\EventUser','event_id','id');
     }
 
-    public function eventDuel(){
+    public function eventDuels(){
         return $this->hasMany('App\Models\EventDuel','event_id','id');
     }
 

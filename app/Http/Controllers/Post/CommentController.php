@@ -95,7 +95,7 @@ class CommentController extends Controller
             }elseif($post->post_category_id == \App\Models\PostCategory::DUEL){
                 $duel = $this->duel_service->findDuel($post->duel_id);
                 //コメントをした本人以外に通知を送る
-                $duelUsers = $duel->duelUser->whereNotIn('user_id',[Auth::id()]);
+                $duelUsers = $duel->duelUsers->whereNotIn('user_id',[Auth::id()]);
                 $emails = [];
                 foreach($duelUsers as $duelUser){
                     if(!is_null($duelUser->user->email)){

@@ -35,7 +35,7 @@ class Duel extends Model
     {
         $games_number = 0;
 
-        foreach($this->duelUser as $duelUser) {
+        foreach($this->duelUsers as $duelUser) {
             foreach ($duelUser->duelUserResult as $duelUserResult) {
                 if ($duelUserResult->games_number > $games_number) {
                     $games_number = $duelUserResult->games_number;
@@ -47,7 +47,7 @@ class Duel extends Model
         return $games_number;
     }
 
-    public function duelUser(){
+    public function duelUsers(){
         return $this->hasMany('App\Models\DuelUser','duel_id','id');
     }
 

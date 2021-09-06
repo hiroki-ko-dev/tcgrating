@@ -29,15 +29,15 @@
             <div class="col-md-12">
               <div class="body">
                 <a href="/user/{{$event->eventUser[0]->user_id}}">{{$event->eventUser[0]->user->name}}</a>
-                @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->isNotEmpty())
-                  レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->sum('rating')}}
+                @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->isNotEmpty())
+                  レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUser[0]->user_id)->first()->duelUserResult->sum('rating')}}
                 @endif
                 <br>
                 vs<br>
                 @isset($event->eventUser[1])
                   <a href="/user/{{$event->eventUser[1]->user_id}}">{{$event->eventUser[1]->user->name}}</a>
-                  @if($event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->isNotEmpty())
-                    レート：{{$event->eventDuel[0]->duel->duelUser->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->sum('rating')}}
+                  @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->isNotEmpty())
+                    レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUser[1]->user_id)->first()->duelUserResult->sum('rating')}}
                   @endif
                 @endisset
               </div>
@@ -47,7 +47,7 @@
                 <form method="POST" action="/event/user" onClick="return requestConfirm();">
                   @csrf
                   <input type="hidden" name="event_id" value="{{$event->id}}">
-                  <input type="hidden" name="duel_id" value="{{$event->eventDuel[0]->duel->id}}">
+                  <input type="hidden" name="duel_id" value="{{$event->eventDuels[0]->duel->id}}">
                   <button type="submit" name="event_add_user" value="1" class="btn btn-dark rounded-pill">
                     {{ __('対戦申込') }}
                   </button>
@@ -66,7 +66,7 @@
                 <div class="card-body">
                     <div class="d-flex flex-row mb-3">
                         <div class="w-30 font-weight-bold">対戦回数</div>
-                        <div class="w-70">：{{$event->eventDuel[0]->duel->number_of_games}}</div>
+                        <div class="w-70">：{{$event->eventDuels[0]->duel->number_of_games}}</div>
                     </div>
                     <div class="d-flex flex-row mb-3">
                       <div class="w-30 font-weight-bold">状態</div>
@@ -114,7 +114,7 @@
                       </div>
 
                       <div class="d-flex flex-row mb-3">
-                        <button class="btn btn-dark rounded-pill" onclick="location.href='/duel/single/{{$event->eventDuel[0]->duel->id}}'">決闘ページへ移動</button>
+                        <button class="btn btn-dark rounded-pill" onclick="location.href='/duel/single/{{$event->eventDuels[0]->duel->id}}'">決闘ページへ移動</button>
                       </div>
                     @endif
 
@@ -133,17 +133,17 @@
             <div class="card">
                 <div class="card-header">
                   {{ __('対戦方法') }}　
-                    @if($event->eventDuel[0]->duel->duelUser[0]->user_id == Auth::id())
-                      （<a href="/duel/single/{{$event->eventDuel[0]->duel->id}}/edit">編集する</a>）
+                    @if($event->eventDuels[0]->duel->duelUsers[0]->user_id == Auth::id())
+                      （<a href="/duel/single/{{$event->eventDuels[0]->duel->id}}/edit">編集する</a>）
                     @endif
                 </div>
                 <div class="card-body">
 
-                  @if($event->eventDuel[0]->duel->game_id == config('assets.site.game_ids.yugioh_duellinks'))
-                    @if(!is_null($event->eventDuel[0]->duel->duelUser->where('user_id',Auth::id())->first()))
+                  @if($event->eventDuels[0]->duel->game_id == config('assets.site.game_ids.yugioh_duellinks'))
+                    @if(!is_null($event->eventDuels[0]->duel->duelUsers->where('user_id',Auth::id())->first()))
                       <div class="d-flex flex-row mb-3">
                         <div class="w-30">{{ __('ルームID') }}</div>
-                        <div class="w-70">{{$event->eventDuel[0]->duel->room_id}}</div>
+                        <div class="w-70">{{$event->eventDuels[0]->duel->room_id}}</div>
                       </div>
                       <div class="d-flex flex-row mb-3 text-secondary">
                         {{ __('※ルームIDは対戦プレイヤーにのみ表示されます')}}
@@ -151,17 +151,17 @@
                     @endif
                     <div class="d-flex flex-row mb-3">
                       <div class="w-30">{{ __('観戦ID') }}</div>
-                      <div class="w-70">{{$event->eventDuel[0]->duel->watching_id}}</div>
+                      <div class="w-70">{{$event->eventDuels[0]->duel->watching_id}}</div>
                     </div>
                   @else
                     <div class="d-flex flex-row mb-3">
                       <div class="w-30 font-weight-bold">{{ __('ツール') }}</div>
-                      <div class="w-70">{{config('assets.duel.tool')[$event->eventDuel[0]->duel->tool_id]}}</div>
+                      <div class="w-70">{{config('assets.duel.tool')[$event->eventDuels[0]->duel->tool_id]}}</div>
                     </div>
-                    @if(!is_null($event->eventDuel[0]->duel->duelUser->where('user_id',Auth::id())->first()))
+                    @if(!is_null($event->eventDuels[0]->duel->duelUsers->where('user_id',Auth::id())->first()))
                       <div class="d-flex flex-row mb-3">
                         <div class="w-30 font-weight-bold">{{ __('対戦コード') }}</div>
-                        <div class="w-70">{{$event->eventDuel[0]->duel->tool_code}}</div>
+                        <div class="w-70">{{$event->eventDuels[0]->duel->tool_code}}</div>
                       </div>
                       <div class="d-flex flex-row mb-3 text-secondary">
                         {{ __('※フレンドコード,ルームID、招待URL等')}}

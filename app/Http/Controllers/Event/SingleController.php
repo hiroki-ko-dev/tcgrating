@@ -174,7 +174,7 @@ class SingleController extends Controller
             //イベントがキャンセルさせる場合
             if($request->has('event_cancel')){
                 $event = $this->event_service->updateEventStatus($request->event_id, \App\Models\Event::CANCEL);
-                $this->duel_service->updateDuelStatus($event->eventDuel[0]->duel_id, \App\Models\Duel::CANCEL);
+                $this->duel_service->updateDuelStatus($event->eventDuels[0]->duel_id, \App\Models\Duel::CANCEL);
             //配信URLを更新する場合
             }elseif($request->has('event_add_user')) {
                 $this->event_service->updateEventUser($request);
