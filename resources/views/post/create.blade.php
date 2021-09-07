@@ -18,7 +18,7 @@
                     {{ __('新規スレッド作成') }}
                 </div>
 
-                <div class="card-body">
+                <div class="box">
                     <form method="POST" action="/post">
                         @csrf
                         <input type="hidden" name="post_category_id" value="{{$post_category_id}}">

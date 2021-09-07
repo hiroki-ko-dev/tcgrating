@@ -56,63 +56,72 @@
   </div>
 
   <div class="row justify-content-center row-eq-height mb-4">
-        <div class="col-md-12">
-            <div class="box">
-                <div class="d-flex flex-row mb-3">
-                    <div class="w-30 font-weight-bold">対戦回数</div>
-                    <div class="w-70">{{$event->eventDuels[0]->duel->number_of_games}}</div>
-                </div>
-                <div class="d-flex flex-row mb-3">
-                  <div class="w-30 font-weight-bold">状態</div>
-                    @if($event->status == \APP\Models\Event::RECRUIT )
-                      <span class="post-user w-70">{{ __('：対戦受付中') }}</span>
-                    @elseif($event->status == \APP\Models\Event::READY )
-                      <span class="post-user w-70">{{ __('マッチング済') }}</span>
-                    @elseif($event->status == \APP\Models\Event::FINISH )
-                      <span class="post-user w-70">{{ __('対戦完了') }}</span>
-                    @elseif($event->status == \APP\Models\Event::CANCEL )
-                      <span class="post-user w-70">{{ __('対戦キャンセル') }}</span>
-                    @elseif($event->status == \APP\Models\Event::INVALID )
-                      <span class="post-user w-70">{{ __('無効試合') }}</span>
-                    @endif
-                  </div>
-                {{-- 対戦相手を募集している段階ではキャンセルができる --}}
-                @if($event->status == \APP\Models\Event::RECRUIT && Auth::id() == $event->user_id)
-                  <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">
-                    @csrf
-                    @method('PUT')
-                    {{--  なぜかputだとsubmitに値を持たせられないので判定用にhidden--}}
-                    <input type="hidden" name="event_cancel" value="1" >
-                    <button type="submit" class="btn btn-secondary rounded-pill pl-4 pr-4">
-                      {{ __('キャンセル') }}
-                    </button>
-                  </form>
-                @endif
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="d-flex flex-row mb-3">
+          <div class="w-30 font-weight-bold">状態</div>
+            @if($event->status == \APP\Models\Event::RECRUIT )
+              <span class="post-user w-70">{{ __('：対戦受付中') }}</span>
+            @elseif($event->status == \APP\Models\Event::READY )
+              <span class="post-user w-70">{{ __('マッチング済') }}</span>
+            @elseif($event->status == \APP\Models\Event::FINISH )
+              <span class="post-user w-70">{{ __('対戦完了') }}</span>
+            @elseif($event->status == \APP\Models\Event::CANCEL )
+              <span class="post-user w-70">{{ __('対戦キャンセル') }}</span>
+            @elseif($event->status == \APP\Models\Event::INVALID )
+              <span class="post-user w-70">{{ __('無効試合') }}</span>
+            @endif
+          </div>
+        {{-- 対戦相手を募集している段階ではキャンセルができる --}}
+        @if($event->status == \APP\Models\Event::RECRUIT && Auth::id() == $event->user_id)
+          <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">
+            @csrf
+            @method('PUT')
+            {{--  なぜかputだとsubmitに値を持たせられないので判定用にhidden--}}
+            <input type="hidden" name="event_cancel" value="1" >
+            <button type="submit" class="btn btn-secondary rounded-pill pl-4 pr-4">
+              {{ __('キャンセル') }}
+            </button>
+          </form>
+        @endif
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="box">
+        <div class="d-flex flex-row mb-3">
+          <div class="w-30 font-weight-bold">対戦回数</div>
+          <div class="w-70">{{$event->eventDuels[0]->duel->number_of_games}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center row-eq-height mb-4">
+    <div class="col-sm-12">
+      <div class="box">
+        <div class="d-flex flex-row mb-3">
+          <div class="w-30 font-weight-bold">対戦開始</div>
+          <div class="w-70"><span class="post-user">{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}</span></div>
+        </div>
+        <div class="d-flex flex-row mb-3">
+          <div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1対戦の使い方</a>」動画を視聴してください</div>
+        </div>
+          @if($event->status <> \App\Models\Event::RECRUIT && $event->status <> \App\Models\Event::CANCEL )
+          <div class="d-flex flex-row mb-3">
+            <div class="small">※対戦開始日時になったら対戦ページへ移動してください</div>
+          </div>
+            <div class="d-flex justify-content-center mb-3">
+              <button class="btn btn-dark rounded-pill btn-outline-secondary text-light" onclick="location.href='/duel/single/{{$event->eventDuels[0]->duel->id}}'">対戦ページへ移動</button>
+            </div>
+          @endif
 
-                <div class="d-flex flex-row mb-3">
-                  <div class="w-30 font-weight-bold">対戦開始</div>
-                  <div class="w-70"><span class="post-user">{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}</span></div>
-                </div>
-              <div class="d-flex flex-row mb-3">
-                <div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1対戦の使い方</a>」動画を視聴してください</div>
-              </div>
-                @if($event->status <> \App\Models\Event::RECRUIT && $event->status <> \App\Models\Event::CANCEL )
-                <div class="d-flex flex-row mb-3">
-                  <div class="small">※対戦開始日時になったら対戦ページへ移動してください</div>
-                </div>
-                  <div class="d-flex justify-content-center mb-3">
-                    <button class="btn btn-dark rounded-pill btn-outline-secondary text-light" onclick="location.href='/duel/single/{{$event->eventDuels[0]->duel->id}}'">対戦ページへ移動</button>
-                  </div>
-                @endif
-
-                <div class="form-group row">
-                    <div class="col-md-12">
-                        <div type="body">{!! nl2br(e($event->body)) !!}</div>
-                    </div>
-                </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div type="body">{!! nl2br(e($event->body)) !!}</div>
+            </div>
+          </div>
             </div>
         </div>
-    </div>
+      </div>
 
     <div class="row justify-content-center row-eq-height mb-4">
       <div class="col-md-6">
@@ -161,6 +170,9 @@
         <div class="box text-left">
         <div class="box-header">
             {{ __('配信URL') }}
+          @if($event->eventUsers->where('user_id',Auth::id())->isNotEmpty())
+            （<a href="/event/single/{{$event->id}}/edit">編集する</a>）
+          @endif
         </div>
 
             <div class="form-group row">
@@ -170,9 +182,6 @@
                         @isset($event->eventUsers[1])
                         {{$event->eventUsers[1]->user->name}}視点：{{$event->eventUsers[1]->stream_url}}<br>
                         @endisset
-                        @if($event->eventUsers->where('user_id',Auth::id())->isNotEmpty())
-                            （<a href="/event/single/{{$event->id}}/edit">編集する</a>）
-                        @endif
                     </div>
                 </div>
             </div>
