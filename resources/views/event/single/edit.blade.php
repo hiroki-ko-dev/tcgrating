@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-site-black text-white rounded p-3 mb-3">
+    <div class="site-color text-white rounded p-3 mb-3">
         <h2>{{ __('新規1vs1対戦編集') }}</h2>
     </div>
     <div class="row justify-content-center">

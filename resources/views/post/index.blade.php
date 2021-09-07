@@ -2,26 +2,24 @@
 
 @section('content')
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <div class="bg-site-black text-white rounded p-3 mb-3">
-        <div class="d-flex flex-row mb-3">
-          <div>
-            @if(\App\Models\PostCategory::FREE == $post_category_id)
-                <h3>{{ __('フリー掲示板') }}</h3>
-            @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
-                <h3>{{ __('チームメンバー募集掲示板') }}</h3>
-            @endif
-          </div>
-          <div class="ml-auto">
-            <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
-            @if($post_category_id <> \App\Models\PostCategory::TEAM_WANTED)
-              <btton class="btn rounded-pill btn-outline-light text-center"
-                     onclick="location.href='/post/create?post_category_id={{$post_category_id}}'">
-                {{ __('新規スレッド作成') }}
-              </btton>
-            @endif
-          </div>
+  <div class="row justify-content-center m-1 mb-3">
+    <div class="col-12 page-header">
+      <div class="d-flex flex-row mb-3">
+        <div>
+          @if(\App\Models\PostCategory::FREE == $post_category_id)
+              {{ __('フリー掲示板') }}
+          @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
+              {{ __('チームメンバー募集掲示板') }}
+          @endif
+        </div>
+        <div class="ml-auto">
+          <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
+          @if($post_category_id <> \App\Models\PostCategory::TEAM_WANTED)
+            <btton class="btn site-color text-white  rounded-pill btn-outline-secondary text-center"
+                   onclick="location.href='/post/create?post_category_id={{$post_category_id}}'">
+              {{ __('新スレッド作成') }}
+            </btton>
+          @endif
         </div>
       </div>
     </div>

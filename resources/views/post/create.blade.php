@@ -2,15 +2,17 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-site-black text-white rounded p-3 mb-3">
+  <div class="row justify-content-center m-1 mb-3">
+    <div class="col-12 page-header">
         @if(\App\Models\PostCategory::FREE == $post_category_id)
-            <h3>{{ __('フリー掲示板') }}</h3>
+            {{ __('フリー掲示板') }}
         @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
-            <h3>{{ __('チーム募集掲示板') }}</h3>
+            {{ __('チーム募集掲示板') }}
         @endif
     </div>
+    </div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     {{ __('新規スレッド作成') }}

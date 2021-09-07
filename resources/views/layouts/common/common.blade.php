@@ -8,7 +8,7 @@
 
   @yield('addJs')
 </head>
-  <body>
+  <body class="bg-light">
 
     @yield('tag_manager_body')
     @yield('bodyHeader')

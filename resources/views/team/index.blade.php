@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="bg-site-black text-white rounded p-3 mb-3">
+    <div class="site-color text-white rounded p-3 mb-3">
         <h3>{{ __('チーム一覧') }}</h3>
     </div>
 
