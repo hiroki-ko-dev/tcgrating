@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-12 page-header">
-      {{ __('新規1vs1対戦（受付ページ）') }}
+      {{ __('1vs1対戦（受付ページ）') }}
     </div>
   </div>
 
