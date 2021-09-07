@@ -7,9 +7,11 @@
 
 @section('content')
 <div class="container">
-    <div class="site-color text-white rounded p-3 mb-3">
+  <div class="row justify-content-center m-1 mb-3">
+    <div class="col-12 page-header">
         <h5>{{ __('新規1vs1対戦作成') }}</h5>
     </div>
+  </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">

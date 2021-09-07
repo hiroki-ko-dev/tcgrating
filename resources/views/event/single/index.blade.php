@@ -2,19 +2,17 @@
 
 @section('content')
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <div class="site-color text-white rounded p-3 mb-3">
-        <div class="d-flex flex-row mb-3">
-          <div>
-            <h5>{{ __('1vs1対戦') }}</h5>
-          </div>
-          <div class="ml-auto">
-            <btton class="btn rounded-pill btn-outline-light text-center"
-                   onclick="location.href='/event/single/create'">
-              {{ __('新規決闘作成') }}
-            </btton>
-          </div>
+  <div class="row justify-content-center m-1 mb-3">
+    <div class="col-12 page-header">
+      <div class="d-flex flex-row mb-3">
+        <div>
+          {{ __('1vs1対戦') }}
+        </div>
+        <div class="ml-auto">
+          <btton class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
+                 onclick="location.href='/event/single/create'">
+            {{ __('新規決闘作成') }}
+          </btton>
         </div>
       </div>
     </div>
