@@ -134,16 +134,16 @@
                                 @csrf
                                 <input type="hidden" name="duel_id" value="{{$duel->id}}">
                                 <span class="col-md-3 ">
-                                    <input type="submit" class="btn btn-primary" name="win" value="　勝利　">
+                                    <input type="submit" class="btn btn-primary rounded-pill btn-outline-dark text-light" name="win" value="　勝利　">
                                 </span>
                                 <span class="col-md-7">
-                                    <input type="submit" class="btn btn-danger" name="lose" value="　敗北　">
+                                    <input type="submit" class="btn btn-danger rounded-pill btn-outline-dark text-light" name="lose" value="　敗北　">
                                 </span>
                                 <span class="col-md-7">
-                                    <input type="submit" class="btn btn-secondary" name="draw" value="　ドロー">
+                                    <input type="submit" class="btn btn-secondary rounded-pill btn-outline-dark text-light" name="draw" value="　ドロー">
                                 </span>
                                 <span class="col-md-10">
-                                    <input type="submit" class="btn btn-secondary" name="invalid" value="無効試合">
+                                    <input type="submit" class="btn btn-secondary rounded-pill btn-outline-dark text-light" name="invalid" value="無効試合">
                                 </span>
                             </form>
                         </div>
