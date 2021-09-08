@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html class="no-js no-svg" lang="ja">
 <head>
-  @yield('tag_manager_header')
-  @yield('analitics')
+  @if(config('assets.common.appEnv') == 'production')
+    @yield('tag_manager_header')
+    @yield('analitics')
+  @endif
   @yield('header')
   @yield('addCss')
 
   @yield('addJs')
 </head>
   <body class="bg-light">
-
-    @yield('tag_manager_body')
+    @if(config('assets.common.appEnv') == 'production')
+      @yield('tag_manager_body')
+    @endif
     @yield('bodyHeader')
-    @yield('adsense')
+    @if(config('assets.common.appEnv') == 'production')
+      @yield('adsense')
+    @endif
     <main class="py-4" id="main">
   {{-- <div class="main-wrap">--}}
       @yield('content')
