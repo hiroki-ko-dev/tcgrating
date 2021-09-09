@@ -19,7 +19,7 @@
           <div class="form-group row">
             <div class="col-md-12">
               <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle">
-              <a href="/user/{{$post->user_id}}">{{$post->user->name}}</a>
+              <a class="font-weight-bold" href="/user/{{$post->user_id}}">{{$post->user->name}}</a>
               <span class="post-user">[{{$post->created_at}}]</span>
             </div>
           </div>
