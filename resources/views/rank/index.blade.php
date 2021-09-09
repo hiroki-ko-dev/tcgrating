@@ -27,21 +27,18 @@
                 <thead>
                 <tr>
                     <th scope="col">順位</th>
-                    <th scope="col">id</th>
-                    <th scope="col">name</th>
+                    <th scope="col"></th>
+                    <th scope="col" class="text-left">name</th>
                     <th scope="col">rate</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($rates as $i => $rate)
                     <tr>
-                        <td scope="col">{{$rates->firstItem()+$i}}</td>
-                        <td scope="col">{{$rate->user->id}}</td>
-                        <td scope="col">
-                          <img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle">
-                          {{$rate->user->name}}
-                        </td>
-                        <td scope="col">{{$rate->rate}}</td>
+                        <td scope="col" class="align-middle">{{$rates->firstItem()+$i}}</td>
+                        <td scope="col" class="align-middle"><img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle"></td>
+                      <td scope="col" class="text-left align-middle"><a href="/user/{{$rate->user->id}}">{{$rate->user->name}}</a></td>
+                        <td scope="col" class="align-middle">{{$rate->rate}}</td>
                     </tr>
                 @endforeach
                 </tbody>
