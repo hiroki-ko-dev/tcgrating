@@ -37,7 +37,10 @@
                     <tr>
                         <td scope="col">{{$rates->firstItem()+$i}}</td>
                         <td scope="col">{{$rate->user->id}}</td>
-                        <td scope="col">{{$rate->user->name}}</td>
+                        <td scope="col">
+                          <img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle">
+                          {{$rate->user->name}}
+                        </td>
                         <td scope="col">{{$rate->rate}}</td>
                     </tr>
                 @endforeach
