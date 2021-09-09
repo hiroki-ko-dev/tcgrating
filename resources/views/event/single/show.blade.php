@@ -55,8 +55,8 @@
     </div>
   </div>
 
-  <div class="row justify-content-center row-eq-height mb-4">
-    <div class="col-sm-6">
+  <div class="row justify-content-center row-eq-height">
+    <div class="col-sm-6 mb-4">
       <div class="box">
         <div class="d-flex flex-row mb-3">
           <div class="w-30 font-weight-bold">状態</div>
@@ -86,7 +86,7 @@
         @endif
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6 mb-4">
       <div class="box">
         <div class="d-flex flex-row mb-3">
           <div class="w-30 font-weight-bold">対戦回数</div>
@@ -123,8 +123,8 @@
         </div>
       </div>
 
-    <div class="row justify-content-center row-eq-height mb-4">
-      <div class="col-md-6">
+    <div class="row justify-content-center row-eq-height">
+      <div class="col-md-6 mb-4">
         <div class="box text-left">
         <div class="box-header">
           {{ __('対戦方法') }}　
@@ -166,7 +166,7 @@
           @endif
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 mb-4">
         <div class="box text-left">
         <div class="box-header">
             {{ __('配信URL') }}
