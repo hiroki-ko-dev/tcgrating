@@ -30,7 +30,7 @@ class PostCommentRepository
 
     public function findAllWithUserByPostIdAndPagination($post_id, $paginate)
     {
-        return PostComment::with('user:id,name')
+        return PostComment::with('user:id,name,twitter_simple_image_url')
                             ->where('post_id', $post_id)
                             ->paginate($paginate);
     }
