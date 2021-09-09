@@ -22,6 +22,7 @@
       <div class="box">
         <div class="form-group row">
           <div class="col-md-12">
+            <img src="{{$event->eventUsers[0]->user->twitter_simple_image_url}}" class="rounded-circle">
             <a href="/user/{{$event->eventUsers[0]->user_id}}">{{$event->eventUsers[0]->user->name}}</a>
             @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[0]->user_id)->first()->duelUserResults->isNotEmpty())
               レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[0]->user_id)->first()->duelUserResults->sum('rating')}}
@@ -32,6 +33,7 @@
           </div>
           <div class="col-md-12">
             @isset($event->eventUsers[1])
+              <img src="{{$event->eventUsers[1]->user->twitter_simple_image_url}}" class="rounded-circle">
               <a href="/user/{{$event->eventUsers[1]->user_id}}">{{$event->eventUsers[1]->user->name}}</a>
               @if($event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[1]->user_id)->first()->duelUserResults->isNotEmpty())
                 レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[1]->user_id)->first()->duelUserResults->sum('rating')}}

@@ -13,7 +13,9 @@
       <div>
           <div class="form-group row">
               <div class="col-md-12">
-                  <div class="post-user">{{$post->title}}  <a href="/user/{{$post->user_id}}">{{$post->user->name}}</a>[{{$post->created_at}}]</div>
+                  <div class="post-user">{{$post->title}}
+                    <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle">
+                    <a href="/user/{{$post->user_id}}">{{$post->user->name}}</a>[{{$post->created_at}}]</div>
               </div>
           </div>
 
@@ -30,6 +32,7 @@
               <div>
                   @foreach($comments as $comment)
                       <div class="pt-3">
+                        <img src="{{$comment->user->twitter_simple_image_url}}" class="rounded-circle">
                         <span class="post-user"><a href="/user/{{$comment->user_id}}">{{$comment->user->name}}</a> [{{$comment->created_at}}]</span>
                       </div>
                       <div class="card-text border-bottom pt-2 pb-2">
