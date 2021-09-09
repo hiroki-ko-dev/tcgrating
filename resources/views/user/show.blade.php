@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="site-color text-white rounded p-3 mb-3">
+            <div class="bg-site-black text-white rounded p-3 mb-3">
               <div class="d-flex flex-row mb-3">
                 <div>
                   <h5>{{ __('マイページ') }}</h5>
@@ -77,8 +77,10 @@
                     <div class="d-flex flex-row">
                         <div class="w-30 font-weight-bold">{{ __('レート') }}</div>
                         <div class="w-70">
-                          @if(!is_null($user->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()))
+                          @if(isset(Auth::user()->selected_game_id) && !is_null($user->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()))
                             {{number_format($user->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()->rate)}}
+                          @elseif(session('selected_game_id') && $user->gameUsers->where('game_id', session('selected_game_id'))->isNotEmpty())
+                            {{number_format($user->gameUsers->where('game_id', session('selected_game_id'))->first()->rate)}}
                           @else
                             0
                           @endif
@@ -100,11 +102,17 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             @foreach($events as $event)
-                              @if($event->game_id == Auth::user()->selected_game_id)
+                              @if(isset(Auth::user()->selected_game_id) && $event->game_id == Auth::user()->selected_game_id)
                                 @if($event->status == \App\Models\Event::RECRUIT)
                                     <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(対戦相手受付中)</a></div>
                                 @elseif($event->status == \App\Models\Event::READY)
                                     <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(マッチング済)</a></div>
+                                @endif
+                              @elseif(session('selected_game_id') && $user->gameUsers->where('game_id', session('selected_game_id'))->isNotEmpty() && $event->game_id == $user->gameUsers->where('game_id', session('selected_game_id'))->first()->game_id)
+                                @if($event->status == \App\Models\Event::RECRUIT)
+                                  <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(対戦相手受付中)</a></div>
+                                @elseif($event->status == \App\Models\Event::READY)
+                                  <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(マッチング済)</a></div>
                                 @endif
                               @endif
                             @endforeach
