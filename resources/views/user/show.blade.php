@@ -2,36 +2,34 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="bg-site-black text-white rounded p-3 mb-3">
-              <div class="d-flex flex-row mb-3">
-                <div>
-                  <h5>{{ __('マイページ') }}</h5>
-                </div>
-                <div class="ml-auto">
-                  @if($user->id === Auth::id())
-                      <button class="btn rounded-pill btn-outline-light text-center"
-                              onclick="location.href='/user/{{$user->id}}/edit'">
-                        {{ __('編集する') }}
-                      </button>
-                  @endif
-                </div>
-              </div>
-            </div>
+  <div class="row justify-content-center m-1 mb-3">
+    <div class="col-12 page-header">
+      <div class="d-flex flex-row mb-3">
+        <div>
+          {{ __('マイページ') }}
         </div>
+        <div class="ml-auto">
+          @if($user->id === Auth::id())
+              <button class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
+                      onclick="location.href='/user/{{$user->id}}/edit'">
+                {{ __('編集する') }}
+              </button>
+          @endif
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="row justify-content-center">
-        <!-- フラッシュメッセージ -->
-        @if (session('flash_message'))
-            <div class="col-md-12">
-                <div class="text-center alert-danger rounded p-3 mb-3">
-                    {{ session('flash_message') }}
-                </div>
-            </div>
-        @endif
-    </div>
+  <div class="row justify-content-center">
+      <!-- フラッシュメッセージ -->
+      @if (session('flash_message'))
+          <div class="col-md-12">
+              <div class="text-center alert-danger rounded p-3 mb-3">
+                  {{ session('flash_message') }}
+              </div>
+          </div>
+      @endif
+  </div>
 
     <div class="row justify-content-center">
         <div class="col-md-12">

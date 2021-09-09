@@ -64,7 +64,7 @@
               </div>
               <div class="form-group row mb-0">
                   <div class="col-md-6 offset-md-5">
-                      <button type="submit" class="btn btn-dark rounded-pill btn-outline-secondary text-light pl-5 pr-5">
+                      <button type="submit" class="btn site-color rounded-pill btn-outline-secondary text-light pl-5 pr-5">
                           {{ __('投稿') }}
                       </button>
                       <a href="/reload">　　返信を確認</a>

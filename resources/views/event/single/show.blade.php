@@ -112,7 +112,7 @@
             <div class="small">※対戦開始日時になったら対戦ページへ移動してください</div>
           </div>
             <div class="d-flex justify-content-center mb-3">
-              <button class="btn btn-dark rounded-pill btn-outline-secondary text-light" onclick="location.href='/duel/single/{{$event->eventDuels[0]->duel->id}}'">対戦ページへ移動</button>
+              <button class="btn site-color rounded-pill btn-outline-secondary text-light" onclick="location.href='/duel/single/{{$event->eventDuels[0]->duel->id}}'">対戦ページへ移動</button>
             </div>
           @endif
 
