@@ -12,11 +12,16 @@
       </div>
       <div>
           <div class="form-group row">
-              <div class="col-md-12">
-                  <div class="post-user">{{$post->title}}
-                    <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle">
-                    <a href="/user/{{$post->user_id}}">{{$post->user->name}}</a>[{{$post->created_at}}]</div>
+              <div class="col-md-12 mb-1">
+                <div class="font-weight-bold">{{$post->title}}</div>
               </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle">
+              <a href="/user/{{$post->user_id}}">{{$post->user->name}}</a>
+              <span class="post-user">[{{$post->created_at}}]</span>
+            </div>
           </div>
 
           <div class="form-group row">
