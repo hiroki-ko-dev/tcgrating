@@ -28,9 +28,7 @@
               レート：{{$event->eventDuels[0]->duel->duelUsers->where('user_id',$event->eventUsers[0]->user_id)->first()->duelUserResults->sum('rating')}}
             @endif
           </div>
-          <div class="col-md-12">
-            vs
-          </div>
+          <div class="col-md-12 m-1">vs</div>
           <div class="col-md-12">
             @isset($event->eventUsers[1])
               <img src="{{$event->eventUsers[1]->user->twitter_simple_image_url}}" class="rounded-circle">
@@ -40,13 +38,13 @@
               @endif
             @endisset
           </div>
-          <div class="col-md-6 offset-md-5">
+          <div class="col-md-12">
             @if($event->user_id <> Auth::id() && $event->status == \APP\Models\Event::RECRUIT)
               <form method="POST" action="/event/user" onClick="return requestConfirm();">
                 @csrf
                 <input type="hidden" name="event_id" value="{{$event->id}}">
                 <input type="hidden" name="duel_id" value="{{$event->eventDuels[0]->duel->id}}">
-                <button type="submit" name="event_add_user" value="1" class="btn btn-dark rounded-pill">
+                <button type="submit" name="event_add_user" value="1" class="btn site-color text-white rounded-pill btn-outline-secondary text-center">
                   {{ __('対戦申込') }}
                 </button>
               </form>
@@ -111,9 +109,9 @@
           <div class="d-flex flex-row mb-3">
             <div class="small">※対戦開始日時になったら対戦ページへ移動してください</div>
           </div>
-            <div class="d-flex justify-content-center mb-3">
-              <button class="btn site-color rounded-pill btn-outline-secondary text-light" onclick="location.href='/duel/single/{{$event->eventDuels[0]->duel->id}}'">対戦ページへ移動</button>
-            </div>
+          <div class="d-flex justify-content-center mb-3">
+            <button class="btn site-color rounded-pill btn-outline-secondary text-light" onclick="location.href='/duel/single/{{$event->eventDuels[0]->duel->id}}'">対戦ページへ移動</button>
+          </div>
           @endif
 
           <div class="form-group row">
