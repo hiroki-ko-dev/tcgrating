@@ -27,7 +27,7 @@ class Session
 
         // URLに何もなかったらポケモンカードにしておく
         if(empty(session('selected_game_id'))){
-            session(['selected_game_id' => 3]);
+            session(['selected_game_id' => config('assets.site.game_ids.pokemon_card')]);
         }
 
         return $next($request);
