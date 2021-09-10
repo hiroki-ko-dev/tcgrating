@@ -9,12 +9,12 @@
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-12 page-header">
-        <h5>{{ __('新規1vs1対戦作成') }}</h5>
+      {{ __('新規1vs1対戦作成') }}
     </div>
   </div>
   <form method="POST" action="/event/single">
     @csrf
-    <div class="row justify-content-center m-1 mb-3">
+    <div class="row justify-content-center mb-4">
       <div class="col-12">
         <div class="box">
           <div class="box-header">{{ __('対戦開始日時') }}</div>
@@ -39,8 +39,9 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center m-1 mb-3">
-      <div class="col-sm-6">
+
+    <div class="row justify-content-center">
+      <div class="col-sm-6 mb-4">
         <div class="box">
           <div class="box-header">{{ __('対戦回数') }}</div>
           <div class="form-group row">
@@ -55,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-6 mb-4">
         <div class="box">
           <div class="box-header">{{ __('対戦ゲーム') }}</div>
           <div class="card-body">
@@ -71,7 +72,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-center m-1 mb-3">
+    <div class="row justify-content-center mb-4">
       <div class="col-12">
         <div class="box">
           @if(Auth::user()->selected_game_id == config('assets.site.game_ids.yugioh_duellinks'))
@@ -141,7 +142,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-center m-1 mb-3">
+    <div class="row justify-content-center mb-4">
       <div class="col-12">
         <div class="box">
         <div class="box-header">{{ __('一言メッセージ') }}</div>
@@ -159,15 +160,11 @@
       </div>
     </div>
 
-      <div class="form-group row mb-0">
-          <div class="col-md-6 offset-md-5 mb-3">
-              <button type="submit" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4">
-                  {{ __('新規作成') }}
-              </button>
-          </div>
-      </div>
+    <div class="row justify-content-center  mb-0">
+      <button type="submit" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4">
+        {{ __('新規作成') }}
+      </button>
     </div>
-  </div>
   </form>
 </div>
 
