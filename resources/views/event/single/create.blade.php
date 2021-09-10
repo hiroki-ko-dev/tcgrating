@@ -17,7 +17,7 @@
     <div class="row justify-content-center mb-4">
       <div class="col-12">
         <div class="box">
-          <div class="box-header">{{ __('対戦開始日時') }}</div>
+          <div class="box-header text-left">{{ __('対戦開始日時') }}</div>
           <div class="form-group row">
             <div class="col-sm-6">
               <input type="text" id="datepicker" class="form-control w-100 @error('date') is-invalid @enderror" name="date" >{{ old('date') }}</input>
@@ -43,7 +43,7 @@
     <div class="row justify-content-center">
       <div class="col-sm-6 mb-4">
         <div class="box">
-          <div class="box-header">{{ __('対戦回数') }}</div>
+          <div class="box-header text-left">{{ __('対戦回数') }}</div>
           <div class="form-group row">
               <div class="col-md-12">
                   <input type="number" id="number_of_games" class="form-control w-100 @error('number_of_games') is-invalid @enderror" name="number_of_games" value="{{ old('number_of_games') }}" required autocomplete="number_of_games" autofocus>
@@ -58,8 +58,7 @@
       </div>
       <div class="col-sm-6 mb-4">
         <div class="box">
-          <div class="box-header">{{ __('対戦ゲーム') }}</div>
-          <div class="card-body">
+          <div class="box-header text-left">{{ __('対戦ゲーム') }}</div>
             @if(Auth::user()->selected_game_id == config('assets.site.game_ids.yugioh_duellinks'))
               <div class="font-weight-bold">{{ __('遊戯王デュエルリンクス') }}</div>
             @elseif(Auth::user()->selected_game_id == config('assets.site.game_ids.yugioh_ocg'))
@@ -67,7 +66,6 @@
             @elseif(Auth::user()->selected_game_id == config('assets.site.game_ids.pokemon_card'))
               <div class="font-weight-bold">{{ __('ポケモンカード リモート対戦') }}</div>
             @endif
-          </div>
         </div>
       </div>
     </div>
@@ -76,7 +74,7 @@
       <div class="col-12">
         <div class="box">
           @if(Auth::user()->selected_game_id == config('assets.site.game_ids.yugioh_duellinks'))
-            <div class="box-header">{{ __('デュエルリンクス対戦ID') }}</div>
+            <div class="box-header text-left">{{ __('デュエルリンクス対戦ID') }}</div>
             <div class="d-flex flex-row mb-3">
               <div class="w-30">{{ __('ルームID') }}</div>
               <div class="w-70">
@@ -100,7 +98,7 @@
               </div>
             </div>
           @else
-            <div class="box-header">{{ __('対戦ツール') }}</div>
+            <div class="box-header text-left">{{ __('対戦ツール') }}</div>
             <div class="d-flex flex-row mb-3">
               <div class="w-30">{{ __('ツール名') }}</div>
               <div class="w-70">
@@ -145,7 +143,7 @@
     <div class="row justify-content-center mb-4">
       <div class="col-12">
         <div class="box">
-        <div class="box-header">{{ __('一言メッセージ') }}</div>
+        <div class="box-header text-left">{{ __('一言メッセージ') }}</div>
           <div class="form-group row">
             <div class="col-md-12">
               <textarea id="body" class="form-control w-100 @error('body') is-invalid @enderror" name="body" >{{ old('body') }}</textarea>
