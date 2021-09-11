@@ -11,7 +11,7 @@
   <form method="POST" action="/user/{{$user->id}}">
     @csrf
     @method('PUT')
-    <div class="row justify-content-cente ">
+    <div class="row justify-content-center">
       <div class="col-sm-6 mb-4">
         <div class="box text-left">
           <input type="hidden" name="id" value="{{$user->id}}">
