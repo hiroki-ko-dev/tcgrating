@@ -33,6 +33,40 @@
 
   <div class="row justify-content-center">
     <div class="col-sm-6 mb-4">
+      <div class="box">
+        <img src="{{$user->twitter_image_url}}" class="img-rounded img-fluid">
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="row justify-content-center">
+        <div class="col-12 mb-4">
+          <div class="box text-left">
+            <div class="box-header">{{ __('ユーザー名') }}</div>
+            <div class="d-flex flex-row mb-3">
+              <div class="body">{{$user->name}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-4">
+          <div class="box text-left">
+            <div class="box-header">{{ __('レート') }}</div>
+            <div class="body">
+              @if(isset(Auth::user()->selected_game_id) && !is_null($user->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()))
+                {{number_format($user->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()->rate)}}
+              @elseif(session('selected_game_id') && $user->gameUsers->where('game_id', session('selected_game_id'))->isNotEmpty())
+                {{number_format($user->gameUsers->where('game_id', session('selected_game_id'))->first()->rate)}}
+              @else
+                0
+              @endif
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-sm-6 mb-4">
       <div class="box text-left">
         <div class="box-header">{{ __('メールアドレス') }}</div>
         @if($user->id === Auth::id())
@@ -51,31 +85,6 @@
           <div class="box-header">{{ __('Twitterアカウント') }}</div>
           <a href="https://twitter.com/{{$user->twitter_nickname}}"><div type="body">＠{{$user->twitter_nickname}}</div></a>
         @endif
-      </div>
-    </div>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-sm-6 mb-4">
-      <div class="box text-left">
-        <div class="box-header">{{ __('ユーザー名') }}</div>
-        <div class="d-flex flex-row mb-3">
-            <div class="body">{{$user->name}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6 mb-4">
-      <div class="box text-left">
-        <div class="box-header">{{ __('レート') }}</div>
-        <div class="body">
-          @if(isset(Auth::user()->selected_game_id) && !is_null($user->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()))
-            {{number_format($user->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()->rate)}}
-          @elseif(session('selected_game_id') && $user->gameUsers->where('game_id', session('selected_game_id'))->isNotEmpty())
-            {{number_format($user->gameUsers->where('game_id', session('selected_game_id'))->first()->rate)}}
-          @else
-            0
-          @endif
-        </div>
       </div>
     </div>
   </div>
