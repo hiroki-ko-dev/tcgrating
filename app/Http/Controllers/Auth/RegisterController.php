@@ -77,6 +77,7 @@ class RegisterController extends Controller
         $request->email    = $data['email'];
         $request->password = Hash::make($data['password']);
         $request->email    = $data['email'];
+        $request->twitter_image_url = '/images/icon/default-icon-mypage.jpg';
         $request->twitter_simple_image_url = '/images/icon/default-account.png';
 
         $user = DB::transaction(function () use ($request){
