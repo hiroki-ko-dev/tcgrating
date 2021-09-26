@@ -70,6 +70,11 @@ class TwitterController extends Controller
                 }
 
             }else{
+                $user->twitter_nickname  = $twitterUser->nickname;
+                $user->twitter_image_url = $twitterUser->avatar_original;
+                $user->twitter_simple_image_url = $twitterUser->user['profile_image_url_https'];
+                $user->save();
+
                 Auth::login($user, true);
             }
 
