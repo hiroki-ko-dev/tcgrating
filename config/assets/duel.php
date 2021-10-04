@@ -3,7 +3,7 @@
 return [
     'tool' => [
         '1'   => 'このサイトのdiscordサーバー',
-        '2'   => 'discord',
+        '2'   => '自分のdiscord',
         '3'   => 'Zoom',
         '4'   => 'Skype',
         '999' => 'その他',
