@@ -74,9 +74,9 @@ class EventService
      * @param $paginate
      * @return mixed
      */
-    public function findAllEventAndUserByEventCategoryId($request, $paginate)
+    public function findAllEventByEventCategoryId($request, $paginate)
     {
-        return $this->event_repository->findAllWithUserByEventCategoryIdAndPaginate($request, $paginate);
+        return $this->event_repository->findAllByEventCategoryIdAndPaginate($request, $paginate);
     }
 
     public function findAllEventByUserId($user_id)

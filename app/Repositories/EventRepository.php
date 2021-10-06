@@ -57,7 +57,7 @@ class EventRepository
     }
 
 
-    public function findAllWithUserByEventCategoryIdAndPaginate($request, $paginate)
+    public function findAllByEventCategoryIdAndPaginate($request, $paginate)
     {
         return Event::where('event_category_id', $request->event_category_id)
                     ->where('game_id', $request->game_id)

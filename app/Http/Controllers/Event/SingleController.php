@@ -53,7 +53,7 @@ class SingleController extends Controller
             $request->merge(['game_id' => session('selected_game_id')]);
         }
         $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
-        $events = $this->event_service->findAllEventAndUserByEventCategoryId($request, 50);
+        $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
 
         return view('event.single.index',compact('events'));
     }
