@@ -113,4 +113,72 @@ class TwitterService
         }
     }
 
+    /**
+     * @param $event
+     * @param $users
+     */
+    public function tweetByEventPostNotice($event, $users)
+    {
+        // Twitterの遊戯王アカウントでTweet
+        if($event->game_id == 1 || $event->game_id == 2){
+            $apiKeys = config('assets.twitter.yugioh');
+            $hashTag = '#遊戯王デュエルリンクス ';
+
+            // TwitterのポケモンアカウントでTweet
+        }elseif($event->game_id == 3){
+            $apiKeys = config('assets.twitter.pokemon');
+            $hashTag = '#ポケモンカード #リモートポケカ ';
+        }
+
+        foreach ($users as $user){
+            // 対戦マッチング  によるメール文
+            $tweet =
+                '@' . $user->twitter_nickname . PHP_EOL .
+                '参加しているイベント受付掲示板が更新されました。確認しましょう。' . PHP_EOL .
+                PHP_EOL .
+                '対戦ゲーム：' . $event->game->name . PHP_EOL .
+                '対戦日時' . date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time)) . PHP_EOL .
+                'https://hashimu.com/event/single/' . $event->id . '?selected_game_id=' . $event->game_id . ' ' . PHP_EOL .
+                $hashTag;
+            if(config('assets.common.appEnv') == 'production'){
+                $this->twitterRepository->tweet($apiKeys, $tweet);
+            }
+        }
+    }
+
+    /**
+     * @param $duel
+     * @param $user
+     */
+    public function tweetByDuelPostNotice($duel, $users)
+    {
+        // Twitterの遊戯王アカウントでTweet
+        if($duel->game_id == 1 || $duel->game_id == 2){
+            $apiKeys = config('assets.twitter.yugioh');
+            $hashTag = '#遊戯王デュエルリンクス ';
+
+            // TwitterのポケモンアカウントでTweet
+        }elseif($duel->game_id == 3){
+            $apiKeys = config('assets.twitter.pokemon');
+            $hashTag = '#ポケモンカード #リモートポケカ ';
+        }
+
+        foreach ($users as $user) {
+
+            // 対戦マッチング  によるメール文
+            $tweet =
+                '@' . $user->twitter_nickname . PHP_EOL .
+                '参加している対戦掲示板が更新されました。確認しましょう。' . PHP_EOL .
+                PHP_EOL .
+                '対戦ゲーム：' . $duel->game->name . PHP_EOL .
+                '対戦日時' . date('Y/m/d H:i', strtotime($duel->eventDuel->event->date . ' ' . $duel->eventDuel->event->start_time)) . PHP_EOL .
+                'https://hashimu.com/duel/single/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
+                $hashTag;
+
+            if(config('assets.common.appEnv') == 'production'){
+                $this->twitterRepository->tweet($apiKeys, $tweet);
+            }
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ use App\Services\PostService;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\UserService;
+use App\Services\TwitterService;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -21,16 +22,19 @@ class CommentController extends Controller
     protected $event_service;
     protected $duel_service;
     protected $user_service;
+    protected $twitterService;
 
     public function __construct(PostService $post_service,
                                 EventService $event_service,
                                 DuelService $duel_service,
-                                UserService $user_service)
+                                UserService $user_service,
+                                TwitterService $twitterService)
     {
         $this->post_service  = $post_service;
         $this->event_service = $event_service ;
         $this->duel_service  = $duel_service ;
         $this->user_service  = $user_service ;
+        $this->twitterService = $twitterService;
     }
 
     /**
@@ -83,11 +87,21 @@ class CommentController extends Controller
                 //コメントをした本人以外に通知を送る
                 $eventUsers = $event->eventUsers->whereNotIn('user_id', [Auth::id()]);
                 $emails = [];
+                $usersForTweet  = [];
                 foreach ($eventUsers as $eventUser) {
                     if(!is_null($eventUser->user->email)) {
                         $emails[] = $eventUser->user->email;
                     }
+                    if(!is_null($event->user->twitter_id)) {
+                        $usersForTweet[] = $eventUser->user;
+                    }
                 }
+
+                // 対戦作成者にtwitterアカウントがあれば通知
+                if(!is_null($usersForTweet)){
+                    $this->twitterService->tweetByEventPostNotice($event, $usersForTweet);
+                }
+
                 if(!empty($emails)) {
                     Mail::send(new PostCommentEventMail($emails, $post, $comment));
                 }
@@ -97,11 +111,21 @@ class CommentController extends Controller
                 //コメントをした本人以外に通知を送る
                 $duelUsers = $duel->duelUsers->whereNotIn('user_id',[Auth::id()]);
                 $emails = [];
+                $usersForTweet  = [];
                 foreach($duelUsers as $duelUser){
                     if(!is_null($duelUser->user->email)){
                         $emails[] = $duelUser->user->email;
                     }
+                    if(!is_null($duelUser->user->twitter_id)) {
+                        $usersForTweet[] = $duelUser->user;
+                    }
                 }
+
+                // 対戦作成者にtwitterアカウントがあれば通知
+                if(!is_null($usersForTweet)){
+                    $this->twitterService->tweetByDuelPostNotice($duel, $usersForTweet);
+                }
+
                 if(!empty($emails)) {
                     Mail::send(new PostCommentDuelMail($emails, $post, $comment));
                 }
