@@ -143,36 +143,37 @@ class DuelService
         //すでに結果報告が終わっていないかチェック
         $duelUserResult = $this->duelUserResultRepository->findAllByDuelUserId($request->duel->duelUsers->where('user_id',$request->user_id)->first()->id);
 
-        $duelUserResultObj = new \stdClass();
-        $duelUserResultObj->duel_user_id = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->id ;
-        $duelUserResultObj->duel_user_id = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->id ;
-        if($duelUserResult->isEmpty()){
-            $duelUserResultObj->games_number = 1;
-        }else{
-            $duelUserResultObj->games_number = $duelUserResult->count() + 1 ;
-        }
+        $myDuelUserResult = new \stdClass();
+        $myDuelUserResult->duel_user_id = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->id ;
+        $myDuelUserResult->games_number = 1;
+
+        $otherDuelUserResult = new \stdClass();
+        $otherDuelUserResult->duel_user_id = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->id ;
+        $otherDuelUserResult->games_number = 1;
 
         if($request->has('win')){
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::WIN ;
-            $duelUserResultObj->ranking = 1 ;
-            $duelUserResultObj->rating  = 1000 ;
-        }elseif($request->has('lose')){
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::LOSE ;
-            $duelUserResultObj->ranking = 2 ;
-            $duelUserResultObj->rating  = -1000 ;
-        }elseif($request->has('draw')){
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::DRAW ;
-            $duelUserResultObj->ranking = 0 ;
-            $duelUserResultObj->rating  = 0 ;
-        }elseif($request->has('invalid')){
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::INVALID ;
-            $duelUserResultObj->ranking = 0 ;
-            $duelUserResultObj->rating  = 0 ;
+            $myDuelUserResult->result  = \App\Models\DuelUserResult::WIN ;
+            $myDuelUserResult->ranking = 1 ;
+            $myDuelUserResult->rating  = 1000 ;
+
+            $otherDuelUserResult->result  = \App\Models\DuelUserResult::LOSE ;
+            $otherDuelUserResult->ranking = 2 ;
+            $otherDuelUserResult->rating  = -1000 ;
+
+        }elseif($request->has('draw')) {
+            $myDuelUserResult->result = \App\Models\DuelUserResult::DRAW;
+            $myDuelUserResult->ranking = 0;
+            $myDuelUserResult->rating = 0;
+
+            $otherDuelUserResult->result  = \App\Models\DuelUserResult::DRAW ;
+            $otherDuelUserResult->ranking = 0 ;
+            $otherDuelUserResult->rating  = 0 ;
         }else{
             return false;
         }
 
-        $this->duelUserResultRepository->create($duelUserResultObj);
+        $this->duelUserResultRepository->create($myDuelUserResult);
+        $this->duelUserResultRepository->create($otherDuelUserResult);
 
         return $request;
     }

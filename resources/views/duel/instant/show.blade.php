@@ -2,6 +2,18 @@
 
 @section('content')
 <div class="container">
+
+  <div class="row justify-content-center">
+    <!-- フラッシュメッセージ -->
+    @if (session('flash_message'))
+      <div class="col-12">
+        <div class="text-center alert-danger rounded p-3 mb-3">
+          {{ session('flash_message') }}
+        </div>
+      </div>
+    @endif
+  </div>
+
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-12 page-header">
       {{ __('1vs1対戦(対戦ページ)') }}
@@ -68,7 +80,7 @@
                 </button>
               </form>
             @endif
-          @else
+          @elseif($duel->eventDuel->event->status == \App\Models\Event::READY)
             {{--対戦相手募集が完了している場合--}}
             @if($duel->duelUsers->where('user_id',Auth::id())->isNotEmpty())
               {{--対戦者同士の場合--}}
@@ -108,6 +120,14 @@
                 </div>
               </div>
             @endif
+          @else
+            <div class="row justify-content-center mb-4">
+              <div class="col-md-12">
+                <div class="box">
+                  {{ __('試合が完了しています') }}
+                </div>
+              </div>
+            </div>
           @endif
         @endif
       </div>
