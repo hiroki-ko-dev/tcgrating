@@ -60,12 +60,12 @@ use Illuminate\Support\Facades\Route;
         'post/comment' => Post\CommentController::class,
     ]);
 
-    //1対1デュエル系スレッド
+    //イベント系スレッド
     Route::resources([
         'event/single' => Event\SingleController::class,
-        'event/point'  => Event\PointController::class,
+        'event/instant' => Event\InstantController::class,
     ]);
-    //イベント系スレッド
+    //イベントユーザー系スレッド
     Route::resources([
         'event/user' => Event\UserController::class,
     ]);
@@ -73,6 +73,7 @@ use Illuminate\Support\Facades\Route;
     //デュエル系スレッド
     Route::resources([
         'duel/single' => Duel\SingleController::class,
+        'duel/instant' => Event\InstantController::class,
         'duel/point'  => Duel\PointController::class,
     ]);
 
