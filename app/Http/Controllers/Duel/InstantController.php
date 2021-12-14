@@ -79,6 +79,7 @@ class InstantController extends Controller
     public function show($duel_id)
     {
         $duel     = $this->duel_service->findDuelWithUserAndEvent($duel_id);
+        session(['loginAfterRedirectUrl' => env('APP_URL').'/duel/instant/'.$duel_id]);
 
         return view('duel.instant.show',compact('duel'));
     }
