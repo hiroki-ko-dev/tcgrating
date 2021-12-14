@@ -52,6 +52,7 @@ class SingleController extends Controller
         }else{
             $request->merge(['game_id' => session('selected_game_id')]);
         }
+        $request->merge(['not_body' => 'LINEからの対戦作成']);
         $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
         $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
 
