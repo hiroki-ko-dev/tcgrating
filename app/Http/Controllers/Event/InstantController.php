@@ -72,6 +72,8 @@ class InstantController extends Controller
         $request->merge(['date'       => $date]);
         $request->merge(['start_time' => $date]);
 
+        $request->merge(['number_of_games' => 1]);
+
         $duel_id = DB::transaction(function () use($request) {
 
             $event = $this->event_service->createEventBySingle($request);
@@ -86,6 +88,6 @@ class InstantController extends Controller
             return $request->duel_id;
         });
 
-        return redirect('/duel/instant/',$duel_id);
+        return redirect('/duel/instant/'.$duel_id);
     }
 }

@@ -12,29 +12,20 @@
       {{ __('リモートポケカレーティング') }}
     </div>
   </div>
-  <form method="POST" action="/event/instant/store">
+  <form method="POST" action="/event/instant">
     @csrf
 
     <div class="row justify-content-center mb-4">
       <div class="col-12">
         <div class="box">
-          <div class="box-header text-left">{{ __('レーティングサイト使用方法') }}</div>
-          <div class="font-weight-bold text-left">{{ __('① Twitterログイン') }}</div>
-          <div class="font-weight-bold text-left">{{ __('② 対戦相手にURLを共有') }}</div>
-          <div class="font-weight-bold text-left">{{ __('③ 対戦結果報告(勝者のみ)') }}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row justify-content-center mb-4">
-      <div class="col-12">
-        <div class="box">
-          <div class="box-header text-left">{{ __('① Twitterログイン') }}</div>
+          <div class="box-header text-left">{{ __('Twitterログイン') }}</div>
           @if(Auth::check())
             <div class="font-weight-bold text-left">{{ __('Twitterログイン済です。') }}</div>
           @else
             <div class="font-weight-bold text-left">{{ __('Twitterログインできていません。以下ボタンからログインしてください') }}</div>
-            <a href="/auth/twitter/login"><img class="img-fluid" src="{{ asset('/images/site/twitter/relation.png') }}" alt="hashimu-icon"></a>
+            <div class="col-sm-4">
+              <a href="/auth/twitter/login"><img class="img-fluid" src="{{ asset('/images/site/twitter/relation.png') }}" alt="hashimu-icon"></a>
+            </div>
           @endif
         </div>
       </div>
@@ -66,19 +57,13 @@
             <div class="d-flex flex-row mb-3">
               <div class="w-30">{{ __('対戦コード') }}</div>
               <div class="w-70">
-                <input id="tool_code" type="text" placeholder="※後から編集できます" class="form-control w-100 @error('tool_code') is-invalid @enderror" name="tool_code" value="{{ old('tool_code') }}" autofocus>
+                <input id="tool_code" type="text" placeholder="※ユーザー名等の連絡がとれるもの" class="form-control w-100 @error('tool_code') is-invalid @enderror" name="tool_code" value="{{ old('tool_code') }}" autofocus>
                 @error('tool_code')
                   <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                   </span>
                 @enderror
               </div>
-            </div>
-            <div class="d-flex flex-row mb-3 text-secondary">
-              {{ __('※なんでもよければデフォルトのこのサイト専用Discordサーバーがオススメ') }}
-            </div>
-            <div class="d-flex flex-row mb-3 text-secondary">
-              {{ __('※ツールの招待URL、フレンドコード等を記載してください') }}
             </div>
         </div>
       </div>

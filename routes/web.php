@@ -73,7 +73,7 @@ use Illuminate\Support\Facades\Route;
     //デュエル系スレッド
     Route::resources([
         'duel/single' => Duel\SingleController::class,
-        'duel/instant' => Event\InstantController::class,
+        'duel/instant' => Duel\InstantController::class,
         'duel/point'  => Duel\PointController::class,
     ]);
 
