@@ -80,13 +80,19 @@
                   <li><a href="/post?post_category_id={{\App\Models\PostCategory::FREE}}">フリー掲示板</a></li>
                   <li><a href="/post?post_category_id={{\App\Models\PostCategory::TEAM_WANTED}}">チームメンバー募集掲示板</a></li>
                   <li><a href="/team">チーム検索</a></li>
-                  <li><a href="/event/single">1vs1対戦</a></li>
-{{--                            <li><a href="#"><span class="text-secondary">ポイントバトル決闘</span></a></li>--}}
-{{--                            <li><a href="#"><span class="text-secondary">チーム決闘</span></a></li>--}}
-{{--                            <li><a href="#"><span class="text-secondary">大会</span></a></li>--}}
                   @guest
-                    <li><a href="{{ route('login') }}">ログイン</a></li>
+                    @if(session('selected_game_id') == 3)
+                      <li><a href="/event/instant">1vs1対戦</a></li>
+                    @else
+                      <li><a href="/event/single">1vs1対戦</a></li>
+                    @endif
+                      <li><a href="{{ route('login') }}">ログイン</a></li>
                   @else
+                    @if(Auth::user()->selected_game_id == 3)
+                      <li><a href="/event/instant">1vs1対戦</a></li>
+                    @else
+                      <li><a href="/event/single">1vs1対戦</a></li>
+                    @endif
                     <li><a href="/team?user_id={{Auth::id()}}">マイチーム</a></li>
                     <li><a href="/user/{{Auth::id()}}">マイページ</a></li>
                     <li><a  href="" onclick="event.preventDefault();

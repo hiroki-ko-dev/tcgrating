@@ -31,6 +31,25 @@ class InstantController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function index(Request $request)
+    {
+        // 選択しているゲームでフィルタ
+        if(\Illuminate\Support\Facades\Auth::check()) {
+            $request->merge(['game_id' => Auth::user()->selected_game_id]);
+        }else{
+            $request->merge(['game_id' => session('selected_game_id')]);
+        }
+        $request->merge(['not_body' => '特になし']);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
+        $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
+
+        return view('event.instant.index',compact('events'));
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

@@ -111,11 +111,11 @@ class UserController extends Controller
             if(!is_null($event->user->twitter_id)){
                 $this->twitterService->tweetByInstantMatching($event);
             }
-
-            // メールアドレスがあれば通知
-            if(!is_null($event->user->email)){
-                Mail::send(new EventSingleJoinRequestMail($event));
-            }
+//
+//            // メールアドレスがあれば通知
+//            if(!is_null($event->user->email)){
+//                Mail::send(new EventSingleJoinRequestMail($event));
+//            }
 
         });
 
