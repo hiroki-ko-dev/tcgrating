@@ -20,32 +20,6 @@
     </div>
   </div>
 
-  <div class="row justify-content-center row-eq-height mb-4">
-    <div class="col-12">
-      <div class="box">
-        <div class="form-group row">
-          <div class="col-md-12">
-            <img src="{{$duel->duelUsers[0]->user->twitter_simple_image_url}}" class="rounded-circle">
-            <a href="/user/{{$duel->duelUsers[0]->user_id}}">{{$duel->duelUsers[0]->user->name}}</a>
-            @if($duel->duelUsers->where('user_id',$duel->duelUsers[0]->user_id)->first()->duelUserResults->isNotEmpty())
-              レート：{{$duel->duelUsers->where('user_id',$duel->duelUsers[0]->user_id)->first()->duelUserResults->sum('rating')}}
-            @endif
-          </div>
-          <div class="col-md-12 m-1">vs</div>
-          <div class="col-md-12">
-            @isset($duel->duelUsers[1])
-              <img src="{{$duel->duelUsers[1]->user->twitter_simple_image_url}}" class="rounded-circle">
-              <a href="/user/{{$duel->duelUsers[1]->user_id}}">{{$duel->duelUsers[1]->user->name}}</a>
-              @if($duel->duelUsers->where('user_id',$duel->duelUsers[1]->user_id)->first()->duelUserResults->isNotEmpty())
-                レート：{{$duel->duelUsers->where('user_id',$duel->duelUsers[1]->user_id)->first()->duelUserResults->sum('rating')}}
-              @endif
-            @endisset
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="row justify-content-center mb-4">
     <div class="col-12">
       <div class="box">
@@ -65,7 +39,7 @@
               <div class="d-flex flex-row mb-3">
                 <div class="font-weight-bold text-left mr-3">{{env('APP_URL')}}/duel/instant/{{$duel->id}}</div>
                 <button id="copy" class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
-                      name="copy" value="{{env('APP_URL')}}/duel/instant/{{$duel->id}}" onclick="copyUrl()">コピー</button>
+                        name="copy" value="{{env('APP_URL')}}/duel/instant/{{$duel->id}}" onclick="copyUrl()">コピー</button>
               </div>
               <div class="text-left mr-3">（LINEオープンチャット等に貼り付けしてください)</div>
             @else
@@ -137,6 +111,39 @@
             </div>
           @endif
         @endif
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center row-eq-height mb-4">
+    <div class="col-12">
+      <div class="box">
+        <div class="form-group row">
+          <div class="col-md-12">
+            <img src="{{$duel->duelUsers[0]->user->twitter_simple_image_url}}" class="rounded-circle">
+            <a href="/user/{{$duel->duelUsers[0]->user_id}}">{{$duel->duelUsers[0]->user->name}}</a>
+            @if($duel->duelUsers->where('user_id',$duel->duelUsers[0]->user_id)->first()->duelUserResults->isNotEmpty())
+              レート：{{$duel->duelUsers->where('user_id',$duel->duelUsers[0]->user_id)->first()->duelUserResults->sum('rating')}}
+            @endif
+          </div>
+          <div class="col-md-12 m-1">vs</div>
+          <div class="col-md-12">
+            @isset($duel->duelUsers[1])
+              <img src="{{$duel->duelUsers[1]->user->twitter_simple_image_url}}" class="rounded-circle">
+              <a href="/user/{{$duel->duelUsers[1]->user_id}}">{{$duel->duelUsers[1]->user->name}}</a>
+              @if($duel->duelUsers->where('user_id',$duel->duelUsers[1]->user_id)->first()->duelUserResults->isNotEmpty())
+                レート：{{$duel->duelUsers->where('user_id',$duel->duelUsers[1]->user_id)->first()->duelUserResults->sum('rating')}}
+              @endif
+            @else
+              @if(Auth::id() == $duel->user_id)
+                <button type=“button” onclick="location.href='/reload'" class="btn site-color text-white rounded-pill btn-outline-secondary text-center">
+                  {{ __('ページ更新') }}
+                </button>
+                <div>{{ __('相手が対戦申込したらページ更新してください') }}</div>
+              @endif
+            @endisset
+          </div>
+        </div>
       </div>
     </div>
   </div>

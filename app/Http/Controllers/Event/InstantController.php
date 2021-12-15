@@ -38,6 +38,7 @@ class InstantController extends Controller
     public function create()
     {
         session(['loginAfterRedirectUrl' => env('APP_URL').'/event/instant/create']);
+        session(['selected_game_id' => 3]);
 
         return view('event.instant.create');
     }

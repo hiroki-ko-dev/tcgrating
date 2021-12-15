@@ -109,7 +109,7 @@ class UserController extends Controller
 
             // 対戦作成者にtwitterアカウントがあれば通知
             if(!is_null($event->user->twitter_id)){
-                $this->twitterService->tweetByMatching($event);
+                $this->twitterService->tweetByInstantMatching($event);
             }
 
             // メールアドレスがあれば通知

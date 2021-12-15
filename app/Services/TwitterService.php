@@ -76,6 +76,33 @@ class TwitterService
         }
     }
 
+    public function tweetByInstantMatching($duel)
+    {
+        // Twitterの遊戯王アカウントでTweet
+        if($duel->game_id == 1 || $duel->game_id == 2){
+            $apiKeys = config('assets.twitter.yugioh');
+            $hashTag = '#遊戯王デュエルリンクス ';
+
+            // TwitterのポケモンアカウントでTweet
+        }elseif($duel->game_id == 3){
+            $apiKeys = config('assets.twitter.pokemon');
+            $hashTag = '#ポケモンカード #リモートポケカ ';
+        }
+
+        // 対戦マッチング  によるメール文
+        $tweet =
+            '@' . $duel->user->twitter_nickname . PHP_EOL .
+            $duel->eventUsers[1]->user->name. 'さんと対戦がマッチングしました' . PHP_EOL .
+            '対戦ゲーム：' . $duel->game->name . PHP_EOL .
+            '対戦の準備をしましょう！' . PHP_EOL .
+            'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
+            $hashTag;
+
+//        if(config('assets.common.appEnv') == 'production'){
+        $this->twitterRepository->tweet($apiKeys, $tweet);
+//        }
+    }
+
     public function tweetByDuelFinish($duel)
     {
         // Twitterの遊戯王アカウントでTweet
