@@ -98,9 +98,9 @@ class TwitterService
             'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
             $hashTag;
 
-//        if(config('assets.common.appEnv') == 'production'){
-        $this->twitterRepository->tweet($apiKeys, $tweet);
-//        }
+        if(config('assets.common.appEnv') == 'production'){
+            $this->twitterRepository->tweet($apiKeys, $tweet);
+        }
     }
 
     public function tweetByDuelFinish($duel)
