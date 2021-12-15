@@ -10,8 +10,8 @@
         </div>
         <div class="ml-auto">
           <btton class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
-                 onclick="location.href='/event/single/create'">
-            {{ __('新規決闘作成') }}
+                 onclick="location.href='/event/instant/create'">
+            {{ __('新規対戦作成') }}
           </btton>
         </div>
       </div>
