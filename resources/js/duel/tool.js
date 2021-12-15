@@ -1,7 +1,7 @@
 // tool_idがこのサイトのdiscordサーバーならURLを自動セット
 function setToolCodeToThisSiteDiscord(){
   if($("#tool_id").val() == 1) {
-    $("#tool_code").val('https://discord.gg/g6ApDMk5Qu');
+    $("#tool_code").val('https://discord.gg/RGSYqAQJHM');
   }else{
     $("#tool_code").val('');
   }

@@ -51,11 +51,17 @@ class InstantController extends Controller
      */
     public function store(Request $request)
     {
-//        try {
+        try {
             $request->merge(['user_id'=> Auth::id()]);
 
             $duel = DB::transaction(function () use($request) {
                 $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
+
+                // すでにステータス変更されていたらreturnする
+                if($duel->status <> \App\Models\Duel::READY){
+                    return back()->with('flash_message','すでに試合終了報告されています');
+                }
+
                 $request->merge(['duel'=> $duel]);
                 $request->merge(['event_id'=> $duel->eventDuel->event->id]);
                 $this->duel_service->createInstantResult($request);
@@ -70,10 +76,10 @@ class InstantController extends Controller
             return redirect('/duel/instant/'.$duel->id)->with('flash_message', '試合が完了しました');
 
 
-//        } catch (\Exception $e) {
-//            report($e);
-//            return back()->with('flash_message', $e->getMessage());
-//        }
+        } catch (\Exception $e) {
+            report($e);
+            return back()->with('flash_message', $e->getMessage());
+        }
     }
 
 }
