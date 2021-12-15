@@ -77,7 +77,7 @@
       @else
         <div>
           <h5>Twitterログインしていないため対戦の作成ができません。</h5>
-          <h5 class="font-weight-bold text-danger">「① Twitterログイン」 からログインしくてださい。</h5>
+          <h5 class="font-weight-bold text-danger">「Twitterと連携」 からログインしくてださい。</h5>
         </div>
       @endif
     </div>

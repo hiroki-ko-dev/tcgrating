@@ -78,6 +78,7 @@
                 <button type="submit" name="event_add_user" value="1" class="btn site-color text-white rounded-pill btn-outline-secondary text-center">
                   {{ __('対戦申込') }}
                 </button>
+                <div class="font-weight-bold text-danger">{{ __('「対戦申込」を押してください') }}</div>
               </form>
             @endif
           @elseif($duel->eventDuel->event->status == \App\Models\Event::READY)
@@ -89,8 +90,14 @@
                   <div class="box">
                     <div class="card-body">
                       <div class="form-group row">
+                        <div class="col-md-12 font-weight-bold text-danger">
+                          {{ __('対戦ツールから連絡をとり、対戦を行ってください') }}
+                        </div>
                         <div class="col-md-12">
-                          {{ __('※勝者がボタンを押してください。ドローの場合はどちらが押しても良いです') }}
+                          {{ __('※対戦が完了したら勝者がボタンを押してください') }}
+                        </div>
+                        <div class="col-md-12">
+                          {{ __('※ドローの場合はどちらが押しても良い') }}
                         </div>
                       </div>
                       <div class="form-group row">
