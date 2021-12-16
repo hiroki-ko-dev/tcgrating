@@ -78,8 +78,8 @@
                   <li><a href="/site/how_to_use">使い方</a></li>
                   <li><a href="/rank">ランキング</a></li>
                   <li><a href="/post?post_category_id={{\App\Models\PostCategory::FREE}}">フリー掲示板</a></li>
-                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::TEAM_WANTED}}">チームメンバー募集掲示板</a></li>
-                  <li><a href="/team">チーム検索</a></li>
+{{--                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::TEAM_WANTED}}">チームメンバー募集掲示板</a></li>--}}
+{{--                  <li><a href="/team">チーム検索</a></li>--}}
                   @guest
                     @if(session('selected_game_id') == 3)
                       <li><a href="/event/instant">1vs1対戦</a></li>
@@ -93,7 +93,7 @@
                     @else
                       <li><a href="/event/single">1vs1対戦</a></li>
                     @endif
-                    <li><a href="/team?user_id={{Auth::id()}}">マイチーム</a></li>
+{{--                    <li><a href="/team?user_id={{Auth::id()}}">マイチーム</a></li>--}}
                     <li><a href="/user/{{Auth::id()}}">マイページ</a></li>
                     <li><a  href="" onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">ログアウト</a></li>
