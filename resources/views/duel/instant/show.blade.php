@@ -185,7 +185,7 @@
     <div class="col-12">
       <div class="box">
         <div class="box-header text-left">{{ __('公式対戦ルール') }}</div>
-        <div class="font-weight-bold text-left">{{ __('対戦回数：1回勝負') }}</div>
+        <div class="font-weight-bold text-left">{{ __('対戦回数：両者で回数を決定してください') }}</div>
         <div class="font-weight-bold text-left">{{ __('レギュレーション：スタンダード') }}</div>
         <div class="font-weight-bold text-left">{{ __('回線不調時は？：回線不調側を敗北としてください。どちらか判断できない時はドローです') }}</div>
       </div>
