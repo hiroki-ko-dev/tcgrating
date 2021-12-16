@@ -140,14 +140,26 @@ class DuelService
      */
     public function createInstantResult($request)
     {
+        $duelUserResult = $this->duelUserResultRepository->findAllByDuelUserId($request->duel->duelUsers->where('user_id',$request->user_id)->first()->id);
+        if(empty($duelUserResult)){
+            $number_of_games = 1;
+        }else{
+            $number_of_games = $duelUserResult->max('games_number') + 1;
+        }
 
         $myDuelUserResult = new \stdClass();
         $myDuelUserResult->duel_user_id = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->id ;
-        $myDuelUserResult->games_number = 1;
+        $myDuelUserResult->games_number = $number_of_games;
 
         $otherDuelUserResult = new \stdClass();
         $otherDuelUserResult->duel_user_id = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->id ;
-        $otherDuelUserResult->games_number = 1;
+        $otherDuelUserResult->games_number = $number_of_games;
+
+        // 試合数を更新
+        $duelRequest = new \stdClass();
+        $duelRequest->id = $request->duel->id;
+        $duelRequest->number_of_games = $number_of_games;
+        $this->updateDuel($duelRequest);
 
         if($request->has('win')){
             $myDuelUserResult->result  = \App\Models\DuelUserResult::WIN ;

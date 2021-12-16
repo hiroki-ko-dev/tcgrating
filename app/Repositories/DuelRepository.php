@@ -70,6 +70,9 @@ class DuelRepository
         if(isset($request->tool_code)) {
             $duel->tool_code = $request->tool_code;
         }
+        if(isset($request->number_of_games)) {
+            $duel->number_of_games = $request->number_of_games;
+        }
         $duel->save();
 
         return $duel;
