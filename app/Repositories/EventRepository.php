@@ -61,7 +61,6 @@ class EventRepository
     {
         return Event::where('event_category_id', $request->event_category_id)
                     ->where('game_id', $request->game_id)
-                    ->whereNotIn('body', [$request->not_body])
                     ->with('eventUsers.User')
                     ->OrderBy('id','desc')
                     ->paginate($paginate);
