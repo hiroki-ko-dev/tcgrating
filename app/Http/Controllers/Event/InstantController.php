@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Event;
 
+
 use Carbon\Carbon;
 use DB;
 use Auth;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\UserService;
+use App\Services\TwitterService;
 
 use Illuminate\Http\Request;
 
@@ -20,14 +22,17 @@ class InstantController extends Controller
     protected $event_service;
     protected $duel_service;
     protected $user_service;
+    protected $twitterService;
 
     public function __construct(EventService $event_service,
                                 DuelService $duel_service,
-                                UserService $user_service)
+                                UserService $user_service,
+                                TwitterService $twitterService)
     {
         $this->event_service = $event_service ;
         $this->duel_service  = $duel_service ;
         $this->user_service  = $user_service ;
+        $this->twitterService = $twitterService;
     }
 
     /**
@@ -42,7 +47,6 @@ class InstantController extends Controller
         }else{
             $request->merge(['game_id' => session('selected_game_id')]);
         }
-        $request->merge(['not_body' => '特になし']);
         $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
         $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
 
@@ -105,6 +109,10 @@ class InstantController extends Controller
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
             $this->user_service->makeGameUser($request);
+
+            //twitterに投稿
+            $this->twitterService->tweetByMakeInstantEvent($event);
+
             return $request->duel_id;
         });
 
