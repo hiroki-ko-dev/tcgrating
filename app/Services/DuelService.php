@@ -140,8 +140,6 @@ class DuelService
      */
     public function createInstantResult($request)
     {
-        //すでに結果報告が終わっていないかチェック
-        $duelUserResult = $this->duelUserResultRepository->findAllByDuelUserId($request->duel->duelUsers->where('user_id',$request->user_id)->first()->id);
 
         $myDuelUserResult = new \stdClass();
         $myDuelUserResult->duel_user_id = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->id ;
@@ -172,8 +170,15 @@ class DuelService
             return false;
         }
 
+        // DuelUserResultの更新
         $this->duelUserResultRepository->create($myDuelUserResult);
         $this->duelUserResultRepository->create($otherDuelUserResult);
+
+
+        // ユーザーレートの更新
+        $game_id = $request->duel->eventDuel->event->game_id;
+        $this->gameUserRepository->updateRate($game_id, $request->user_id, $myDuelUserResult->rating);
+        $this->gameUserRepository->updateRate($game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->rating);
 
         return $request;
     }
@@ -273,6 +278,20 @@ class DuelService
         }
 
         return $request;
+    }
+
+    /**
+     * シングル決闘の完了確認とステータス処理とレート処理
+     * @param $request
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     */
+    public function updateDuelByFinish($request)
+    {
+        // 試合終了に伴うステータスの更新
+        $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::FINISH) ;
+        $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::FINISH) ;
+
+        return $duel;
     }
 
     /**

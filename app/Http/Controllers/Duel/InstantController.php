@@ -16,15 +16,15 @@ class InstantController extends Controller
 {
 
     protected $duel_service;
-    protected $post_service;
+    protected $postService;
     protected $twitterService;
 
-    public function __construct(DuelService $duel_service,
-                                PostService $post_service,
+    public function __construct(DuelService $duelService,
+                                PostService $postService,
                                 TwitterService $twitterService)
     {
-        $this->duel_service = $duel_service ;
-        $this->post_service = $post_service ;
+        $this->duelService = $duelService ;
+        $this->postService = $postService ;
         $this->twitterService = $twitterService;
     }
 
@@ -36,7 +36,7 @@ class InstantController extends Controller
      */
     public function show($duel_id)
     {
-        $duel     = $this->duel_service->findDuelWithUserAndEvent($duel_id);
+        $duel     = $this->duelService->findDuelWithUserAndEvent($duel_id);
         session(['loginAfterRedirectUrl' => env('APP_URL').'/duel/instant/'.$duel_id]);
 
         return view('duel.instant.show',compact('duel'));
@@ -54,26 +54,25 @@ class InstantController extends Controller
         try {
             $request->merge(['user_id'=> Auth::id()]);
 
-            $duel = DB::transaction(function () use($request) {
-                $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
-
-                // すでにステータス変更されていたらreturnする
-                if($duel->status <> \App\Models\Duel::READY){
-                    return back()->with('flash_message','すでに試合終了報告されています');
-                }
-
+            $message = DB::transaction(function () use($request) {
+                $duel = $this->duelService->findDuelWithUserAndEvent($request->duel_id);
                 $request->merge(['duel'=> $duel]);
                 $request->merge(['event_id'=> $duel->eventDuel->event->id]);
-                $this->duel_service->createInstantResult($request);
 
-                //updateSingleDuelByFinishでcreateSingleResultを反映したduelが欲しいので再取得
-                $duel = $this->duel_service->findDuelWithUserAndEvent($request->duel_id);
-                $request->merge(['duel'=> $duel]);
-                $this->duel_service->updateSingleDuelByFinish($request);
-                return $duel;
+                // 対戦が完了したらステータスを更新
+                if($request->has('finish')){
+                    $this->duelService->updateDuelByFinish($request);
+                    $message = '試合が完了しました';
+                }else {
+                    // 対戦完了ボタンでなければレートを更新
+                    $this->duelService->createInstantResult($request);
+                    $message = '連続で試合ができます。対戦完了の場合はボタンを押してください';
+                }
+
+                return $message;
             });
 
-            return redirect('/duel/instant/'.$duel->id)->with('flash_message', '試合が完了しました');
+            return redirect('/duel/instant/'.$request->duel_id)->with('flash_message', $message);
 
 
         } catch (\Exception $e) {

@@ -85,6 +85,15 @@
                             <span class="col-md-7">
                               <input type="submit" class="btn btn-secondary rounded-pill btn-outline-dark text-light" name="draw" value="　ドロー">
                             </span>
+                            <div class="col-md-12 mt-3">
+                              {{ __('※連続で試合をすることもできます') }}
+                            </div>
+                            <div class="col-md-12 font-weight-bold text-danger mb-3">
+                              {{ __('最終試合の勝者が「対戦完了」を押してください') }}
+                            </div>
+                            <span class="col-md-7">
+                              <input type="submit" class="btn site-color text-white rounded-pill btn-outline-secondary text-center" name="finish" value="対戦完了">
+                            </span>
                           </form>
                         </div>
                       </div>
@@ -105,7 +114,7 @@
             <div class="row justify-content-center mb-4">
               <div class="col-md-12">
                 <div class="box">
-                  {{ __('試合が完了しています') }}
+                  {{ __('対戦が終了しました') }}
                 </div>
               </div>
             </div>
