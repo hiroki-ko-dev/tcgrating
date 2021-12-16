@@ -140,6 +140,47 @@ class TwitterService
         }
     }
 
+    public function tweetByInstantDuelFinish($duel)
+    {
+        // Twitterの遊戯王アカウントでTweet
+        if($duel->game_id == 1 || $duel->game_id == 2){
+            $apiKeys = config('assets.twitter.yugioh');
+            $hashTag = '#遊戯王デュエルリンクス ';
+
+            // TwitterのポケモンアカウントでTweet
+        }elseif($duel->game_id == 3){
+            $apiKeys = config('assets.twitter.pokemon');
+            $hashTag = '#ポケモンカード #リモートポケカ ';
+        }
+
+        if($duel->duelUsers[0]->duelUserResults->sum('rating') > $duel->duelUsers[1]->duelUserResults->sum('rating')){
+            $result = $duel->duelUsers[0]->user->name . 'さんの勝利です。' . PHP_EOL;
+            $rate = $duel->duelUsers[0]->duelUserResults->sum('rating');
+        }elseif($duel->duelUsers[0]->duelUserResults->sum('rating') < $duel->duelUsers[1]->duelUserResults->sum('rating')){
+            $result = $duel->duelUsers[1]->user->name . 'さんの勝利です。' . PHP_EOL;
+            $rate = $duel->duelUsers[1]->duelUserResults->sum('rating');
+        }else{
+            $result = 'ドローです。' . PHP_EOL;
+            $rate = 0;
+        }
+
+        // 対戦マッチング  によるメール文
+        $tweet =
+            '対戦が完了いたしました！' . PHP_EOL .
+            '勝負の結果は'. $result . PHP_EOL .
+            'レートが' . $rate . 'ポイント上昇します。' . PHP_EOL .
+            'お疲れ様でした！' . PHP_EOL .
+            PHP_EOL .
+            '対戦ゲーム：' . $duel->game->name . PHP_EOL .
+            '対戦日時' . date('Y/m/d H:i', strtotime($duel->eventDuel->event->date.' '. $duel->eventDuel->event->start_time)) . PHP_EOL .
+            'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
+            $hashTag;
+
+//        if(config('assets.common.appEnv') == 'production'){
+            $this->twitterRepository->tweet($apiKeys, $tweet);
+//        }
+    }
+
     /**
      * @param $event
      * @param $users

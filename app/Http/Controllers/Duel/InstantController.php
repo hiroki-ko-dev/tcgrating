@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class InstantController extends Controller
 {
 
-    protected $duel_service;
+    protected $duelService;
     protected $postService;
     protected $twitterService;
 
@@ -62,6 +62,7 @@ class InstantController extends Controller
                 // 対戦が完了したらステータスを更新
                 if($request->has('finish')){
                     $this->duelService->updateDuelByFinish($request);
+                    $this->twitterService->tweetByInstantDuelFinish($duel);
                     $message = '試合が完了しました';
                 }else {
                     // 対戦完了ボタンでなければレートを更新
