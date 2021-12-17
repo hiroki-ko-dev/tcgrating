@@ -36,10 +36,14 @@
             @if(Auth::id() == $duel->user_id)
               {{--対戦作成者の場合--}}
               <div class="box-header text-left"><span class="text-danger">対戦相手に以下のURLを共有してください。</span></div>
-              <div class="d-flex flex-row mb-3">
-                <div class="font-weight-bold text-left mr-3">{{env('APP_URL')}}/duel/instant/{{$duel->id}}</div>
-                <button id="copy" class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
-                        name="copy" value="{{env('APP_URL')}}/duel/instant/{{$duel->id}}" onclick="copyUrl()">コピー</button>
+              <div class="row mb-4">
+                <div class="col-sm-8">
+                  <div class="font-weight-bold text-left mr-3">{{env('APP_URL')}}/duel/instant/{{$duel->id}}</div>
+                </div>
+                <div class="col-sm-4">
+                  <button id="copy" class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
+                          name="copy" value="{{env('APP_URL')}}/duel/instant/{{$duel->id}}" onclick="copyUrl()">URLをコピー</button>
+                </div>
               </div>
               <div class="text-left mr-3">（LINEオープンチャット等に貼り付けしてください)</div>
             @else
