@@ -71,9 +71,6 @@
                         <div class="col-md-12 font-weight-bold">
                           {{ __('対戦ツールから連絡をとり、対戦を行ってください') }}
                         </div>
-                        <div class="col-md-12">
-                          {{ __('※ドローの場合はどちらが押しても良い') }}
-                        </div>
                       </div>
                       <div class="form-group row">
                         <div class="col-md-12">
@@ -86,14 +83,23 @@
                             <span class="col-md-7">
                               <input type="submit" class="btn btn-secondary rounded-pill btn-outline-dark text-light" name="draw" value="　ドロー">
                             </span>
-                            <div class="col-md-12 font-weight-bold text-danger mt-3 mb-3">
-                              {{ __('※1試合終わるごとに勝者がボタンを押してください') }}
+                            <div class="col-md-12 mt-3">
+                              <span class="font-weight-bold text-danger">{{ __('1試合ごと') }}</span>
+                              <span>{{ __('に') }}</span>
+                              <span class="font-weight-bold text-danger">{{ __('勝者') }}</span>
+                              <span>{{ __('が「勝利」ボタンを押してください') }}</span>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                              {{ __('※ドローの場合はどちらが押しても良い') }}
                             </div>
                             <span class="col-md-7">
                               <input type="submit" class="btn site-color text-white rounded-pill btn-outline-secondary text-center" name="finish" value="対戦完了">
                             </span>
-                            <div class="col-md-12 font-weight-bold text-danger mt-3">
-                              {{ __('最終試合の勝者が「対戦完了」を押してください') }}
+                            <div class="col-md-12 mt-3">
+                              <span class="font-weight-bold text-danger">{{ __('最終試合') }}</span>
+                              <span>{{ __('の') }}</span>
+                              <span class="font-weight-bold text-danger">{{ __('勝者') }}</span>
+                              <span>{{ __('が「対戦完了」を押してください') }}</span>
                             </div>
                           </form>
                         </div>
