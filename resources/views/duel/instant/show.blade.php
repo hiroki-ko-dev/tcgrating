@@ -68,11 +68,8 @@
                   <div class="box">
                     <div class="card-body">
                       <div class="form-group row">
-                        <div class="col-md-12 font-weight-bold text-danger">
+                        <div class="col-md-12 font-weight-bold">
                           {{ __('対戦ツールから連絡をとり、対戦を行ってください') }}
-                        </div>
-                        <div class="col-md-12">
-                          {{ __('※対戦が完了したら勝者がボタンを押してください') }}
                         </div>
                         <div class="col-md-12">
                           {{ __('※ドローの場合はどちらが押しても良い') }}
@@ -89,15 +86,15 @@
                             <span class="col-md-7">
                               <input type="submit" class="btn btn-secondary rounded-pill btn-outline-dark text-light" name="draw" value="　ドロー">
                             </span>
-                            <div class="col-md-12 mt-3">
-                              {{ __('※連続で試合をすることもできます') }}
-                            </div>
-                            <div class="col-md-12 font-weight-bold text-danger mb-3">
-                              {{ __('最終試合の勝者が「対戦完了」を押してください') }}
+                            <div class="col-md-12 font-weight-bold text-danger mt-3 mb-3">
+                              {{ __('※1試合終わるごとに勝者がボタンを押してください') }}
                             </div>
                             <span class="col-md-7">
                               <input type="submit" class="btn site-color text-white rounded-pill btn-outline-secondary text-center" name="finish" value="対戦完了">
                             </span>
+                            <div class="col-md-12 font-weight-bold text-danger mt-3">
+                              {{ __('最終試合の勝者が「対戦完了」を押してください') }}
+                            </div>
                           </form>
                         </div>
                       </div>

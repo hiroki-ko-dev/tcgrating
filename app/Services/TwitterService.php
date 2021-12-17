@@ -208,9 +208,9 @@ class TwitterService
             '対戦日時' . date('Y/m/d H:i', strtotime($duel->eventDuel->event->date.' '. $duel->eventDuel->event->start_time)) . PHP_EOL .
             $hashTag;
 
-//        if(config('assets.common.appEnv') == 'production'){
+        if(config('assets.common.appEnv') == 'production'){
             $this->twitterRepository->tweet($apiKeys, $tweet);
-//        }
+        }
     }
 
     /**
