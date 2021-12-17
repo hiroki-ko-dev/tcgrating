@@ -209,12 +209,12 @@ class DuelService
     /**
      * シングル決闘の際のduelステータス系操作
      * @param $duel_id
-     * @param $nextt_status
+     * @param $next_status
      * @return \App\Models\Duel
      */
-    public function updateDuelStatus($duel_id, $nextt_status)
+    public function updateDuelStatus($duel_id, $next_status)
     {
-        $duel = $this->duelRepository->updateStatus($duel_id, $nextt_status);
+        $duel = $this->duelRepository->updateStatus($duel_id, $next_status);
         return $duel;
     }
 
@@ -290,20 +290,6 @@ class DuelService
         }
 
         return $request;
-    }
-
-    /**
-     * シングル決闘の完了確認とステータス処理とレート処理
-     * @param $request
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
-     */
-    public function updateDuelByFinish($request)
-    {
-        // 試合終了に伴うステータスの更新
-        $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::FINISH) ;
-        $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::FINISH) ;
-
-        return $duel;
     }
 
     /**

@@ -57,7 +57,7 @@
             @endif
           @elseif($duel->eventDuel->event->status == \App\Models\Event::READY)
             {{--対戦相手募集が完了している場合--}}
-            @if($duel->duelUsers->where('user_id',Auth::id())->isNotEmpty())
+            @if($duel->duelUsers->where('user_id',Auth::id())->isNotEmpty() || (Auth::check() && Auth::id ==1))
               {{--対戦者同士の場合--}}
               <div class="row justify-content-center mb-4">
                 <div class="col-md-12">
@@ -164,6 +164,25 @@
       </div>
     </div>
   </div>
+
+  @if($duel->eventDuel->event->status == \App\Models\Event::RECRUIT &&
+    Auth::check() && (Auth::id() == $duel->user_id || Auth::id() == 1))
+    <div class="row justify-content-center mb-4">
+      <div class="col-12">
+        <div class="box">
+          <form method="POST" action="/duel/instant/{{$duel->id}}" onClick="return requestConfirm();">
+            @csrf
+            @method('PUT')
+            {{--  なぜかputだとsubmitに値を持たせられないので判定用にhidden--}}
+            <input type="hidden" name="event_cancel" value="1" >
+            <button type="submit" class="btn btn-secondary rounded-pill pl-4 pr-4">
+              {{ __('対戦をキャンセル') }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  @endif
 
   <div class="row justify-content-center mb-4">
     <div class="col-12">

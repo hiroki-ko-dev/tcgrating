@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Duel;
 use App\Http\Controllers\Controller;
 
+use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\PostService;
 use App\Services\TwitterService;
@@ -14,15 +15,17 @@ use Illuminate\Http\Request;
 
 class InstantController extends Controller
 {
-
+    protected $eventService;
     protected $duelService;
     protected $postService;
     protected $twitterService;
 
-    public function __construct(DuelService $duelService,
+    public function __construct(EventService $eventService,
+                                DuelService $duelService,
                                 PostService $postService,
                                 TwitterService $twitterService)
     {
+        $this->eventService = $eventService ;
         $this->duelService = $duelService ;
         $this->postService = $postService ;
         $this->twitterService = $twitterService;
@@ -61,7 +64,8 @@ class InstantController extends Controller
 
                 // 対戦が完了したらステータスを更新
                 if($request->has('finish')){
-                    $this->duelService->updateDuelByFinish($request);
+                    $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::FINISH);
+                    $this->duelService->updateDuelStatus($duel->id, \App\Models\Duel::FINISH);
                     $this->twitterService->tweetByInstantDuelFinish($duel);
                     $message = '試合が完了しました';
                 }else {
@@ -75,6 +79,28 @@ class InstantController extends Controller
 
             return redirect('/duel/instant/'.$request->duel_id)->with('flash_message', $message);
 
+
+        } catch (\Exception $e) {
+            report($e);
+            return back()->with('flash_message', $e->getMessage());
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $duel_id
+     */
+    public function update(Request $request,$duel_id)
+    {
+        try {
+            if($request->event_cancel == 1){
+                DB::transaction(function () use($request, $duel_id) {
+                    $duel = $this->duelService->findDuelWithUserAndEvent($duel_id);
+                    $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::CANCEL);
+                    $this->duelService->updateDuelStatus($duel_id, \App\Models\Duel::CANCEL);
+                });
+            }
+            return back()->with('flash_message', '対戦をキャンセルしました');
 
         } catch (\Exception $e) {
             report($e);
