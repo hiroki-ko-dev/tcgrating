@@ -57,7 +57,7 @@
             @endif
           @elseif($duel->eventDuel->event->status == \App\Models\Event::READY)
             {{--対戦相手募集が完了している場合--}}
-            @if($duel->duelUsers->where('user_id',Auth::id())->isNotEmpty() || (Auth::check() && Auth::id ==1))
+            @if($duel->duelUsers->where('user_id',Auth::id())->isNotEmpty())
               {{--対戦者同士の場合--}}
               <div class="row justify-content-center mb-4">
                 <div class="col-md-12">
