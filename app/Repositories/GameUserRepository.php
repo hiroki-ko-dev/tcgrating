@@ -25,24 +25,15 @@ class GameUserRepository
 
 
     /**
-     * @param $game_id
+     * @param $id
      * @param $user_id
      * @param $add_rate
      * @return mixed
      */
-    public function updateRate($game_id, $user_id, $add_rate)
+    public function updateRate($id, $add_rate)
     {
         // rateレコードがすでに存在するなら抽出
-        $gameUser = GameUser::where('game_id', $game_id)
-                    ->where('user_id', $user_id)
-                    ->first();
-
-        // 存在しないならここで新規作成
-        if(is_null($gameUser)){
-            $gameUser = new GameUser();
-            $gameUser->game_id = $game_id;
-            $gameUser->user_id = $user_id;
-        }
+        $gameUser = $this->find($id);
 
         $gameUser->rate = $gameUser->rate + $add_rate ;
         $gameUser->save() ;
@@ -50,10 +41,15 @@ class GameUserRepository
         return $gameUser ;
     }
 
-    public function findByGameIdAndUserId($request)
+    public function find($id)
     {
-        return GameUser::where('game_id', $request->game_id)
-                        ->where('user_id', $request->user_id)
+        return GameUser::find($id);
+    }
+
+    public function findByGameIdAndUserId($game_id, $user_id)
+    {
+        return GameUser::where('game_id', $game_id)
+                        ->where('user_id', $user_id)
                         ->first();
     }
 

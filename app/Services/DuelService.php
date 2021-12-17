@@ -161,14 +161,23 @@ class DuelService
         $duelRequest->number_of_games = $number_of_games;
         $this->updateDuel($duelRequest);
 
+
+
         if($request->has('win')){
             $myDuelUserResult->result  = \App\Models\DuelUserResult::WIN ;
             $myDuelUserResult->ranking = 1 ;
             $myDuelUserResult->rating  = 1000 ;
 
+            $gameUser = $this->gameUserRepository->findByGameIdAndUserId($request->duel->game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id);
+
             $otherDuelUserResult->result  = \App\Models\DuelUserResult::LOSE ;
             $otherDuelUserResult->ranking = 2 ;
-            $otherDuelUserResult->rating  = -1000 ;
+            // ユーザーのレートが元々0ならマイナスにはしない
+            if($gameUser->rate <= 0){
+                $otherDuelUserResult->rating = 0 ;
+            }else{
+                $otherDuelUserResult->rating = -1000 ;
+            }
 
         }elseif($request->has('draw')) {
             $myDuelUserResult->result = \App\Models\DuelUserResult::DRAW;
@@ -189,8 +198,9 @@ class DuelService
 
         // ユーザーレートの更新
         $game_id = $request->duel->eventDuel->event->game_id;
-        $this->gameUserRepository->updateRate($game_id, $request->user_id, $myDuelUserResult->rating);
-        $this->gameUserRepository->updateRate($game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->rating);
+
+        $this->updateUserRate($game_id, $request->user_id, $myDuelUserResult->rating);
+        $this->updateUserRate($game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->rating);
 
         return $request;
     }
@@ -284,13 +294,40 @@ class DuelService
 
             // 試合終了に伴うユーザーレートの更新
             $game_id = $request->duel->eventDuel->event->game_id;
-            $this->gameUserRepository->updateRate($game_id, $request->user_id, $myDuelUserResult->sum('rating'));
-            $this->gameUserRepository->updateRate($game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->sum('rating'));
+            $this->updateUserRate($game_id, $request->user_id, $myDuelUserResult->sum('rating'));
+            $this->updateUserRate($game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->sum('rating'));
             $request->merge(['message' => '試合が終了しました']);
         }
 
         return $request;
     }
+
+    /**
+     * @param $game_id
+     * @param $user_id
+     * @param $addRate
+     * @return mixed
+     */
+    public function updateUserRate($game_id, $user_id, $addRate)
+    {
+        $gameUser = $this->gameUserRepository->findByGameIdAndUserId($game_id, $user_id);
+
+        if(is_null($gameUser)){
+            $gameUser = new \stdClass();
+            $gameUser->game_id      = $game_id;
+            $gameUser->user_id      = $user_id;
+            $gameUser = $this->gameUserRepository->create($gameUser);
+        }
+
+        // レートがプラスまたはユーザーレートが0以上となる場合のみ更新
+        if($addRate > 0 || ($gameUser->rate + $addRate) > 0){
+            $this->gameUserRepository->updateRate($gameUser->id, $addRate);
+        }
+
+        return $gameUser;
+    }
+
+
 
     /**
      * シングル決闘の際のduelを取得

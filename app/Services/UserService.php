@@ -39,7 +39,7 @@ class UserService
      */
     public function makeGameUser($request)
     {
-        $gameUser = $this->gameUserRepository->findByGameIdAndUserId($request);
+        $gameUser = $this->gameUserRepository->findByGameIdAndUserId($request->game_id, $request->user_id);
         if(is_null($gameUser)){
             $this->gameUserRepository->create($request);
         }
