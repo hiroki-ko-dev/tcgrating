@@ -66,8 +66,8 @@ class TwitterService
             '対戦ゲーム：' . $event->game->name . PHP_EOL .
             '対戦日時' . date('Y/m/d H:i', strtotime($event->date)) . PHP_EOL .
             PHP_EOL .
-            '以下のURLから対戦を受けましょう!' . PHP_EOL .
             'https://hashimu.com/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ' . PHP_EOL .
+            'URLから対戦を受けましょう!' . PHP_EOL .
             $hashTag;
 
         if(config('assets.common.appEnv') == 'production'){
@@ -124,9 +124,10 @@ class TwitterService
         $tweet =
             '@' . $duel->user->twitter_nickname . PHP_EOL .
             $duel->eventUsers[1]->user->name. 'さんと対戦がマッチングしました' . PHP_EOL .
+            PHP_EOL .
+            'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
             '対戦ゲーム：' . $duel->game->name . PHP_EOL .
             '対戦の準備をしましょう！' . PHP_EOL .
-            'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
             $hashTag;
 
         if(config('assets.common.appEnv') == 'production'){
@@ -202,9 +203,9 @@ class TwitterService
             'レートが' . $rate . 'ポイント上昇します。' . PHP_EOL .
             'お疲れ様でした！' . PHP_EOL .
             PHP_EOL .
+            'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
             '対戦ゲーム：' . $duel->game->name . PHP_EOL .
             '対戦日時' . date('Y/m/d H:i', strtotime($duel->eventDuel->event->date.' '. $duel->eventDuel->event->start_time)) . PHP_EOL .
-            'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
             $hashTag;
 
 //        if(config('assets.common.appEnv') == 'production'){
