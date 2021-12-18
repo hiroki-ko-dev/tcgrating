@@ -320,7 +320,7 @@ class DuelService
         }
 
         // レートがプラスまたはユーザーレートが0以上となる場合のみ更新
-        if($addRate > 0 || ($gameUser->rate + $addRate) > 0){
+        if($addRate > 0 || ($gameUser->rate + $addRate) >= 0){
             $this->gameUserRepository->updateRate($gameUser->id, $addRate);
         }
 
