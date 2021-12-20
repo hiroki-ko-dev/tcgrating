@@ -71,6 +71,10 @@ class SingleController extends Controller
             return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
         }
 
+        if(Auth::user()->selected_game_id == config('assets.site.game_ids.pokemon_card')) {
+            return redirect('/event/instant/create');
+        }
+
         return view('event.single.create');
     }
 
@@ -85,6 +89,10 @@ class SingleController extends Controller
         //アカウント認証しているユーザーのみ新規作成可能
         if(!Auth::check()){
             return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
+        }
+
+        if(Auth::user()->selected_game_id == config('assets.site.game_ids.pokemon_card')) {
+            return redirect('/event/instant/create');
         }
 
         // 選択しているゲームでフィルタ
@@ -140,6 +148,12 @@ class SingleController extends Controller
     public function show($event_id)
     {
         $event = $this->event_service->findEventWithUserAndDuel($event_id);
+
+        //アカウント認証しているユーザーのみ新規作成可能
+        if($event->game_id == config('assets.site.game_ids.pokemon_card')) {
+            return redirect('/duel/instant/'.$event->eventDuels[0]->duel_id);
+        }
+
         $post     = $this->post_service->findPostWithUserByEventId($event_id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
 
