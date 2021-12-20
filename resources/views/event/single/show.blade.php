@@ -103,7 +103,7 @@
           <div class="w-70"><span class="post-user">{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}</span></div>
         </div>
         <div class="d-flex flex-row mb-3">
-          <div class="small">※必ず対戦開始前に「<a href="/site/how_to_use">1vs1対戦の使い方</a>」動画を視聴してください</div>
+          <div class="small">※必ず対戦開始前に「<a href="/site/how_to_use/normal">1vs1対戦の使い方</a>」動画を視聴してください</div>
         </div>
           @if($event->status <> \App\Models\Event::RECRUIT && $event->status <> \App\Models\Event::CANCEL )
           <div class="d-flex flex-row mb-3">
