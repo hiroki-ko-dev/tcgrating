@@ -86,8 +86,10 @@
             ※このユーザーはTwitter未連携です
           @endif
         @else
-          <div class="box-header">{{ __('Twitterアカウント') }}</div>
-          <a href="https://twitter.com/{{$user->twitter_nickname}}"><div type="body">＠{{$user->twitter_nickname}}</div></a>
+          @if(Auth::id() == 1)
+            <div class="box-header">{{ __('Twitterアカウント') }}</div>
+            <a href="https://twitter.com/{{$user->twitter_nickname}}"><div type="body">＠{{$user->twitter_nickname}}</div></a>
+          @endif
         @endif
       </div>
     </div>
@@ -109,15 +111,15 @@
         @foreach($events as $event)
           @if(isset(Auth::user()->selected_game_id) && $event->game_id == Auth::user()->selected_game_id)
             @if($event->status == \App\Models\Event::RECRUIT)
-              <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(対戦相手受付中)</a></div>
+              <div type="body"><a href="/duel/instant/{{$event->eventDuels[0]->duel_id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(対戦相手受付中)</a></div>
             @elseif($event->status == \App\Models\Event::READY)
-              <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(マッチング済)</a></div>
+              <div type="body"><a href="/duel/instant/{{$event->eventDuels[0]->duel_id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(マッチング済)</a></div>
             @endif
           @elseif(session('selected_game_id') && $user->gameUsers->where('game_id', session('selected_game_id'))->isNotEmpty() && $event->game_id == $user->gameUsers->where('game_id', session('selected_game_id'))->first()->game_id)
             @if($event->status == \App\Models\Event::RECRUIT)
-              <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(対戦相手受付中)</a></div>
+              <div type="body"><a href="/duel/instant/{{$event->eventDuels[0]->duel_id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(対戦相手受付中)</a></div>
             @elseif($event->status == \App\Models\Event::READY)
-              <div type="body"><a href="/event/single/{{$event->id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(マッチング済)</a></div>
+              <div type="body"><a href="/duel/instant/{{$event->eventDuels[0]->duel_id}}">・{{$event->title}} 対戦日時：{{date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time))}}(マッチング済)</a></div>
             @endif
           @endif
         @endforeach
