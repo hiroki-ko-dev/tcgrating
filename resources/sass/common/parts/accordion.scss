@@ -1,0 +1,39 @@
+.acd-check{
+  display: none;
+}
+.acd-label{
+  color: #fff;
+  display: block;
+  margin-bottom: 1px;
+  padding: 10px;
+  position: relative;
+}
+.acd-label:after{
+  box-sizing: border-box;
+  content: '+';
+  display: block;
+  font-family: "Font Awesome 5 Free";
+  height: 100%;
+  padding: 10px 20px;
+  position: absolute;
+  right: 0;
+  top: 0px;
+}
+.acd-content{
+  border: 1px solid #333;
+  display: block;
+  height: 0;
+  opacity: 0;
+  padding: 0 10px;
+  transition: .5s;
+  visibility: hidden;
+}
+.acd-check:checked + .acd-label:after{
+  content: '-';
+}
+.acd-check:checked + .acd-label + .acd-content{
+  height: 50%;
+  opacity: 1;
+  padding: 10px;
+  visibility: visible;
+}
