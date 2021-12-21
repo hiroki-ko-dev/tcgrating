@@ -9,6 +9,9 @@
     <script src="{{ mix('/js/all.js') }}"></script>
     <script src="{{ mix('/js/common/selected_game.js') }}"></script>
 
+    {{--メタタグ--}}
+    <meta name="description" content="ポケモンカードのリモート対戦用のレーティングサイトです。ポケカのリモート対戦相手が見つからない、もっと強い相手と対戦したい!!という方はぜひ一目ご覧ください"/>
+
     <!-- デフォルト分 -->
     <!-- Styles -->
 {{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
