@@ -5,6 +5,15 @@
   }
 }
 
+.header-color{
+  background: radial-gradient(
+      circle 200px at center,
+      #666666 0%,
+      #333333 50%,
+      #000000 100%
+  );
+}
+
 .menu-btn {
     position: fixed;
     top: 10px;

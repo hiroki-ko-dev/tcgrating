@@ -33,15 +33,15 @@
 @endsection
 
 @section('bodyHeader')
-    <nav class="navbar navbar-expand-md site-color shadow-sm">
-          <div class="d-sm-flex align-items-center mt-3 mb-3 p-1">
-            <div  class="pr-4">
+    <nav class="navbar navbar-expand-md header-color shadow-sm">
+          <div class="row align-items-center">
+            <div  class="col-4">
               <a href="{{ url('/') }}" title="{{config('assets.site.title')}}">
-                <div class="font-weight-bold text-white header-site-title">TCGレーティング</div>
+                <img class="img-fluid" src="{{ asset('/images/site/logo.png') }}" alt="hashimu-icon">
+{{--                <div class="font-weight-bold text-white header-site-title">TCGレーティング</div>--}}
               </a>
             </div>
-            <div class="text-white align-items-center">Game Mode：</div>
-            <div>
+            <div  class="col-8">
               <form id="selected_game_form" method="post" action="/site/update_selected_game">
                 @csrf
                 <div class="selected_game mr-2">
@@ -60,7 +60,6 @@
                   </select>
                 </div>
               </form>
-            </div>
           </div>
         {{--                <h2 class="sr-only">{{config('assets.site.title')}}</h2>--}}
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
