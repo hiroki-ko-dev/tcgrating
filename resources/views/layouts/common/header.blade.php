@@ -34,7 +34,7 @@
 
 @section('bodyHeader')
     <nav class="navbar navbar-expand-md header-color shadow-sm">
-          <div class="row align-items-center">
+          <div class="row align-items-center mt-4 mb-4">
             <div  class="col-4">
               <a href="{{ url('/') }}" title="{{config('assets.site.title')}}">
                 <img class="img-fluid" src="{{ asset('/images/site/logo.png') }}" alt="hashimu-icon">
