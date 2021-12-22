@@ -37,13 +37,7 @@
           <div class="d-sm-flex align-items-center mt-3 mb-3 p-1">
             <div  class="pr-4">
               <a href="{{ url('/') }}" title="{{config('assets.site.title')}}">
-                @if(session('selected_game_id') == 1)
-                  <div class="font-weight-bold text-white header-site-title">遊戯王DUEL LINKSレーティング</div>
-                @elseif(session('selected_game_id') == 2)
-                  <div class="font-weight-bold text-white header-site-title" style="display:inline;">遊戯王OCG リモート対戦マッチング</div>
-                @else
-                  <div class="font-weight-bold text-white header-site-title" style="display:inline;">ポケモンカード リモート対戦マッチング</div>
-                @endif
+                <div class="font-weight-bold text-white header-site-title">TCGレーティング</div>
               </a>
             </div>
             <div class="text-white align-items-center">Game Mode：</div>
