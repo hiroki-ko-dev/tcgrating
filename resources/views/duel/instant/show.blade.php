@@ -150,7 +150,7 @@
               レート：{{$duel->duelUsers->where('user_id',$duel->duelUsers[0]->user_id)->first()->duelUserResults->sum('rating')}}
             @endif
           </div>
-          <div class="col-md-12 m-1">vs</div>
+          <div class="col-md-12 m-1 pt-2 pb-2"><img src="/images/duel/vs.jpg"></div>
           <div class="col-md-12">
             @isset($duel->duelUsers[1])
               <img src="{{$duel->duelUsers[1]->user->twitter_simple_image_url}}" class="rounded-circle">
