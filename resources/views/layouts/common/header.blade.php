@@ -35,13 +35,13 @@
 @section('bodyHeader')
     <nav class="navbar navbar-expand-md header-color shadow-sm">
           <div class="row align-items-center mt-4 mb-4">
-            <div  class="col-4">
+            <div  class="col-5">
               <a href="{{ url('/') }}" title="{{config('assets.site.title')}}">
                 <img class="img-fluid" src="{{ asset('/images/site/logo.png') }}" alt="hashimu-icon">
 {{--                <div class="font-weight-bold text-white header-site-title">TCGレーティング</div>--}}
               </a>
             </div>
-            <div  class="col-8">
+            <div  class="col-7">
               <form id="selected_game_form" method="post" action="/site/update_selected_game">
                 @csrf
                 <div class="selected_game mr-2">
