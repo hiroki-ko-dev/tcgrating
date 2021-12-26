@@ -63,8 +63,9 @@ use Illuminate\Support\Facades\Route;
 
     //イベント系スレッド
     Route::resources([
-        'event/single' => Event\SingleController::class,
+        'event/single'  => Event\SingleController::class,
         'event/instant' => Event\InstantController::class,
+        'event/group'   => Event\GroupController::class,
     ]);
     //イベントユーザー系スレッド
     Route::resources([

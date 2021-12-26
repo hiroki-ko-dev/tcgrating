@@ -15,13 +15,15 @@
   <form method="POST" action="/event/instant">
     @csrf
 
+
     @include('layouts.event._twitter_auth')
     @include('layouts.event._tool')
+    @include('layouts.event._date')
 
     <div class="row justify-content-center  mb-0">
       @if(Auth::check())
         <button type="submit" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4">
-          {{ __('対戦を作成') }}
+          {{ __('団体戦を作成') }}
         </button>
       @else
         <div>
