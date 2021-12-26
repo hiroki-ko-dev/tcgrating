@@ -203,6 +203,9 @@
             <div class="w-30 font-weight-bold">{{ __('対戦コード') }}</div>
             <div class="w-70 post-body">{{$duel->tool_code}}</div>
           </div>
+        @if($duel->tool_id == \App\Models\Duel::TOOL_TCG_DISCORD)
+            <div class="font-weight-bold text-center">{{ __('※「マッチング待ち合わせ用」チャンネルで連絡をとってください') }}</div>
+        @endif
       </div>
     </div>
   </div>
@@ -230,9 +233,9 @@
     <div class="col-12">
       <div class="box">
         <div class="box-header text-left">{{ __('公式対戦ルール') }}</div>
-        <div class="font-weight-bold text-left">{{ __('対戦回数：両者で回数を決定してください') }}</div>
-        <div class="font-weight-bold text-left">{{ __('レギュレーション：スタンダード') }}</div>
-        <div class="font-weight-bold text-left">{{ __('回線不調時は？：回線不調側を敗北としてください。どちらか判断できない時はドローです') }}</div>
+        <div class="text-left">{{ __('対戦回数：両者で回数を決定してください') }}</div>
+        <div class="text-left">{{ __('レギュレーション：スタンダード') }}</div>
+        <div class="text-left">{{ __('回線不調時は？：回線不調側を敗北としてください。どちらか判断できない時はドローです') }}</div>
       </div>
     </div>
   </div>

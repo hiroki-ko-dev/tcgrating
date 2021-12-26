@@ -27,6 +27,14 @@ class Duel extends Model
         'invalid'  => self::INVALID,
     ];
 
+
+    //定数の定義
+    const TOOL_TCG_DISCORD = 1;
+    const TOOL = [
+        'tcg_discord'  => self::TOOL_TCG_DISCORD,
+    ];
+
+
     /**
      * 現在が何試合目かをduelにカラムとして持たせる
      * @return int
