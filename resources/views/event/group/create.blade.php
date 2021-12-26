@@ -13,14 +13,14 @@
   <form method="POST" action="/event/group">
     @csrf
 
-    @include('layouts.event._twitter_auth')
-    @include('layouts.event._title')
-    @include('layouts.event._image_url')
-    @include('layouts.event._tool')
-    @include('layouts.event._datetime')
-    @include('layouts.event._number_of_games')
-    @include('layouts.event._body')
-    @include('layouts.event._form')
+    @include('layouts.common._twitter_auth')
+    @include('layouts.event.create._title')
+    @include('layouts.event.create._image_url')
+    @include('layouts.event.create._tool')
+    @include('layouts.event.create._datetime')
+    @include('layouts.event.create._number_of_games')
+    @include('layouts.event.create._body')
+    @include('layouts.event.create._form')
 
   </form>
 </div>

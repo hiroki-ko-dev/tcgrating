@@ -72,6 +72,7 @@ use Illuminate\Support\Facades\Route;
         'event/user' => Event\UserController::class,
     ]);
     Route::post('/event/instant/user', [App\Http\Controllers\Event\UserController::class,'instant']);
+    Route::post('/event/user/join/request', [App\Http\Controllers\Event\UserController::class,'joinRequest']);
 
     //デュエル系スレッド
     Route::resources([

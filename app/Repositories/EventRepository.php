@@ -22,6 +22,9 @@ class EventRepository
         $event->date              = $request->date;
         $event->start_time        = $request->start_time;
         $event->end_time          = $request->end_time;
+        if(isset($request->image_url)){
+            $event->image_url = $request->image_url;
+        }
         $event->save();
 
         return $event;

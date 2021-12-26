@@ -42,6 +42,19 @@ class DuelService
      * @param $request
      * @return mixed
      */
+    public function createDuel($request)
+    {
+        $duel = $this->duelRepository->create($request);
+        $request->merge(['duel_id' => $duel->id]);
+        $this->eventDuelRepository->create($request);
+        return $request;
+    }
+
+    /**
+     * シングル決闘の際のduel系作成
+     * @param $request
+     * @return mixed
+     */
     public function createSingle($request)
     {
         $duel = $this->duelRepository->create($request);

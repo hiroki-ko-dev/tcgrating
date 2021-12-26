@@ -15,9 +15,9 @@
   <form method="POST" action="/event/instant">
     @csrf
 
-    @include('layouts.event._twitter_auth')
-    @include('layouts.event._tool')
-    @include('layouts.event._form')
+    @include('layouts.common._twitter_auth')
+    @include('layouts.event.create._tool')
+    @include('layouts.event.create._form')
 
   </form>
 </div>

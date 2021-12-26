@@ -100,7 +100,7 @@ class InstantController extends Controller
 
         $duel_id = DB::transaction(function () use($request) {
 
-            $event = $this->event_service->createEventBySingle($request);
+            $event = $this->event_service->createEvent($request);
             //event用のpostを作成
             $request->merge(['event_id' => $event->id]);
 

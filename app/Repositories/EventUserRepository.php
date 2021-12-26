@@ -16,13 +16,12 @@ class EventUserRepository
     public function create($request)
     {
         $eventUser = new EventUser();
-        $eventUser->fill([
-            'event_id'          => $request->event_id,
-            'user_id'           => $request->user_id,
-            'status'            => $request->status,
-            'created_at'        => Carbon::now(),
-            'updated_at'        => Carbon::now()
-        ]);
+        $eventUser->event_id = $request->event_id;
+        $eventUser->user_id  = $request->user_id;
+        $eventUser->status   = $request->status;
+        if(isset($request->group_id)){
+            $eventUser->group_id = $request->group_id;
+        }
         $eventUser->save();
 
         return $eventUser;
