@@ -65,9 +65,7 @@
 @endsection
 
 @section('adsense')
-{{--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>--}}
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9125683895360901"
-        crossorigin="anonymous"></script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     {{--    <ins class="adsbygoogle"--}}
     {{--         style="display:block; text-align:center;"--}}
     {{--         data-ad-layout="in-article"--}}
