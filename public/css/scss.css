@@ -1,6 +1,334 @@
-.header-site-title{font-size:1.5rem}@media screen and (max-width:480px){.header-site-title{font-size:.95rem}}.header-color{background:radial-gradient(circle 200px at center,#666 0,#333 50%,#000 100%)}.menu-btn{align-items:center;background-color:#000;display:flex;height:50px;justify-content:center;position:fixed;right:10px;top:10px;width:60px;z-index:90}.menu-btn span,.menu-btn span:after,.menu-btn span:before{background-color:#fff;border-radius:3px;content:"";display:block;height:3px;position:absolute;width:25px}.menu-btn span:before{bottom:8px}.menu-btn span:after{top:8px}.menu-content{background-color:#000;height:100%;left:100%;position:fixed;top:0;transition:all .5s;width:70%;z-index:80}.menu-content ul{padding:70px 10px 0}.menu-content ul li{border-bottom:1px solid #fff;list-style:none}.menu-content ul li a{box-sizing:border-box;color:#fff;display:block;font-size:15px;padding:9px 15px 10px 0;position:relative;text-decoration:none;width:80%}.menu-content ul li a:before{border-right:2px solid #fff;border-top:2px solid #fff;content:"";height:7px;position:absolute;right:11px;top:16px;transform:rotate(45deg);width:7px}#menu-btn-check{display:none}#menu-btn-check:checked~.menu-content{left:30%}#menu-btn-check:checked~.menu-btn span,#menu-btn-check:checked~.menu-btn span:after,#menu-btn-check:checked~.menu-btn span:before{background-color:hsla(0,0%,100%,0)}#menu-btn-check:checked~.menu-btn span:before{background-color:#fff;bottom:0;transform:rotate(45deg)}#menu-btn-check:checked~.menu-btn span:after{background-color:#fff;top:0;transform:rotate(-45deg)}@media (max-width:700px){.site-title{font-size:.95rem}}
-.footer{color:#fff}.font-sizes-13px,.footer{font-size:.8125rem}@media (min-width:1280px){.footer .container{padding-left:120px;padding-right:120px}}.footer a{color:inherit}.footer a:hover{opacity:.8}.bgs-777777,.footer-bottom{background-color:#777}.footer-bottom{padding:10px 0}.footer-bottom ul{display:flex;flex-wrap:wrap;justify-content:center;list-style:none;margin:0;padding:0}@media (max-width:1279px){.footer-bottom li{margin-bottom:5px}}.footer-bottom li:before{content:"|";padding:0 15px}@media (max-width:1279px){.footer-bottom li:before{content:"";padding:0 10px}}.footer-bottom li:first-child:before{display:none}.footer-copyright{margin-top:5px;text-align:right}@media (max-width:1279px){.footer-copyright{font-size:13px;text-align:center}}
-.post-user{color:green;font-weight:700}
-.acd-check{display:none}.acd-label{color:#fff;display:block;margin-bottom:1px;padding:10px;position:relative}.acd-label:after{box-sizing:border-box;content:"+";display:block;font-family:Font Awesome\ 5 Free;height:100%;padding:10px;position:absolute;right:0;top:0}.acd-content{display:block;height:0;opacity:0;transition:.5s;visibility:hidden}.acd-check:checked+.acd-label:after{content:"-"}.acd-check:checked+.acd-label+.acd-content{height:50%;opacity:1;visibility:visible}.site-bg{background-color:#f7f7f7}.site-color{background-color:#000}.page-header{border-bottom:5px solid #000;color:#000;font-size:2rem;font-weight:700;text-shadow:0 2px 2px #000}.box{background-color:#fff;height:100%;padding:1rem;text-align:center}.box-header{size:3rem;border-bottom:2px solid #000;color:#000;font-weight:700;margin-bottom:1rem}.w-10{width:10%}.w-15{width:15%}.w-20{width:20%}.w-30{width:30%}.w-33{width:33%}.w-35{width:35%}.w-40{width:40%}.w-60{width:60%}.w-66{width:66%}.w-70{width:70%}.w-80{width:80%}.w-90{width:90%}
+@charset "UTF-8";
 
-/*# sourceMappingURL=scss.css.map*/
+.header-site-title {
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 480px) {
+  .header-site-title {
+    font-size: 0.95rem;
+  }
+}
+
+.header-color {
+  background: radial-gradient(circle 200px at center, #666666 0%, #333333 50%, #000000 100%);
+}
+
+.menu-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  height: 50px;
+  width: 60px;
+  justify-content: center;
+  align-items: center;
+  z-index: 9000;
+  background-color: #000000;
+}
+
+.menu-btn span,
+.menu-btn span:after,
+.menu-btn span:before {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 25px;
+  border-radius: 3px;
+  background-color: #ffffff;
+  position: absolute;
+}
+
+.menu-btn span:before {
+  bottom: 8px;
+}
+
+.menu-btn span:after {
+  top: 8px;
+}
+
+.menu-content {
+  width: 70%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 100%;
+  /*leftの値を変更してメニューを画面外へ*/
+  z-index: 80;
+  background-color: #000000;
+  transition: all 0.5s;
+  /*アニメーション設定*/
+}
+
+.menu-content ul {
+  padding: 70px 10px 0;
+}
+
+.menu-content ul li {
+  border-bottom: solid 1px #ffffff;
+  list-style: none;
+}
+
+.menu-content ul li a {
+  display: block;
+  width: 80%;
+  font-size: 15px;
+  box-sizing: border-box;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 9px 15px 10px 0;
+  position: relative;
+}
+
+.menu-content ul li a::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-top: solid 2px #ffffff;
+  border-right: solid 2px #ffffff;
+  transform: rotate(45deg);
+  position: absolute;
+  right: 11px;
+  top: 16px;
+}
+
+#menu-btn-check {
+  display: none;
+}
+
+#menu-btn-check:checked ~ .menu-content {
+  left: 30%;
+  /*メニューを画面内へ*/
+}
+
+#menu-btn-check:checked ~ .menu-btn span,
+#menu-btn-check:checked ~ .menu-btn span:before,
+#menu-btn-check:checked ~ .menu-btn span:after {
+  background-color: rgba(255, 255, 255, 0);
+  /*メニューオープン時は真ん中の線を透明にする*/
+}
+
+#menu-btn-check:checked ~ .menu-btn span::before {
+  bottom: 0;
+  transform: rotate(45deg);
+  background-color: #ffffff;
+}
+
+#menu-btn-check:checked ~ .menu-btn span::after {
+  top: 0;
+  transform: rotate(-45deg);
+  background-color: #ffffff;
+}
+
+@media (max-width: 700px) {
+  .site-title {
+    font-size: 0.95rem;
+  }
+}
+
+
+.footer {
+  color: #fff;
+}
+
+.font-sizes-13px,
+.footer {
+  font-size: 0.8125rem;
+}
+
+@media (min-width: 1280px) {
+  .footer .container {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}
+
+.footer a {
+  color: inherit;
+}
+
+.footer a:hover {
+  opacity: 0.8;
+}
+
+.footer-bottom,
+.bgs-777777 {
+  background-color: #777;
+}
+
+.footer-bottom {
+  padding: 10px 0;
+}
+
+.footer-bottom ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 1279px) {
+  .footer-bottom li {
+    margin-bottom: 5px;
+  }
+}
+
+.footer-bottom li::before {
+  content: "|";
+  padding: 0 15px;
+}
+
+@media (max-width: 1279px) {
+  .footer-bottom li::before {
+    content: "";
+    padding: 0 10px;
+  }
+}
+
+.footer-bottom li:first-child::before {
+  display: none;
+}
+
+.footer-copyright {
+  margin-top: 5px;
+  text-align: right;
+}
+
+@media (max-width: 1279px) {
+  .footer-copyright {
+    font-size: 13px;
+    text-align: center;
+  }
+}
+
+
+.post-user {
+  font-weight: bold;
+  color: #008000;
+}
+
+
+.acd-check {
+  display: none;
+}
+
+.acd-label {
+  color: #fff;
+  display: block;
+  margin-bottom: 1px;
+  padding: 10px;
+  position: relative;
+}
+
+.acd-label:after {
+  box-sizing: border-box;
+  content: "+";
+  display: block;
+  font-family: "Font Awesome 5 Free";
+  height: 100%;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: 0px;
+}
+
+.acd-content {
+  display: block;
+  height: 0;
+  opacity: 0;
+  transition: 0.5s;
+  visibility: hidden;
+}
+
+.acd-check:checked + .acd-label:after {
+  content: "-";
+}
+
+.acd-check:checked + .acd-label + .acd-content {
+  height: 50%;
+  opacity: 1;
+  visibility: visible;
+}
+
+.site-bg {
+  background-color: #F7F7F7;
+}
+
+.site-color {
+  background-color: #000000;
+}
+
+.page-header {
+  font-size: 2rem;
+  color: black;
+  border-bottom: solid 5px black;
+  font-weight: bold;
+  text-shadow: 0 2px 2px black;
+}
+
+.box {
+  text-align: center;
+  background-color: white;
+  height: 100%;
+  padding: 1rem;
+}
+
+.box-header {
+  size: 3rem;
+  color: black;
+  border-bottom: solid 2px black;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.w-10 {
+  width: 10%;
+}
+
+.w-15 {
+  width: 15%;
+}
+
+.w-20 {
+  width: 20%;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+.w-33 {
+  width: 33%;
+}
+
+.w-35 {
+  width: 35%;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.w-60 {
+  width: 60%;
+}
+
+.w-66 {
+  width: 66%;
+}
+
+.w-70 {
+  width: 70%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.w-90 {
+  width: 90%;
+}
+
+
