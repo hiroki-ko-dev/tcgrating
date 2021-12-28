@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class BlogService
 {
     protected $blogRepository;
-    protected $post_comment_repository;
+    protected $blogCommentRepository;
 
     public function __construct(BlogRepository $blogRepository,
                                 BlogCommentRepository $blogCommentRepository)
@@ -18,9 +18,37 @@ class BlogService
         $this->blogCommentRepository = $blogCommentRepository;
     }
 
+    /**
+     * @param $request
+     * @return \App\Repositories\Post
+     */
+    public function makeBlog($request)
+    {
+        return $this->blogRepository->create($request);
+
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function saveBlog($request)
+    {
+        return $this->blogRepository->update($request);
+    }
+
+    /**
+     * @param $blog_id
+     * @return mixed
+     */
+    public function getBlog($blog_id)
+    {
+        return $this->blogRepository->find($blog_id);
+    }
+
     public function getBlogByPaginate($request, $paginate)
     {
-        return $this->blogCommentRepository->findAllByPaginate($request, $paginate);
+        return $this->blogRepository->findAllByPaginate($request, $paginate);
     }
 
 

@@ -18,6 +18,7 @@ class CreateBlogsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('game_id')->nullable()->constrained();
             $table->string('title',200);
+            $table->string('thumbnail_image_url',500);
             $table->string('body',5000);
             $table->timestamps();
         });
