@@ -61,6 +61,13 @@ use Illuminate\Support\Facades\Route;
         'post/comment' => Post\CommentController::class,
     ]);
 
+    //記事
+    Route::resources([
+        'blog'         => Blog\BlogController::class,
+        //掲示板コメント
+        'blog/comment' => Blog\CommentController::class,
+    ]);
+
     //イベント系スレッド
     Route::resources([
         'event/single'  => Event\SingleController::class,
