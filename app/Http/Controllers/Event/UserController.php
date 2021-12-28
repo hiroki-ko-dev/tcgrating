@@ -134,6 +134,14 @@ class UserController extends Controller
         $request->merge(['user_id' => Auth::id()]);
         $request->merge(['status'  => \App\Models\EventUser::REQUEST]);
 
+        if($request->has('group_id_0')){
+            $request->merge(['group_id' => 0]);
+        }elseif($request->has('group_id_1')){
+            $request->merge(['group_id' => 1]);
+        }
+
+        dd($request);
+
         DB::transaction(function () use($request) {
             $this->eventService->createUser($request) ;
         });

@@ -117,6 +117,6 @@ class GroupController extends Controller
     {
         $event = $this->event_service->findEventWithUserAndDuel($event_id);
 
-        return view('event.group.show',compact('event'));
+        return view('event.group.show.show',compact('event'));
     }
 }
