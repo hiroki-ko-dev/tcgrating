@@ -55,11 +55,11 @@
               <div class="row justify-content-center border-bottom p-2">
                 <div class="col-sm-12">
                   <div class="d-flex flex-row text-left">
-                    <div class="w-25 mr-2">
+                    <div class="w-40 mr-2">
                       <img class="thumbnail" src="{{ $blog->thumbnail_image_url }}" alt="hashimu-icon">
                     </div>
-                    <div class="w-75">
-                      <div>
+                    <div class="w-60">
+                      <div class="thumbnail-date">
                         [作成日時:{{$blog->created_at}}]
                       </div>
                       <div class="text-break">

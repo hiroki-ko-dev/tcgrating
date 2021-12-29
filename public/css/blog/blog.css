@@ -1,8 +1,3 @@
-.thumbnail {
-  width: 100%;
-  aspect-ratio: 4/3;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
+.thumbnail{aspect-ratio:4/3;-o-object-fit:cover;object-fit:cover;width:100%}.thumbnail-date{font-size:.5rem}
 
-
+/*# sourceMappingURL=blog.css.map*/
