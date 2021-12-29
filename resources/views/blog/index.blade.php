@@ -1,5 +1,9 @@
 @extends('layouts.common.common')
 
+@section('addCss')
+  <link rel="stylesheet" href="{{ mix('/css/blog/blog.css') }}">
+@endsection
+
 @section('content')
   <div class="container">
 
@@ -50,12 +54,19 @@
             @foreach($blogs as $blog)
               <div class="row justify-content-center border-bottom p-2">
                 <div class="col-sm-12">
-                  <div class="d-sm-flex flex-row flex-wrap text-left">
-                    <div class="mr-3 sm-mr-5">
-                      [作成日時:{{$blog->created_at}}]
+                  <div class="d-flex flex-row text-left">
+                    <div class="w-25 mr-2">
+                      <img class="thumbnail" src="{{ $blog->thumbnail_image_url }}" alt="hashimu-icon">
                     </div>
-                    <div>
-                      <a href="/blog/{{$blog->id}}">{{$blog->title}}</a>
+                    <div class="w-75">
+                      <div>
+                        [作成日時:{{$blog->created_at}}]
+                      </div>
+                      <div class="text-break">
+                        <h5>
+                          <a href="/blog/{{$blog->id}}">{{$blog->title}}</a>
+                        </h5>
+                      </div>
                     </div>
                   </div>
                 </div>
