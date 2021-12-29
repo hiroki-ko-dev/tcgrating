@@ -19,9 +19,7 @@
       @yield('adsense')
     @endif
     <main class="py-4" id="main">
-  {{-- <div class="main-wrap">--}}
       @yield('content')
-  {{-- </div>--}}
     </main>
 
     @yield('footer')
