@@ -20,6 +20,7 @@ class CreateBlogsTable extends Migration
             $table->string('title',200);
             $table->string('thumbnail_image_url',500);
             $table->string('body',5000);
+            $table->boolean('is_released')->default(0);
             $table->timestamps();
         });
     }

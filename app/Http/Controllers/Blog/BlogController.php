@@ -33,6 +33,12 @@ class BlogController extends Controller
             $request->merge(['game_id' => session('selected_game_id')]);
         }
 
+        // 管理者でなければ公開動画しか見せない
+        if(!(Auth::check() && Auth::id() == 1)){
+            $request->merge(['is_released' => 1]);
+        }
+
+
         $blogs =  $this->blogService->getBlogByPaginate($request,20);
 
         return view('blog.index',compact('blogs'));

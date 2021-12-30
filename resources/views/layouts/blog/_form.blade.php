@@ -52,6 +52,19 @@
   </div>
 </div>
 
+<div class="row justify-content-center mb-4">
+  <div class="col-12">
+    <div class="box">
+      <div class="form-group row">
+        <div class="col-md-12">
+          <input type="radio" name="is_released" value="0" @if(!($blog->is_released))checked @endif>非公開
+          <input type="radio" name="is_released" value="1" @if($blog->is_released)checked @endif>公開
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row justify-content-center  mb-0">
   @if(Auth::check())
     <button type="submit" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4">

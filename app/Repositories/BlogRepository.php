@@ -19,6 +19,7 @@ class BlogRepository
         $blog->title   = $request->title;
         $blog->thumbnail_image_url    = $request->thumbnail_image_url;
         $blog->body    = $request->body;
+        $blog->is_released = $request->is_released;
         $blog->save();
         return $blog;
     }
@@ -44,6 +45,9 @@ class BlogRepository
     {
         $query = Blog::query();
         $query->where('game_id', $request->game_id);
+        if(isset($request->is_released)){
+            $query->where('is_released', $request->is_released);
+        }
         return $query;
     }
 
