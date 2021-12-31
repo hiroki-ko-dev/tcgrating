@@ -1,5 +1,9 @@
 @extends('layouts.common.common')
 
+@section('addCss')
+  <link rel="stylesheet" href="{{ mix('/css/blog/blog.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
 
