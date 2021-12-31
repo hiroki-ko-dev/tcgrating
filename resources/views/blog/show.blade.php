@@ -35,7 +35,9 @@
   <div class="row justify-content-center mb-4">
     <div class="col-sm-12">
       <div class="box">
-        <div type="body" class="text-left">{!! $blog->body !!}</div>
+        <div class="blog-body">
+          <div type="body" class="text-left">{!! $blog->body !!}</div>
+        </div>
       </div>
     </div>
   </div>

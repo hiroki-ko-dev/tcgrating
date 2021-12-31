@@ -15,7 +15,7 @@ h2{
   font-size: 0.5rem;
 }
 
-.blog {
+.youtube {
   position: relative;
   height: 0;
   padding: 0 0 56.25%;
@@ -29,14 +29,15 @@ h2{
   }
 }
 
-img {
+
+.blog-body img {
   width: 50%;
   height: 50%;
 }
 
 @media screen and (max-width: 480px) {
   /* 480px以下に適用されるCSS（スマホ用） */
-  img {
+  .blog-body img {
     width: 100%;
     height: 100%;
   }
