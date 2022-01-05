@@ -70,9 +70,19 @@ class TwitterService
             'URLから対戦を受けましょう!' . PHP_EOL .
             $hashTag;
 
+        // イベント作成によるメール文
+        $discord =
+            $event->user->name. 'さんが対戦相手を探しています' . PHP_EOL .
+            'URLから対戦を受けましょう!' . PHP_EOL .
+            PHP_EOL .
+            env('APP_URL') . '/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ';
+
+
         if(config('assets.common.appEnv') == 'production'){
             $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->discordPost($discord);
         }
+
     }
 
     /**
@@ -279,6 +289,23 @@ class TwitterService
                 $this->twitterRepository->tweet($apiKeys, $tweet);
             }
         }
+    }
+
+    /**
+     * @param $message
+     */
+    public function discordPost($message)
+    {
+        $data = array("content" => $message, "username" => 'TCGRating');
+        $headers[] = "Content-Type: application/json";
+
+        $curl = curl_init('https://discord.com/api/webhooks/928304082303729675/QTibeNnkLzZMrJgYqf6MDeaEmX9BAoZQc22a_wLN85UexqcoqDhNEl2SoA4qtcgbyAJb');
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $res = curl_exec($curl);
     }
 
 }
