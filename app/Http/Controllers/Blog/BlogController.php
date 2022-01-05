@@ -26,6 +26,17 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
+        $data = ["message" => 'test', "username" => 'HOOK',"content" => 'test'];
+        $curl = curl_init('https://discord.com/api/webhooks/928304082303729675/QTibeNnkLzZMrJgYqf6MDeaEmX9BAoZQc22a_wLN85UexqcoqDhNEl2SoA4qtcgbyAJb');
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type' => ' application/json']);
+        $res = curl_exec($curl);
+
+        dd($res);
+
+
         // 選択しているゲームでフィルタ
         if(Auth::check()) {
             $request->merge(['game_id' => Auth::user()->selected_game_id]);

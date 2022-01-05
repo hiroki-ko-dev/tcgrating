@@ -69,7 +69,7 @@ class DB2Platform extends AbstractPlatform
     /**
      * {@inheritDoc}
      */
-    public function initializeDoctrineTypeMappings()
+    protected function initializeDoctrineTypeMappings()
     {
         $this->doctrineTypeMapping = [
             'bigint'    => 'bigint',
@@ -135,6 +135,12 @@ class DB2Platform extends AbstractPlatform
      */
     public function getName()
     {
+        Deprecation::triggerIfCalledFromOutside(
+            'doctrine/dbal',
+            'https://github.com/doctrine/dbal/issues/4749',
+            'DB2Platform::getName() is deprecated. Identify platforms by their class.'
+        );
+
         return 'db2';
     }
 
@@ -291,6 +297,7 @@ class DB2Platform extends AbstractPlatform
                  c.colname,
                  c.colno,
                  c.typename,
+                 c.codepage,
                  c.nulls,
                  c.length,
                  c.scale,
@@ -393,38 +400,6 @@ class DB2Platform extends AbstractPlatform
                 AND      fk.REFTABNAME = pkcol.TABNAME
                 WHERE    fk.TABNAME = UPPER(" . $table . ')
                 ORDER BY fkcol.COLSEQ ASC';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCreateViewSQL($name, $sql)
-    {
-        return 'CREATE VIEW ' . $name . ' AS ' . $sql;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getDropViewSQL($name)
-    {
-        return 'DROP VIEW ' . $name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCreateDatabaseSQL($database)
-    {
-        return 'CREATE DATABASE ' . $database;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getDropDatabaseSQL($database)
-    {
-        return 'DROP DATABASE ' . $database;
     }
 
     /**
@@ -658,11 +633,9 @@ class DB2Platform extends AbstractPlatform
     /**
      * Returns the ALTER COLUMN SQL clauses for altering a column described by the given column diff.
      *
-     * @param ColumnDiff $columnDiff The column diff to evaluate.
-     *
      * @return string[]
      */
-    private function getAlterColumnClausesSQL(ColumnDiff $columnDiff)
+    private function getAlterColumnClausesSQL(ColumnDiff $columnDiff): array
     {
         $column = $columnDiff->column->toArray();
 
@@ -842,6 +815,14 @@ class DB2Platform extends AbstractPlatform
         }
 
         return 'SUBSTR(' . $string . ', ' . $start . ', ' . $length . ')';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getLengthExpression($column)
+    {
+        return 'LENGTH(' . $column . ', CODEUNITS32)';
     }
 
     public function getCurrentDatabaseExpression(): string
