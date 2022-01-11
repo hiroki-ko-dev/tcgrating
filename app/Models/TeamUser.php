@@ -10,15 +10,15 @@ class TeamUser extends Model
     use HasFactory;
 
     //定数の定義
-    const REQUEST        = 0;
-    const APPROVAL       = 1;
-    const REJECT         = 2;
-    const MASTER         = 3;
+    const STATUS_REQUEST        = 0;
+    const STATUS_APPROVAL       = 1;
+    const STATUS_REJECT         = 2;
+    const STATUS_MASTER         = 3;
     const STATUS = [
-        'request'        => self::REQUEST,
-        'approval'       => self::APPROVAL,
-        'reject'         => self::REJECT,
-        'master'         => self::MASTER,
+        'request'        => self::STATUS_REQUEST,
+        'approval'       => self::STATUS_APPROVAL,
+        'reject'         => self::STATUS_REJECT,
+        'master'         => self::STATUS_MASTER,
     ];
 
     protected $guarded = [];

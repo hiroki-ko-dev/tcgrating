@@ -12,12 +12,12 @@ class Team extends Model
     protected $guarded = [];
 
     //定数の定義
-    const RECRUIT   = 0;
-    const FINISH    = 1;
+    const STATUS_RECRUIT   = 0;
+    const STATUS_FINISH    = 1;
 
     const STATUS = [
-        'recruit'  => self::RECRUIT,
-        'finish'   => self::FINISH,
+        'recruit'  => self::STATUS_RECRUIT,
+        'finish'   => self::STATUS_FINISH,
     ];
 
     public function teamUser(){

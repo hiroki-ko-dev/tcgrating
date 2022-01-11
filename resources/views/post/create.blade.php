@@ -4,9 +4,9 @@
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-12 page-header">
-        @if(\App\Models\PostCategory::FREE == $post_category_id)
+        @if(\App\Models\PostCategory::CATEGORY_FREE == $post_category_id)
             {{ __('フリー掲示板') }}
-        @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
+        @elseif(\App\Models\PostCategory::CATEGORY_TEAM_WANTED == $post_category_id)
             {{ __('チーム募集掲示板') }}
         @endif
     </div>

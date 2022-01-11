@@ -10,10 +10,10 @@ class DuelCategory extends Model
     use HasFactory;
 
     //定数の定義
-    const SINGLE = 1;
-    const POINT  = 2;
+    const CATEGORY_SINGLE = 1;
+    const CATEGORY_POINT  = 2;
     const CATEGORY = [
-        'single'     => self::SINGLE,
+        'single'     => self::CATEGORY_SINGLE,
     ];
 
 }

@@ -53,7 +53,7 @@ class SingleController extends Controller
             $request->merge(['game_id' => session('selected_game_id')]);
         }
         $request->merge(['not_body' => 'LINEからの対戦作成']);
-        $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
         $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
 
         return view('event.single.index',compact('events'));
@@ -97,13 +97,13 @@ class SingleController extends Controller
 
         // 選択しているゲームでフィルタ
         $request->merge(['game_id' => Auth::user()->selected_game_id]);
-        $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
-        $request->merge(['duel_category_id'  => \App\Models\DuelCategory::SINGLE]);
-        $request->merge(['post_category_id'  => \App\Models\PostCategory::EVENT]);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
+        $request->merge(['duel_category_id'  => \App\Models\DuelCategory::CATEGORY_SINGLE]);
+        $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_EVENT]);
         $request->merge(['user_id'           => Auth::id()]);
         $request->merge(['max_member'        => 2]);
         $request->merge(['title'             => '1vs1対戦']);
-        $request->merge(['status'            => \App\Models\EventUser::MASTER]);
+        $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
         $request->merge(['is_personal'       => 0]);
 
         $event_id = DB::transaction(function () use($request) {
@@ -116,10 +116,10 @@ class SingleController extends Controller
             $this->post_service->createPost($request);
             $event_id = $request->event_id;
 
-            $request->merge(['status' => \App\Models\Duel::READY]);
+            $request->merge(['status' => \App\Models\Duel::STATUS_READY]);
             $request = $this->duel_service->createSingle($request);
             //duel用のpostを作成
-            $request->merge(['post_category_id'  => \App\Models\PostCategory::DUEL]);
+            $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_DUEL]);
             $request->merge(['event_id' => null]);
             $request->merge(['body' => 'この掲示板は自分と対戦相手のみ見えます。対戦についてコミュニケーションをとりましょう']);
             $this->post_service->createPost($request);
@@ -188,8 +188,8 @@ class SingleController extends Controller
         DB::transaction(function () use($request) {
             //イベントがキャンセルさせる場合
             if($request->has('event_cancel')){
-                $event = $this->event_service->updateEventStatus($request->event_id, \App\Models\Event::CANCEL);
-                $this->duel_service->updateDuelStatus($event->eventDuels[0]->duel_id, \App\Models\Duel::CANCEL);
+                $event = $this->event_service->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
+                $this->duel_service->updateDuelStatus($event->eventDuels[0]->duel_id, \App\Models\Duel::STATUS_CANCEL);
             //配信URLを更新する場合
             }elseif($request->has('event_add_user')) {
                 $this->event_service->updateEventUser($request);

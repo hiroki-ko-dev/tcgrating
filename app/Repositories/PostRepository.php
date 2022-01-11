@@ -58,7 +58,7 @@ class PostRepository
     }
 
     public function findWithByPostCategoryTeam($team){
-        return Post::where('team_id',$team)->where('post_category_id', \App\Models\PostCategory::TEAM)->with('user')->first();
+        return Post::where('team_id',$team)->where('post_category_id', \App\Models\PostCategory::CATEGORY_TEAM)->with('user')->first();
     }
 
     public function findAllAndCommentCountWithPagination($request, $paginate)

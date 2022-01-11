@@ -16,7 +16,7 @@ use App\Services\TwitterService;
 
 use Illuminate\Http\Request;
 
-class InstantController extends Controller
+class SwissController extends Controller
 {
 
     protected $event_service;
@@ -60,10 +60,14 @@ class InstantController extends Controller
      */
     public function create()
     {
-        session(['loginAfterRedirectUrl' => env('APP_URL').'/event/instant/create']);
+        if(!(Auth::check() && Auth::user()->id == 1)) {
+            return redirect('/');
+        }
+
+        session(['loginAfterRedirectUrl' => env('APP_URL').'/event/group/create']);
         session(['selected_game_id' => 3]);
 
-        return view('event.instant.create');
+        return view('event.group.create');
     }
 
     /**
@@ -79,43 +83,40 @@ class InstantController extends Controller
             return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
         }
 
-        $date = Carbon::now();
-
         // 選択しているゲームでフィルタ
         $request->merge(['game_id' => Auth::user()->selected_game_id]);
-        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_GROUP]);
         $request->merge(['duel_category_id'  => \App\Models\DuelCategory::CATEGORY_SINGLE]);
         $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_EVENT]);
         $request->merge(['user_id'           => Auth::id()]);
-        $request->merge(['max_member'        => 2]);
-        $request->merge(['title'             => '1vs1対戦']);
+
+        $request->merge(['max_member'        => ($request->number_of_games * 2)]);
         $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
-        $request->merge(['is_personal'       => 1]);
+        $request->merge(['is_personal'       => 0]);
 
-        $request->merge(['body'       => 'LINEからの対戦作成']);
-        $request->merge(['date'       => $date]);
-        $request->merge(['start_time' => $date]);
-
-        $request->merge(['number_of_games' => 1]);
-
-        $duel_id = DB::transaction(function () use($request) {
+        $event = DB::transaction(function () use($request) {
 
             $event = $this->event_service->createEvent($request);
-            //event用のpostを作成
-            $request->merge(['event_id' => $event->id]);
-
-            $request->merge(['status' => \App\Models\Duel::STATUS_READY]);
-            $request = $this->duel_service->createSingle($request);
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
             $this->user_service->makeGameUser($request);
 
-            //twitterに投稿
-            $this->twitterService->tweetByMakeInstantEvent($event);
-
-            return $request->duel_id;
+            return $event;
         });
 
-        return redirect('/duel/instant/'.$duel_id);
+        return redirect('/event/group/' . $event->id);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $event_id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($event_id)
+    {
+        $event = $this->event_service->findEventWithUserAndDuel($event_id);
+
+        return view('event.group.show.show',compact('event'));
     }
 }

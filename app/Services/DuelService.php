@@ -94,7 +94,7 @@ class DuelService
             $otherDuelUserResult = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResults;
 
             //すでに試合が終了した後の報告をエラーとする
-            if($myDuelUserResult->count() == $otherDuelUserResult->count() && $request->duel->status <> \App\Models\Duel::READY){
+            if($myDuelUserResult->count() == $otherDuelUserResult->count() && $request->duel->status <> \App\Models\Duel::STATUS_READY){
                 throw new \Exception("終了した試合です");
             }
 
@@ -121,19 +121,19 @@ class DuelService
         }
 
         if($request->has('win')){
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::WIN ;
+            $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_WIN ;
             $duelUserResultObj->ranking = 1 ;
             $duelUserResultObj->rating  = 1000 ;
         }elseif($request->has('lose')){
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::LOSE ;
+            $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_LOSE ;
             $duelUserResultObj->ranking = 2 ;
             $duelUserResultObj->rating  = -1000 ;
         }elseif($request->has('draw')){
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::DRAW ;
+            $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_DRAW ;
             $duelUserResultObj->ranking = 0 ;
             $duelUserResultObj->rating  = 0 ;
         }elseif($request->has('invalid')){
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::INVALID ;
+            $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_INVALID ;
             $duelUserResultObj->ranking = 0 ;
             $duelUserResultObj->rating  = 0 ;
         }else{
@@ -177,13 +177,13 @@ class DuelService
 
 
         if($request->has('win')){
-            $myDuelUserResult->result  = \App\Models\DuelUserResult::WIN ;
+            $myDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_WIN ;
             $myDuelUserResult->ranking = 1 ;
             $myDuelUserResult->rating  = 1000 ;
 
             $gameUser = $this->gameUserRepository->findByGameIdAndUserId($request->duel->game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id);
 
-            $otherDuelUserResult->result  = \App\Models\DuelUserResult::LOSE ;
+            $otherDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_LOSE ;
             $otherDuelUserResult->ranking = 2 ;
             // ユーザーのレートが元々0ならマイナスにはしない
             if($gameUser->rate <= 0){
@@ -193,11 +193,11 @@ class DuelService
             }
 
         }elseif($request->has('draw')) {
-            $myDuelUserResult->result = \App\Models\DuelUserResult::DRAW;
+            $myDuelUserResult->result = \App\Models\DuelUserResult::RESULT_DRAW;
             $myDuelUserResult->ranking = 0;
             $myDuelUserResult->rating = 0;
 
-            $otherDuelUserResult->result  = \App\Models\DuelUserResult::DRAW ;
+            $otherDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_DRAW ;
             $otherDuelUserResult->ranking = 0 ;
             $otherDuelUserResult->rating  = 0 ;
         }else{
@@ -273,25 +273,25 @@ class DuelService
 
             //無効試合かを判定
             //どちらかが無効試合が選択していたら無効
-            if($my_result == \App\Models\DuelUserResult::INVALID || $other_result == \App\Models\DuelUserResult::INVALID){
+            if($my_result == \App\Models\DuelUserResult::RESULT_INVALID || $other_result == \App\Models\DuelUserResult::RESULT_INVALID){
                 $request->merge(['message' => '無効試合が選択されたので試合が無効になりました']);
 
-                $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::INVALID) ;
-                $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::INVALID) ;
+                $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::STATUS_INVALID) ;
+                $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::STATUS_INVALID) ;
 
                 return $request ;
             }elseif(
             //お互いドロー選択でないのに同じ選択をしていたら無効
-                (!($my_result == \App\Models\DuelUserResult::DRAW && $other_result == \App\Models\DuelUserResult::DRAW) &&
+                (!($my_result == \App\Models\DuelUserResult::RESULT_DRAW && $other_result == \App\Models\DuelUserResult::RESULT_DRAW) &&
                     $my_result == $other_result) ||
             //自分がドローで相手がドローでない
-                ($my_result == \App\Models\DuelUserResult::DRAW && $other_result <> \App\Models\DuelUserResult::DRAW) ||
+                ($my_result == \App\Models\DuelUserResult::RESULT_DRAW && $other_result <> \App\Models\DuelUserResult::RESULT_DRAW) ||
             //相手がドローで自分がドローでない
-                ($my_result <> \App\Models\DuelUserResult::DRAW && $other_result == \App\Models\DuelUserResult::DRAW)
+                ($my_result <> \App\Models\DuelUserResult::RESULT_DRAW && $other_result == \App\Models\DuelUserResult::RESULT_DRAW)
             ){
                 $request->merge(['message' => 'お互いの勝敗報告が矛盾したので試合が無効になりました']);
-                $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::INVALID) ;
-                $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::INVALID) ;
+                $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::STATUS_INVALID) ;
+                $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::STATUS_INVALID) ;
 
                 return $request ;
             }
@@ -302,8 +302,8 @@ class DuelService
             $otherDuelUserResult->where('games_number', $request->duel->number_of_games)->isNotEmpty()
         ) {
             // 試合終了に伴うステータスの更新
-            $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::FINISH) ;
-            $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::FINISH) ;
+            $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::STATUS_FINISH) ;
+            $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::STATUS_FINISH) ;
 
             // 試合終了に伴うユーザーレートの更新
             $game_id = $request->duel->eventDuel->event->game_id;

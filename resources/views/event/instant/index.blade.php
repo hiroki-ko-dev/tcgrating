@@ -37,15 +37,15 @@
             <div class="row justify-content-center border-bottom p-2">
               <div class="col-sm-12">
                   <div class="d-sm-flex flex-row flex-wrap text-left">
-                    @if($event->status == \APP\Models\Event::RECRUIT )
+                    @if($event->status == \APP\Models\Event::STATUS_RECRUIT )
                       <div class="post-user mr-3 sm-mr-5">[{{ __('対戦受付中') }}]</div>
-                    @elseif($event->status == \APP\Models\Event::READY )
+                    @elseif($event->status == \APP\Models\Event::STATUS_READY )
                       <div class="post-user text-warning mr-3 sm-mr-5">[{{ __('マッチング済') }}]</div>
-                    @elseif($event->status == \APP\Models\Event::FINISH )
+                    @elseif($event->status == \APP\Models\Event::STATUS_FINISH )
                       <div class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('対戦完了') }}]</div>
-                    @elseif($event->status == \APP\Models\Event::CANCEL )
+                    @elseif($event->status == \APP\Models\Event::STATUS_CANCEL )
                       <div class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('対戦キャンセル') }}]</div>
-                    @elseif($event->status == \APP\Models\Event::INVALID )
+                    @elseif($event->status == \APP\Models\Event::STATUS_INVALID )
                       <div class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('無効試合') }}]</div>
                     @endif
                     <div class="mr-3 sm-mr-5">

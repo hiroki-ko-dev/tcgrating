@@ -3,7 +3,7 @@
   <div class="col-12">
     <div class="box text-left">
       <div class="box-header">
-          @if($post->post_category_id == \App\Models\PostCategory::TEAM_WANTED)
+          @if($post->post_category_id == \App\Models\PostCategory::CATEGORY_TEAM_WANTED)
               <a href="\team\{{$post->team->id}}">{{$post->team->name}}</a>
               <br>　※参加リクエストはこちらのチーム名をクリック
           @else

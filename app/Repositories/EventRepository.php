@@ -15,7 +15,7 @@ class EventRepository
         $event->game_id           = $request->game_id;
         $event->event_category_id = $request->event_category_id;
         $event->user_id           = $request->user_id;
-        $event->status            = \APP\Models\Event::RECRUIT;
+        $event->status            = \APP\Models\Event::STATUS_RECRUIT;
         $event->max_member        = $request->max_member;
         $event->title             = $request->title;
         $event->body              = $request->body;

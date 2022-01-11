@@ -64,8 +64,8 @@ class InstantController extends Controller
 
                 // 対戦が完了したらステータスを更新
                 if($request->has('finish')){
-                    $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::FINISH);
-                    $this->duelService->updateDuelStatus($duel->id, \App\Models\Duel::FINISH);
+                    $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::STATUS_FINISH);
+                    $this->duelService->updateDuelStatus($duel->id, \App\Models\Duel::STATUS_FINISH);
                     $this->twitterService->tweetByInstantDuelFinish($duel);
                     $message = '試合が完了しました';
                 }else {
@@ -96,8 +96,8 @@ class InstantController extends Controller
             if($request->event_cancel == 1){
                 DB::transaction(function () use($request, $duel_id) {
                     $duel = $this->duelService->findDuelWithUserAndEvent($duel_id);
-                    $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::CANCEL);
-                    $this->duelService->updateDuelStatus($duel_id, \App\Models\Duel::CANCEL);
+                    $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::STATUS_CANCEL);
+                    $this->duelService->updateDuelStatus($duel_id, \App\Models\Duel::STATUS_CANCEL);
                 });
             }
             return back()->with('flash_message', '対戦をキャンセルしました');

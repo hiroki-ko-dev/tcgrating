@@ -6,15 +6,15 @@
     <div class="col-12 page-header">
       <div class="d-flex flex-row mb-3">
         <div>
-          @if(\App\Models\PostCategory::FREE == $post_category_id)
+          @if(\App\Models\PostCategory::CATEGORY_FREE == $post_category_id)
               {{ __('フリー掲示板') }}
-          @elseif(\App\Models\PostCategory::TEAM_WANTED == $post_category_id)
+          @elseif(\App\Models\PostCategory::CATEGORY_TEAM_WANTED == $post_category_id)
               {{ __('チームメンバー募集掲示板') }}
           @endif
         </div>
         <div class="ml-auto">
           <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
-          @if($post_category_id <> \App\Models\PostCategory::TEAM_WANTED)
+          @if($post_category_id <> \App\Models\PostCategory::CATEGORY_TEAM_WANTED)
             <btton class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
                    onclick="location.href='/post/create?post_category_id={{$post_category_id}}'">
               {{ __('新スレッド作成') }}

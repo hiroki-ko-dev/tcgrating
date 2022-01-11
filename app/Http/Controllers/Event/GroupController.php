@@ -47,7 +47,7 @@ class GroupController extends Controller
         }else{
             $request->merge(['game_id' => session('selected_game_id')]);
         }
-        $request->merge(['event_category_id' => \App\Models\EventCategory::SINGLE]);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
         $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
 
         return view('event.instant.index',compact('events'));
@@ -85,13 +85,13 @@ class GroupController extends Controller
 
         // 選択しているゲームでフィルタ
         $request->merge(['game_id' => Auth::user()->selected_game_id]);
-        $request->merge(['event_category_id' => \App\Models\EventCategory::GROUP]);
-        $request->merge(['duel_category_id'  => \App\Models\DuelCategory::SINGLE]);
-        $request->merge(['post_category_id'  => \App\Models\PostCategory::EVENT]);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_GROUP]);
+        $request->merge(['duel_category_id'  => \App\Models\DuelCategory::CATEGORY_SINGLE]);
+        $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_EVENT]);
         $request->merge(['user_id'           => Auth::id()]);
 
         $request->merge(['max_member'        => ($request->number_of_games * 2)]);
-        $request->merge(['status'            => \App\Models\EventUser::MASTER]);
+        $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
         $request->merge(['is_personal'       => 0]);
 
         $event = DB::transaction(function () use($request) {

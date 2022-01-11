@@ -50,7 +50,7 @@ class PostController extends Controller
         }
 
         //チーム募集掲示板の処理
-        if(\App\Models\PostCategory::TEAM_WANTED == $request->post_category_id){
+        if(\App\Models\PostCategory::CATEGORY_TEAM_WANTED == $request->post_category_id){
             $team_id = $request->query('team_id');
         }else{
             $team_id = null;

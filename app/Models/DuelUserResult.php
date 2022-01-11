@@ -11,15 +11,15 @@ class DuelUserResult extends Model
     protected $guarded = [];
 
     //定数の定義
-    const WIN     = 1;
-    const LOSE    = 2;
-    const DRAW    = 3;
-    const INVALID = 4;
+    const RESULT_WIN     = 1;
+    const RESULT_LOSE    = 2;
+    const RESULT_DRAW    = 3;
+    const RESULT_INVALID = 4;
 
     const RESULT = [
-        'win'     => self::WIN,
-        'lose'    => self::LOSE,
-        'draw'    => self::DRAW,
-        'invalid' => self::INVALID,
+        'win'     => self::RESULT_WIN,
+        'lose'    => self::RESULT_LOSE,
+        'draw'    => self::RESULT_DRAW,
+        'invalid' => self::RESULT_INVALID,
     ];
 }

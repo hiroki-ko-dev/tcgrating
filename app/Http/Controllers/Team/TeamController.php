@@ -74,7 +74,7 @@ class TeamController extends Controller
 
             $team = $this->team_service->createTeam($request);
 
-            $request->merge(['post_category_id'  => \App\Models\PostCategory::TEAM]);
+            $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_TEAM]);
             $request->merge(['user_id'           => Auth::id()]);
             $request->merge(['team_id'           => $team->id]);
             $request->merge(['title'             => 'チーム掲示板']);

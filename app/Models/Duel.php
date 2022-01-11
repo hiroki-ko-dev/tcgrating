@@ -13,18 +13,18 @@ class Duel extends Model
     protected $guarded = [];
 
     //定数の定義
-    const RECRUIT   = 0;
-    const READY     = 1;
-    const FINISH    = 2;
-    const CANCEL    = 3;
-    const INVALID   = 4;
+    const STATUS_RECRUIT   = 0;
+    const STATUS_READY     = 1;
+    const STATUS_FINISH    = 2;
+    const STATUS_CANCEL    = 3;
+    const STATUS_INVALID   = 4;
 
     const STATUS = [
-        'recruit'  => self::RECRUIT,
-        'ready'    => self::READY,
-        'finish'   => self::FINISH,
-        'cancel'   => self::CANCEL,
-        'invalid'  => self::INVALID,
+        'recruit'  => self::STATUS_RECRUIT,
+        'ready'    => self::STATUS_READY,
+        'finish'   => self::STATUS_FINISH,
+        'cancel'   => self::STATUS_CANCEL,
+        'invalid'  => self::STATUS_INVALID,
     ];
 
 

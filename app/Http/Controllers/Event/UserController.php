@@ -53,15 +53,15 @@ class UserController extends Controller
 
         //追加
         $request->merge(['user_id' => Auth::id()]);
-        $request->merge(['status'  => \App\Models\EventUser::APPROVAL]);
+        $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
 
         DB::transaction(function () use($request) {
             $this->eventService->createUser($request) ;
             $this->duelService->createUser($request) ;
 
             $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
-            if($event->event_category_id === \App\Models\EventCategory::SINGLE){
-                $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::READY);
+            if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE){
+                $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
             }
 
 
@@ -96,15 +96,15 @@ class UserController extends Controller
 
         //追加
         $request->merge(['user_id' => Auth::id()]);
-        $request->merge(['status'  => \App\Models\EventUser::APPROVAL]);
+        $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
 
         DB::transaction(function () use($request) {
             $this->eventService->createUser($request) ;
             $this->duelService->createUser($request) ;
 
             $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
-            if($event->event_category_id === \App\Models\EventCategory::SINGLE){
-                $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::READY);
+            if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE){
+                $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
             }
 
             // 対戦作成者にtwitterアカウントがあれば通知
@@ -132,7 +132,7 @@ class UserController extends Controller
 
         //追加
         $request->merge(['user_id' => Auth::id()]);
-        $request->merge(['status'  => \App\Models\EventUser::REQUEST]);
+        $request->merge(['status'  => \App\Models\EventUser::STATUS_REQUEST]);
 
         if($request->has('group_id_0')){
             $request->merge(['group_id' => 0]);

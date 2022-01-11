@@ -72,7 +72,7 @@
               <div class="menu-content">
                 <ul>
                   <li><a href="/rank">ランキング</a></li>
-                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::FREE}}">フリー掲示板</a></li>
+                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::CATEGORY_FREE}}">フリー掲示板</a></li>
                   {{--                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::TEAM_WANTED}}">チームメンバー募集掲示板</a></li>--}}
                   {{--                  <li><a href="/team">チーム検索</a></li>--}}
                   {{--                    <li><a href="/team?user_id={{Auth::id()}}">マイチーム</a></li>--}}
@@ -91,6 +91,10 @@
                       <li><a href="/site/how_to_use/instant">使い方</a></li>
                       <li><a href="/event/instant">1vs1対戦</a></li>
                       <li><a href="/blog">記事</a></li>
+                      @if(Auth::id() == 1)
+                        <li><a href="/event/group">グループ対戦</a></li>
+                        <li><a href="/event/swiss">スイスドロー対戦</a></li>
+                      @endif
                     @else
                       <li><a href="/site/how_to_use/normal">使い方</a></li>
                       <li><a href="/event/single">1vs1対戦</a></li>

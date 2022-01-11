@@ -3,20 +3,20 @@
     <div class="box">
       <div class="d-flex flex-row mb-3">
         <div class="w-30 font-weight-bold">状態</div>
-        @if($event->status == \APP\Models\Event::RECRUIT )
+        @if($event->status == \APP\Models\Event::STATUS_RECRUIT )
           <span class="post-user w-70">{{ __('参加申込受付中') }}</span>
-        @elseif($event->status == \APP\Models\Event::READY )
+        @elseif($event->status == \APP\Models\Event::STATUS_READY )
           <span class="post-user w-70">{{ __('参加締切済') }}</span>
-        @elseif($event->status == \APP\Models\Event::FINISH )
+        @elseif($event->status == \APP\Models\Event::STATUS_FINISH )
           <span class="post-user w-70">{{ __('イベント終了') }}</span>
-        @elseif($event->status == \APP\Models\Event::CANCEL )
+        @elseif($event->status == \APP\Models\Event::STATUS_CANCEL )
           <span class="post-user w-70">{{ __('イベントキャンセル') }}</span>
-        @elseif($event->status == \APP\Models\Event::INVALID )
+        @elseif($event->status == \APP\Models\Event::STATUS_INVALID )
           <span class="post-user w-70">{{ __('イベント無効') }}</span>
         @endif
       </div>
       {{-- 対戦相手を募集している段階ではキャンセルができる --}}
-      @if($event->status == \APP\Models\Event::RECRUIT && Auth::id() == $event->user_id)
+      @if($event->status == \APP\Models\Event::STATUS_RECRUIT && Auth::id() == $event->user_id)
         <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">
           @csrf
           @method('PUT')

@@ -10,10 +10,12 @@ class EventCategory extends Model
     use HasFactory;
 
     //定数の定義
-    const SINGLE = 1;
-    const GROUP  = 2;
+    const CATEGORY_SINGLE = 1;
+    const CATEGORY_GROUP  = 2;
+    const CATEGORY_SWISS  = 3;
     const CATEGORY = [
-        'single' => self::SINGLE,
-        'group'  => self::GROUP,
+        'single' => self::CATEGORY_SINGLE,
+        'group'  => self::CATEGORY_GROUP,
+        'group'  => self::CATEGORY_SWISS,
     ];
 }

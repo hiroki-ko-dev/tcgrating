@@ -82,7 +82,7 @@ class CommentController extends Controller
             $post = $this->post_service->findPostWithUser($request->post_id);
 
             //書き込みがイベント掲示板ならコメントがついたことをコメント者以外にメール通知
-            if($post->post_category_id == \App\Models\PostCategory::EVENT) {
+            if($post->post_category_id == \App\Models\PostCategory::CATEGORY_EVENT) {
                 $event = $this->event_service->findEventWithUserAndDuel($post->event_id);
                 //コメントをした本人以外に通知を送る
                 $eventUsers = $event->eventUsers->whereNotIn('user_id', [Auth::id()]);
@@ -106,7 +106,7 @@ class CommentController extends Controller
                     Mail::send(new PostCommentEventMail($emails, $post, $comment));
                 }
             //書き込みが決闘掲示板ならコメントがついたことをコメント者以外にメール通知
-            }elseif($post->post_category_id == \App\Models\PostCategory::DUEL){
+            }elseif($post->post_category_id == \App\Models\PostCategory::CATEGORY_DUEL){
                 $duel = $this->duel_service->findDuel($post->duel_id);
                 //コメントをした本人以外に通知を送る
                 $duelUsers = $duel->duelUsers->whereNotIn('user_id',[Auth::id()]);

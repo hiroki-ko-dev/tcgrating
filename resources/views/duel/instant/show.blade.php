@@ -31,7 +31,7 @@
           </div>
         @else
           {{--ログインしていない場合--}}
-          @if($duel->eventDuel->event->status == \App\Models\Event::RECRUIT)
+          @if($duel->eventDuel->event->status == \App\Models\Event::STATUS_RECRUIT)
             {{--対戦相手募集中の場合--}}
             @if(Auth::id() == $duel->user_id)
               {{--対戦作成者の場合--}}
@@ -59,7 +59,7 @@
                 <div class="font-weight-bold text-danger">{{ __('「対戦申込」を押してください') }}</div>
               </form>
             @endif
-          @elseif($duel->eventDuel->event->status == \App\Models\Event::READY)
+          @elseif($duel->eventDuel->event->status == \App\Models\Event::STATUS_READY)
             {{--対戦相手募集が完了している場合--}}
             @if($duel->duelUsers->where('user_id',Auth::id())->isNotEmpty() || (Auth::check() && Auth::id() ==1))
               {{--対戦者同士の場合--}}
@@ -117,7 +117,7 @@
                 </div>
               </div>
             @endif
-          @elseif($duel->eventDuel->event->status == \App\Models\Event::CANCEL)
+          @elseif($duel->eventDuel->event->status == \App\Models\Event::STATUS_CANCEL)
             <div class="row justify-content-center mb-4">
               <div class="col-md-12">
                 <div class="box">
@@ -172,7 +172,7 @@
     </div>
   </div>
 
-  @if($duel->eventDuel->event->status == \App\Models\Event::RECRUIT &&
+  @if($duel->eventDuel->event->status == \App\Models\Event::STATUS_RECRUIT &&
     Auth::check() && (Auth::id() == $duel->user_id || Auth::id() == 1))
     <div class="row justify-content-center mb-4">
       <div class="col-12">
@@ -210,7 +210,7 @@
     </div>
   </div>
 
-  @if($duel->game_id == config('assets.site.game_ids.pokemon_card') && $duel->eventDuel->event->status == \App\Models\Event::RECRUIT)
+  @if($duel->game_id == config('assets.site.game_ids.pokemon_card') && $duel->eventDuel->event->status == \App\Models\Event::STATUS_RECRUIT)
     <div class="row justify-content-center mb-2">
       <div class="col-md-12">
         <div class="box">

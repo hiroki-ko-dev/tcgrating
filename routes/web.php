@@ -76,6 +76,7 @@ use Illuminate\Support\Facades\Route;
         'event/single'  => Event\SingleController::class,
         'event/instant' => Event\InstantController::class,
         'event/group'   => Event\GroupController::class,
+        'event/swiss'   => Event\SwissController::class,
     ]);
     //イベントユーザー系スレッド
     Route::resources([
