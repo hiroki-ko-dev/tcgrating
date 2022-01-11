@@ -59,6 +59,12 @@ class InstantController extends Controller
 
             $message = DB::transaction(function () use($request) {
                 $duel = $this->duelService->findDuelWithUserAndEvent($request->duel_id);
+
+                // すでに対戦が終了していたら、何もせずに完了にする
+                if($duel->status <> \App\Models\Duel::STATUS_READY){
+                    return '終了した試合です';
+                }
+
                 $request->merge(['duel'=> $duel]);
                 $request->merge(['event_id'=> $duel->eventDuel->event->id]);
 
