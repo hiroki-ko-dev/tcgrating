@@ -72,8 +72,7 @@ class TwitterService
 
         // イベント作成によるメール文
         $discord =
-            '@' . $event->user->gameUsers->where('game_id', $event->game_id)->first()->discord_name . PHP_EOL .
-            ' さんが対戦相手を探しています' . PHP_EOL .
+            '@' . $event->user->gameUsers->where('game_id', $event->game_id)->first()->discord_name . ' さんが対戦相手を探しています' . PHP_EOL .
             'URLから対戦を受けましょう!' . PHP_EOL .
             PHP_EOL .
             env('APP_URL') . '/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ';

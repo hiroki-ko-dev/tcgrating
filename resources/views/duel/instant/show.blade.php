@@ -53,12 +53,6 @@
                 <input type="hidden" name="event_id" value="{{$duel->eventDuel->event->id}}">
                 <input type="hidden" name="duel_id" value="{{$duel->id}}">
 
-                @error('discord_name')
-                <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-
                 <div class="box-header text-left">{{ __('対戦申込') }}</div>
 
                 {{--discord_name入力箇所--}}
@@ -66,9 +60,9 @@
                   <div class="w-30">{{ __('Discordでの名前') }}</div>
                   <div class="w-70">
                   @if(Auth::user()->gameUsers->where('game_id', Auth::user()->selected_game_id)->first())
-                    <input type="text" placeholder="#以下は不要" class="form-control w-100" name="discord_name" value="{{ old('discord_name', Auth::user()->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()->discord_name) }}" required>
+                    <input type="text" placeholder="#と数字まで入れる" class="form-control w-100" name="discord_name" value="{{ old('discord_name', Auth::user()->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()->discord_name) }}" required>
                   @else
-                    <input type="text" placeholder="#以下は不要" class="form-control w-100" name="discord_name" value="{{ old('discord_name') }}" required>
+                    <input type="text" placeholder="#と数字まで入れる" class="form-control w-100" name="discord_name" value="{{ old('discord_name') }}" required>
                   @endif
                   </div>
                 </div>
