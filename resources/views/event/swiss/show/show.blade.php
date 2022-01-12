@@ -21,13 +21,12 @@
   @include('layouts.event.show._image_url')
   @include('layouts.common._twitter_auth')
   @include('layouts.event.show._number_of_games')
+  @include('layouts.event.show._max_member')
   @include('layouts.event.show._datetime')
   @include('layouts.event.show._body')
   @include('layouts.event.show._status')
-{{--  @if(!Auth::check() && Auth::id() <> $event->user_id)--}}
-    @include('event.group.show._join_request')
-{{--  @endif--}}
-
+  @include('layouts.event.show._join_request')
+  @include('layouts.event.show._join_list')
 </div>
 
 @endsection

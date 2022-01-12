@@ -32,7 +32,14 @@ class EventUserRepository
         $eventUser = EventUser::where('event_id',$request->event_id)
                                 ->where('user_id',$request->user_id)
                                 ->first();
-        $eventUser->stream_url = $request->stream_url;
+
+        if(isset($request->status)){
+            $eventUser->status = $request->status;
+        }
+        if(isset($request->stream_url)){
+            $eventUser->stream_url = $request->stream_url;
+        }
+
         $eventUser->save();
 
         return $eventUser;

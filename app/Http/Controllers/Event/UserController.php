@@ -57,29 +57,53 @@ class UserController extends Controller
 
         DB::transaction(function () use($request) {
             $this->eventService->createUser($request) ;
-            $this->duelService->createUser($request) ;
-
             $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
+
             if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE){
+                // 1vs1対戦ならそのまま対戦も作成
+                $this->duelService->createUser($request) ;
                 $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
-            }
+                // 対戦作成者にtwitterアカウントがあれば通知
+                if(!is_null($event->user->twitter_id)){
+                    $this->twitterService->tweetByMatching($event);
+                }
 
+                // メールアドレスがあれば通知
+                if(!is_null($event->user->email)){
+                    Mail::send(new EventSingleJoinRequestMail($event));
+                }
 
-            // 対戦作成者にtwitterアカウントがあれば通知
-            if(!is_null($event->user->twitter_id)){
-                $this->twitterService->tweetByMatching($event);
-            }
-
-            // メールアドレスがあれば通知
-            if(!is_null($event->user->email)){
-                Mail::send(new EventSingleJoinRequestMail($event));
             }
 
         });
 
         return back()->with('flash_message', '対戦申込が完了しました');
+    }
 
+    /**
+     * 対戦申込に対して、対戦相手が現れたら作成
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $event_id)
+    {
+        // ログインしてこのページに入れたらforgetする
+        session()->forget('loginAfterRedirectUrl');
+        $request->merge(['event_id' => $event_id]);
 
+        DB::transaction(function () use($request) {
+            // イベントステータスを変更
+            if($request->has('cancel')){
+                $request->merge(['status'  => \App\Models\EventUser::STATUS_REJECT]);
+            }elseif($request->has('cancel')){
+                $request->merge(['status'  => \App\Models\EventUser::STATUS_REJECT]);
+            }
+            $this->eventService->updateEventUserByUserIdAndGameId($request);
+        });
+
+        return back()->with('flash_message', '参加キャンセルをしました');
     }
 
     /**

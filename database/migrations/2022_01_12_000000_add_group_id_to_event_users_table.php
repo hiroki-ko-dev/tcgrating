@@ -14,7 +14,8 @@ class AddGroupIdToEventUsersTable extends Migration
     public function up()
     {
         Schema::table('event_users', function (Blueprint $table) {
-            $table->unsignedTinyInteger('group_id')->nullable()->after('user_id')->nullable();
+            $table->unsignedTinyInteger('group_id')->nullable()->after('user_id');
+            $table->mediumInteger('rating')->default(0)->after('status');
         });
     }
 
@@ -27,6 +28,7 @@ class AddGroupIdToEventUsersTable extends Migration
     {
         Schema::table('event_users', function (Blueprint $table) {
             $table->dropColumn('group_id');
+            $table->dropColumn('rating');
         });
     }
 }

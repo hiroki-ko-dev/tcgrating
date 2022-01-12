@@ -192,7 +192,7 @@ class SingleController extends Controller
                 $this->duel_service->updateDuelStatus($event->eventDuels[0]->duel_id, \App\Models\Duel::STATUS_CANCEL);
             //配信URLを更新する場合
             }elseif($request->has('event_add_user')) {
-                $this->event_service->updateEventUser($request);
+                $this->event_service->updateEventUserByUserIdAndGameId($request);
             }
         });
 

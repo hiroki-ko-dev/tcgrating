@@ -19,6 +19,7 @@
     @include('layouts.event.create._tool')
     @include('layouts.event.create._datetime')
     @include('layouts.event.create._number_of_games')
+    @include('layouts.event.create._max_member')
     @include('layouts.event.create._body')
     @include('layouts.event.create._form')
 

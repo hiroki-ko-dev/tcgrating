@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 
 class EventService
 {
-    protected $event_repository;
-    protected $event_user_repository;
+    protected $eventRepository;
+    protected $eventUserRepository;
 
 
-    public function __construct(EventRepository $event_repository,
-                                EventUserRepository $event_user_repository)
+    public function __construct(EventRepository $eventRepository,
+                                EventUserRepository $eventUserRepository)
     {
-        $this->event_repository = $event_repository;
-        $this->event_user_repository  = $event_user_repository;
+        $this->eventRepository = $eventRepository;
+        $this->eventUserRepository  = $eventUserRepository;
     }
 
     /**
@@ -26,9 +26,9 @@ class EventService
      */
     public function createEvent($request)
     {
-        $event = $this->event_repository->create($request);
+        $event = $this->eventRepository->create($request);
         $request->merge(['event_id' => $event->id]);
-        $this->event_user_repository->create($request);
+        $this->eventUserRepository->create($request);
         return $event;
     }
 
@@ -39,7 +39,7 @@ class EventService
      */
     public function createUser($request)
     {
-        $this->event_user_repository->create($request);
+        $this->eventUserRepository->create($request);
         return $request;
     }
 
@@ -51,21 +51,25 @@ class EventService
      */
     public function updateEventStatus($event_id, $status)
     {
-        return $this->event_repository->updateStatus($event_id, $status);
+        return $this->eventRepository->updateStatus($event_id, $status);
     }
 
     /**
      * @param $request
      * @return mixed
      */
-    public function updateEventUser($request)
+    public function updateEventUserByUserIdAndGameId($request)
     {
-        $eventUser = $this->event_user_repository->update($request);
+        $eventUser = $this->eventUserRepository->update($request);
         return $eventUser;
     }
 
+    public function getEvent($event_id){
+        return $this->eventRepository->find($event_id);
+    }
+
     public function findEventWithUserAndDuel($event_id){
-        return $this->event_repository->findWithUserAndDuel($event_id);
+        return $this->eventRepository->findWithUserAndDuel($event_id);
     }
 
     /**
@@ -76,12 +80,12 @@ class EventService
      */
     public function findAllEventByEventCategoryId($request, $paginate)
     {
-        return $this->event_repository->findAllByEventCategoryIdAndPaginate($request, $paginate);
+        return $this->eventRepository->findAllByEventCategoryIdAndPaginate($request, $paginate);
     }
 
     public function findAllEventByUserId($user_id)
     {
-        return $this->event_repository->findAllByUserId($user_id);
+        return $this->eventRepository->findAllByUserId($user_id);
     }
 
 

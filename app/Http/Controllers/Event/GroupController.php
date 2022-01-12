@@ -89,8 +89,8 @@ class GroupController extends Controller
         $request->merge(['duel_category_id'  => \App\Models\DuelCategory::CATEGORY_SINGLE]);
         $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_EVENT]);
         $request->merge(['user_id'           => Auth::id()]);
-
-        $request->merge(['max_member'        => ($request->number_of_games * 2)]);
+        $request->merge(['number_of_games'   => $request->number_of_games]);
+        $request->merge(['max_member'        => $request->max_member]);
         $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
         $request->merge(['is_personal'       => 0]);
 

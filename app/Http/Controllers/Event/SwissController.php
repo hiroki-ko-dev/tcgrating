@@ -47,10 +47,10 @@ class SwissController extends Controller
         }else{
             $request->merge(['game_id' => session('selected_game_id')]);
         }
-        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SWISS]);
         $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
 
-        return view('event.instant.index',compact('events'));
+        return view('event.swiss.index',compact('events'));
     }
 
     /**
@@ -64,10 +64,10 @@ class SwissController extends Controller
             return redirect('/');
         }
 
-        session(['loginAfterRedirectUrl' => env('APP_URL').'/event/group/create']);
+        session(['loginAfterRedirectUrl' => env('APP_URL').'/event/swiss/create']);
         session(['selected_game_id' => 3]);
 
-        return view('event.group.create');
+        return view('event.swiss.create');
     }
 
     /**
@@ -85,12 +85,11 @@ class SwissController extends Controller
 
         // 選択しているゲームでフィルタ
         $request->merge(['game_id' => Auth::user()->selected_game_id]);
-        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_GROUP]);
-        $request->merge(['duel_category_id'  => \App\Models\DuelCategory::CATEGORY_SINGLE]);
-        $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_EVENT]);
+        $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SWISS]);
         $request->merge(['user_id'           => Auth::id()]);
 
-        $request->merge(['max_member'        => ($request->number_of_games * 2)]);
+        $request->merge(['number_of_games'   => $request->number_of_games]);
+        $request->merge(['max_member'        => $request->max_member]);
         $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
         $request->merge(['is_personal'       => 0]);
 
@@ -104,7 +103,35 @@ class SwissController extends Controller
             return $event;
         });
 
-        return redirect('/event/group/' . $event->id);
+        return redirect('/event/swiss/' . $event->id);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $event_id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $event_id)
+    {
+        $request->merge(['event_id' => $event_id]);
+        $request->merge(['user_id' => Auth::id()]);
+
+        dd($request->has('ready'));
+
+        DB::transaction(function () use($request) {
+            //イベントがキャンセルさせる場合
+            if($request->has('event_cancel')){
+                $event = $this->event_service->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
+                $this->duel_service->updateDuelStatus($event->eventDuels[0]->duel_id, \App\Models\Duel::STATUS_CANCEL);
+                //配信URLを更新する場合
+            }elseif($request->has('event_add_user')) {
+                $this->event_service->updateEventUserByUserIdAndGameId($request);
+            }
+        });
+
+        return redirect('/event/single/'.$event_id)->with('flash_message', '保存しました');
     }
 
     /**
@@ -117,6 +144,6 @@ class SwissController extends Controller
     {
         $event = $this->event_service->findEventWithUserAndDuel($event_id);
 
-        return view('event.group.show.show',compact('event'));
+        return view('event.swiss.show.show',compact('event'));
     }
 }
