@@ -43,4 +43,23 @@ class SiteController extends Controller
 
         return back()->with('flash_message', '選択しているゲームを変更しました');;
     }
+
+    public function test()
+    {
+        $discord =
+            '@'. Auth::user()->gameUsers->where('game_id',3)->first()->discord_name . PHP_EOL .
+            'botのテスト' . PHP_EOL .
+            PHP_EOL ;
+
+        $data = array("content" => $discord, "username" => 'TCGRating');
+        $headers[] = "Content-Type: application/json";
+
+        $curl = curl_init('https://discord.com/api/webhooks/930830014780407819/z4tgtsSgs_mbX1JqN2c1jJvUuoIIChI1JOW4Ui2ud3ObovRnvH7XfQv5VgZ8Kc0I-oZH');
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $res = curl_exec($curl);
+    }
 }
