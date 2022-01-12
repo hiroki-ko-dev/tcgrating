@@ -22,6 +22,18 @@ class GameUserRepository
         return $gameUser;
     }
 
+    public function update($request)
+    {
+        $gameUser = $this->find($request->id);
+        $gameUser->game_id      = $request->game_id;
+        $gameUser->user_id      = $request->user_id;
+        $gameUser->discord_name = $request->discord_name;
+        $gameUser->is_mail_send = $request->is_mail_send;
+        $gameUser->rate         = $request->rate;
+        $gameUser->save();
+
+        return $gameUser;
+    }
 
 
     /**

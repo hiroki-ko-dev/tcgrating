@@ -47,6 +47,11 @@ class UserService
         return $gameUser;
     }
 
+    public function updateGameUser($request)
+    {
+        return $this->gameUserRepository->update($request);
+    }
+
     public function updateUser($request)
     {
         return $this->userRepository->update($request);

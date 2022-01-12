@@ -9,5 +9,5 @@ return [
 //        '999' => 'その他',
     ],
 
-    'discordServerUrl' => 'https://discord.gg/RGSYqAQJHM'
+    'discordPokemonCardServerUrl' => 'https://discord.gg/RGSYqAQJHM'
 ];

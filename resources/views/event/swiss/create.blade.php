@@ -16,7 +16,8 @@
     @include('layouts.common._twitter_auth')
     @include('layouts.event.create._title')
     @include('layouts.event.create._image_url')
-    @include('layouts.event.create._tool')
+{{--    @include('layouts.event.create._tool')--}}
+    @include('layouts.common.discord._join')
     @include('layouts.event.create._datetime')
     @include('layouts.event.create._number_of_games')
     @include('layouts.event.create._max_member')

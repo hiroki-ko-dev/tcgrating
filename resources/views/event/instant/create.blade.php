@@ -16,7 +16,9 @@
     @csrf
 
     @include('layouts.common._twitter_auth')
-    @include('layouts.event.create._tool')
+    {{--    @include('layouts.event.create._tool')--}}
+    @include('layouts.common.discord._join')
+    @include('layouts.common.discord._name')
     @include('layouts.event.create._form')
 
   </form>

@@ -19,19 +19,19 @@ use Illuminate\Http\Request;
 class InstantController extends Controller
 {
 
-    protected $event_service;
-    protected $duel_service;
-    protected $user_service;
+    protected $eventService;
+    protected $duelService;
+    protected $userService;
     protected $twitterService;
 
-    public function __construct(EventService $event_service,
-                                DuelService $duel_service,
-                                UserService $user_service,
+    public function __construct(EventService $eventService,
+                                DuelService $duelService,
+                                UserService $userService,
                                 TwitterService $twitterService)
     {
-        $this->event_service = $event_service ;
-        $this->duel_service  = $duel_service ;
-        $this->user_service  = $user_service ;
+        $this->eventService = $eventService ;
+        $this->duelService  = $duelService ;
+        $this->userService  = $userService ;
         $this->twitterService = $twitterService;
     }
 
@@ -48,7 +48,7 @@ class InstantController extends Controller
             $request->merge(['game_id' => session('selected_game_id')]);
         }
         $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
-        $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
+        $events = $this->eventService->findAllEventByEventCategoryId($request, 50);
 
         return view('event.instant.index',compact('events'));
     }
@@ -100,15 +100,20 @@ class InstantController extends Controller
 
         $duel_id = DB::transaction(function () use($request) {
 
-            $event = $this->event_service->createEvent($request);
+            $event = $this->eventService->createEvent($request);
             //event用のpostを作成
             $request->merge(['event_id' => $event->id]);
 
             $request->merge(['status' => \App\Models\Duel::STATUS_READY]);
-            $request = $this->duel_service->createSingle($request);
+            $request = $this->duelService->createSingle($request);
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
-            $this->user_service->makeGameUser($request);
+            $gameUser = $this->userService->makeGameUser($request);
+            if($gameUser->discord_name <> $request->discord_name){
+                $gameUser->discord_name = $request->discord_name;
+                // discord_nameを更新
+                $gameUser = $this->userService->updateGameUser($gameUser);
+            }
 
             //twitterに投稿
             $this->twitterService->tweetByMakeInstantEvent($event);
