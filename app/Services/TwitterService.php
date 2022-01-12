@@ -142,8 +142,8 @@ class TwitterService
         // イベント作成によるメール文
         $discord =
             '@' . $duel->eventUsers[0]->user->gameUsers->where('game_id', $duel->game_id)->first()->discord_name .
-            ' @' . $duel->eventUsers[1]->user->gameUsers->where('game_id', $duel->game_id)->first()->discord_name . PHP_EOL .
-            'この2名でマッチングが成立しました。対戦を始めましょう!' . PHP_EOL .
+            'さんと @' . $duel->eventUsers[1]->user->gameUsers->where('game_id', $duel->game_id)->first()->discord_name . 'さんの' . PHP_EOL .
+            '2名でマッチングが成立しました。対戦を始めましょう!' . PHP_EOL .
             PHP_EOL .
             'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' ;
 

@@ -47,7 +47,16 @@ class SiteController extends Controller
     public function test()
     {
         $discord =
-            '@'. Auth::user()->gameUsers->where('game_id',3)->first()->discord_name . PHP_EOL .
+            '<@763106044431171594> '. PHP_EOL .
+            '<@ハシム-8498> '. PHP_EOL .
+            '@{{ハシム}} '. PHP_EOL .
+            '<\@ハシム#8498> '. PHP_EOL .
+            '\@ハシム#8498 '. PHP_EOL .
+            '<\@ハシム-8498> '. PHP_EOL .
+            '\@ハシム '. PHP_EOL .
+            '<\@ハシム-#8498> '. PHP_EOL .
+            '\@ハシム-#8498 '. PHP_EOL .
+            'ハシム#8498 '. PHP_EOL .
             'botのテスト' . PHP_EOL .
             PHP_EOL ;
 
