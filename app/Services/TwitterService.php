@@ -72,11 +72,10 @@ class TwitterService
 
         // イベント作成によるメール文
         $discord =
-            $event->user->name. 'さんが対戦相手を探しています' . PHP_EOL .
+            '@' . $event->eventDuels[0]->user->discord_name . ' さんが対戦相手を探しています' . PHP_EOL .
             'URLから対戦を受けましょう!' . PHP_EOL .
             PHP_EOL .
             env('APP_URL') . '/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ';
-
 
         if(config('assets.common.appEnv') == 'production'){
             $this->twitterRepository->tweet($apiKeys, $tweet);
@@ -140,8 +139,16 @@ class TwitterService
             '対戦の準備をしましょう！' . PHP_EOL .
             $hashTag;
 
+        // イベント作成によるメール文
+        $discord =
+            '@' . $duel->eventUsers[0]->user->discord_name . ' @' . $duel->eventUsers[1]->user->discord_name . PHP_EOL .
+            'この2名でマッチングが成立しました。対戦を始めましょう!' . PHP_EOL .
+            PHP_EOL .
+            'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' ;
+
         if(config('assets.common.appEnv') == 'production'){
             $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->discordPost($discord);
         }
     }
 
