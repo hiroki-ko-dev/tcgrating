@@ -133,6 +133,14 @@ class UserController extends Controller
                 $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
             }
 
+            // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
+            $gameUser = $this->userService->getGameUserByUserIdAndGameId(Auth::id(), $event->game_id);
+            if($gameUser->discord_name <> $request->discord_name){
+                $gameUser->discord_name = $request->discord_name;
+                // discord_nameを更新
+                $gameUser = $this->userService->updateGameUser($gameUser);
+            }
+
             // 対戦作成者にtwitterアカウントがあれば通知
             if(!is_null($event->user->twitter_id)){
                 $this->twitterService->tweetByInstantMatching($event);
@@ -165,8 +173,6 @@ class UserController extends Controller
         }elseif($request->has('group_id_1')){
             $request->merge(['group_id' => 1]);
         }
-
-        dd($request);
 
         DB::transaction(function () use($request) {
             $this->eventService->createUser($request) ;

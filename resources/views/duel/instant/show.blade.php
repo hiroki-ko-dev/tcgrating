@@ -48,12 +48,33 @@
               <div class="text-left mr-3">（LINEオープンチャット等に貼り付けしてください)</div>
             @else
               {{--非対戦作成者の場合--}}
-              <form method="POST" action="/event/instant/user" onClick="return requestConfirm();">
+              <form method="POST" action="/event/instant/user">
                 @csrf
                 <input type="hidden" name="event_id" value="{{$duel->eventDuel->event->id}}">
                 <input type="hidden" name="duel_id" value="{{$duel->id}}">
+
+                @error('discord_name')
+                <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
                 <div class="box-header text-left">{{ __('対戦申込') }}</div>
-                <button type="submit" name="event_add_user" value="1" class="btn site-color text-white rounded-pill btn-outline-secondary text-center">
+
+                {{--discord_name入力箇所--}}
+                <div class="row mb-2">
+                  <div class="w-30">{{ __('Discordでの名前') }}</div>
+                  <div class="w-70">
+                  @if(Auth::user()->gameUsers->where('game_id', Auth::user()->selected_game_id)->first())
+                    <input type="text" placeholder="#以下は不要" class="form-control w-100" name="discord_name" value="{{ old('discord_name', Auth::user()->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()->discord_name) }}" required>
+                  @else
+                    <input type="text" placeholder="#以下は不要" class="form-control w-100" name="discord_name" value="{{ old('discord_name') }}" required>
+                  @endif
+                  </div>
+                </div>
+
+                <button type="submit" name="event_add_user" value="1" class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
+                        onClick="return requestConfirm();">
                   {{ __('対戦申込') }}
                 </button>
                 <div class="font-weight-bold text-danger">{{ __('「対戦申込」を押してください') }}</div>
@@ -191,24 +212,7 @@
     </div>
   @endif
 
-  <div class="row justify-content-center mb-4">
-    <div class="col-12">
-      <div class="box">
-        <div class="box-header text-left">{{ __('対戦ツール') }}</div>
-          <div class="d-flex flex-row mb-3">
-            <div class="w-30 font-weight-bold">{{ __('対戦ツール') }}</div>
-            <div class="w-70 post-body">{{config('assets.duel.tool')[$duel->tool_id]}}</div>
-          </div>
-          <div class="d-flex flex-row mb-3">
-            <div class="w-30 font-weight-bold">{{ __('対戦コード') }}</div>
-            <div class="w-70 post-body">{{$duel->tool_code}}</div>
-          </div>
-        @if($duel->tool_id == \App\Models\Duel::TOOL_TCG_DISCORD)
-            <div class="font-weight-bold text-center">{{ __('※「マッチング待ち合わせ用」チャンネルで連絡をとってください') }}</div>
-        @endif
-      </div>
-    </div>
-  </div>
+  @include('layouts.common.discord._join')
 
   @if($duel->game_id == config('assets.site.game_ids.pokemon_card') && $duel->eventDuel->event->status == \App\Models\Event::STATUS_RECRUIT)
     <div class="row justify-content-center mb-2">

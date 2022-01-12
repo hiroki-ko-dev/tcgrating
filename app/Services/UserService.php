@@ -77,6 +77,11 @@ class UserService
         return $this->gameUserRepository->findAllByPaginateOrderByRank($request, $pagination);
     }
 
+    public function getGameUserByUserIdAndGameId($user_id, $game_id)
+    {
+        return $this->gameUserRepository->findByGameIdAndUserId($game_id, $user_id);
+    }
+
     /**
      * 全員にメールを一斉送信する際の処理
      * @param $request
