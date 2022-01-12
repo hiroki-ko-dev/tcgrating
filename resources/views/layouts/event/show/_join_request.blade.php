@@ -8,21 +8,22 @@
             @if(!(Auth::check()))
               参加にはログインが必要です
             @elseif($event->eventUsers->where('user_id',Auth::id())->isEmpty())
-              <form method="POST" action="/event/user" onClick="return requestConfirm();">
+              <form method="POST" action="/event/user">
                 @csrf
                   <input type="hidden" name="event_id" value="{{$event->id}}">
-                  <button type="submit" name="event_add_user" value="1" class="btn site-color text-white rounded-pill btn-outline-secondary text-center">
+                  <button type="submit" name="event_add_user" value="1" class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
+                          onClick="return requestConfirm();">
                     {{ __('イベント申込') }}
                   </button>
               </form>
             @else
               @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REQUEST)
                 すでに申込済です
-                <form method="POST" action="/event/user/{{$event->id}}" onClick="return requestConfirm();">
+                <form method="POST" action="/event/user/{{$event->id}}">
                   @csrf
                   @method('PUT')
                     <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                    <input type="submit" name="cancel" class="btn btn-secondary rounded-pill pl-4 pr-4" value="参加をキャンセルする">
+                    <input type="submit" name="reject" class="btn btn-secondary rounded-pill pl-4 pr-4" value="参加をキャンセルする" onClick="return requestConfirm();">
                 </form>
               @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_APPROVAL)
                 参加確定しました
@@ -38,10 +39,10 @@
             @if(Auth::check()
                      && Auth::user()->eventUsers->where('event_id', $event->id)->isNotEmpty()
                      && Auth::user()->eventUsers->where('event_id', $event->id)->first()->status == \App\Models\EventUser::STATUS_MASTER)
-              <form method="POST" action="/event/user/{{$event->id}}" onClick="return requestConfirm();">
-              <input type="submit" name="make_duel" class="btn btn-primary rounded-pill pl-4 pr-4" value="対戦を作成する">
+              <form method="POST" action="/event/user/{{$event->id}}">
                 <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                <input type="submit" name="cancel" class="btn btn-secondary rounded-pill pl-4 pr-4" value="参加をキャンセルする">
+                <input type="submit" name="make_duel" class="btn btn-primary rounded-pill pl-4 pr-4" value="対戦を作成する" onClick="return requestConfirm();">
+                <input type="submit" name="cancel" class="btn btn-secondary rounded-pill pl-4 pr-4" value="参加をキャンセルする" onClick="return requestConfirm();">
               </form>
             @endif
           @else

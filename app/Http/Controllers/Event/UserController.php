@@ -53,14 +53,17 @@ class UserController extends Controller
 
         //追加
         $request->merge(['user_id' => Auth::id()]);
-        $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
+
 
         DB::transaction(function () use($request) {
-            $this->eventService->createUser($request) ;
+
+
             $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
 
             if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE){
                 // 1vs1対戦ならそのまま対戦も作成
+                $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
+                $this->eventService->createUser($request) ;
                 $this->duelService->createUser($request) ;
                 $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
                 // 対戦作成者にtwitterアカウントがあれば通知
@@ -73,6 +76,9 @@ class UserController extends Controller
                     Mail::send(new EventSingleJoinRequestMail($event));
                 }
 
+            }elseif($event->event_category_id === \App\Models\EventCategory::CATEGORY_SWISS){
+                $request->merge(['status'  => \App\Models\EventUser::STATUS_REQUEST]);
+                $this->eventService->createUser($request) ;
             }
 
         });
@@ -105,7 +111,7 @@ class UserController extends Controller
             $this->eventService->updateEventUserByUserIdAndGameId($request);
         });
 
-        return back()->with('flash_message', );
+        return back()->with('flash_message', $message);
     }
 
     /**

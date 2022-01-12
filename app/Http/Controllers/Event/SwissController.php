@@ -118,20 +118,19 @@ class SwissController extends Controller
         $request->merge(['event_id' => $event_id]);
         $request->merge(['user_id' => Auth::id()]);
 
-        dd($request->has('ready'));
-
         DB::transaction(function () use($request) {
             //イベントがキャンセルさせる場合
-            if($request->has('event_cancel')){
+            if($request->has('ready')) {
+                $event = $this->event_service->updateEventStatus($request->event_id, \App\Models\Event::STATUS_READY);
+            }elseif($request->has('cancel')){
                 $event = $this->event_service->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
-                $this->duel_service->updateDuelStatus($event->eventDuels[0]->duel_id, \App\Models\Duel::STATUS_CANCEL);
                 //配信URLを更新する場合
             }elseif($request->has('event_add_user')) {
                 $this->event_service->updateEventUserByUserIdAndGameId($request);
             }
         });
 
-        return redirect('/event/single/'.$event_id)->with('flash_message', '保存しました');
+        return redirect('/event/swiss/'.$event_id)->with('flash_message', '保存しました');
     }
 
     /**
