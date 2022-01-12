@@ -93,17 +93,19 @@ class UserController extends Controller
         session()->forget('loginAfterRedirectUrl');
         $request->merge(['event_id' => $event_id]);
 
-        DB::transaction(function () use($request) {
+        $message = DB::transaction(function () use($request) {
             // イベントステータスを変更
-            if($request->has('cancel')){
+            if($request->has('approval')){
+                $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
+                $message = '参加確定にしました';
+            }elseif($request->has('reject')){
                 $request->merge(['status'  => \App\Models\EventUser::STATUS_REJECT]);
-            }elseif($request->has('cancel')){
-                $request->merge(['status'  => \App\Models\EventUser::STATUS_REJECT]);
+                $message = '参加キャンセルをしました';
             }
             $this->eventService->updateEventUserByUserIdAndGameId($request);
         });
 
-        return back()->with('flash_message', '参加キャンセルをしました');
+        return back()->with('flash_message', );
     }
 
     /**

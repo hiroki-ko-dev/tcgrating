@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\GameUser','user_id');
     }
+
+    public function eventUsers()
+    {
+        return $this->hasMany('App\Models\EventUser','user_id');
+    }
 }

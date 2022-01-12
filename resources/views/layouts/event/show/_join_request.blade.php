@@ -3,24 +3,49 @@
     <div class="box">
       <div class="form-group row">
         <div class="col-md-12">
-          @if(!(Auth::check()))
-            参加にはログインが必要です
-          @elseif($event->eventUsers->where('user_id',Auth::id())->isEmpty())
-            <form method="POST" action="/event/user" onClick="return requestConfirm();">
-              @csrf
-                <input type="hidden" name="event_id" value="{{$event->id}}">
-                <button type="submit" name="event_add_user" value="1" class="btn site-color text-white rounded-pill btn-outline-secondary text-center">
-                  {{ __('イベント申込') }}
-                </button>
-            </form>
-          @else
-            すでに申込済です
-            <form method="POST" action="/event/user/{{$event->id}}" onClick="return requestConfirm();">
-              @csrf
-              @method('PUT')
+         {{--まだ参加募集している場合--}}
+          @if($event->status == \App\Models\Event::STATUS_RECRUIT)
+            @if(!(Auth::check()))
+              参加にはログインが必要です
+            @elseif($event->eventUsers->where('user_id',Auth::id())->isEmpty())
+              <form method="POST" action="/event/user" onClick="return requestConfirm();">
+                @csrf
+                  <input type="hidden" name="event_id" value="{{$event->id}}">
+                  <button type="submit" name="event_add_user" value="1" class="btn site-color text-white rounded-pill btn-outline-secondary text-center">
+                    {{ __('イベント申込') }}
+                  </button>
+              </form>
+            @else
+              @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REQUEST)
+                すでに申込済です
+                <form method="POST" action="/event/user/{{$event->id}}" onClick="return requestConfirm();">
+                  @csrf
+                  @method('PUT')
+                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                    <input type="submit" name="cancel" class="btn btn-secondary rounded-pill pl-4 pr-4" value="参加をキャンセルする">
+                </form>
+              @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_APPROVAL)
+                参加確定しました
+              @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REJECT)
+                キャンセル済です
+              @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_MASTER)
+                主催者モード
+              @endif
+            @endif
+          {{--参加募集していない場合--}}
+          @elseif($event->status == \App\Models\Event::STATUS_READY)
+            参加を締め切っています
+            @if(Auth::check()
+                     && Auth::user()->eventUsers->where('event_id', $event->id)->isNotEmpty()
+                     && Auth::user()->eventUsers->where('event_id', $event->id)->first()->status == \App\Models\EventUser::STATUS_MASTER)
+              <form method="POST" action="/event/user/{{$event->id}}" onClick="return requestConfirm();">
+              <input type="submit" name="make_duel" class="btn btn-primary rounded-pill pl-4 pr-4" value="対戦を作成する">
                 <input type="hidden" name="user_id" value="{{Auth::id()}}">
                 <input type="submit" name="cancel" class="btn btn-secondary rounded-pill pl-4 pr-4" value="参加をキャンセルする">
-            </form>
+              </form>
+            @endif
+          @else
+            参加を締め切っています
           @endif
         </div>
       </div>

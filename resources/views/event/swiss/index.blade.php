@@ -52,7 +52,7 @@
                       [対戦日時:{{$event->date}} {{$event->start_time}}]
                     </div>
                     <div>
-                      <a href="/duel/instant/{{$event->eventDuels[0]->duel_id}}">{{$event->eventUsers[0]->user->name }} vs @isset($event->eventUsers[1]){{$event->eventUsers[1]->user->name}}@else（　　）@endisset</a>
+                      <a href="/event/swiss/{{$event->id}}">{{$event->title }}</a>
                     </div>
                   </div>
                 </div>

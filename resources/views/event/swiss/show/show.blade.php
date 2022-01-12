@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-12 page-header">
-      {{ __('団体戦') }}
+      {{ __('大会(スイスドロー)') }}
     </div>
   </div>
 
