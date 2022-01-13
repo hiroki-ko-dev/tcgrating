@@ -54,11 +54,9 @@ class UserController extends Controller
         //追加
         $request->merge(['user_id' => Auth::id()]);
 
-
         DB::transaction(function () use($request) {
 
-
-            $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
+            $event = $this->eventService->getEvent($request->event_id);
 
             if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE){
                 // 1vs1対戦ならそのまま対戦も作成
@@ -68,6 +66,8 @@ class UserController extends Controller
                 $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
                 // 対戦作成者にtwitterアカウントがあれば通知
                 if(!is_null($event->user->twitter_id)){
+                    // 更新されたイベントを取得
+                    $event = $this->eventService->getEvent($request->event_id);
                     $this->twitterService->tweetByMatching($event);
                 }
 

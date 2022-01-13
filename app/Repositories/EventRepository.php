@@ -16,8 +16,11 @@ class EventRepository
         $event->event_category_id = $request->event_category_id;
         $event->user_id           = $request->user_id;
         $event->status            = \APP\Models\Event::STATUS_RECRUIT;
-        if(isset($request->number_of_games)){
-            $event->number_of_games = $request->number_of_games;
+        if(isset($request->number_of_match)){
+            $event->number_of_match = $request->number_of_match;
+        }
+        if(isset($request->now_match_number)){
+            $event->now_match_number = $request->now_match_number;
         }
         $event->max_member        = $request->max_member;
         $event->title             = $request->title;

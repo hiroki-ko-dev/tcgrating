@@ -101,10 +101,16 @@ class SingleController extends Controller
         $request->merge(['duel_category_id'  => \App\Models\DuelCategory::CATEGORY_SINGLE]);
         $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_EVENT]);
         $request->merge(['user_id'           => Auth::id()]);
+
+        $request->merge(['number_of_match'   => 1]);
+        $request->merge(['now_match_number'  => 1]);
+
         $request->merge(['max_member'        => 2]);
         $request->merge(['title'             => '1vs1対戦']);
         $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
         $request->merge(['is_personal'       => 0]);
+
+        $request->merge(['match_number'      => 1]);
 
         $event_id = DB::transaction(function () use($request) {
 

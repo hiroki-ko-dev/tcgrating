@@ -19,8 +19,8 @@
 {{--    @include('layouts.event.create._tool')--}}
     @include('layouts.common.discord._join')
     @include('layouts.event.create._datetime')
-    @include('layouts.event.create._number_of_games')
     @include('layouts.event.create._max_member')
+    @include('layouts.event.create._number_of_match')
     @include('layouts.event.create._body')
     @include('layouts.event.create._form')
 

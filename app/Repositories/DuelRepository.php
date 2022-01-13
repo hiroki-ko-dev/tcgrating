@@ -16,6 +16,9 @@ class DuelRepository
         $duel->duel_category_id = $request->duel_category_id;
         $duel->user_id          = $request->user_id;
         $duel->status           = $request->status;
+        if(isset($request->match_number)) {
+            $duel->match_number = $request->match_number;
+        }
         $duel->number_of_games  = $request->number_of_games;
         $duel->max_member       = $request->max_member;
         if(isset($request->room_id)) {
@@ -69,6 +72,9 @@ class DuelRepository
         }
         if(isset($request->tool_code)) {
             $duel->tool_code = $request->tool_code;
+        }
+        if(isset($request->number_of_games)) {
+            $duel->number_of_games = $request->number_of_games;
         }
         if(isset($request->number_of_games)) {
             $duel->number_of_games = $request->number_of_games;
