@@ -15,7 +15,7 @@ class AddImageUrlEventsTable extends Migration
     {
         Schema::table('events', function (Blueprint $table) {
             $table->string('image_url', 500)->after('end_time')->nullable();
-            $table->unsignedSmallInteger('number_of_games')->nullable()->after('status');
+            $table->unsignedSmallInteger('number_of_games')->after('status');
         });
     }
 
