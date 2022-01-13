@@ -219,6 +219,55 @@ class DuelService
     }
 
     /**
+     * @param $request
+     * @return bool
+     */
+    public function makeSwissDuels($request)
+    {
+        $event = $this->eventRepository->find($request->event_id);
+        $eventUsers = $event->eventUsers->whereIn('status',[\App\Models\EventUser::STATUS_APPROVAL,\App\Models\EventUser::STATUS_MASTER])->shuffle()->sortByDesc('event_rate');
+
+        $duels = null;
+        $room_id = 1;
+        while(count($eventUsers) >= 2) {
+            $duelRequest = new \stdClass();
+            $duelRequest->game_id          = $event->game_id;
+            $duelRequest->duel_category_id = \App\Models\DuelCategory::CATEGORY_SINGLE;
+            $duelRequest->user_id          = $event->user_id;
+            $duelRequest->status           = \App\Models\Duel::STATUS_READY;
+            $duelRequest->match_number     = $event->now_match_number;
+            $duelRequest->number_of_games  = 1;
+            $duelRequest->max_member       = 2;
+            $duelRequest->room_id          = $room_id;
+            $duelRequest->tool_id          = \App\Models\Duel::TOOL_TCG_DISCORD;
+            $duelRequest->tool_code        = config('assets.duel.discordPokemonCardServerUrl');
+
+            // duelテーブルの作成
+            $duel = $this->duelRepository->create($duelRequest);
+            $duelRequest->merge(['duel_id' => $duel->id]);
+
+            // eventDuelテーブルの作成
+            $this->eventDuelRepository->create($request);
+
+            // 対戦一人目の作成
+            $eventUserOne = array_shift($eventUsers);
+            $duelRequest->merge(['user_id' => $eventUserOne->user_id]);
+            $duelRequest->status = \App\Models\DuelUser::STATUS_APPROVAL;
+            $this->duelUserRepository->create($request);
+
+            // 対戦二人目の作成
+            $eventUserTwo = array_shift($eventUsers);
+            $duelRequest->merge(['user_id' => $eventUserTwo]);
+            $this->duelUserRepository->create($request);
+
+            $duels[] = $duel;
+            $room_id = $room_id + 1;
+        }
+
+        return $duels;
+    }
+
+    /**
      * シングル決闘の際のduel系作成
      * @param $request
      * @return mixed

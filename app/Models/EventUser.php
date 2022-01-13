@@ -23,6 +23,17 @@ class EventUser extends Model
         'master'   => self::STATUS_MASTER,
     ];
 
+    public function getEventRateAttribute()
+    {
+        if(in_array($this->event->now_match_number, [0,1])){
+            return 0;
+        }else{
+            $duel_user_ids = DuelUser::whereIn('user_id',$this->user_id)->pluck('id');
+            $rate = DuelUserResult::whereIn('duel_user_id', $duel_user_ids)->sum('rate');
+            return $rate;
+        }
+    }
+
     public function event(){
         return $this->belongsTo('App\Models\Event','event_id','id');
     }

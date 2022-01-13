@@ -89,6 +89,8 @@ class SwissController extends Controller
         $request->merge(['user_id'           => Auth::id()]);
 
         $request->merge(['number_of_match'   => $request->number_of_match]);
+        $request->merge(['now_match_number'   => 0]);
+
         $request->merge(['max_member'        => $request->max_member]);
         $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
         $request->merge(['is_personal'       => 0]);

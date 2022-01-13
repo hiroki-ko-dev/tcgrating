@@ -44,6 +44,15 @@ class EventService
     }
 
     /**
+     * @param $request
+     * @return mixed
+     */
+    public function updateEvent($request)
+    {
+        return $this->eventRepository->update($request);
+    }
+
+    /**
      * イベントステータスの更新
      * @param $event_id
      * @param $status
