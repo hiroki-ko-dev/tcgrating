@@ -28,9 +28,11 @@ class EventUser extends Model
         if(in_array($this->event->now_match_number, [0,1])){
             return 0;
         }else{
-            $duel_user_ids = $this->whereIn('user_id',$this->user_id)->get();
+            $duel_user_ids = DuelUser::whereIn('duel_id',$this->event->eventDuels->pluck('duel_id'))
+                                    ->where('user_id',$this->user_id)
+                                    ->pluck('id');
 
-            $rate = DuelUserResult::whereIn('duel_user_id', $duel_user_ids)->sum('rate');
+            $rate = DuelUserResult::whereIn('duel_user_id', $duel_user_ids)->sum('rating');
             return $rate;
         }
     }

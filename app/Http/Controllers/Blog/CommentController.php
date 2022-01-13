@@ -107,7 +107,7 @@ class CommentController extends Controller
                 }
             //書き込みが決闘掲示板ならコメントがついたことをコメント者以外にメール通知
             }elseif($post->post_category_id == \App\Models\PostCategory::CATEGORY_DUEL){
-                $duel = $this->duel_service->findDuel($post->duel_id);
+                $duel = $this->duel_service->getDuel($post->duel_id);
                 //コメントをした本人以外に通知を送る
                 $duelUsers = $duel->duelUsers->whereNotIn('user_id',[Auth::id()]);
                 $emails = [];

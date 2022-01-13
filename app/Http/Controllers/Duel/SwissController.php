@@ -71,11 +71,27 @@ class SwissController extends Controller
     /**
      * @param Request $request
      * @param $duel_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request,$duel_id)
     {
-        $duels = $this->duelService->getDuels($request);
+        $request->merge(['duel_id' => $duel_id]);
+
+        try {
+            $duel = DB::transaction(function () use($request) {
+                $duel = $this->duelService->updateDuelStatus($request->duel_id, \App\Models\Duel::STATUS_FINISH);
+                $request->merge(['duel' => $duel]);
+                $this->duelService->createInstantResult($request);
+
+                return $duel;
+            });
+            return redirect('/event/swiss/'.$duel->eventDuel->event_id)->with('flash_message', '結果報告をしました');
+
+        } catch (\Exception $e) {
+            report($e);
+            return back()->with('flash_message', $e->getMessage());
+        }
+
 
         return view('duel.swiss.show',compact('duels'));
     }

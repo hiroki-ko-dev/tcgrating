@@ -174,8 +174,6 @@ class DuelService
         $duelRequest->number_of_games = $number_of_games;
         $this->updateDuel($duelRequest);
 
-
-
         if($request->has('win')){
             $myDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_WIN ;
             $myDuelUserResult->ranking = 1 ;
@@ -185,11 +183,17 @@ class DuelService
 
             $otherDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_LOSE ;
             $otherDuelUserResult->ranking = 2 ;
-            // ユーザーのレートが元々0ならマイナスにはしない
-            if($gameUser->rate <= 0){
-                $otherDuelUserResult->rating = 0 ;
+
+            // シングルならマイナスにならない救済処置
+            if($request->duel->eventDuel->event->event_category_id == \App\Models\EventCategory::CATEGORY_SINGLE) {
+                // ユーザーのレートが元々0ならマイナスにはしない
+                if ($gameUser->rate <= 0) {
+                    $otherDuelUserResult->rating = 0;
+                } else {
+                    $otherDuelUserResult->rating = -1000;
+                }
             }else{
-                $otherDuelUserResult->rating = -1000 ;
+                $otherDuelUserResult->rating = -1000;
             }
 
         }elseif($request->has('draw')) {
@@ -210,10 +214,11 @@ class DuelService
 
 
         // ユーザーレートの更新
-        $game_id = $request->duel->eventDuel->event->game_id;
-
-        $this->updateUserRate($game_id, $request->user_id, $myDuelUserResult->rating);
-        $this->updateUserRate($game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->rating);
+        if($request->duel->duel_category_id == \App\Models\DuelCategory::CATEGORY_SINGLE) {
+            $game_id = $request->duel->eventDuel->event->game_id;
+            $this->updateUserRate($game_id, $request->user_id, $myDuelUserResult->rating);
+            $this->updateUserRate($game_id, $request->duel->duelUsers->whereNotIn('user_id', [$request->user_id])->first()->user_id, $otherDuelUserResult->rating);
+        }
 
         return $request;
     }
@@ -404,7 +409,7 @@ class DuelService
      * @param $duel_id
      * @return mixed
      */
-    public function findDuel($duel_id)
+    public function getDuel($duel_id)
     {
         return $this->duelRepository->find($duel_id);
     }
