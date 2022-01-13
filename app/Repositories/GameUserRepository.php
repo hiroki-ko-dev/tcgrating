@@ -15,6 +15,9 @@ class GameUserRepository
         $gameUser               = new GameUser();
         $gameUser->game_id      = $request->game_id;
         $gameUser->user_id      = $request->user_id;
+        if(isset($request->discord_name)){
+            $gameUser->discord_name = $request->discord_name;
+        }
         $gameUser->is_mail_send = true;
         $gameUser->rate    = 0;
         $gameUser->save();

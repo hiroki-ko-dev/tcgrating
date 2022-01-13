@@ -139,9 +139,13 @@ class UserController extends Controller
                 $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
             }
 
-            // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
             $gameUser = $this->userService->getGameUserByUserIdAndGameId(Auth::id(), $event->game_id);
-            if($gameUser->discord_name <> $request->discord_name){
+            if(is_null(is_null($gameUser))){
+                $request->merge(['game_id'  => $event->game_id]);
+                $request->merge(['discord_name' => $gameUser->discord_name]);
+                $gameUser = $this->userService->makeGameUser($request);
+            }elseif(is_null($gameUser->discord_name) || $gameUser->discord_name <> $request->discord_name){
+                // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
                 $gameUser->discord_name = $request->discord_name;
                 // discord_nameを更新
                 $gameUser = $this->userService->updateGameUser($gameUser);
