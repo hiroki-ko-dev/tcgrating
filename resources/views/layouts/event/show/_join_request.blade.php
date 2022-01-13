@@ -34,17 +34,6 @@
               @endif
             @endif
           {{--参加募集していない場合--}}
-          @elseif($event->status == \App\Models\Event::STATUS_READY)
-            参加を締め切っています
-            @if(Auth::check()
-                     && Auth::user()->eventUsers->where('event_id', $event->id)->isNotEmpty()
-                     && Auth::user()->eventUsers->where('event_id', $event->id)->first()->status == \App\Models\EventUser::STATUS_MASTER)
-              <form method="POST" action="/event/user/{{$event->id}}">
-                <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                <input type="submit" name="make_duel" class="btn btn-primary rounded-pill pl-4 pr-4" value="対戦を作成する" onClick="return requestConfirm();">
-                <input type="submit" name="cancel" class="btn btn-secondary rounded-pill pl-4 pr-4" value="参加をキャンセルする" onClick="return requestConfirm();">
-              </form>
-            @endif
           @else
             参加を締め切っています
           @endif

@@ -19,19 +19,19 @@ use Illuminate\Http\Request;
 class SwissController extends Controller
 {
 
-    protected $event_service;
-    protected $duel_service;
-    protected $user_service;
+    protected $eventService;
+    protected $duelService;
+    protected $userService;
     protected $twitterService;
 
-    public function __construct(EventService $event_service,
-                                DuelService $duel_service,
-                                UserService $user_service,
+    public function __construct(EventService $eventService,
+                                DuelService $duelService,
+                                UserService $userService,
                                 TwitterService $twitterService)
     {
-        $this->event_service = $event_service ;
-        $this->duel_service  = $duel_service ;
-        $this->user_service  = $user_service ;
+        $this->eventService = $eventService ;
+        $this->duelService  = $duelService ;
+        $this->userService  = $userService ;
         $this->twitterService = $twitterService;
     }
 
@@ -48,7 +48,7 @@ class SwissController extends Controller
             $request->merge(['game_id' => session('selected_game_id')]);
         }
         $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SWISS]);
-        $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
+        $events = $this->eventService->findAllEventByEventCategoryId($request, 50);
 
         return view('event.swiss.index',compact('events'));
     }
@@ -95,10 +95,10 @@ class SwissController extends Controller
 
         $event = DB::transaction(function () use($request) {
 
-            $event = $this->event_service->createEvent($request);
+            $event = $this->eventService->createEvent($request);
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
-            $this->user_service->makeGameUser($request);
+            $this->userService->makeGameUser($request);
 
             return $event;
         });
@@ -121,12 +121,12 @@ class SwissController extends Controller
         DB::transaction(function () use($request) {
             //イベントがキャンセルさせる場合
             if($request->has('ready')) {
-                $event = $this->event_service->updateEventStatus($request->event_id, \App\Models\Event::STATUS_READY);
+                $event = $this->eventService->updateEventStatus($request->event_id, \App\Models\Event::STATUS_READY);
             }elseif($request->has('cancel')){
-                $event = $this->event_service->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
+                $event = $this->eventService->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
                 //配信URLを更新する場合
             }elseif($request->has('event_add_user')) {
-                $this->event_service->updateEventUserByUserIdAndGameId($request);
+                $this->eventService->updateEventUserByUserIdAndGameId($request);
             }
         });
 
@@ -141,7 +141,7 @@ class SwissController extends Controller
      */
     public function show($event_id)
     {
-        $event = $this->event_service->findEventWithUserAndDuel($event_id);
+        $event = $this->eventService->getEvent($event_id);
 
         return view('event.swiss.show.show',compact('event'));
     }

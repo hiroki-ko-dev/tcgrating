@@ -91,6 +91,7 @@ use Illuminate\Support\Facades\Route;
         'duel/single' => Duel\SingleController::class,
         'duel/instant' => Duel\InstantController::class,
         'duel/point'  => Duel\PointController::class,
+        'duel/swiss'   => Duel\SwissController::class,
     ]);
 
     //ランキング系スレッド
