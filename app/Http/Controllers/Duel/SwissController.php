@@ -32,17 +32,13 @@ class SwissController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
         try {
             $message = DB::transaction(function () use($request) {
-
                 $event = $this->eventService->getEvent($request->event_id);
                 $request->merge(['now_match_number' => ($event->now_match_number + 1)]);
                 $event = $this->eventService->updateEvent($request);
@@ -56,6 +52,32 @@ class SwissController extends Controller
             report($e);
             return back()->with('flash_message', $e->getMessage());
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param $event_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function show(Request $request,$event_id)
+    {
+        $request->merge(['event_id' => $event_id]);
+
+        $duels = $this->duelService->getDuels($request);
+
+        return view('duel.swiss.show',compact('duels'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $duel_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function update(Request $request,$duel_id)
+    {
+        $duels = $this->duelService->getDuels($request);
+
+        return view('duel.swiss.show',compact('duels'));
     }
 
 }

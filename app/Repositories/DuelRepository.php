@@ -84,9 +84,28 @@ class DuelRepository
         return $duel;
     }
 
+    public function composeWhereClause($request)
+    {
+        $query = Duel::query();
+        $query->where('match_number', $request->match_number);
+        if (isset($request->event_id)) {
+            $event_id = $request->event_id;
+            $query->whereHas('eventDuel', function ($q) use ($event_id) {
+                $q->where('event_id', $event_id);
+            });
+        }
+        return $query;
+    }
+
 
     public function find($id){
         return Duel::find($id);
+    }
+
+
+
+    public function findAll($request){
+        return $this->composeWhereClause($request)->get();
     }
 
     public function findWithUserAndEvent($id){

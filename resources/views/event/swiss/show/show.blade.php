@@ -26,6 +26,7 @@
   @include('layouts.event.show._body')
   @include('layouts.event.show._status')
   @include('layouts.event.show._join_request')
+  @include('event.swiss.show._duels')
   @include('layouts.event.show._organizer')
   @include('layouts.event.show._join_list')
 </div>

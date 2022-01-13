@@ -225,11 +225,19 @@ class DuelService
     public function makeSwissDuels($request)
     {
         $event = $this->eventRepository->find($request->event_id);
-        $eventUsers = $event->eventUsers->whereIn('status',[\App\Models\EventUser::STATUS_APPROVAL,\App\Models\EventUser::STATUS_MASTER])->shuffle()->sortByDesc('event_rate');
+        // 主催者含む
+        // $eventUsers = $event->eventUsers->whereIn('status',[\App\Models\EventUser::STATUS_APPROVAL,\App\Models\EventUser::STATUS_MASTER])->shuffle();
+        // 主催者抜き
+        $eventUsers = $event->eventUsers->whereIn('status',[\App\Models\EventUser::STATUS_APPROVAL,\App\Models\EventUser::STATUS_MASTER])->shuffle();
+        $eventUsers->sortBy('event_rate');
 
         $duels = null;
+        // 対戦チャンネル指定用
         $room_id = 1;
-        while(count($eventUsers) >= 2) {
+        // ユーザー取り出しに利用する変数
+        $i = 0;
+        while($i+2 <= count($eventUsers)) {
+
             $duelRequest = new \stdClass();
             $duelRequest->game_id          = $event->game_id;
             $duelRequest->duel_category_id = \App\Models\DuelCategory::CATEGORY_SINGLE;
@@ -244,24 +252,24 @@ class DuelService
 
             // duelテーブルの作成
             $duel = $this->duelRepository->create($duelRequest);
-            $duelRequest->merge(['duel_id' => $duel->id]);
+            $duelRequest->duel_id = $duel->id;
 
             // eventDuelテーブルの作成
-            $this->eventDuelRepository->create($request);
+            $duelRequest->event_id = $event->id;
+            $this->eventDuelRepository->create($duelRequest);
 
             // 対戦一人目の作成
-            $eventUserOne = array_shift($eventUsers);
-            $duelRequest->merge(['user_id' => $eventUserOne->user_id]);
+            $duelRequest->user_id = $eventUsers[$i]->user_id;
             $duelRequest->status = \App\Models\DuelUser::STATUS_APPROVAL;
-            $this->duelUserRepository->create($request);
+            $this->duelUserRepository->create($duelRequest);
 
             // 対戦二人目の作成
-            $eventUserTwo = array_shift($eventUsers);
-            $duelRequest->merge(['user_id' => $eventUserTwo]);
-            $this->duelUserRepository->create($request);
+            $duelRequest->user_id = $eventUsers[$i+1]->user_id;
+            $this->duelUserRepository->create($duelRequest);
 
             $duels[] = $duel;
             $room_id = $room_id + 1;
+            $i = $i + 2;
         }
 
         return $duels;
@@ -399,6 +407,15 @@ class DuelService
     public function findDuel($duel_id)
     {
         return $this->duelRepository->find($duel_id);
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function getDuels($request)
+    {
+        return $this->duelRepository->findAll($request);
     }
 
     /**

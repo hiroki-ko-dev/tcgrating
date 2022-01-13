@@ -242,7 +242,7 @@ class TwitterService
             $apiKeys = config('assets.twitter.yugioh');
             $hashTag = '#遊戯王デュエルリンクス ';
 
-            // TwitterのポケモンアカウントでTweet
+        // TwitterのポケモンアカウントでTweet
         }elseif($event->game_id == 3){
             $apiKeys = config('assets.twitter.pokemon');
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ ';

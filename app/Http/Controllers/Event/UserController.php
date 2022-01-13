@@ -109,6 +109,7 @@ class UserController extends Controller
                 $message = '参加キャンセルをしました';
             }
             $this->eventService->updateEventUserByUserIdAndGameId($request);
+            return $message;
         });
 
         return back()->with('flash_message', $message);

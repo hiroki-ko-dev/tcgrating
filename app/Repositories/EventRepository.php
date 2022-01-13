@@ -39,7 +39,7 @@ class EventRepository
     public function update($request)
     {
         $event = Event::find($request->event_id);
-        $event->status = $status;
+        $event->now_match_number = $request->now_match_number;
         $event->save();
 
         return $event;
