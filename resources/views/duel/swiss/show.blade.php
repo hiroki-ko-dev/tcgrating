@@ -23,11 +23,21 @@
   @foreach($duels as $duel)
     <div class="row justify-content-center row-eq-height mb-4">
       <div class="col-12">
-        <div class="site-color text-white text-center">大会対戦{{$duel->room_id}}</div>
+        <div class="site-color text-white text-center">大会対戦{{$duel->room_id}}（
+          @if($duel->status == \App\Models\Duel::STATUS_READY)
+            対戦中
+          @elseif($duel->status == \App\Models\Duel::STATUS_FINISH)
+            対戦完了
+          @else
+            キャンセル
+          @endif
+        ）
+        </div>
         <div class="box">
           <div class="form-group row">
             <div class="col-md-12">
-              @if(Auth::check() && Auth::id() == $duel->duelUsers[0]->user_id)
+              @if(Auth::check()
+                && (Auth::id() == $duel->duelUsers[0]->user_id && $duel->status == \App\Models\Duel::STATUS_READY))
                 <div class="mb-2">
                   <form method="POST" action="/duel/swiss/{{$duel->id}}" onClick="return requestConfirm();">
                     @csrf

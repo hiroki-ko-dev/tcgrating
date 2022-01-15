@@ -127,6 +127,12 @@ class UserController extends Controller
         // ログインしてこのページに入れたらforgetする
         session()->forget('loginAfterRedirectUrl');
 
+        // バリデーションを設定
+        $validated = $request->validate(
+            ['discord_name' => 'required|regex:/.+#\d{4}$/|max:255'],
+            ['discord_name.regex' => 'ディスコードの名前は「〇〇#数字4桁」の形式にしてください']
+        );
+
         //追加
         $request->merge(['user_id' => Auth::id()]);
         $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);

@@ -79,6 +79,12 @@ class InstantController extends Controller
             return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
         }
 
+        // discord名にバリデーションをかける
+        $validated = $request->validate(
+            ['discord_name' => 'required|regex:/.+#\d{4}$/|max:255'],
+            ['discord_name.regex' => 'ディスコードの名前は「〇〇#数字4桁」の形式にしてください']
+        );
+
         $date = Carbon::now();
 
         // 選択しているゲームでフィルタ
