@@ -36,8 +36,9 @@
         <div class="box">
           <div class="form-group row">
             <div class="col-md-12">
-              @if(Auth::check()
-                && (Auth::id() == $duel->duelUsers[0]->user_id && $duel->status == \App\Models\Duel::STATUS_READY))
+              @if(Auth::check() && $duel->status == \App\Models\Duel::STATUS_READY
+                && (Auth::id() == $duel->duelUsers[0]->user_id
+                    || Auth::user()->eventUsers->where('event_id',$duel->eventDuel->event_id)->where('status')))
                 <div class="mb-2">
                   <form method="POST" action="/duel/swiss/{{$duel->id}}" onClick="return requestConfirm();">
                     @csrf
