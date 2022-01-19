@@ -161,7 +161,7 @@ class UserController extends Controller
 
             // 対戦作成者にtwitterアカウントがあれば通知
             if(!is_null($event->user->twitter_id)){
-                $this->twitterService->tweetByInstantMatching($event);
+                $this->twitterService->tweetByInstantMatching($event->eventDuels[0]->duel);
             }
 
         });
