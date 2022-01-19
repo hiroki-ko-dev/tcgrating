@@ -55,6 +55,10 @@ class Duel extends Model
         return $games_number;
     }
 
+    public function user(){
+        return $this->belongsTo('App\Models\User','user_id','id');
+    }
+
     public function duelUsers(){
         return $this->hasMany('App\Models\DuelUser','duel_id','id');
     }
