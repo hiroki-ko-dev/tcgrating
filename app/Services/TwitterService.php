@@ -73,7 +73,7 @@ class TwitterService
         // イベント作成によるメール文
         $discord =
             '@' . $event->user->gameUsers->where('game_id', $event->game_id)->first()->discord_name . ' さんが対戦相手を探しています' . PHP_EOL .
-            '対戦チャンネルは　「レート戦' . $event->eventDuels[0]->duel->room_id . '」　です。' . PHP_EOL .
+            '対戦チャンネルは　「レート対戦' . $event->eventDuels[0]->duel->room_id . '」　です。' . PHP_EOL .
             'URLから対戦を受けましょう!' . PHP_EOL .
             PHP_EOL .
             env('APP_URL') . '/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ';
@@ -145,7 +145,7 @@ class TwitterService
             '@' . $duel->eventUsers[0]->user->gameUsers->where('game_id', $duel->game_id)->first()->discord_name .
             'さんと @' . $duel->eventUsers[1]->user->gameUsers->where('game_id', $duel->game_id)->first()->discord_name . 'さんの' . PHP_EOL .
             '2名でマッチングが成立しました。対戦を始めましょう!' . PHP_EOL .
-            '対戦チャンネルは　「レート戦' . $duel->room_id . '」　です。' . PHP_EOL .
+            '対戦チャンネルは　「レート対戦' . $duel->room_id . '」　です。' . PHP_EOL .
             '対戦を始めましょう！' . PHP_EOL .
             PHP_EOL .
             'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' ;
