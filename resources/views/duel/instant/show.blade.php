@@ -192,6 +192,19 @@
     </div>
   </div>
 
+  <div class="row justify-content-center mb-4">
+    <div class="col-12">
+      <div class="box">
+        <div class="row justify-content-center">
+          <div class="text-center">対戦場所：<h3 class="font-weight-bold text-danger">レート対戦{{$duel->room_id}}</h3></div>
+        </div>
+        <div class="row justify-content-center mb-4">
+          <div class="">※ページ下部Discordのボイスチャンネルです</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   @if($duel->eventDuel->event->status == \App\Models\Event::STATUS_RECRUIT &&
     Auth::check() && (Auth::id() == $duel->user_id || Auth::id() == 1))
     <div class="row justify-content-center mb-4">

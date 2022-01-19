@@ -76,9 +76,6 @@ class DuelRepository
         if(isset($request->number_of_games)) {
             $duel->number_of_games = $request->number_of_games;
         }
-        if(isset($request->number_of_games)) {
-            $duel->number_of_games = $request->number_of_games;
-        }
         $duel->save();
 
         return $duel;
@@ -87,13 +84,27 @@ class DuelRepository
     public function composeWhereClause($request)
     {
         $query = Duel::query();
-        $query->where('match_number', $request->match_number);
+        if (isset($request->match_number)) {
+            $query->where('match_number', $request->match_number);
+        }
+        if (isset($request->statuses)) {
+            $query->whereIn('status', $request->statuses);
+        }
         if (isset($request->event_id)) {
             $event_id = $request->event_id;
             $query->whereHas('eventDuel', function ($q) use ($event_id) {
                 $q->where('event_id', $event_id);
             });
         }
+        if (isset($request->event_category_id)) {
+            $event_category_id = $request->event_category_id;
+            $query->whereHas('eventDuel', function ($q) use ($event_category_id) {
+                $q->whereHas('event', function ($q2) use ($event_category_id) {
+                    $q2->where('event_category_id', $event_category_id);
+                });
+            });
+        }
+
         return $query;
     }
 

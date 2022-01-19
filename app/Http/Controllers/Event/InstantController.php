@@ -114,7 +114,7 @@ class InstantController extends Controller
             $request->merge(['event_id' => $event->id]);
 
             $request->merge(['status' => \App\Models\Duel::STATUS_READY]);
-            $request = $this->duelService->createSingle($request);
+            $request = $this->duelService->createInstant($request);
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
             $gameUser = $this->userService->makeGameUser($request);

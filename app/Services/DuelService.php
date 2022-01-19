@@ -57,6 +57,45 @@ class DuelService
      */
     public function createSingle($request)
     {
+        $duelRequest = new \stdClass();
+        $duels = $this->getDuels($request);
+
+        $duel = $this->duelRepository->create($request);
+        $request->merge(['duel_id' => $duel->id]);
+        $this->duelUserRepository->create($request);
+        $this->eventDuelRepository->create($request);
+        return $request;
+    }
+
+    /**
+     * インスタント決闘の際のduel系作成
+     * @param $request
+     * @return mixed
+     */
+    public function createInstant($request)
+    {
+        // ルームIDを決める処理
+        $duelRequest = new \stdClass();
+        $duelRequest->statuses = [\App\Models\Duel::STATUS_READY,\App\Models\Duel::STATUS_RECRUIT];
+        $duelRequest->event_category_id = [\App\Models\EventCategory::CATEGORY_SINGLE];
+        $duels = $this->getDuels($duelRequest);
+        // 部屋予約中のの対戦があるならそこを避ける
+        if($duels->isNotEmpty()){
+            $room_ids = $duels->pluck('room_id')->toArray();
+
+            for($i=1;$i<11;$i++){
+                if(!is_null($room_ids) && in_array($i,$room_ids)){
+                    continue;
+                }else{
+                    $request->merge(['room_id' => $i]);
+                    break;
+                }
+            }
+        // なければ部屋1
+        }else{
+            $request->merge(['room_id' => 1]);
+        }
+
         $duel = $this->duelRepository->create($request);
         $request->merge(['duel_id' => $duel->id]);
         $this->duelUserRepository->create($request);
