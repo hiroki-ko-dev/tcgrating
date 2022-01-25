@@ -139,11 +139,17 @@ class UserController extends Controller
         $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
         $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
 
-        DB::transaction(function () use($request) {
+        $message = DB::transaction(function () use($request) {
             $this->eventService->createUser($request) ;
             $this->duelService->createUser($request) ;
 
             $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
+
+            // すでにマッチング済ならリダイレクト
+            if($event->status <> \App\Models\Event::STATUS_RECRUIT){
+                return 'すでに別の方がマッチング済です';
+            }
+
             if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE){
                 $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
             }
@@ -166,9 +172,11 @@ class UserController extends Controller
                 $this->twitterService->tweetByInstantMatching($event->eventDuels[0]->duel);
             }
 
+            return '対戦申込が完了しました';
+
         });
 
-        return back()->with('flash_message', '対戦申込が完了しました');
+        return back()->with('flash_message', $message);
 
     }
 
