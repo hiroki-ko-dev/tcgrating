@@ -57,6 +57,7 @@ class UserController extends Controller
         DB::transaction(function () use($request) {
 
             $event = $this->eventService->getEvent($request->event_id);
+            $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
 
             if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE){
                 // 1vs1対戦ならそのまま対戦も作成
@@ -136,6 +137,7 @@ class UserController extends Controller
         //追加
         $request->merge(['user_id' => Auth::id()]);
         $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
+        $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
 
         DB::transaction(function () use($request) {
             $this->eventService->createUser($request) ;

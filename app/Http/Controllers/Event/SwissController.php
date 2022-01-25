@@ -92,7 +92,8 @@ class SwissController extends Controller
         $request->merge(['now_match_number'   => 0]);
 
         $request->merge(['max_member'        => $request->max_member]);
-        $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
+        $request->merge(['status'            => \App\Models\EventUser::STATUS_APPROVAL]);
+        $request->merge(['role'              => \App\Models\EventUser::ROLE_ADMIN]);
         $request->merge(['is_personal'       => 0]);
 
         $event = DB::transaction(function () use($request) {

@@ -22,6 +22,7 @@ class EventUserRepository
         if(isset($request->group_id)){
             $eventUser->group_id = $request->group_id;
         }
+        $eventUser->role = $request->role;
         $eventUser->save();
 
         return $eventUser;
@@ -47,6 +48,16 @@ class EventUserRepository
 
     public function find($id){
         return EventUser::find($id);
+    }
+
+
+    /**
+     * @param $user_id
+     * @param $event_id
+     * @return mixed
+     */
+    public function findEventUserByUserIdAndEventId($user_id,$event_id){
+        return EventUser::where('user_id',$user_id)->where('event_id',$event_id)->first();
     }
 
     public function findAllWithUserByEventCategoryIdAndPaginate($event_category_id, $paginate)

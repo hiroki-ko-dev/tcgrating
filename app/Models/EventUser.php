@@ -23,6 +23,14 @@ class EventUser extends Model
         'master'   => self::STATUS_MASTER,
     ];
 
+    const ROLE_USER   = 0;
+    const ROLE_ADMIN  = 1;
+
+    const ROLE = [
+        'user'  => self::ROLE_USER,
+        'admin' => self::ROLE_ADMIN,
+    ];
+
     public function getEventRateAttribute()
     {
         if(in_array($this->event->now_match_number, [0,1])){

@@ -107,7 +107,8 @@ class SingleController extends Controller
 
         $request->merge(['max_member'        => 2]);
         $request->merge(['title'             => '1vs1対戦']);
-        $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
+        $request->merge(['status'            => \App\Models\EventUser::STATUS_APPROVAL]);
+        $request->merge(['role'              => \App\Models\EventUser::ROLE_ADMIN]);
         $request->merge(['is_personal'       => 0]);
 
         $request->merge(['match_number'      => 1]);
