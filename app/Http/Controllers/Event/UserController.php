@@ -78,6 +78,23 @@ class UserController extends Controller
                 }
 
             }elseif($event->event_category_id === \App\Models\EventCategory::CATEGORY_SWISS){
+
+                // discord名にバリデーションをかける
+                $validated = $request->validate(
+                    ['discord_name' => 'required|regex:/.+#\d{4}$/|max:255'],
+                    ['discord_name.regex' => 'ディスコードの名前は「〇〇#数字4桁」の形式にしてください']
+                );
+
+                $request->merge(['game_id'  => $event->game_id]);
+
+                // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
+                $gameUser = $this->userService->makeGameUser($request);
+                if($gameUser->discord_name <> $request->discord_name){
+                    $gameUser->discord_name = $request->discord_name;
+                    // discord_nameを更新
+                    $gameUser = $this->userService->updateGameUser($gameUser);
+                }
+
                 $request->merge(['status'  => \App\Models\EventUser::STATUS_REQUEST]);
                 $this->eventService->createUser($request) ;
             }

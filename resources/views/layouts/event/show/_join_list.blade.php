@@ -9,9 +9,7 @@
               <th>名前</th>
               <th>レート</th>
               <th>参加ステータス</th>
-              @if(Auth::check()
-                 && Auth::user()->eventUsers->where('event_id', $event->id)->isNotEmpty()
-                 && Auth::user()->eventUsers->where('event_id', $event->id)->first()->status == \App\Models\EventUser::STATUS_MASTER)
+              @can('eventRole',$event->id)
                 <th>主催者ボタン</th>
               @endif
             </tr>
@@ -38,13 +36,11 @@
                     <td>主催者</td>
                   @endif
                   <td>
-                  @if(Auth::check()
-                     && Auth::user()->eventUsers->where('event_id', $event->id)->isNotEmpty()
-                     && Auth::user()->eventUsers->where('event_id', $event->id)->first()->status == \App\Models\EventUser::STATUS_MASTER)
+                  @can('eventRole',$event->id)
                       <input type="hidden" name="user_id" value="{{$eventUser->user_id}}">
                       <input type="submit" name="approval" class="btn btn-primary rounded-pill pl-4 pr-4" value="承認">
                       <input type="submit" name="reject" class="btn btn-secondary rounded-pill pl-4 pr-4" value="却下">
-                  @endif
+                  @endcan
                 </tr>
               </form>
             @endforeach

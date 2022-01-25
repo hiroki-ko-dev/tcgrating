@@ -11,6 +11,23 @@
               <form method="POST" action="/event/user">
                 @csrf
                   <input type="hidden" name="event_id" value="{{$event->id}}">
+
+                  <div class="d-flex flex-row mb-3">
+                    <div class="w-30">{{ __('Discordでの名前') }}</div>
+                    <div class="w-70">
+                      @if(Auth::user()->gameUsers->where('game_id', Auth::user()->selected_game_id)->first())
+                        <input type="text" placeholder="#と数字まで入れる" class="form-control w-100 @error('discord_name') is-invalid @enderror" name="discord_name" value="{{ old('discord_name', Auth::user()->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()->discord_name) }}" required>
+                      @else
+                        <input type="text" placeholder="#と数字まで入れる" class="form-control w-100 @error('discord_name') is-invalid @enderror" name="discord_name" value="{{ old('discord_name') }}" required>>
+                      @endif
+                      @error('discord_name')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
+                    </div>
+                  </div>
+
                   <button type="submit" name="event_add_user" value="1" class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
                           onClick="return requestConfirm();">
                     {{ __('イベント申込') }}

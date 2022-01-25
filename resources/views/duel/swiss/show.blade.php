@@ -36,22 +36,22 @@
         <div class="box">
           <div class="form-group row">
             <div class="col-md-12">
-              @if(Auth::check() && $duel->status == \App\Models\Duel::STATUS_READY
-                && (Auth::id() == $duel->duelUsers[0]->user_id
-                    || Auth::user()->eventUsers->where('event_id',$duel->eventDuel->event_id)->where('status')))
-                <div class="mb-2">
-                  <form method="POST" action="/duel/swiss/{{$duel->id}}" onClick="return requestConfirm();">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="user_id" value="{{$duel->duelUsers[0]->user_id}}">
-                    <span class="col-md-3 ">
-                      <input type="submit" class="btn btn-primary rounded-pill btn-outline-dark text-light" name="win" value="　勝利　">
-                    </span>
-                    <span class="col-md-7">
-                      <input type="submit" class="btn btn-secondary rounded-pill btn-outline-dark text-light" name="draw" value="　ドロー">
-                    </span>
-                  </form>
-                </div>
+              @if(Auth::check() && $duel->status == \App\Models\Duel::STATUS_READY)
+                @if(Auth::check() && (Auth::user()->can('eventRole',$duel->eventDuel->event->id) || Auth::id() == $duel->duelUsers[0]->user_id))
+                  <div class="mb-2">
+                    <form method="POST" action="/duel/swiss/{{$duel->id}}" onClick="return requestConfirm();">
+                      @csrf
+                      @method('PUT')
+                      <input type="hidden" name="user_id" value="{{$duel->duelUsers[0]->user_id}}">
+                      <span class="col-md-3 ">
+                        <input type="submit" class="btn btn-primary rounded-pill btn-outline-dark text-light" name="win" value="　勝利　">
+                      </span>
+                      <span class="col-md-7">
+                        <input type="submit" class="btn btn-secondary rounded-pill btn-outline-dark text-light" name="draw" value="　ドロー">
+                      </span>
+                    </form>
+                  </div>
+                @endif
               @endif
               <img src="{{$duel->duelUsers[0]->user->twitter_simple_image_url}}" class="rounded-circle">
               <a href="/user/{{$duel->duelUsers[0]->user_id}}">{{$duel->duelUsers[0]->user->name}}</a>
@@ -62,20 +62,23 @@
               <img src="{{$duel->duelUsers[1]->user->twitter_simple_image_url}}" class="rounded-circle">
               <a href="/user/{{$duel->duelUsers[1]->user_id}}">{{$duel->duelUsers[1]->user->name}}</a>
                 大会レート：{{$duel->eventDuel->event->eventUsers->where('user_id',$duel->duelUsers[1]->user_id)->first()->event_rate}}
-              @if(Auth::check() && Auth::id() == $duel->duelUsers[1]->user_id)
-                <div class="mt-2">
-                  <form method="POST" action="/duel/swiss/{{$duel->id}}" onClick="return requestConfirm();">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="user_id" value="{{$duel->duelUsers[1]->user_id}}">
-                    <span class="col-md-3 ">
-                      <input type="submit" class="btn btn-primary rounded-pill btn-outline-dark text-light" name="win" value="　勝利　">
-                    </span>
-                    <span class="col-md-7">
-                      <input type="submit" class="btn btn-secondary rounded-pill btn-outline-dark text-light" name="draw" value="　ドロー">
-                    </span>
-                  </form>
-                </div>
+
+              @if(Auth::check() && $duel->status == \App\Models\Duel::STATUS_READY)
+                @if(Auth::check() && (Auth::user()->can('eventRole',$duel->eventDuel->event->id) || Auth::id() == $duel->duelUsers[1]->user_id))
+                  <div class="mt-2">
+                    <form method="POST" action="/duel/swiss/{{$duel->id}}" onClick="return requestConfirm();">
+                      @csrf
+                      @method('PUT')
+                      <input type="hidden" name="user_id" value="{{$duel->duelUsers[1]->user_id}}">
+                      <span class="col-md-3 ">
+                        <input type="submit" class="btn btn-primary rounded-pill btn-outline-dark text-light" name="win" value="　勝利　">
+                      </span>
+                      <span class="col-md-7">
+                        <input type="submit" class="btn btn-secondary rounded-pill btn-outline-dark text-light" name="draw" value="　ドロー">
+                      </span>
+                    </form>
+                  </div>
+                @endif
               @endif
             </div>
           </div>
