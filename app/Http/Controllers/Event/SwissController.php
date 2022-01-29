@@ -130,6 +130,8 @@ class SwissController extends Controller
                 //配信URLを更新する場合
             }elseif($request->has('event_add_user')) {
                 $this->eventService->updateEventUserByUserIdAndGameId($request);
+            }elseif($request->has('finish')) {
+                $event = $this->eventService->updateSwissEventByFinish($request->event_id);
             }
         });
 

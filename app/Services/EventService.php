@@ -3,18 +3,21 @@
 namespace App\Services;
 use App\Repositories\EventRepository;
 use App\Repositories\EventUserRepository;
-use App\Repositories\UserRepository;
+use App\Repositories\GameUserRepository;
 use Illuminate\Http\Request;
 
 class EventService
 {
+    protected $gameUserRepository;
     protected $eventRepository;
     protected $eventUserRepository;
 
 
-    public function __construct(EventRepository $eventRepository,
+    public function __construct(GameUserRepository $gameUserRepository,
+                                EventRepository $eventRepository,
                                 EventUserRepository $eventUserRepository)
     {
+        $this->gameUserRepository = $gameUserRepository;
         $this->eventRepository = $eventRepository;
         $this->eventUserRepository  = $eventUserRepository;
     }
@@ -64,6 +67,32 @@ class EventService
     }
 
     /**
+     * イベントステータスの更新
+     * @param $event_id
+     * @return bool
+     */
+    public function updateSwissEventByFinish($event_id)
+    {
+        // イベントのステータスを完了に更新
+        $event = $this->updateEventStatus($event_id, \App\Models\Event::STATUS_FINISH);
+        // 大会レートを本レートに反映
+        $eventUsers = $event->eventUsers->where('status', \App\Models\EventUser::STATUS_APPROVAL);
+        foreach($eventUsers as $eventUser){
+            $rate = $eventUser->user->rate + $eventUser->event_rate;
+            if($rate < 0){
+                $rate = 0;
+            }
+            $gameUser = $this->gameUserRepository->findByGameIdAndUserId($event->game_id, $eventUser->user_id);
+            $gameUser->rate = $rate;
+            $gameUser = $this->gameUserRepository->update($gameUser);
+
+            return $gameUser;
+        }
+
+        return $event;
+    }
+
+    /**
      * @param $request
      * @return mixed
      */
@@ -96,6 +125,8 @@ class EventService
     {
         return $this->eventRepository->findAllByUserId($user_id);
     }
+
+
 
 
 }

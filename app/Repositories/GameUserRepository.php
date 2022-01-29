@@ -28,11 +28,21 @@ class GameUserRepository
     public function update($request)
     {
         $gameUser = $this->find($request->id);
-        $gameUser->game_id      = $request->game_id;
-        $gameUser->user_id      = $request->user_id;
-        $gameUser->discord_name = $request->discord_name;
-        $gameUser->is_mail_send = $request->is_mail_send;
-        $gameUser->rate         = $request->rate;
+        if(isset($request->game_id)){
+            $gameUser->game_id      = $request->game_id;
+        }
+        if(isset($request->user_id)){
+            $gameUser->user_id      = $request->user_id;
+        }
+        if(isset($request->discord_name)){
+            $gameUser->discord_name = $request->discord_name;
+        }
+        if(isset($request->is_mail_send)) {
+            $gameUser->is_mail_send = $request->is_mail_send;
+        }
+        if(isset($gameUser->rate)) {
+            $gameUser->rate         = $request->rate;
+        }
         $gameUser->save();
 
         return $gameUser;
