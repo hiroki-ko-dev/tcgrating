@@ -273,7 +273,13 @@ class DuelService
         // $eventUsers = $event->eventUsers->whereIn('status',[\App\Models\EventUser::STATUS_APPROVAL,\App\Models\EventUser::STATUS_MASTER])->shuffle();
         // 主催者抜き
         $eventUsers = $event->eventUsers->whereIn('status',[\App\Models\EventUser::STATUS_APPROVAL,\App\Models\EventUser::STATUS_MASTER])->shuffle();
-        $eventUsers->sortBy('event_rate');
+
+        foreach($eventUsers as $eventUser){
+            $eventUser->append('now_event_rate');
+            $eventUser->now_event_rate = $eventUser->event_rate;
+        }
+
+        $eventUsers->sortBy('now_event_rate');
 
         $duels = null;
         // 対戦チャンネル指定用

@@ -15,8 +15,8 @@
                   <div class="d-flex flex-row mb-3">
                     <div class="w-30">{{ __('Discordでの名前') }}</div>
                     <div class="w-70">
-                      @if(Auth::user()->gameUsers->where('game_id', Auth::user()->selected_game_id)->first())
-                        <input type="text" placeholder="#と数字まで入れる" class="form-control w-100 @error('discord_name') is-invalid @enderror" name="discord_name" value="{{ old('discord_name', Auth::user()->gameUsers->where('game_id', Auth::user()->selected_game_id)->first()->discord_name) }}" required>
+                      @if(Auth::user()->gameUsers->where('game_id', $event->game_id)->first())
+                        <input type="text" placeholder="#と数字まで入れる" class="form-control w-100 @error('discord_name') is-invalid @enderror" name="discord_name" value="{{ old('discord_name', Auth::user()->gameUsers->where('game_id', $event->game_id)->first()->discord_name) }}" required>
                       @else
                         <input type="text" placeholder="#と数字まで入れる" class="form-control w-100 @error('discord_name') is-invalid @enderror" name="discord_name" value="{{ old('discord_name') }}" required>>
                       @endif
