@@ -147,6 +147,11 @@ class SwissController extends Controller
     public function show($event_id)
     {
         $event = $this->eventService->getEvent($event_id);
+        session(['loginAfterRedirectUrl' => env('APP_URL').'/event/swiss/' . $event_id]);
+
+        if(Auth::check()){
+            session()->forget('loginAfterRedirectUrl');
+        }
 
         return view('event.swiss.show.show',compact('event'));
     }
