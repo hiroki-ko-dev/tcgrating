@@ -67,7 +67,9 @@ class SwissController extends Controller
         session(['loginAfterRedirectUrl' => env('APP_URL').'/event/swiss/create']);
         session(['selected_game_id' => 3]);
 
-        return view('event.swiss.create');
+        $event = new \App\Models\Event();
+
+        return view('event.swiss.create', compact('event'));
     }
 
     /**

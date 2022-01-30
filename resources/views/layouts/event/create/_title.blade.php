@@ -4,7 +4,7 @@
       <div class="box-header text-left">{{ __('イベント名') }}</div>
       <div class="form-group row">
         <div class="col-md-12">
-          <input type="text" id="title" class="form-control w-100 @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}">
+          <input type="text" id="title" class="form-control w-100 @error('title') is-invalid @enderror" name="title" value="{{ old('title', $event->title) }}">
           @error('title')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>

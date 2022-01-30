@@ -8,7 +8,7 @@
           <select id="tool_id" name="tool_id" class="form-control">
             @foreach(config('assets.duel.tool') as $key => $tool)
               <option value="{{$key}}"
-                      @if(old('tool_id') == $key)
+                      @if(old('tool_id', $event->tool_id) == $key)
                       selected
                 @endif
               >{{$tool}}</option>
@@ -24,7 +24,7 @@
       <div class="d-flex flex-row mb-3">
         <div class="w-30">{{ __('対戦コード') }}</div>
         <div class="w-70">
-          <input id="tool_code" type="text" placeholder="※ユーザー名等の連絡がとれるもの" class="form-control w-100 @error('tool_code') is-invalid @enderror" name="tool_code" value="{{ old('tool_code') }}" autofocus>
+          <input id="tool_code" type="text" placeholder="※ユーザー名等の連絡がとれるもの" class="form-control w-100 @error('tool_code') is-invalid @enderror" name="tool_code" value="{{ old('tool_code', $event->tool_code) }}" autofocus>
           @error('tool_code')
           <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
