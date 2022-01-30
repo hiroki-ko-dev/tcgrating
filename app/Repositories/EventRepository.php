@@ -8,6 +8,44 @@ use Illuminate\Http\Request;
 
 class EventRepository
 {
+    /**
+     * @param Event $event
+     * @param $request
+     */
+    public function composeSaveClause(Event $event, $request)
+    {
+        if(isset($request->status)) {
+            $event->status = $request->status;
+        }
+        if(isset($request->number_of_match)){
+            $event->number_of_match = $request->number_of_match;
+        }
+        if(isset($request->now_match_number)){
+            $event->now_match_number = $request->now_match_number;
+        }
+        if(isset($request->max_member)) {
+            $event->max_member = $request->max_member;
+        }
+        if(isset($request->title)) {
+            $event->title = $request->title;
+        }
+        if(isset($request->body)) {
+            $event->body = $request->body;
+        }
+        if(isset($request->date)) {
+            $event->date = $request->date;
+        }
+        if(isset($request->start_time)) {
+            $event->start_time = $request->start_time;
+        }
+        if(isset($request->end_time)) {
+            $event->end_time = $request->end_time;
+        }
+        if(isset($request->image_url)){
+            $event->image_url = $request->image_url;
+        }
+        return $event;
+    }
 
     public function create($request)
     {
@@ -39,7 +77,7 @@ class EventRepository
     public function update($request)
     {
         $event = Event::find($request->event_id);
-        $event->now_match_number = $request->now_match_number;
+        $event = $this->composeSaveClause($event, $request);
         $event->save();
 
         return $event;

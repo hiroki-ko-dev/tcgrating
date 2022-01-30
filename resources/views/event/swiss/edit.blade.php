@@ -7,11 +7,12 @@
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-12 page-header">
-      {{ __('スイスドローイベント作成') }}
+      {{ __('スイスドローイベント編集') }}
     </div>
   </div>
-  <form method="POST" action="/event/swiss">
+  <form method="POST" action="/event/swiss/{{$event->id}}">
     @csrf
+    @method('PUT')
 
     @include('layouts.common._twitter_auth')
     @include('layouts.event.create._title')

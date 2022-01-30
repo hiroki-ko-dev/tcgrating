@@ -112,6 +112,22 @@ class SwissController extends Controller
     }
 
     /**
+     * @param $event_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function edit($event_id)
+    {
+        $event = $this->eventService->getEvent($event_id);
+
+        //ログインしていないとリダイレクト
+        if(!Auth::user()->can('eventRole',$event_id)) {
+            return redirect('/');
+        }
+
+        return view('event.swiss.edit', compact('event'));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -124,15 +140,20 @@ class SwissController extends Controller
         $request->merge(['user_id' => Auth::id()]);
 
         DB::transaction(function () use($request) {
-            //イベントがキャンセルさせる場合
-            if($request->has('ready')) {
+            if($request->has('save')){
+                // イベント編集時
+                $event = $this->eventService->updateEvent($request);
+            }elseif($request->has('ready')) {
+                // 参加締め切りする場合
                 $event = $this->eventService->updateEventStatus($request->event_id, \App\Models\Event::STATUS_READY);
             }elseif($request->has('cancel')){
+                // イベントがキャンセルさせる場合
                 $event = $this->eventService->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
-                //配信URLを更新する場合
             }elseif($request->has('event_add_user')) {
+                // 参加者からの参加申し込み
                 $this->eventService->updateEventUserByUserIdAndGameId($request);
             }elseif($request->has('finish')) {
+                // イベント完了時
                 $event = $this->eventService->updateSwissEventByFinish($request->event_id);
             }
         });

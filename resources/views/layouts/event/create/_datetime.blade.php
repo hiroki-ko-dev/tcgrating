@@ -7,7 +7,7 @@
           <div class="d-flex flex-row mb-3 align-items-center">
             <div class="w-30 font-weight-bold">日程</div>
             <div class="w-70">
-              <input type="text" id="datepicker" class="form-control w-100 @error('date') is-invalid @enderror" name="date" >{{ old('date', $event->date) }}</input>
+              <input type="text" id="datepicker" class="form-control w-100 @error('date') is-invalid @enderror" name="date" value="{{ old('date', $event->date)}}">
               @error('date')
               <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
