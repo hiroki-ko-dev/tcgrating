@@ -18,6 +18,7 @@
   </div>
 
   @include('layouts.event.show._title')
+  @include('layouts.event.show._rank')
   @include('layouts.event.show._image_url')
   @include('layouts.event.show._number_of_games')
   @include('layouts.event.show._max_member')
