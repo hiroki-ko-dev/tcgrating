@@ -18,7 +18,7 @@
                       @if(Auth::user()->gameUsers->where('game_id', $event->game_id)->first())
                         <input type="text" placeholder="#と数字まで入れる" class="form-control w-100 @error('discord_name') is-invalid @enderror" name="discord_name" value="{{ old('discord_name', Auth::user()->gameUsers->where('game_id', $event->game_id)->first()->discord_name) }}" required>
                       @else
-                        <input type="text" placeholder="#と数字まで入れる" class="form-control w-100 @error('discord_name') is-invalid @enderror" name="discord_name" value="{{ old('discord_name') }}" required>>
+                        <input type="text" placeholder="#と数字まで入れる" class="form-control w-100 @error('discord_name') is-invalid @enderror" name="discord_name" value="{{ old('discord_name') }}" required>
                       @endif
                       @error('discord_name')
                       <span class="invalid-feedback" role="alert">

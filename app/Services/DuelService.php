@@ -279,7 +279,7 @@ class DuelService
             $eventUser->now_event_rate = $eventUser->event_rate;
         }
 
-        $eventUsers->sortBy('now_event_rate');
+        $eventUsers = $eventUsers->sortByDesc('now_event_rate')->values();
 
         $duels = null;
         // 対戦チャンネル指定用
