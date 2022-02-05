@@ -91,7 +91,7 @@
                       <li><a href="/site/how_to_use/instant">使い方</a></li>
                       <li><a href="/event/instant">1vs1対戦</a></li>
                       <li><a href="/blog">記事</a></li>
-                      @if(Auth::id() == 1)
+                      @if(Auth::user()->role == 1)
                         <li><a href="/event/group">グループ対戦</a></li>
                         <li><a href="/event/swiss">スイスドロー対戦</a></li>
                       @endif
@@ -105,6 +105,9 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
+                  @endif
+                  @if(Auth::check() && Auth::user()->role == 1)
+                    <li><a href="/admin">管理者用</a></li>
                   @endif
                 </ul>
               </div>

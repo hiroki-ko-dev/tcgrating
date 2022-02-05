@@ -98,3 +98,8 @@ use Illuminate\Support\Facades\Route;
     Route::resources([
         'rank' => RankController::class,
     ]);
+
+    //管理者専用
+    Route::resources([
+        'admin' => AdminController::class,
+    ]);
