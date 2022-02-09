@@ -30,12 +30,9 @@ class ConfigRetriever implements ConfigRetrieverInterface
     protected $additionalConfigKeys;
 
     /**
-     * @param string $providerName
-     * @param array  $additionalConfigKeys
-     *
+     * @param  string  $providerName
+     * @param  array  $additionalConfigKeys
      * @return \SocialiteProviders\Manager\Contracts\ConfigInterface
-     *
-     * @throws \SocialiteProviders\Manager\Exception\MissingConfigException
      */
     public function fromServices($providerName, array $additionalConfigKeys = [])
     {
@@ -55,9 +52,8 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param array    $configKeys
-     * @param \Closure $keyRetrievalClosure
-     *
+     * @param  array  $configKeys
+     * @param  \Closure  $keyRetrievalClosure
      * @return array
      */
     protected function getConfigItems(array $configKeys, Closure $keyRetrievalClosure)
@@ -66,9 +62,8 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param array    $keys
-     * @param \Closure $keyRetrievalClosure
-     *
+     * @param  array  $keys
+     * @param  \Closure  $keyRetrievalClosure
      * @return array
      */
     protected function retrieveItemsFromConfig(array $keys, Closure $keyRetrievalClosure)
@@ -83,9 +78,8 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param string $key
-     *
-     * @return string
+     * @param  string  $key
+     * @return string|null
      *
      * @throws \SocialiteProviders\Manager\Exception\MissingConfigException
      */
@@ -94,12 +88,12 @@ class ConfigRetriever implements ConfigRetrieverInterface
         $keyExists = array_key_exists($key, $this->servicesArray);
 
         // ADDITIONAL value is empty
-        if (!$keyExists && $this->isAdditionalConfig($key)) {
-            return $key == 'guzzle' ? [] : null ;
+        if (! $keyExists && $this->isAdditionalConfig($key)) {
+            return $key == 'guzzle' ? [] : null;
         }
 
         // REQUIRED value is empty
-        if (!$keyExists) {
+        if (! $keyExists) {
             throw new MissingConfigException("Missing services entry for {$this->providerName}.$key");
         }
 
@@ -107,8 +101,7 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param string $providerName
-     *
+     * @param  string  $providerName
      * @return array
      *
      * @throws \SocialiteProviders\Manager\Exception\MissingConfigException
@@ -134,8 +127,7 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param string $key
-     *
+     * @param  string  $key
      * @return bool
      */
     protected function isAdditionalConfig($key)

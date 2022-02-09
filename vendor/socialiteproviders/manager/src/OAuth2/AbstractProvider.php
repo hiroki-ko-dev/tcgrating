@@ -19,8 +19,14 @@ abstract class AbstractProvider extends BaseProvider implements ProviderInterfac
     protected $credentialsResponseBody;
 
     /**
-     * @param string $providerName
+     * The cached user instance.
      *
+     * @var \SocialiteProviders\Manager\OAuth2\User|null
+     */
+    protected $user;
+
+    /**
+     * @param  string  $providerName
      * @return string
      */
     public static function serviceContainerKey($providerName)
@@ -30,9 +36,15 @@ abstract class AbstractProvider extends BaseProvider implements ProviderInterfac
 
     /**
      * @return \SocialiteProviders\Manager\OAuth2\User
+     *
+     * @throws \Laravel\Socialite\Two\InvalidStateException
      */
     public function user()
     {
+        if ($this->user) {
+            return $this->user;
+        }
+
         if ($this->hasInvalidState()) {
             throw new InvalidStateException();
         }
@@ -40,15 +52,15 @@ abstract class AbstractProvider extends BaseProvider implements ProviderInterfac
         $response = $this->getAccessTokenResponse($this->getCode());
         $this->credentialsResponseBody = $response;
 
-        $user = $this->mapUserToObject($this->getUserByToken(
+        $this->user = $this->mapUserToObject($this->getUserByToken(
             $token = $this->parseAccessToken($response)
         ));
 
-        if ($user instanceof User) {
-            $user->setAccessTokenResponseBody($this->credentialsResponseBody);
+        if ($this->user instanceof User) {
+            $this->user->setAccessTokenResponseBody($this->credentialsResponseBody);
         }
 
-        return $user->setToken($token)
+        return $this->user->setToken($token)
                     ->setRefreshToken($this->parseRefreshToken($response))
                     ->setExpiresIn($this->parseExpiresIn($response));
     }
@@ -56,8 +68,7 @@ abstract class AbstractProvider extends BaseProvider implements ProviderInterfac
     /**
      * Get the access token from the token response body.
      *
-     * @param array $body
-     *
+     * @param  array  $body
      * @return string
      */
     protected function parseAccessToken($body)
@@ -68,8 +79,7 @@ abstract class AbstractProvider extends BaseProvider implements ProviderInterfac
     /**
      * Get the refresh token from the token response body.
      *
-     * @param array $body
-     *
+     * @param  array  $body
      * @return string
      */
     protected function parseRefreshToken($body)
@@ -80,8 +90,7 @@ abstract class AbstractProvider extends BaseProvider implements ProviderInterfac
     /**
      * Get the expires in from the token response body.
      *
-     * @param array $body
-     *
+     * @param  array  $body
      * @return string
      */
     protected function parseExpiresIn($body)
