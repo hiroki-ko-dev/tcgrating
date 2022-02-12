@@ -37,7 +37,7 @@
                     <tr>
                         <td scope="col" class="align-middle">
                           @if($i < 4)
-                            <img class="w-20" src="/images/icon/rank/{{$rates->firstItem()+$i}}.png">
+                            <img style="width:50px;" src="/images/icon/rank/{{$rates->firstItem()+$i}}.png">
                           @else
                             {{$rates->firstItem()+$i}}
                           @endif
