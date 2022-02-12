@@ -35,9 +35,17 @@
                 <tbody>
                 @foreach($rates as $i => $rate)
                     <tr>
-                        <td scope="col" class="align-middle">{{$rates->firstItem()+$i}}</td>
+                        <td scope="col" class="align-middle">
+                          @if($i < 4)
+                            <img class="w-20" src="/images/icon/rank/{{$rates->firstItem()+$i}}.png">
+                          @else
+                            {{$rates->firstItem()+$i}}
+                          @endif
+                        </td>
                         <td scope="col" class="align-middle"><img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle"></td>
-                      <td scope="col" class="text-left align-middle"><a href="/user/{{$rate->user->id}}">{{$rate->user->name}}</a></td>
+                      <td scope="col" class="text-left align-middle">
+                        <a href="/user/{{$rate->user->id}}">{{$rate->user->name}}</a>
+                      </td>
                         <td scope="col" class="align-middle">{{$rate->rate}}</td>
                     </tr>
                 @endforeach
