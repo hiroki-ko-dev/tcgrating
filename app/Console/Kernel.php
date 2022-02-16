@@ -25,7 +25,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('command:tweetPromotion')->dailyAt('19:00');
+        $schedule->command('command:tweetPromotion')->dailyAt('18:00');
+        $schedule->command('command:tweetPromotion')->dailyAt('20:00');
+        $schedule->command('command:tweetPromotion')->dailyAt('22:00');
+        $schedule->command('command:tweetPromotion')->dailyAt('0:00');
     }
 
     /**
