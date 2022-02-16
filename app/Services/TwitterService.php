@@ -303,6 +303,32 @@ class TwitterService
     }
 
     /**
+     *
+     */
+    public function tweetPromotion()
+    {
+//        if(config('assets.common.appEnv') == 'production'){
+            $apiKeys = config('assets.twitter.pokemon');
+            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
+
+            // 対戦マッチング  によるメール文
+            $tweet =
+                '【リモートポケカの対戦相手がすぐ見つかる！】' . PHP_EOL .
+                PHP_EOL .
+                '平日休日問わず24時間相手が見つかる！' . PHP_EOL .
+                '初心者さん大歓迎！' . PHP_EOL .
+                '話さず見てるだけでも、すぐ退出もOK！'  . PHP_EOL .
+                'メンバー数世界最大のポケカLINEオプチャにご参加ください(^^)'  . PHP_EOL .
+                PHP_EOL .
+                $hashTag . PHP_EOL .
+                'https://line.me/ti/g2/Kt5eTJpAKQ9eV-De1_m7jeJA1XLIKaQFypvEZg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default'
+                ;
+
+                $this->twitterRepository->tweet($apiKeys, $tweet);
+//        }
+    }
+
+    /**
      * @param $message
      */
     public function discordPost($message)
