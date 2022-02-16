@@ -36,7 +36,7 @@
                 @foreach($rates as $i => $rate)
                     <tr>
                         <td scope="col" class="align-middle">
-                          @if($i < 4)
+                          @if($rates->firstItem()+$i <= 4)
                             <img style="width:50px;" src="/images/icon/rank/{{$rates->firstItem()+$i}}.png">
                           @else
                             {{$rates->firstItem()+$i}}
