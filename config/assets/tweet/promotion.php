@@ -58,5 +58,13 @@ return [
             '空いた時間に軽く1戦どうですか？'  . PHP_EOL .
             'ご参加は以下のLINEオプチャから！'  . PHP_EOL
             ,
+
+        '8'   =>
+            '【メンバー数世界最大のリモートポケカLINEオプチャ】' . PHP_EOL .
+            PHP_EOL .
+            'たまに内部大会を開催しています!'  . PHP_EOL .
+            '第一回大会決勝はこちら！'  . PHP_EOL .
+            'https://youtu.be/N6Oewsov4M8'  . PHP_EOL
+        ,
     ],
 ];
