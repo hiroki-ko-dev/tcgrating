@@ -313,8 +313,7 @@ class TwitterService
         if(config('assets.common.appEnv') == 'production'){
             $apiKeys = config('assets.twitter.pokemon');
 
-            $hashTags = ['#ポケモンカード','#ポケカ', '#リモートポケカ', '#discordポケカ'];
-            $hashTag = $hashTags[array_rand($hashTags)];
+            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
 
             $randKey  =  array_rand(config('assets.tweet.promotion.promotion'));
             $tweet  =  config('assets.tweet.promotion.promotion')[$randKey];
