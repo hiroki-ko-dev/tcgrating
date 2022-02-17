@@ -52,6 +52,14 @@ return [
             ,
 
         '7'   =>
+            '【リモートポケカランキングの1位を目指そう！】' . PHP_EOL .
+            PHP_EOL .
+            'リモートポケカのレート戦ランキングです！' . PHP_EOL .
+            'https://hashimu.com/rank?remotopokeka=1&selected_game_id=3' . PHP_EOL .
+            'ご参加は以下のLINEオプチャから！'  . PHP_EOL
+        ,
+
+        '8'   =>
             '【ちょっと空いた時間にリモートポケカしませんか？】' . PHP_EOL .
             PHP_EOL .
             'メンバー数世界最大なのでいつでも相手が見つかります！'  . PHP_EOL .
@@ -59,7 +67,7 @@ return [
             'ご参加は以下のLINEオプチャから！'  . PHP_EOL
             ,
 
-        '8'   =>
+        '9'   =>
             '【メンバー数世界最大のリモートポケカLINEオプチャ】' . PHP_EOL .
             PHP_EOL .
             'たまに内部大会を開催しています!'  . PHP_EOL .
@@ -67,7 +75,15 @@ return [
             'https://youtu.be/N6Oewsov4M8'  . PHP_EOL
         ,
 
-        '9'   =>
+        '10'   =>
+            '【自宅から参加できるリモートポケカ大会】' . PHP_EOL .
+            PHP_EOL .
+            '当サイトでは不定期でたまに内部大会を開催しています!'  . PHP_EOL .
+            '第一回大会決勝はこちら！'  . PHP_EOL .
+            'https://youtu.be/N6Oewsov4M8'  . PHP_EOL
+        ,
+
+        '11'   =>
             '【初めてのリモートポケカをやってみよう！】' . PHP_EOL .
             PHP_EOL .
             '初心者大歓迎！！'  . PHP_EOL .
@@ -75,7 +91,7 @@ return [
             'ご参加は以下のLINEオプチャから！'  . PHP_EOL
         ,
 
-        '10'   =>
+        '12'   =>
             '【新しく組んだポケカデッキ、試したくありませんか？】' . PHP_EOL .
             PHP_EOL .
             'リモートポケカなら空いた時間でサクッと対戦！！'  . PHP_EOL .

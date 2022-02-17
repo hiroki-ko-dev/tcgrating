@@ -31,7 +31,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:tweetPromotion')->dailyAt('14:00');
         $schedule->command('command:tweetPromotion')->dailyAt('16:00');
         $schedule->command('command:tweetPromotion')->dailyAt('18:00');
+        $schedule->command('command:tweetPromotion')->dailyAt('19:00');
         $schedule->command('command:tweetPromotion')->dailyAt('20:00');
+        $schedule->command('command:tweetPromotion')->dailyAt('21:00');
         $schedule->command('command:tweetPromotion')->dailyAt('22:00');
         $schedule->command('command:tweetPromotion')->dailyAt('0:00');
     }
