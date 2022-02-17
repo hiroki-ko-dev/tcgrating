@@ -57,7 +57,8 @@ class TwitterService
             // TwitterのポケモンアカウントでTweet
         }elseif($event->game_id == 3){
             $apiKeys = config('assets.twitter.pokemon');
-            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
+//            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
+            $hashTag = '';
         }
 
         // イベント作成によるメール文
@@ -127,7 +128,8 @@ class TwitterService
             // TwitterのポケモンアカウントでTweet
         }elseif($duel->game_id == 3){
             $apiKeys = config('assets.twitter.pokemon');
-            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
+//            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
+            $hashTag = '';
         }
 
         // 対戦マッチング  によるメール文
@@ -203,7 +205,8 @@ class TwitterService
             // TwitterのポケモンアカウントでTweet
         }elseif($duel->game_id == 3){
             $apiKeys = config('assets.twitter.pokemon');
-            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
+//            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
+            $hashTag = '';
         }
 
         if($duel->duelUsers[0]->duelUserResults->sum('rating') > $duel->duelUsers[1]->duelUserResults->sum('rating')){
@@ -309,7 +312,9 @@ class TwitterService
     {
         if(config('assets.common.appEnv') == 'production'){
             $apiKeys = config('assets.twitter.pokemon');
-            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
+
+            $hashTags = ['#ポケモンカード','#ポケカ', '#リモートポケカ', '#discordポケカ'];
+            $hashTag = $hashTags[array_rand($hashTags)];
 
             $randKey  =  array_rand(config('assets.tweet.promotion.promotion'));
             $tweet  =  config('assets.tweet.promotion.promotion')[$randKey];
