@@ -122,4 +122,15 @@ class EventRepository
                     ->paginate($paginate);
     }
 
+    public function findAllByIndexForApi($request, $paginate)
+    {
+        return Event::select('id', 'user_id','status','created_at')
+                    ->where('game_id', $request->game_id)
+                    ->where('event_category_id', $request->event_category_id)
+                    ->with('eventUsers', function($query) {
+                        $query->with('user:id,name');
+                    })
+                    ->paginate($paginate);
+    }
+
 }

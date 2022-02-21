@@ -44,8 +44,9 @@ use Illuminate\Support\Facades\Route;
 
     // Api
     Route::prefix('api')->group(function () {
-        // TwitterログインURL
-        Route::get('/single/test', 'Api\SingleController@index');
+
+        Route::get('/single/test', 'Api\Event\SingleController@test');
+        Route::resources(['single' => Api\Event\SingleController::class]);
     });
 
 //    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');

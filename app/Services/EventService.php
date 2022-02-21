@@ -126,7 +126,10 @@ class EventService
         return $this->eventRepository->findAllByUserId($user_id);
     }
 
-
+    public function getEventsByIndexForApi($request, $paginate)
+    {
+        return $this->eventRepository->findAllByIndexForApi($request, $paginate);
+    }
 
 
 }
