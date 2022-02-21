@@ -13,19 +13,19 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    protected $user_service;
-    protected $event_service;
+    protected $userService;
+    protected $eventService;
 
     /**
      * UserController constructor.
-     * @param UserService $user_service
-     * @param EventService $event_service
+     * @param UserService $userService
+     * @param EventService $eventService
      */
-    public function __construct(UserService $user_service,
-                                EventService $event_service)
+    public function __construct(UserService $userService,
+                                EventService $eventService)
     {
-        $this->user_service  = $user_service;
-        $this->event_service = $event_service;
+        $this->userService  = $userService;
+        $this->eventService = $eventService;
     }
 
     /**
@@ -46,8 +46,8 @@ class UserController extends Controller
     public function show(Request $request,$user_id)
     {
 
-        $user   = $this->user_service->findUser($user_id);
-        $events = $this->event_service->findAllEventByUserId($user_id);
+        $user   = $this->userService->findUser($user_id);
+        $events = $this->eventService->findAllEventByUserId($user_id);
 
         return view('user.show',compact('user','events'));
     }
@@ -65,7 +65,7 @@ class UserController extends Controller
             return back();
         }
 
-        $user = $this->user_service->findUser($user_id);
+        $user = $this->userService->findUser($user_id);
 
         return view('user.edit',compact('user'));
     }
@@ -77,7 +77,7 @@ class UserController extends Controller
 //    public function store(Request $request)
 //    {
 //        DB::transaction(function () use($request){
-//            $this->user_service->updateUser($request);
+//            $this->userService->updateUser($request);
 //        });
 //
 //        return redirect('/user/'.$request->input('id'))->with('flash_message', '保存しました');
@@ -96,7 +96,7 @@ class UserController extends Controller
         }
 
         DB::transaction(function () use($request){
-            $this->user_service->updateUser($request);
+            $this->userService->updateUser($request);
         });
 
         return redirect('/user/'.$request->input('id'))->with('flash_message', '保存しました');

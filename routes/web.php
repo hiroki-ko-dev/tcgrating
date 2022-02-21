@@ -27,9 +27,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/site/landing/pokemon_card', function () {return view('site.landing.03_pokemon_card');});
 
     //ページ更新処理
-    Route::get('/reload', function () {
-        return back();
-    });
+    Route::get('/reload', function () {return back();});
 
     //権限関係
     Auth::routes();
@@ -42,6 +40,12 @@ use Illuminate\Support\Facades\Route;
         Route::get('/twitter/callback', 'Auth\TwitterController@handleProviderCallback');
         // TwitterログアウトURL
         Route::get('/twitter/logout', 'Auth\TwitterController@logout');
+    });
+
+    // Api
+    Route::prefix('api')->group(function () {
+        // TwitterログインURL
+        Route::get('/single/test', 'Api\SingleController@index');
     });
 
 //    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
