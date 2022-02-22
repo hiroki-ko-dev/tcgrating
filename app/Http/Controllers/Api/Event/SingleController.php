@@ -51,22 +51,22 @@ class SingleController extends Controller
 
     public function index()
     {
-//        try {
+        try {
             $request = new Request();
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
             $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
 
             $events = $this->eventService->getEventsByIndexForApi($request, 10);
 
-//        } catch(\Exception $e){
-//            $events = [
-//                'result' => false,
-//                'error' => [
-//                    'messages' => [$e->getMessage()]
-//                ],
-//            ];
-//            return $this->resConversionJson($events, $e->getCode());
-//        }
+        } catch(\Exception $e){
+            $events = [
+                'result' => false,
+                'error' => [
+                    'messages' => [$e->getMessage()]
+                ],
+            ];
+            return $this->resConversionJson($events, $e->getCode());
+        }
         return $this->resConversionJson($events);
     }
 
