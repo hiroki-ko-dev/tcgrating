@@ -7,6 +7,7 @@ use Auth;
 use DB;
 use App\Services\UserService;
 use App\Services\EventService;
+use App\Services\ApiService;
 
 use Illuminate\Http\Request;
 
@@ -15,17 +16,21 @@ class SingleController extends Controller
 
     protected $userService;
     protected $eventService;
+    protected $apiService;
 
     /**
-     * UserController constructor.
+     * SingleController constructor.
      * @param UserService $userService
      * @param EventService $eventService
+     * @param ApiService $apiService
      */
     public function __construct(UserService $userService,
-                                EventService $eventService)
+                                EventService $eventService,
+                                ApiService $apiService)
     {
         $this->userService  = $userService;
         $this->eventService = $eventService;
+        $this->apiService = $apiService;
     }
 
     public function test()
@@ -55,6 +60,7 @@ class SingleController extends Controller
             $request = new Request();
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
             $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
+            $request->merge(['status' => [\App\Models\Event::STATUS_RECRUIT]]);
 
             $events = $this->eventService->getEventsByIndexForApi($request, 10);
 
@@ -65,17 +71,11 @@ class SingleController extends Controller
                     'messages' => [$e->getMessage()]
                 ],
             ];
-            return $this->resConversionJson($events, $e->getCode());
+            return $this->apiService->resConversionJson($events, $e->getCode());
         }
-        return $this->resConversionJson($events);
+        return $this->apiService->resConversionJson($events);
     }
 
-    private function resConversionJson($eloquent, $statusCode=200)
-    {
-        if(empty($statusCode) || $statusCode < 100 || $statusCode >= 600){
-            $statusCode = 500;
-        }
-        return response()->json($eloquent, $statusCode, ['Content-Type' => 'application/json'], JSON_UNESCAPED_SLASHES);
-    }
+
 
 }

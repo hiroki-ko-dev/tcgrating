@@ -47,6 +47,7 @@ use Illuminate\Support\Facades\Route;
 
         Route::get('/single/test', 'Api\Event\SingleController@test');
         Route::resources(['single' => Api\Event\SingleController::class]);
+        Route::resources(['rank' => Api\Rank\RankController::class]);
     });
 
 //    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');

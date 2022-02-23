@@ -93,4 +93,9 @@ class UserService
     }
 
 
+    public function getGameUsersByRankForApi($request, $paginate)
+    {
+        return $this->gameUserRepository->findAllByRankForApi($request, $paginate);
+    }
+
 }

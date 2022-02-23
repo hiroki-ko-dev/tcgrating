@@ -100,4 +100,19 @@ class GameUserRepository
         return $query->paginate($pagination);
     }
 
+    /**
+     * @param $request
+     * @param $paginate
+     * @return mixed
+     */
+    public function findAllByRankForApi($request, $paginate){
+
+        return GameUser::select('id', 'game_id', 'user_id', 'discord_name', 'rate', 'created_at')
+            ->where('game_id', $request->game_id)
+            ->with('user:id,name')
+            ->orderBy('rate','desc')
+            ->orderBy('user_id','asc')
+            ->paginate($paginate);
+    }
+
 }

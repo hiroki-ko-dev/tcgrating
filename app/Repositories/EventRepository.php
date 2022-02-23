@@ -126,6 +126,7 @@ class EventRepository
     {
         return Event::select('id', 'user_id','status','created_at')
                     ->where('game_id', $request->game_id)
+                    ->whereIn('status', $request->status)
                     ->where('event_category_id', $request->event_category_id)
                     ->with('eventUsers', function($query) {
                         $query->with('user:id,name');
