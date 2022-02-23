@@ -109,7 +109,7 @@ class GameUserRepository
 
         return GameUser::select('id', 'game_id', 'user_id', 'discord_name', 'rate', 'created_at')
             ->where('game_id', $request->game_id)
-            ->with('user:id,name')
+            ->with('user:id,name,twitter_simple_image_url')
             ->orderBy('rate','desc')
             ->orderBy('user_id','asc')
             ->paginate($paginate);
