@@ -65,7 +65,10 @@ class SwissController extends Controller
 
         $duels = $this->duelService->getDuels($request);
 
-        return view('duel.swiss.show',compact('duels'));
+        //一回休みの人
+        $passUser = $this->duelService->getDuelPassUser($duels);
+
+        return view('duel.swiss.show',compact('duels','passUser'));
     }
 
     /**

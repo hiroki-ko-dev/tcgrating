@@ -50,6 +50,13 @@ class EventUserRepository
         return EventUser::find($id);
     }
 
+    public function findAll($request){
+        $query =  EventUser::query();
+        $query->where('event_id',$request->event_id);
+        $query->whereNotIn('user_id',$request->not_user_ids);
+        $query->where('status',$request->status);
+        return $query->get();
+    }
 
     /**
      * @param $user_id

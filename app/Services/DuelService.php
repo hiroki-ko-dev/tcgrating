@@ -6,6 +6,7 @@ use App\Repositories\DuelUserRepository;
 use App\Repositories\DuelUserResultRepository;
 use App\Repositories\EventDuelRepository;
 use App\Repositories\EventRepository;
+use App\Repositories\EventUserRepository;
 use App\Repositories\GameUserRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class DuelService
     protected $duelUserResultRepository;
     protected $eventDuelRepository;
     protected $eventRepository;
+    protected $eventUserRepository;
     protected $userRepository;
     protected $gameUserRepository;
 
@@ -25,6 +27,7 @@ class DuelService
                                 DuelUserResultRepository $duelUserResultRepository,
                                 EventDuelRepository $eventDuelRepository,
                                 EventRepository $eventRepository,
+                                EventUserRepository $eventUserRepository,
                                 UserRepository $userRepository,
                                 GameUserRepository $gameUserRepository)
     {
@@ -33,6 +36,7 @@ class DuelService
         $this->duelUserResultRepository  = $duelUserResultRepository;
         $this->eventDuelRepository       = $eventDuelRepository;
         $this->eventRepository           = $eventRepository;
+        $this->eventUserRepository       = $eventUserRepository;
         $this->userRepository            = $userRepository;
         $this->gameUserRepository        = $gameUserRepository;
     }
@@ -466,6 +470,33 @@ class DuelService
     public function getDuels($request)
     {
         return $this->duelRepository->findAll($request);
+    }
+
+    /**
+     * @param $duels
+     * @return mixed
+     */
+    public function getDuelPassUser($duels)
+    {
+        $userIds = [];
+        foreach($duels as $duel){
+            $userIds = array_merge($userIds, $duel->duelUsers->pluck('user_id')->toArray());
+        }
+
+        $request = new \stdClass();
+        $request->event_id = $duels[0]->eventDuel->event_id;
+        $request->not_user_ids = $userIds;
+        $request->status = \App\Models\EventUser::STATUS_APPROVAL;
+
+        $passEventUser = $this->eventUserRepository->findAll($request);
+
+        if($passEventUser->isEmpty()){
+            $passUser = null;
+        }else{
+            $passUser = $passEventUser[0]->user;
+        }
+
+        return $passUser;
     }
 
     /**

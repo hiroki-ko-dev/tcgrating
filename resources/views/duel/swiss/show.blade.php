@@ -87,6 +87,24 @@
     </div>
   @endforeach
 
+  @if($passUser)
+    <div class="row justify-content-center row-eq-height mb-4">
+      <div class="col-12">
+        <div class="site-color text-white text-center">一回休み</div>
+        <div class="box">
+          <div class="form-group row">
+            <div class="col-md-12">
+              <img src="{{$passUser->twitter_simple_image_url}}" class="rounded-circle">
+              <a href="/user/{{$passUser->user_id}}">{{$passUser->name}}</a>
+              大会レート：{{$duels[0]->eventDuel->event->eventUsers->where('user_id',$passUser->id)->first()->event_rate}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  @endif
+
+
   <div class="row justify-content-center mb-4">
     <div class="col-12">
       <div class="box">
