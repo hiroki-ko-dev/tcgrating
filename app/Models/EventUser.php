@@ -23,6 +23,18 @@ class EventUser extends Model
         'master'   => self::STATUS_MASTER,
     ];
 
+    //定数の定義
+    const ATTENDANCE_PREPARING = 0;
+    const ATTENDANCE_READY     = 1;
+    const ATTENDANCE_ATTENDED  = 2;
+    const ATTENDANCE_ABSENT    = 3;
+    const ATTENDANCE = [
+        'preparing'  => self::ATTENDANCE_PREPARING,
+        'ready'      => self::ATTENDANCE_READY,
+        'attended'   => self::ATTENDANCE_ATTENDED,
+        'absent'     => self::ATTENDANCE_ABSENT,
+    ];
+
     const ROLE_USER   = 0;
     const ROLE_ADMIN  = 1;
 

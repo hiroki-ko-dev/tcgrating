@@ -9,6 +9,16 @@
               <button type="button" class="btn site-color text-white rounded-pill btn-outline-secondary text-center" onclick="location.href='/event/swiss/{{$event->id}}/edit'">編集する</button>
 
               @if($event->status == \App\Models\Event::STATUS_READY)
+                <form method="POST" action="/event/swiss/{{$event->id}}">
+                  @csrf
+                  @method('PUT')
+                  <input type="submit" name="start_attendance" class="btn site-color text-white rounded-pill pl-4 pr-4" value="出欠をとる" onClick="return requestConfirm();">
+                </form>
+                <form method="POST" action="/event/swiss/{{$event->id}}">
+                  @csrf
+                  @method('PUT')
+                  <input type="submit" name="end_attendance" class="btn site-color text-white rounded-pill pl-4 pr-4" value="出欠を終える" onClick="return requestConfirm();">
+                </form>
                 <form method="POST" action="/duel/swiss">
                   @csrf
                   <input type="hidden" name="event_id" value="{{$event->id}}">

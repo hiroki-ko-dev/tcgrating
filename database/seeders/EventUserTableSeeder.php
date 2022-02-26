@@ -15,7 +15,7 @@ class EventUserTableSeeder extends Seeder
      */
     public function run()
     {
-        $event_id = 666;
+        $event_id = 847;
         $user_id = 2;
 
         for($i=0;$i<10;$i++){

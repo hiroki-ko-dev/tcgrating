@@ -94,12 +94,56 @@ class EventService
 
     /**
      * @param $request
+     * @return \App\Models\Event
+     */
+    public function updateEventUser($request)
+    {
+        return $this->eventUserRepository->update($request);
+    }
+
+    /**
+     * @param $request
      * @return mixed
      */
     public function updateEventUserByUserIdAndGameId($request)
     {
-        $eventUser = $this->eventUserRepository->update($request);
+        $eventUser = $this->eventUserRepository->updateByEventIdAndUserId($request);
         return $eventUser;
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function updateSwissEventUsersAttendance($request)
+    {
+        $beforeEventUsers = $this->getEvent($request->event_id)->eventUsers;
+        $afterEventUsers = [];
+
+        foreach($beforeEventUsers as $eventUser) {
+
+            $eventUserRequest = new \stdClass();
+            $eventUserRequest->id = $eventUser->id;
+            $eventUserRequest->attendance = $request->attendance;
+
+            if ($eventUser->status == \App\Models\EventUser::STATUS_APPROVAL) {
+                if ($request->attendance == \App\Models\EventUser::ATTENDANCE_READY){
+                    // 出欠取り始めの処理
+                    if ($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_PREPARING) {
+                        // 出欠準備のユーザーだけ更新
+                        $afterEventUsers[] = $this->updateEventUser($eventUserRequest);
+                    }
+                }
+                elseif ($request->attendance == \App\Models\EventUser::ATTENDANCE_ABSENT){
+                    // 出欠終了の処理
+                    if ($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_READY) {
+                        // 出欠準備のユーザーだけ更新
+                        $afterEventUsers[] = $this->updateEventUser($eventUserRequest);
+                    }
+                }
+            }
+        }
+        return $afterEventUsers;
     }
 
     public function getEvent($event_id){

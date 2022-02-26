@@ -30,9 +30,21 @@ class EventUserRepository
 
     public function update($request)
     {
+        $eventUser = EventUser::find($request->id);
+
+        if(isset($request->attendance)){
+            $eventUser->attendance = $request->attendance;
+        }
+        $eventUser->save();
+
+        return $eventUser;
+    }
+
+    public function updateByEventIdAndUserId($request)
+    {
         $eventUser = EventUser::where('event_id',$request->event_id)
-                                ->where('user_id',$request->user_id)
-                                ->first();
+            ->where('user_id',$request->user_id)
+            ->first();
 
         if(isset($request->status)){
             $eventUser->status = $request->status;

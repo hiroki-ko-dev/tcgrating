@@ -122,11 +122,18 @@ class UserController extends Controller
             if($request->has('approval')){
                 $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
                 $message = '参加確定にしました';
+                $this->eventService->updateEventUserByUserIdAndGameId($request);
             }elseif($request->has('reject')){
                 $request->merge(['status'  => \App\Models\EventUser::STATUS_REJECT]);
                 $message = '参加キャンセルをしました';
+                $this->eventService->updateEventUserByUserIdAndGameId($request);
+            }elseif($request->has('attended')) {
+                // 出席へステータス変更
+                $request->merge(['id' => $request->event_user_id]);
+                $request->merge(['attendance' => \App\Models\EventUser::ATTENDANCE_ATTENDED]);
+                $message = '出席確定しました';
+                $eventUser = $this->eventService->updateEventUser($request);
             }
-            $this->eventService->updateEventUserByUserIdAndGameId($request);
             return $message;
         });
 

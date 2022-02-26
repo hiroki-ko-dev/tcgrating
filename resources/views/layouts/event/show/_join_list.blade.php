@@ -7,11 +7,11 @@
             <tr>
               <th>ID</th>
               <th>名前</th>
-              <th>レート</th>
               <th>参加ステータス</th>
               @can('eventRole',$event->id)
                 <th>主催者ボタン</th>
               @endif
+              <th>出欠</th>
             </tr>
             @foreach($event->eventUsers as $eventUser)
               <form method="POST" action="/event/user/{{$event->id}}" onClick="return requestConfirm();">
@@ -21,11 +21,6 @@
                 <tr>
                   <td>{{$eventUser->user_id}}</td>
                   <td>{{$eventUser->user->name}}</td>
-                  @if($eventUser->user->gameUsers->where('game_id',$event->game_id)->isEmpty())
-                    <td>0</td>
-                  @else
-                    <td>{{$eventUser->user->gameUsers->where('game_id',$event->game_id)->first()->rate}}</td>
-                  @endif
                   @if($eventUser->status == \App\Models\EventUser::STATUS_REQUEST)
                     <td>参加申込中</td>
                   @elseif($eventUser->status == \App\Models\EventUser::STATUS_APPROVAL)
@@ -35,12 +30,26 @@
                   @elseif($eventUser->status == \App\Models\EventUser::STATUS_MASTER)
                     <td>主催者</td>
                   @endif
-                  <td>
                   @can('eventRole',$event->id)
-                      <input type="hidden" name="user_id" value="{{$eventUser->user_id}}">
-                      <input type="submit" name="approval" class="btn btn-primary rounded-pill pl-4 pr-4" value="承認">
-                      <input type="submit" name="reject" class="btn btn-secondary rounded-pill pl-4 pr-4" value="却下">
+                    <td>
+                        <input type="hidden" name="user_id" value="{{$eventUser->user_id}}">
+                        <input type="submit" name="approval" class="btn btn-primary rounded-pill pl-4 pr-4" value="承認">
+                        <input type="submit" name="reject" class="btn btn-secondary rounded-pill pl-4 pr-4" value="却下">
+                    </td>
                   @endcan
+                  <td>
+                    @if($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_READY)
+                      @if(Auth::check() && (Auth::user()->can('eventRole',$event->id) || Auth::id() == $eventUser->user_id))
+                        <input type="hidden" name="event_user_id" value="{{$eventUser->id}}">
+                        <input type="submit" name="attended" class="btn btn-primary rounded-pill pl-4 pr-4" value="出席">
+                      @endif
+                    @elseif($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_ATTENDED)
+                      出席
+                    @elseif($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_ABSENT)
+                      欠席
+                    @else
+                    @endif
+                  </td>
                 </tr>
               </form>
             @endforeach

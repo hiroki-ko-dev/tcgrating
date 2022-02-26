@@ -149,9 +149,20 @@ class SwissController extends Controller
             }elseif($request->has('cancel')){
                 // イベントがキャンセルさせる場合
                 $event = $this->eventService->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
+            }elseif($request->has('finish')) {
+                // イベント完了時
+                $event = $this->eventService->updateSwissEventByFinish($request->event_id);
             }elseif($request->has('event_add_user')) {
                 // 参加者からの参加申し込み
                 $this->eventService->updateEventUserByUserIdAndGameId($request);
+            }elseif($request->has('start_attendance')) {
+                // 出席取り開始
+                $request->merge(['attendance' => \App\Models\EventUser::ATTENDANCE_READY]);
+                $eventUsers = $this->eventService->updateSwissEventUsersAttendance($request);
+            }elseif($request->has('end_attendance')) {
+                // 出席取り終了
+                $request->merge(['attendance' => \App\Models\EventUser::ATTENDANCE_ABSENT]);
+                $eventUsers = $this->eventService->updateSwissEventUsersAttendance($request);
             }elseif($request->has('finish')) {
                 // イベント完了時
                 $event = $this->eventService->updateSwissEventByFinish($request->event_id);
