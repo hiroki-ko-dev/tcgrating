@@ -69,4 +69,19 @@ class PostRepository
                     ->paginate($paginate);
     }
 
+    public function findAllForApi($request, $paginate)
+    {
+        $query = Post::query();
+        $query->select('id', 'user_id', 'duel_id', 'title', 'body', 'created_at');
+        $query->where('game_id', $request->game_id);
+        $query->where('post_category_id', $request->post_category_id);
+        if(isset($request->duel_id)){
+            $query->where('duel_id', $request->duel_id);
+        }
+        $query->with('user:id,name');
+        $query->OrderBy('id','desc');
+        $query->paginate($paginate);
+        return $query->get();
+    }
+
 }

@@ -46,6 +46,7 @@ use Illuminate\Support\Facades\Route;
     Route::prefix('api')->group(function () {
 
         Route::get('/single/test', 'Api\Event\SingleController@test');
+        Route::resources(['post' => Api\Post\PostController::class]);
         Route::resources(['single' => Api\Event\SingleController::class]);
         Route::resources(['rank' => Api\Rank\RankController::class]);
     });

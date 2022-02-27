@@ -58,4 +58,9 @@ class PostService
         return $this->post_repository->findAllAndCommentCountWithPagination($request, $paginate);
     }
 
+    public function getPostForApi($request, $paginate)
+    {
+        return $this->post_repository->findAllForApi($request, $paginate);
+    }
+
 }
