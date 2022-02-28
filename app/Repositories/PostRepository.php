@@ -80,8 +80,8 @@ class PostRepository
         }
         $query->with('user:id,name');
         $query->OrderBy('id','desc');
-        $query->paginate($paginate);
-        return $query->get();
+
+        return $query->paginate($paginate);;
     }
 
 }
