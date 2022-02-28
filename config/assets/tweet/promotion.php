@@ -98,5 +98,13 @@ return [
             '参加人数が世界最大なのですぐ相手が見つかります！'  . PHP_EOL .
             'ご参加は以下のLINEオプチャから！'  . PHP_EOL
         ,
+
+        '13'   =>
+            '【たまにリモートポケカ大会やってます】' . PHP_EOL .
+            PHP_EOL .
+            '当サイトでは不定期でたまに内部大会を開催しています!'  . PHP_EOL .
+            '第二回大会決勝はこちら！'  . PHP_EOL .
+            'https://youtu.be/rMEgUk5UjtU'  . PHP_EOL
+        ,
     ],
 ];
