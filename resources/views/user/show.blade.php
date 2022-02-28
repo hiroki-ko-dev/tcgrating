@@ -138,19 +138,7 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready( function(){
-    window.ReactNativeWebView.postMessage("1ReactNativeWebView")
-    window.postMessage('OK');
-  });
-
-  $(window).on('load', function() {
-    window.ReactNativeWebView.postMessage("2ReactNativeWebView")
-    window.postMessage('NG');
-  });
-
-  window.postMessage("3ReactNativeWebView");
-  window.ReactNativeWebView.postMessage("4ReactNativeWebView");
-
+  window.ReactNativeWebView.postMessage({{json_encode(Auth::user())}});
 </script>
 
 @endsection
