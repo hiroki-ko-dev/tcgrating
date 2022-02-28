@@ -138,7 +138,8 @@
 </div>
 
 <script type="text/javascript">
-  window.ReactNativeWebView.postMessage({{Auth::user()->toJson()}});
+  const user = @json(Auth::user());
+  window.ReactNativeWebView.postMessage(user);
 </script>
 
 @endsection
