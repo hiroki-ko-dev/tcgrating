@@ -137,13 +137,16 @@
   </div>
 </div>
 
-<script>
 
+<div id="id">aaaa</div>
+
+<script type="text/javascript">
   $(document).ready( function(){
-    window.postMessage(1);
-    window.ReactNativeWebView.postMessage(2);
-    window.postMessage({{Auth::user()}});
-    window.ReactNativeWebView.postMessage({{Auth::user()}});
+    window.postMessage('OK');
+  });
+
+  $(window).on('load', function() {
+    window.postMessage('NG');
   });
 </script>
 
