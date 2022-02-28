@@ -138,10 +138,13 @@
 </div>
 
 <script>
-  window.postMessage(1);
-  window.ReactNativeWebView.postMessage(2);
-  window.postMessage({{Auth::user()}});
-  window.ReactNativeWebView.postMessage({{Auth::user()}});
+
+  $(document).ready( function(){
+    window.postMessage(1);
+    window.ReactNativeWebView.postMessage(2);
+    window.postMessage({{Auth::user()}});
+    window.ReactNativeWebView.postMessage({{Auth::user()}});
+  });
 </script>
 
 @endsection
