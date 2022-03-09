@@ -53,6 +53,7 @@ use Illuminate\Support\Facades\Route;
         Route::resources(['post' => Api\Post\PostController::class]);
         Route::resources(['single' => Api\Event\SingleController::class]);
         Route::resources(['rank' => Api\Rank\RankController::class]);
+        Route::get('user/{user_id}', 'Api\Auth\AuthController@index');
     });
 
 //    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');

@@ -10,7 +10,7 @@ use App\Services\ApiService;
 
 use Illuminate\Http\Request;
 
-class RankController extends Controller
+class AuthController extends Controller
 {
 
     protected $userService;
@@ -28,14 +28,15 @@ class RankController extends Controller
         $this->apiService = $apiService;
     }
 
-    public function index()
+    public function index($user_id)
     {
         try {
             // 選択しているゲームでフィルタ
             $request = new Request();
+            $request->merge(['user_id' => $user_id]);
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);;
 
-            $rates = $this->userService->getGameUsersByRankForApi($request, 50);
+            $rates = $this->userService->getGameUserForApi($request, 50);
 
         } catch(\Exception $e){
             $events = [
