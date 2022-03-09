@@ -1,0 +1,11 @@
+#inputProxy {
+  display: flex; /* flexbox */
+  flex-wrap: wrap; /* 折返し指定 */
+}
+
+#inputProxyBox {
+  width: 30%;
+  @media screen and (max-width:720px) {
+    width: 100%;
+  }
+}

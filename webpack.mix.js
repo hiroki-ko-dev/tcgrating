@@ -38,6 +38,7 @@ mix.styles([
     .sass('resources/sass/post/post.scss', 'public/css/scss.css')
     .sass('resources/sass/blog/blog.scss', 'public/css/blog/blog.css')
     .sass('resources/sass/site/landing.scss', 'public/css/site/landing.css')
+    .sass('resources/sass/proxy/proxy.scss', 'public/css/proxy/proxy.css')
     .sass('resources/sass/common/base.scss', 'public/css/scss.css')
     .styles('resources/css/sample/sample.css', 'public/css/sample/sample.css')
     .version()
@@ -46,6 +47,8 @@ mix.styles([
 //デフォルト
 mix.js('resources/js/app.js', 'public/js')
   .js('resources/js/common/calendar.js', 'public/js/common');
+
+mix.js('resources/js/proxy/proxy.js', 'public/js/proxy/proxy.js').react();
 
 mix.js('resources/js/sample.js', 'public/js/sample').react()
   .js('resources/js/common/selected_game.js', 'public/js/common/selected_game.js')

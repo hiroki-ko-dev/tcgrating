@@ -26,6 +26,10 @@ use Illuminate\Support\Facades\Route;
     // ランディングページ系
     Route::get('/site/landing/pokemon_card', function () {return view('site.landing.03_pokemon_card');});
 
+    // プロキシページ系
+    Route::get('/proxy', function () {return view('proxy.show');}); //管理人を表示
+    Route::post('/proxy/pdf', [App\Http\Controllers\ProxyController::class, 'pdf']); //管理人を表示
+
     //ページ更新処理
     Route::get('/reload', function () {return back();});
 
