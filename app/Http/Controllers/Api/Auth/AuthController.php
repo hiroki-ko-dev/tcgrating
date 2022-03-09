@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Rank;
+namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use Auth;
