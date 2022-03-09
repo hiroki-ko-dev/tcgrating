@@ -10,6 +10,8 @@
 @endsection
 
 @section('content')
+  {{--メタタグ--}}
+  <meta name="description" content="ポケモンカードのプロキシ作成ページです。ポケカのプロキシ作成を行う方は画像URLを入力して印刷してください"/>
   <div class="container">
     <div class="row justify-content-center m-1 mb-3">
       <div class="col-12 page-header">

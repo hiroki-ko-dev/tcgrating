@@ -47,7 +47,7 @@ return [
             '【リモートポケカの世界ランクとは？】' . PHP_EOL .
             PHP_EOL .
             'リモートポケカの世界ランクです！' . PHP_EOL .
-            'https://hashimu.com/rank?remotopokeka=1&selected_game_id=3' . PHP_EOL .
+            env('APP_URL') . '/rank?remotopokeka=1&selected_game_id=3' . PHP_EOL .
             'ご参加は以下のLINEオプチャから！'  . PHP_EOL
             ,
 
@@ -55,7 +55,7 @@ return [
             '【リモートポケカランキングの1位を目指そう！】' . PHP_EOL .
             PHP_EOL .
             'リモートポケカのレート戦ランキングです！' . PHP_EOL .
-            'https://hashimu.com/rank?remotopokeka=1&selected_game_id=3' . PHP_EOL .
+            env('APP_URL') . '/rank?remotopokeka=1&selected_game_id=3' . PHP_EOL .
             'ご参加は以下のLINEオプチャから！'  . PHP_EOL
         ,
 
@@ -105,6 +105,17 @@ return [
             '当サイトでは不定期でたまに内部大会を開催しています!'  . PHP_EOL .
             '第二回大会決勝はこちら！'  . PHP_EOL .
             'https://youtu.be/rMEgUk5UjtU'  . PHP_EOL
+        ,
+
+        '14'   =>
+            '【プロキシ作成はこちらから】' . PHP_EOL .
+            PHP_EOL .
+            'デッキに足りないカードを試したい、、!'  . PHP_EOL .
+            'そんな時はこちらからプロキシ（カラーコピー）を印刷！'  . PHP_EOL .
+            'デッキの回りを確認しましょう！'  . PHP_EOL .
+            env('APP_URL') . '/rank?remotopokeka=1&selected_game_id=3' . PHP_EOL .
+             PHP_EOL .
+            '※大会等での使用は不可なので気をつけましょう'  . PHP_EOL
         ,
     ],
 ];
