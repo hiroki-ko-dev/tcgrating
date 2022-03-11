@@ -129,7 +129,7 @@ class EventRepository
                     ->whereIn('status', $request->status)
                     ->where('event_category_id', $request->event_category_id)
                     ->with('eventUsers', function($query) {
-                        $query->with('user:id,name');
+                        $query->with('user:id,name,twitter_simple_image_url');
                     })
                     ->paginate($paginate);
     }
