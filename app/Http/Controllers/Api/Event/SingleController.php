@@ -10,6 +10,7 @@ use App\Services\EventService;
 use App\Services\ApiService;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SingleController extends Controller
 {
@@ -77,6 +78,36 @@ class SingleController extends Controller
         return $this->apiService->resConversionJson($events);
     }
 
+    public function join(Request $request)
+    {
+        Log::debug($request);
 
+//        try {
+//            $request = new Request();
+//            $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
+//            $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
+//            $request->merge(['status' => [\App\Models\Event::STATUS_RECRUIT]]);
+//
+//            $events = $this->eventService->getEventsByIndexForApi($request, 10);
+//
+//        } catch(\Exception $e){
+//            $events = [
+//                'result' => false,
+//                'error' => [
+//                    'messages' => [$e->getMessage()]
+//                ],
+//            ];
+//            return $this->apiService->resConversionJson($events, $e->getCode());
+//        }
+
+        $events = [
+            'result' => false,
+            'error' => [
+                'messages' => 'test'
+            ],
+        ];
+
+        return $this->apiService->resConversionJson($events);
+    }
 
 }

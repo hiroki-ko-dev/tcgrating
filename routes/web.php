@@ -46,16 +46,6 @@ use Illuminate\Support\Facades\Route;
         Route::get('/twitter/logout', 'Auth\TwitterController@logout');
     });
 
-    // Api
-    Route::prefix('api')->group(function () {
-
-        Route::get('/single/test', 'Api\Event\SingleController@test');
-        Route::resources(['post' => Api\Post\PostController::class]);
-        Route::resources(['single' => Api\Event\SingleController::class]);
-        Route::resources(['rank' => Api\Rank\RankController::class]);
-        Route::get('user/{user_id}', 'Api\Auth\AuthController@index');
-    });
-
 //    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
 
     //ユーザー系スレッド
