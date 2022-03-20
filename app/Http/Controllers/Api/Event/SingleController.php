@@ -73,6 +73,7 @@ class SingleController extends Controller
             ];
             return $this->apiService->resConversionJson($events, $e->getCode());
         }
+
         return $this->apiService->resConversionJson($events);
     }
 
