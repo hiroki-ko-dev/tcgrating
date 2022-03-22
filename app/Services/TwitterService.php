@@ -350,22 +350,4 @@ class TwitterService
 
         $res = curl_exec($curl);
     }
-
-    public function iconReplace()
-    {
-        $request = new \stdClass();
-        $request->not_null_twitter_id = true;
-        $users = $this->userRepository->findAll();
-        $targetUsers = [];
-        foreach($users as $user){
-            $response = @file_get_contents($user->twitter_image_url);
-            if ($response == false) {
-                $targetUsers[] = $user;
-            }
-        }
-        foreach($targetUsers as $targetUser){
-
-        }
-    }
-
 }
