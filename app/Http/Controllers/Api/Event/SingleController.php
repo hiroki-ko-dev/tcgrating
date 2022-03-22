@@ -80,34 +80,30 @@ class SingleController extends Controller
 
     public function join(Request $request)
     {
-        Log::debug($request);
+        try {
+            $event = $this->eventService->getEventsForApi($request->event_id);
+            $event->id = 1;
+            Log::debug($event);
 
-//        try {
-//            $request = new Request();
-//            $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
-//            $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
-//            $request->merge(['status' => [\App\Models\Event::STATUS_RECRUIT]]);
-//
-//            $events = $this->eventService->getEventsByIndexForApi($request, 10);
-//
-//        } catch(\Exception $e){
-//            $events = [
-//                'result' => false,
-//                'error' => [
-//                    'messages' => [$e->getMessage()]
-//                ],
-//            ];
-//            return $this->apiService->resConversionJson($events, $e->getCode());
-//        }
 
-        $events = [
-            'result' => false,
-            'error' => [
-                'messages' => 'test'
-            ],
-        ];
+        } catch(\Exception $e){
+            $event = [
+                'result' => false,
+                'error' => [
+                    'messages' => [$e->getMessage()]
+                ],
+            ];
+            return $this->apiService->resConversionJson($event, $e->getCode());
+        }
 
-        return $this->apiService->resConversionJson($events);
+//        $events = [
+//            'result' => false,
+//            'error' => [
+//                'messages' => 'test'
+//            ],
+//        ];
+
+        return $this->apiService->resConversionJson($event);
     }
 
 }

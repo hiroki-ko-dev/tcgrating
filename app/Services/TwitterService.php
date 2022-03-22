@@ -3,14 +3,18 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Repositories\UserRepository;
 use App\Repositories\TwitterRepository;
 
 class TwitterService
 {
+    protected $userRepository;
     protected $twitterRepository;
 
-    public function __construct(TwitterRepository $twitterRepository)
+    public function __construct(UserRepository $userRepository,
+                            TwitterRepository $twitterRepository)
     {
+        $this->userRepository = $userRepository;
         $this->twitterRepository = $twitterRepository;
     }
     /**
@@ -345,6 +349,23 @@ class TwitterService
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         $res = curl_exec($curl);
+    }
+
+    public function iconReplace()
+    {
+        $request = new \stdClass();
+        $request->not_null_twitter_id = true;
+        $users = $this->userRepository->findAll();
+        $targetUsers = [];
+        foreach($users as $user){
+            $response = @file_get_contents($user->twitter_image_url);
+            if ($response == false) {
+                $targetUsers[] = $user;
+            }
+        }
+        foreach($targetUsers as $targetUser){
+
+        }
     }
 
 }

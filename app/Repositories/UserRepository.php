@@ -78,6 +78,14 @@ class UserRepository
         return User::find($id);
     }
 
+    public function findAll($request){
+        $query = User::query();
+        if(isset($request->not_null_twitter_id)){
+            $query->whereNotNull('twitter_id');
+        }
+        return $query->get();
+    }
+
     public function findByTwitterId($id){
         return User::where('twitter_id',$id)->first();
     }

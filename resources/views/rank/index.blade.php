@@ -42,7 +42,11 @@
                             {{$rates->firstItem()+$i}}
                           @endif
                         </td>
-                        <td scope="col" class="align-middle"><img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle"></td>
+                        <td scope="col" class="align-middle">
+                          <img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle"
+                               onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
+                          >
+                        </td>
                       <td scope="col" class="text-left align-middle">
                         <a href="/user/{{$rate->user->id}}">{{$rate->user->name}}</a>
                       </td>

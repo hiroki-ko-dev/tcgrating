@@ -175,5 +175,9 @@ class EventService
         return $this->eventRepository->findAllByIndexForApi($request, $paginate);
     }
 
+    public function getEventsForApi($id)
+    {
+        return $this->eventRepository->findForApi($id);
+    }
 
 }
