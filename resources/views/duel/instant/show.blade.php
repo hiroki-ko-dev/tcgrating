@@ -164,7 +164,10 @@
       <div class="box">
         <div class="form-group row">
           <div class="col-md-12">
-            <img src="{{$duel->duelUsers[0]->user->twitter_simple_image_url}}" class="rounded-circle">
+            <img src="{{$duel->duelUsers[0]->user->twitter_simple_image_url}}"
+                 class="rounded-circle"
+                 onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
+            >
             <a href="/user/{{$duel->duelUsers[0]->user_id}}">{{$duel->duelUsers[0]->user->name}}</a>
             @if($duel->duelUsers->where('user_id',$duel->duelUsers[0]->user_id)->first()->duelUserResults->isNotEmpty())
               レート：{{$duel->duelUsers->where('user_id',$duel->duelUsers[0]->user_id)->first()->duelUserResults->sum('rating')}}
@@ -173,7 +176,10 @@
           <div class="col-md-12 m-1 pt-2 pb-2"><img src="/images/duel/vs.jpg"></div>
           <div class="col-md-12">
             @isset($duel->duelUsers[1])
-              <img src="{{$duel->duelUsers[1]->user->twitter_simple_image_url}}" class="rounded-circle">
+              <img src="{{$duel->duelUsers[1]->user->twitter_simple_image_url}}"
+                   class="rounded-circle"
+                   onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
+              >
               <a href="/user/{{$duel->duelUsers[1]->user_id}}">{{$duel->duelUsers[1]->user->name}}</a>
               @if($duel->duelUsers->where('user_id',$duel->duelUsers[1]->user_id)->first()->duelUserResults->isNotEmpty())
                 レート：{{$duel->duelUsers->where('user_id',$duel->duelUsers[1]->user_id)->first()->duelUserResults->sum('rating')}}
