@@ -60,6 +60,11 @@ class PostService
 
     public function getPostForApi($request, $paginate)
     {
+        return $this->post_repository->findForApi($request, $paginate);
+    }
+
+    public function getPostsForApi($request, $paginate)
+    {
         return $this->post_repository->findAllForApi($request, $paginate);
     }
 

@@ -10,7 +10,7 @@ class Post extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function postComment(){
+    public function postComments(){
         return $this->hasMany('App\Models\PostComment','post_id','id');
     }
 
