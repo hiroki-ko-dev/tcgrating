@@ -24,6 +24,7 @@ Route::get('/single/test', 'Api\Event\SingleController@test');
 Route::post('/event/join', 'Api\Event\SingleController@join');
 
 Route::resources(['post' => Api\Post\PostController::class]);
+Route::resources(['post/comment' => Api\Post\CommentController::class]);
 
 Route::resources(['single' => Api\Event\SingleController::class]);
 Route::resources(['rank' => Api\Rank\RankController::class]);

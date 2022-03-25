@@ -8,64 +8,63 @@ use Illuminate\Http\Request;
 
 class PostService
 {
-    protected $post_repository;
-    protected $post_comment_repository;
+    protected $postRepository;
+    protected $postCommentRepository;
 
-    public function __construct(PostRepository $post_repository,
-                                PostCommentRepository $post_comment_repository)
+    public function __construct(PostRepository $postRepository,
+                                PostCommentRepository $postCommentRepository)
     {
-        $this->post_repository         = $post_repository;
-        $this->post_comment_repository = $post_comment_repository;
+        $this->postRepository         = $postRepository;
+        $this->postCommentRepository = $postCommentRepository;
     }
 
     public function createPost($request)
     {
-        return $this->post_repository->create($request);
+        return $this->postRepository->create($request);
     }
 
     public function createComment($request)
     {
-        return $this->post_comment_repository->create($request);
+        return $this->postCommentRepository->create($request);
     }
 
     public function findPostWithUser($id)
     {
-        return $this->post_repository->findWithUser($id);
+        return $this->postRepository->findWithUser($id);
     }
 
     public function findPostWithUserByEventId($event_id)
     {
-        return $this->post_repository->findWithUserByEventId($event_id);
+        return $this->postRepository->findWithUserByEventId($event_id);
     }
 
     public function findPostWithUserByDuelId($duel_id)
     {
-        return $this->post_repository->findWithUserByDuelId($duel_id);
+        return $this->postRepository->findWithUserByDuelId($duel_id);
     }
 
     public function findPostWithByPostCategoryTeam($team_id)
     {
-        return $this->post_repository->findWithByPostCategoryTeam($team_id);
+        return $this->postRepository->findWithByPostCategoryTeam($team_id);
     }
 
     public function findAllPostCommentWithUserByPostIdAndPagination($post_id, $paginate)
     {
-        return $this->post_comment_repository->findAllWithUserByPostIdAndPagination($post_id, $paginate);
+        return $this->postCommentRepository->findAllWithUserByPostIdAndPagination($post_id, $paginate);
     }
 
     public function getPostAndCommentCountWithPagination($request, $paginate)
     {
-        return $this->post_repository->findAllAndCommentCountWithPagination($request, $paginate);
+        return $this->postRepository->findAllAndCommentCountWithPagination($request, $paginate);
     }
 
     public function getPostForApi($request, $paginate)
     {
-        return $this->post_repository->findForApi($request, $paginate);
+        return $this->postRepository->findForApi($request, $paginate);
     }
 
     public function getPostsForApi($request, $paginate)
     {
-        return $this->post_repository->findAllForApi($request, $paginate);
+        return $this->postRepository->findAllForApi($request, $paginate);
     }
-
 }

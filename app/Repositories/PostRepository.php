@@ -69,6 +69,22 @@ class PostRepository
                     ->paginate($paginate);
     }
 
+
+    public function updateForApi($request, $paginate)
+    {
+        $query = Post::query();
+        $query->select('id', 'user_id', 'event_id', 'duel_id', 'title', 'body', 'created_at');
+        $query->where('game_id', $request->game_id);
+        $query->where('post_category_id', $request->post_category_id);
+        if(isset($request->duel_id)){
+            $query->where('duel_id', $request->duel_id);
+        }
+        $query->with('user:id,name,twitter_simple_image_url');
+        $query->OrderBy('id','desc');
+
+        return $query->paginate($paginate);;
+    }
+
     public function findForApi($request)
     {
         $query = Post::query();
