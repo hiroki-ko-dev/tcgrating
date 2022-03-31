@@ -122,6 +122,27 @@ class EventRepository
                     ->paginate($paginate);
     }
 
+    public function findAllForApi($request, $paginate)
+    {
+        $query = Event::query();
+        $query->select('id', 'user_id','status','is_rated','created_at')
+            ->where('game_id', $request->game_id)
+            ->where('event_category_id', $request->event_category_id);
+
+        if(isset($request->status)){
+            $query->whereIn('status', $request->status);
+        }
+
+        $query->with('eventUsers', function($q) use($request){
+            $q->with('user:id,name,twitter_simple_image_url');
+            if(isset($request->event_users_user_id)){
+                $q->where('user_id', $request->event_users_user_id);
+            }
+        });
+
+        return $query->paginate($paginate);
+    }
+
     public function findAllByIndexForApi($request, $paginate)
     {
         return Event::select('id', 'user_id','status','is_rated','created_at')
