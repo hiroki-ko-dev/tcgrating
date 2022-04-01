@@ -21,11 +21,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Api
 
 Route::get('/single/test', 'Api\Event\SingleController@test');
+
+Route::resources(['event/single' => Api\Event\SingleController::class]);
 Route::post('/event/join', 'Api\Event\SingleController@join');
 
 Route::resources(['post' => Api\Post\PostController::class]);
 Route::resources(['post/comment' => Api\Post\CommentController::class]);
 
-Route::resources(['single' => Api\Event\SingleController::class]);
 Route::resources(['rank' => Api\Rank\RankController::class]);
 Route::get('user/{user_id}', 'Api\Auth\AuthController@index');

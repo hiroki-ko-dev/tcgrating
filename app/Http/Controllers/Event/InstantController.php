@@ -126,7 +126,9 @@ class InstantController extends Controller
             }
 
             //twitterに投稿
-            $this->twitterService->tweetByMakeInstantEvent($event);
+            if($request->is_tweeted){
+                $this->twitterService->tweetByMakeInstantEvent($event);
+            }
 
             return $request->duel_id;
         });

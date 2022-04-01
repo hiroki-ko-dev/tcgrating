@@ -7,6 +7,7 @@ use Auth;
 use DB;
 use App\Services\UserService;
 use App\Services\EventService;
+use App\Services\DuelService;
 use App\Services\ApiService;
 
 use Illuminate\Http\Request;
@@ -17,20 +18,24 @@ class SingleController extends Controller
 
     protected $userService;
     protected $eventService;
+    protected $duelService;
     protected $apiService;
 
     /**
      * SingleController constructor.
      * @param UserService $userService
      * @param EventService $eventService
+     * @param DuelService $duelService
      * @param ApiService $apiService
      */
     public function __construct(UserService $userService,
                                 EventService $eventService,
+                                DuelService $duelService,
                                 ApiService $apiService)
     {
         $this->userService  = $userService;
         $this->eventService = $eventService;
+        $this->duelService = $duelService;
         $this->apiService = $apiService;
     }
 
@@ -61,7 +66,7 @@ class SingleController extends Controller
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
             $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
 
-            Log::debug($request);
+            Log::debug($request->event_users_user_id);
 
             $events = $this->eventService->getEventsByIndexForApi($request, 10);
 
@@ -81,18 +86,18 @@ class SingleController extends Controller
     public function join(Request $request)
     {
         try {
-            $event = $this->eventService->getEvent($request->event_id);
-
             //追加
-            $request->merge(['user_id' => $request->event_users_user_id]);
             $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
             $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
 
-            $message = DB::transaction(function () use($request) {
-                $this->eventService->createUser($request) ;
-                $this->duelService->createUser($request) ;
+            $event = DB::transaction(function () use($request) {
 
+                $this->eventService->createUser($request) ;
                 $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
+
+                $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
+
+                $this->duelService->createUser($request) ;
 
                 // すでにマッチング済ならリダイレクト
                 if($event->status <> \App\Models\Event::STATUS_RECRUIT){
@@ -100,19 +105,6 @@ class SingleController extends Controller
                 }
 
                 $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
-
-                $gameUser = $this->userService->getGameUserByUserIdAndGameId(Auth::id(), $event->game_id);
-
-                if(is_null($gameUser)){
-                    $request->merge(['game_id'  => $event->game_id]);
-                    $request->merge(['discord_name' => $request->discord_name]);
-                    $gameUser = $this->userService->makeGameUser($request);
-                }elseif(isset($gameUser->discord_name) || $gameUser->discord_name <> $request->discord_name){
-                    // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
-                    $gameUser->discord_name = $request->discord_name;
-                    // discord_nameを更新
-                    $gameUser = $this->userService->updateGameUser($gameUser);
-                }
 
                 return $event;
 

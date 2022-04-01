@@ -128,31 +128,29 @@ class EventRepository
         $query->select('id', 'user_id','status','is_rated','created_at')
             ->where('game_id', $request->game_id)
             ->where('event_category_id', $request->event_category_id);
-
+        if(isset($request->event_category_id)){
+            $query->where('event_category_id', $request->event_category_id);
+        }
+        if(isset($request->game_id)){
+            $query->where('game_id', $request->game_id);
+        }
         if(isset($request->status)){
-            $query->whereIn('status', $request->status);
+            $query->where('status', $request->status);
         }
 
         $query->with('eventUsers', function($q) use($request){
             $q->with('user:id,name,twitter_simple_image_url');
-            if(isset($request->event_users_user_id)){
-                $q->where('user_id', $request->event_users_user_id);
-            }
         });
+        // ユーザーIDで絞る
+        if(isset($request->event_users_user_id)){
+            $query->whereHas('eventUsers', function($q) use($request){
+                return $q->where('user_id',$request->event_users_user_id);
+            })->get();
+        }
+
+        $query->orderBy('id','desc');
 
         return $query->paginate($paginate);
-    }
-
-    public function findAllByIndexForApi($request, $paginate)
-    {
-        return Event::select('id', 'user_id','status','is_rated','created_at')
-                    ->where('game_id', $request->game_id)
-                    ->whereIn('status', $request->status)
-                    ->where('event_category_id', $request->event_category_id)
-                    ->with('eventUsers', function($query) {
-                        $query->with('user:id,name,twitter_simple_image_url');
-                    })
-                    ->paginate($paginate);
     }
 
     public function findForApi($id)

@@ -19,6 +19,7 @@
     {{--    @include('layouts.event.create._tool')--}}
     @include('layouts.common.discord._join')
     @include('layouts.common.discord._name')
+    @include('layouts.event.create._is_tweeted')
     @include('layouts.event.create._form')
 
   </form>
