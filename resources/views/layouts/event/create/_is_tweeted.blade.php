@@ -6,12 +6,12 @@
         <div class="col-md-12">
           <div class="text-left ml-5">
             <div>
-              {{ Form::radio('is_tweeted', 1, true, ['id' => 'radio-one', 'class' => 'form-check-input']) }}
-              {{ Form::label('radio-one', 'web全体から相手を募集する', ['class' => 'form-check-label']) }}
+              <input type="radio" name="is_tweeted" value="1" checked>
+              <label>web全体から相手を募集する</label>
             </div>
             <div>
-              {{ Form::radio('is_tweeted', 0, false, ['id' => 'radio-two', 'class' => 'form-check-input']) }}
-              {{ Form::label('radio-two', '対戦URLを直接相手に教える', ['class' => 'form-check-label']) }}
+              <input type="radio" name="is_tweeted" value="0">
+              <label>対戦URLを直接相手に教える</label>
               <br>※すでに相手が決まっているならこちら
             </div>
           </div>
