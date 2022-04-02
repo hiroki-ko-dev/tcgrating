@@ -61,6 +61,10 @@ class EventRepository
             $event->now_match_number = $request->now_match_number;
         }
         $event->max_member        = $request->max_member;
+        if(isset($request->rate_type)){
+            $event->rate_type = $request->rate_type;
+        }
+
         $event->title             = $request->title;
         $event->body              = $request->body;
         $event->date              = $request->date;
@@ -112,7 +116,6 @@ class EventRepository
                 })->get();
     }
 
-
     public function findAllByEventCategoryIdAndPaginate($request, $paginate)
     {
         return Event::where('event_category_id', $request->event_category_id)
@@ -125,15 +128,9 @@ class EventRepository
     public function findAllForApi($request, $paginate)
     {
         $query = Event::query();
-        $query->select('id', 'user_id','status','is_rated','created_at')
+        $query->select('id', 'user_id','status','rate_type','created_at')
             ->where('game_id', $request->game_id)
             ->where('event_category_id', $request->event_category_id);
-        if(isset($request->event_category_id)){
-            $query->where('event_category_id', $request->event_category_id);
-        }
-        if(isset($request->game_id)){
-            $query->where('game_id', $request->game_id);
-        }
         if(isset($request->status)){
             $query->where('status', $request->status);
         }

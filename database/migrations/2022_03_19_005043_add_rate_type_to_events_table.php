@@ -1,10 +1,10 @@
-2022_01_13_005043_add_now_match_number_to_events_table.php<?php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIsRatedToEventsTable extends Migration
+class AddRateTypeToEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddIsRatedToEventsTable extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->unsignedTinyInteger('is_rated')->default(1)->after('max_member');
+            $table->unsignedTinyInteger('rate_type')->default(0)->after('max_member');
         });
     }
 
@@ -26,7 +26,7 @@ class AddIsRatedToEventsTable extends Migration
     public function down()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->dropColumn('is_rated');
+            $table->dropColumn('rate_type');
         });
     }
 }

@@ -176,6 +176,7 @@ class UserController extends Controller
 
             if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE){
                 $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
+                $this->duelService->updateDuelStatus($event->eventDuels[0]->duel_id, \APP\Models\Duel::STATUS_READY);
             }
 
             $gameUser = $this->userService->getGameUserByUserIdAndGameId(Auth::id(), $event->game_id);
