@@ -136,8 +136,6 @@ class SingleController extends Controller
 
     public function update(Request $request)
     {
-        Log::debug($request);
-
         try {
             $event = DB::transaction(function () use($request) {
 
@@ -146,7 +144,7 @@ class SingleController extends Controller
                 $this->duelService->updateDuelStatus($request->duel_id, $request->status);
 
                 if($request->status == \APP\Models\Event::STATUS_READY){
-                    // 対戦申し込みの処理
+                    // 対戦申し込みの処理の場合はメンバー追加
                     //追加
                     $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
                     $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
@@ -155,6 +153,7 @@ class SingleController extends Controller
 
                     $this->duelService->createUser($request) ;
                 }
+
                 return $event;
             });
 
@@ -167,6 +166,8 @@ class SingleController extends Controller
             ];
             return $this->apiService->resConversionJson($event, $e->getCode());
         }
+
+        $event = $this->eventService->getEventsForApi($request->event_id);
 
         return $this->apiService->resConversionJson($event);
     }

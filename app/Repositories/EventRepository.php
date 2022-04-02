@@ -152,7 +152,7 @@ class EventRepository
 
     public function findForApi($id)
     {
-        return Event::select('id', 'user_id','status','is_rated','created_at')
+        return Event::select('id', 'user_id','status','rate_type','created_at')
             ->where('id', $id)
             ->with('eventUsers', function($query) {
                 $query->with('user:id,name,twitter_simple_image_url');
