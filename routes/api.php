@@ -18,6 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::prefix('auth')->group(function () {
+    // TwitterログインURL
+    Route::get('/login', 'Api\Auth\AuthController@login');
+    // TwitterログアウトURL
+    Route::get('/logout', 'Api\Auth\AuthController@logout');
+});
+
 // Api
 
 Route::get('/single/test', 'Api\Event\SingleController@test');

@@ -9,6 +9,10 @@ use App\Services\UserService;
 use App\Services\ApiService;
 
 use Illuminate\Http\Request;
+use Laravel\Socialite\Facades\Socialite;
+
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
 {
@@ -28,15 +32,33 @@ class AuthController extends Controller
         $this->apiService = $apiService;
     }
 
+    public function login(Request $request)
+    {
+        if(Auth::check()){
+            return redirect('/user/' . Auth::user()->id);
+        }else{
+            return Socialite::driver('twitter')->redirect();
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard()->logout();
+        $json = [
+            'result' => 'logout',
+        ];
+        return $this->apiService->resConversionJson($json);
+    }
+
     public function index($user_id)
     {
         try {
             // 選択しているゲームでフィルタ
             $request = new Request();
             $request->merge(['user_id' => $user_id]);
-            $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);;
+            $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
 
-            $rates = $this->userService->getGameUserForApi($request, 50);
+            $rates = $this->userService->getGameUserForApi($request);
 
         } catch(\Exception $e){
             $events = [
@@ -45,7 +67,7 @@ class AuthController extends Controller
                     'messages' => [$e->getMessage()]
                 ],
             ];
-            return $this->apiService-resConversionJson($events, $e->getCode());
+            return $this->apiService->resConversionJson($events, $e->getCode());
         }
         return $this->apiService->resConversionJson($rates);
     }

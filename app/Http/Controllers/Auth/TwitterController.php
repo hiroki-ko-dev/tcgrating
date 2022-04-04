@@ -88,6 +88,6 @@ class TwitterController extends Controller
             session()->forget('loginAfterRedirectUrl');
             return redirect($redirectUrl);
         }
-        return redirect('/user/'.Auth::user()->id);
+        return redirect('/user/' . Auth::user()->id);
     }
 }

@@ -63,6 +63,7 @@ class SingleController extends Controller
 
     public function index(Request $request)
     {
+
         try {
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
             $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
@@ -134,27 +135,37 @@ class SingleController extends Controller
         return $this->apiService->resConversionJson($events);
     }
 
+
     public function update(Request $request)
     {
         try {
             $event = DB::transaction(function () use($request) {
 
-                $event = $this->eventService->updateEventStatus($request->event_id, $request->status);
-                $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
-                $this->duelService->updateDuelStatus($request->duel_id, $request->status);
+                // 勝利報告処理
+                if($request->status == 11){
+                    // 対戦完了ボタンでなければレートを更新
+                    $event = $this->eventService->getEvent($request->event_id);
+                    $request->merge(['duel'  => $event->eventDuels[0]->duel]);
+                    $request->merge(['win'  => true]);
+                    $this->duelService->createInstantResult($request);
+                }else{
+                    $event = $this->eventService->updateEventStatus($request->event_id, $request->status);
+                    $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
+                    $this->duelService->updateDuelStatus($request->duel_id, $request->status);
 
-                if($request->status == \APP\Models\Event::STATUS_READY){
-                    // 対戦申し込みの処理の場合はメンバー追加
-                    //追加
-                    $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
-                    $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
-                    $this->eventService->createUser($request) ;
-                    $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
+                    if($request->status == \APP\Models\Event::STATUS_READY){
+                        // 対戦申し込みの処理の場合はメンバー追加
+                        //追加
+                        $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
+                        $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
+                        $this->eventService->createUser($request) ;
+                        $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
 
-                    $this->duelService->createUser($request) ;
+                        $this->duelService->createUser($request) ;
+                    }
+                    return $event;
                 }
 
-                return $event;
             });
 
         } catch(\Exception $e){
@@ -167,45 +178,45 @@ class SingleController extends Controller
             return $this->apiService->resConversionJson($event, $e->getCode());
         }
 
-        $event = $this->eventService->getEventsForApi($request->event_id);
+        $event = $this->eventService->getEventForApi($request->event_id);
 
         return $this->apiService->resConversionJson($event);
     }
 
-    public function join(Request $request)
-    {
-        try {
-            //追加
-            $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
-            $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
-
-            $event = DB::transaction(function () use($request) {
-
-                $this->eventService->createUser($request) ;
-                $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
-
-                $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
-
-                $this->duelService->createUser($request) ;
-
-                $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
-
-                return $event;
-
-            });
-
-
-        } catch(\Exception $e){
-            $event = [
-                'result' => false,
-                'error' => [
-                    'messages' => [$e->getMessage()]
-                ],
-            ];
-            return $this->apiService->resConversionJson($event, $e->getCode());
-        }
-
-        return $this->apiService->resConversionJson($event);
-    }
+//    public function join(Request $request)
+//    {
+//        try {
+//            //追加
+//            $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
+//            $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
+//
+//            $event = DB::transaction(function () use($request) {
+//
+//                $this->eventService->createUser($request) ;
+//                $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
+//
+//                $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
+//
+//                $this->duelService->createUser($request) ;
+//
+//                $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
+//
+//                return $event;
+//
+//            });
+//
+//
+//        } catch(\Exception $e){
+//            $event = [
+//                'result' => false,
+//                'error' => [
+//                    'messages' => [$e->getMessage()]
+//                ],
+//            ];
+//            return $this->apiService->resConversionJson($event, $e->getCode());
+//        }
+//
+//        return $this->apiService->resConversionJson($event);
+//    }
 
 }

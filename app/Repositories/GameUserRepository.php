@@ -124,7 +124,7 @@ class GameUserRepository
         return GameUser::select('id', 'game_id', 'user_id', 'discord_name', 'rate', 'created_at')
             ->where('user_id', $request->user_id)
             ->where('game_id', $request->game_id)
-            ->with('user:id,name,twitter_simple_image_url')
+            ->with('user:id,name,twitter_image_url,twitter_simple_image_url')
             ->first();
     }
 

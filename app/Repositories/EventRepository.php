@@ -145,6 +145,15 @@ class EventRepository
             })->get();
         }
 
+        $query->with('eventDuels', function($q_eventDuel) {
+            $q_eventDuel->with('duel', function($q_duel) {
+                $q_duel->with('duelUsers', function($q_duelUser) {
+                    $q_duelUser->with('user:id,name,twitter_simple_image_url');
+                    $q_duelUser->with('duelUserResults');
+                });
+            });
+        });
+
         $query->orderBy('id','desc');
 
         return $query->paginate($paginate);
@@ -154,8 +163,13 @@ class EventRepository
     {
         return Event::select('id', 'user_id','status','rate_type','created_at')
             ->where('id', $id)
-            ->with('eventUsers', function($query) {
-                $query->with('user:id,name,twitter_simple_image_url');
+            ->with('eventDuels', function($q_eventDuel) {
+                $q_eventDuel->with('duel', function($q_duel) {
+                    $q_duel->with('duelUsers', function($q_duelUser) {
+                        $q_duelUser->with('user:id,name,twitter_simple_image_url');
+                        $q_duelUser->with('duelUserResults');
+                    });
+                });
             })
             ->first();
     }
