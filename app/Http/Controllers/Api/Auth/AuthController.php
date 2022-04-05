@@ -32,7 +32,7 @@ class AuthController extends Controller
         $this->apiService = $apiService;
     }
 
-    public function login(Request $request)
+    public function login()
     {
         if(Auth::check()){
             return redirect('/user/' . Auth::user()->id);
@@ -70,5 +70,34 @@ class AuthController extends Controller
             return $this->apiService->resConversionJson($events, $e->getCode());
         }
         return $this->apiService->resConversionJson($rates);
+    }
+
+    public function discordName(Request $request)
+    {
+        try {
+            // discord名にバリデーションをかける
+            $validator = Validator::make($request->all(), [
+                'discord_name' => 'required|regex:/.+#\d{4}$/|max:255',
+                'discord_name.regex' => 'ディスコードの名前は「〇〇#数字4桁」の形式にしてください',
+            ]);
+
+            // discordNameがおかしかったらエラーで返す
+            if ($validator->fails()) {
+                $gameUser = $this->userService->getGameUserForApi($request);
+                return $this->apiService->resConversionJson($gameUser);
+            }
+
+            $gameUser = $this->userService->updateGameUser($request);
+
+        } catch(\Exception $e){
+            $gameUser = [
+                'result' => false,
+                'error' => [
+                    'messages' => [$e->getMessage()]
+                ],
+            ];
+            return $this->apiService->resConversionJson($gameUser, $e->getCode());
+        }
+        return $this->apiService->resConversionJson($gameUser);
     }
 }
