@@ -40,7 +40,7 @@ class GameUserRepository
         if(isset($request->is_mail_send)) {
             $gameUser->is_mail_send = $request->is_mail_send;
         }
-        if(isset($gameUser->rate)) {
+        if(isset($request->rate)) {
             $gameUser->rate         = $request->rate;
         }
         $gameUser->save();

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Auth;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
+use Illuminate\Support\Facades\Log;
+use Validator;
 use App\Services\UserService;
 use App\Services\ApiService;
 
@@ -75,6 +77,7 @@ class AuthController extends Controller
     public function discordName(Request $request)
     {
         try {
+
             // discord名にバリデーションをかける
             $validator = Validator::make($request->all(), [
                 'discord_name' => 'required|regex:/.+#\d{4}$/|max:255',
@@ -88,7 +91,6 @@ class AuthController extends Controller
             }
 
             $gameUser = $this->userService->updateGameUser($request);
-
         } catch(\Exception $e){
             $gameUser = [
                 'result' => false,
@@ -98,6 +100,7 @@ class AuthController extends Controller
             ];
             return $this->apiService->resConversionJson($gameUser, $e->getCode());
         }
+
         return $this->apiService->resConversionJson($gameUser);
     }
 }
