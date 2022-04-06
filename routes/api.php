@@ -19,8 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Api
+Route::get('/user/{user_id}', 'Api\Auth\AuthController@index');
 Route::get('/auth/logout', 'Api\Auth\AuthController@logout');
-Route::get('/auth/discord_name/update', 'Api\Auth\AuthController@discordName');
+Route::post('/auth/discord_name/update', 'Api\Auth\AuthController@discordName');
 
 Route::get('/single/test', 'Api\Event\SingleController@test');
 
@@ -31,4 +32,3 @@ Route::resources(['post' => Api\Post\PostController::class]);
 Route::resources(['post/comment' => Api\Post\CommentController::class]);
 
 Route::resources(['rank' => Api\Rank\RankController::class]);
-Route::get('user/{user_id}', 'Api\Auth\AuthController@index');
