@@ -11,23 +11,36 @@ class PostRepository
 
     public function create($request)
     {
-
         $post = new Post();
-        $post->fill([
-            'game_id'          => $request->game_id,
-            'post_category_id' => $request->post_category_id,
-            'user_id'          => $request->user_id,
-            'event_id'         => $request->event_id,
-            'duel_id'          => $request->duel_id,
-            'team_id'          => $request->team_id,
-            'title'            => $request->title,
-            'body'             => $request->body,
-            'is_personal'      => $request->is_personal,
-            'created_at'       => Carbon::now(),
-            'updated_at'       => Carbon::now()
-        ]);
-
+        if(isset($request->game_id)){
+            $post->game_id = $request->game_id;
+        }
+        if(isset($request->post_category_id)){
+            $post->post_category_id = $request->post_category_id;
+        }
+        if(isset($request->user_id)){
+            $post->user_id = $request->user_id;
+        }
+        if(isset($request->duel_id)){
+            $post->duel_id = $request->duel_id;
+        }
+        if(isset($request->team_id)){
+            $post->team_id = $request->team_id;
+        }
+        if(isset($request->event_id)){
+            $post->event_id = $request->event_id;
+        }
+        if(isset($request->title)){
+            $post->title = $request->title;
+        }
+        if(isset($request->body)){
+            $post->body = $request->body;
+        }
+        if(isset($request->is_personal)){
+            $post->is_personal = $request->is_personal;
+        }
         $post->save();
+
         return $post;
     }
 

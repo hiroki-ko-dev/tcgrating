@@ -25,7 +25,9 @@ class TwitterController extends Controller
     // Twitterログイン
     public function redirectToProvider()
     {
-        return Socialite::driver('twitter')->redirect();
+            return redirect('https://developer.twitter.com/en/docs/basics/authentication/api-reference/authorize');
+
+//        return Socialite::driver('twitter')->redirect();
     }
 
     // Twitterコールバック
