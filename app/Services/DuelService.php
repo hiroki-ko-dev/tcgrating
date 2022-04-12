@@ -82,12 +82,15 @@ class DuelService
         $duelRequest = new \stdClass();
         $duelRequest->statuses = [\App\Models\Duel::STATUS_READY,\App\Models\Duel::STATUS_RECRUIT];
         $duelRequest->event_category_id = [\App\Models\EventCategory::CATEGORY_SINGLE];
+        if(isset($request->rate_type)){
+            $duelRequest->rate_type = $request->rate_type;
+        }
         $duels = $this->getDuels($duelRequest);
         // 部屋予約中のの対戦があるならそこを避ける
         if($duels->isNotEmpty()){
             $room_ids = $duels->pluck('room_id')->toArray();
             for($i=1;$i<count($room_ids)+1;$i++){
-                if(!is_null($room_ids) && in_array($i,$room_ids)){
+                if(in_array($i,$room_ids)){
                     continue;
                 }else{
                     $request->merge(['room_id' => $i]);

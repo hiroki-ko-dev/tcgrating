@@ -97,10 +97,12 @@ class DuelRepository
             });
         }
         if (isset($request->event_category_id)) {
-            $event_category_id = $request->event_category_id;
-            $query->whereHas('eventDuel', function ($q) use ($event_category_id) {
-                $q->whereHas('event', function ($q2) use ($event_category_id) {
-                    $q2->where('event_category_id', $event_category_id);
+            $query->whereHas('eventDuel', function ($q) use ($request) {
+                $q->whereHas('event', function ($q2) use ($request) {
+                    $q2->where('event_category_id', $request->event_category_id);
+                    if(isset($request->rate_type)){
+                        $q2->where('rate_type', $request->rate_type);
+                    }
                 });
             });
         }

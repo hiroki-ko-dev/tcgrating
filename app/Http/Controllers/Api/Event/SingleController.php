@@ -157,10 +157,12 @@ class SingleController extends Controller
     {
         try {
             $event = DB::transaction(function () use($request) {
+
+                $event = $this->eventService->getEvent($request->event_id);
+
                 // 勝利報告処理
                 if($request->status == 11){
                     // 対戦完了ボタンでなければレートを更新
-                    $event = $this->eventService->getEvent($request->event_id);
                     if($event->status <> \App\Models\Event::STATUS_READY){
                         throw new \Exception('すでに対戦が終了しています');
                     }
@@ -169,18 +171,22 @@ class SingleController extends Controller
                     $request->merge(['win'  => true]);
                     $this->duelService->createInstantResult($request);
                 }else{
+                    if($request->status == \App\Models\Event::STATUS_READY) {
+                        if ($event->status <> \App\Models\Event::STATUS_RECRUIT) {
+                            throw new \Exception('すでに対戦相手が決定しています');
+                        }
+                    }elseif($request->status == \App\Models\Event::STATUS_FINISH){
+                        if ($event->status <> \App\Models\Event::STATUS_READY) {
+                            throw new \Exception('すでに対戦が終了しています');
+                        }
+                    }
                     // 対戦完了ボタンでなければレートを更新
                     $event = $this->eventService->updateEventStatus($request->event_id, $request->status);
-                    if($event->status <> \App\Models\Event::STATUS_READY){
-                        throw new \Exception('すでに対戦が終了しています');
-                    }
-
-                    $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
-                    $this->duelService->updateDuelStatus($request->duel_id, $request->status);
 
                     if($request->status == \APP\Models\Event::STATUS_READY){
+
+                        $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
                         // 対戦申し込みの処理の場合はメンバー追加
-                        //追加
                         $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
                         $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
                         $this->eventService->createUser($request) ;
