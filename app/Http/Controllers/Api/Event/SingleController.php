@@ -63,7 +63,6 @@ class SingleController extends Controller
 
     public function index(Request $request)
     {
-
         try {
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
             $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
@@ -135,21 +134,47 @@ class SingleController extends Controller
         return $this->apiService->resConversionJson($events);
     }
 
+    public function show($event_id)
+    {
+        try {
+            // 勝利報告処理
+            // 対戦完了ボタンでなければレートを更新
+            $event = $this->eventService->getEventForApi($event_id);
+
+        } catch(\Exception $e){
+            $event = [
+                'error' => [
+                    'messages' => [$e->getMessage()]
+                ],
+            ];
+            return $this->apiService->resConversionJson($event, $e->getCode());
+        }
+
+        return $this->apiService->resConversionJson($event);
+    }
 
     public function update(Request $request)
     {
         try {
             $event = DB::transaction(function () use($request) {
-
                 // 勝利報告処理
                 if($request->status == 11){
                     // 対戦完了ボタンでなければレートを更新
                     $event = $this->eventService->getEvent($request->event_id);
+                    if($event->status <> \App\Models\Event::STATUS_READY){
+                        throw new \Exception('すでに対戦が終了しています');
+                    }
+
                     $request->merge(['duel'  => $event->eventDuels[0]->duel]);
                     $request->merge(['win'  => true]);
                     $this->duelService->createInstantResult($request);
                 }else{
+                    // 対戦完了ボタンでなければレートを更新
                     $event = $this->eventService->updateEventStatus($request->event_id, $request->status);
+                    if($event->status <> \App\Models\Event::STATUS_READY){
+                        throw new \Exception('すでに対戦が終了しています');
+                    }
+
                     $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
                     $this->duelService->updateDuelStatus($request->duel_id, $request->status);
 
@@ -165,12 +190,10 @@ class SingleController extends Controller
                     }
                     return $event;
                 }
-
             });
 
         } catch(\Exception $e){
             $event = [
-                'result' => false,
                 'error' => [
                     'messages' => [$e->getMessage()]
                 ],

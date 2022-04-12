@@ -136,7 +136,7 @@ class EventRepository
         }
 
         $query->with('eventUsers', function($q) use($request){
-            $q->with('user:id,name,twitter_simple_image_url');
+            $q->with('user:id,name,twitter_image_url,twitter_simple_image_url');
         });
         // ユーザーIDで絞る
         if(isset($request->event_users_user_id)){
@@ -148,7 +148,7 @@ class EventRepository
         $query->with('eventDuels', function($q_eventDuel) {
             $q_eventDuel->with('duel', function($q_duel) {
                 $q_duel->with('duelUsers', function($q_duelUser) {
-                    $q_duelUser->with('user:id,name,twitter_simple_image_url');
+                    $q_duelUser->with('user:id,name,twitter_image_url,twitter_simple_image_url');
                     $q_duelUser->with('duelUserResults');
                 });
             });
@@ -166,7 +166,7 @@ class EventRepository
             ->with('eventDuels', function($q_eventDuel) {
                 $q_eventDuel->with('duel', function($q_duel) {
                     $q_duel->with('duelUsers', function($q_duelUser) {
-                        $q_duelUser->with('user:id,name,twitter_simple_image_url');
+                        $q_duelUser->with('user:id,name,twitter_image_url,twitter_simple_image_url');
                         $q_duelUser->with('duelUserResults');
                     });
                 });
