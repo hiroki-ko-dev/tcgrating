@@ -32,3 +32,4 @@ Route::resources(['post' => Api\Post\PostController::class]);
 Route::resources(['post/comment' => Api\Post\CommentController::class]);
 
 Route::resources(['rank' => Api\Rank\RankController::class]);
+Route::resources(['video' => Api\Video\VideoController::class]);
