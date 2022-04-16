@@ -18,7 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Api
+// API用TwitterログインURL
+Route::get('/twitter/login', 'Auth\TwitterController@redirectToProviderForApi');
+
 Route::get('/user/{user_id}', 'Api\Auth\AuthController@index');
 Route::get('/auth/logout', 'Api\Auth\AuthController@logout');
 Route::post('/auth/discord_name/update', 'Api\Auth\AuthController@discordName');

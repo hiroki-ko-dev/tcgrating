@@ -28,6 +28,13 @@ class TwitterController extends Controller
         return Socialite::driver('twitter')->redirect();
     }
 
+    // Api用Twitterログイン
+    public function redirectToProviderForApi()
+    {
+        session(['api' => true]);
+        return Socialite::driver('twitter')->redirect();
+    }
+
     // Twitterコールバック
     public function handleProviderCallback() {
         try {
@@ -87,6 +94,11 @@ class TwitterController extends Controller
             $redirectUrl = session('loginAfterRedirectUrl');
             session()->forget('loginAfterRedirectUrl');
             return redirect($redirectUrl);
+        }
+
+        if(session('api')){
+            session()->forget('api');
+            return redirect('/user/' . Auth::user()->id);
         }
         return redirect('/user/' . Auth::user()->id);
     }
