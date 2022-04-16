@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\Route;
         // TwitterログインURL
         Route::get('/twitter/login', 'Auth\TwitterController@redirectToProvider');
         // API用TwitterログインURL
-        Route::get('/twitter/api/login', 'Auth\TwitterController@redirectToProviderForApi');
+        Route::get('/api/twitter/login', 'Auth\TwitterController@redirectToProviderForApi');
         // TwitterコールバックURL
         Route::get('/twitter/callback', 'Auth\TwitterController@handleProviderCallback');
         // TwitterログアウトURL

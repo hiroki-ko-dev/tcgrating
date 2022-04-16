@@ -98,7 +98,7 @@ class TwitterController extends Controller
 
         if(session('api')){
             session()->forget('api');
-            return redirect('/user/' . Auth::user()->id);
+            return view('auth.api_logined');
         }
         return redirect('/user/' . Auth::user()->id);
     }
