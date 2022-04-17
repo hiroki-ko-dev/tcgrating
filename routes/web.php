@@ -107,3 +107,4 @@ use Illuminate\Support\Facades\Route;
     Route::resources([
         'admin' => AdminController::class,
     ]);
+    Route::get('/admin_post', 'AdminController@postRequest');

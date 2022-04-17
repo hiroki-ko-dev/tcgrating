@@ -84,7 +84,9 @@ class AuthController extends Controller
             $gameUserRequest->merge(['id' => $gameUser->id]);
             $gameUserRequest->merge(['expo_push_token' => $request->expo_push_token]);
 
-            $gameUser = $this->userService->updateGameUser($gameUserRequest);
+            $this->userService->updateGameUser($gameUserRequest);
+            $gameUser = $this->userService->getGameUserForApi($request);
+
         } catch(\Exception $e){
             $gameUser = [
                 'result' => false,
