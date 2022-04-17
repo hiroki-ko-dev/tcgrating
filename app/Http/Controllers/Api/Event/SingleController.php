@@ -193,6 +193,9 @@ class SingleController extends Controller
                         $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
 
                         $this->duelService->createUser($request) ;
+
+                        // 送信
+                        $this->apiService->duelMatching($event);
                     }
                     return $event;
                 }

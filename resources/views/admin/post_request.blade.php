@@ -27,7 +27,7 @@
           <input type="hidden" name="to" value="ExponentPushToken[KhlJf8PvNsZ5b9wqDQoIPB]">
           <input type="hidden" name="sound" value="default">
           <input type="hidden" name="title" value="titleテスト">
-          <input type="hidden" name="body" value="bodyテストレイー">
+          <input type="hidden" name="body" value="bodyテスト">
 
           <table class="search table">
             <tr>

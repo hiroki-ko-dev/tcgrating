@@ -46,29 +46,45 @@ class SiteController extends Controller
 
     public function test()
     {
-        $discord =
-            '<@763106044431171594> '. PHP_EOL .
-            '<@ハシム-8498> '. PHP_EOL .
-            '@{{ハシム}} '. PHP_EOL .
-            '<\@ハシム#8498> '. PHP_EOL .
-            '\@ハシム#8498 '. PHP_EOL .
-            '<\@ハシム-8498> '. PHP_EOL .
-            '\@ハシム '. PHP_EOL .
-            '<\@ハシム-#8498> '. PHP_EOL .
-            '\@ハシム-#8498 '. PHP_EOL .
-            'ハシム#8498 '. PHP_EOL .
-            'botのテスト' . PHP_EOL .
-            PHP_EOL ;
-
-        $data = array("content" => $discord, "username" => 'TCGRating');
+        $data = array(
+            "to"  => "ExponentPushToken[KhlJf8PvNsZ5b9wqDQoIPB]",
+            "sound" => 'default',
+            "title"  => "titleテスト",
+            "body" => 'bodyテスト',
+        );
         $headers[] = "Content-Type: application/json";
 
-        $curl = curl_init('https://discord.com/api/webhooks/930830014780407819/z4tgtsSgs_mbX1JqN2c1jJvUuoIIChI1JOW4Ui2ud3ObovRnvH7XfQv5VgZ8Kc0I-oZH');
+        $curl = curl_init('https://exp.host/--/api/v2/push/send');
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         $res = curl_exec($curl);
+
+//        $discord =
+//            '<@763106044431171594> '. PHP_EOL .
+//            '<@ハシム-8498> '. PHP_EOL .
+//            '@{{ハシム}} '. PHP_EOL .
+//            '<\@ハシム#8498> '. PHP_EOL .
+//            '\@ハシム#8498 '. PHP_EOL .
+//            '<\@ハシム-8498> '. PHP_EOL .
+//            '\@ハシム '. PHP_EOL .
+//            '<\@ハシム-#8498> '. PHP_EOL .
+//            '\@ハシム-#8498 '. PHP_EOL .
+//            'ハシム#8498 '. PHP_EOL .
+//            'botのテスト' . PHP_EOL .
+//            PHP_EOL ;
+//
+//        $data = array("content" => $discord, "username" => 'TCGRating');
+//        $headers[] = "Content-Type: application/json";
+//
+//        $curl = curl_init('https://discord.com/api/webhooks/930830014780407819/z4tgtsSgs_mbX1JqN2c1jJvUuoIIChI1JOW4Ui2ud3ObovRnvH7XfQv5VgZ8Kc0I-oZH');
+//        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+//        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+//        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+//        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+//
+//        $res = curl_exec($curl);
     }
 }
