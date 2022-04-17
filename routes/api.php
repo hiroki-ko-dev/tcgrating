@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/user/{user_id}', 'Api\Auth\AuthController@index');
-Route::get('/auth/expo/token/update', 'Api\Auth\AuthController@expoTokenUpdate');
+Route::post('/auth/expo/token/update', 'Api\Auth\AuthController@expoTokenUpdate');
 Route::get('/auth/logout', 'Api\Auth\AuthController@logout');
 Route::post('/auth/discord_name/update', 'Api\Auth\AuthController@discordName');
 
