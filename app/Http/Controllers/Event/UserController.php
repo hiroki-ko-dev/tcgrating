@@ -13,6 +13,7 @@ use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\UserService;
 use App\Services\TwitterService;
+use App\Services\ApiService;
 
 use App\Mail\EventSingleJoinRequestMail;
 
@@ -24,16 +25,19 @@ class UserController extends Controller
     protected $duelService;
     protected $userService;
     protected $twitterService;
+    protected $apiService;
 
     public function __construct(EventService $eventService,
                                 DuelService $duelService,
                                 UserService $userService,
-                                TwitterService $twitterService)
+                                TwitterService $twitterService,
+                                ApiService $apiService)
     {
         $this->eventService = $eventService ;
         $this->duelService  = $duelService ;
         $this->userService  = $userService ;
         $this->twitterService = $twitterService;
+        $this->apiService   = $apiService;
 
         session(['loginAfterRedirectUrl' => url()->previous()]);
         $this->middleware('auth');
@@ -196,6 +200,8 @@ class UserController extends Controller
             if(!is_null($event->user->twitter_id)){
                 $this->twitterService->tweetByInstantMatching($event->eventDuels[0]->duel);
             }
+            // アプリにpush通知を送信
+            $this->apiService->duelMatching($event);
 
             return '対戦申込が完了しました';
 
