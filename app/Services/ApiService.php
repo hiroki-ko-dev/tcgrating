@@ -32,7 +32,7 @@ class ApiService
      */
     public function duelMatching($event)
     {
-        $expo_push_token = $event->user->game_users
+        $expo_push_token = $event->user->gameUsers
                                 ->where('game_id',config('assets.site.game_ids.pokemon_card'))
                                 ->first()
                                 ->expo_push_token;
