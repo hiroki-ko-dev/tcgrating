@@ -5,11 +5,6 @@
   <title>TcgRating</title>
 </head>
 <body>
-<div class="header">Header領域</div>
-<div class="main">
-  <h1>見出し</h1>
-  <p>コンテンツ</p>
-</div>
 </body>
 
 <script type="text/javascript">

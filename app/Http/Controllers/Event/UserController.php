@@ -179,7 +179,7 @@ class UserController extends Controller
                 $this->duelService->updateDuelStatus($event->eventDuels[0]->duel_id, \APP\Models\Duel::STATUS_READY);
             }
 
-            $gameUser = $this->userService->getGameUserByUserIdAndGameId(Auth::id(), $event->game_id);
+            $gameUser = $this->userService->getGameUserByGameIdAndUserId($event->game_id, Auth::id());
 
             if(is_null($gameUser)){
                 $request->merge(['game_id'  => $event->game_id]);

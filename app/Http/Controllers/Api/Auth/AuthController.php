@@ -74,6 +74,30 @@ class AuthController extends Controller
         return $this->apiService->resConversionJson($rates);
     }
 
+    public function expoTokenUpdate(Request $request)
+    {
+        try {
+            $gameUser = $this->userService->getGameUserByGameIdAndUserId($request->game_id, $request->user_id);
+
+            // 選択しているゲームでフィルタ
+            $gameUserRequest = new Request();
+            $gameUserRequest->merge(['id' => $gameUser->id]);
+            $gameUserRequest->merge(['expo_push_token' => $request->expo_push_token]);
+
+            $gameUser = $this->userService->updateGameUser($gameUserRequest);
+        } catch(\Exception $e){
+            $gameUser = [
+                'result' => false,
+                'error' => [
+                    'messages' => [$e->getMessage()]
+                ],
+            ];
+            return $this->apiService->resConversionJson($gameUser, $e->getCode());
+        }
+
+        return $this->apiService->resConversionJson($gameUser);
+    }
+
     public function discordName(Request $request)
     {
         try {

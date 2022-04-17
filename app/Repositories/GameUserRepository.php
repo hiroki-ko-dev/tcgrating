@@ -43,6 +43,9 @@ class GameUserRepository
         if(isset($request->rate)) {
             $gameUser->rate         = $request->rate;
         }
+        if(isset($request->expo_push_token)) {
+            $gameUser->expo_push_token = $request->expo_push_token;
+        }
         $gameUser->save();
 
         return $gameUser;
