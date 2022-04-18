@@ -106,6 +106,17 @@ class EventRepository
                     ->find($id);
     }
 
+    public function findAll($request)
+    {
+        $query = Event::query();
+        $query->where('status',$request->status);
+        $query->wherehas('eventUsers.user', function ($q) use ($request) {
+            $q->where('user_id', $request->user_id);
+        });
+
+        return $query->get();
+    }
+
     /**
      * @param $id
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null

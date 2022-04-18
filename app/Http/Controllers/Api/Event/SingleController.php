@@ -215,6 +215,26 @@ class SingleController extends Controller
         return $this->apiService->resConversionJson($event);
     }
 
+    public function badge($user_id)
+    {
+        try {
+            $request = new Request();
+            $request->merge(['user_id'  => $user_id]);
+            $request->merge(['status'  => \App\Models\Event::STATUS_READY]);
+            $events = $this->eventService->getEvents($request->event_id);
+
+        } catch(\Exception $e){
+            $event = [
+                'error' => [
+                    'messages' => [$e->getMessage()]
+                ],
+            ];
+            return $this->apiService->resConversionJson($event, $e->getCode());
+        }
+
+        return $this->apiService->resConversionJson($events);
+    }
+
 //    public function join(Request $request)
 //    {
 //        try {

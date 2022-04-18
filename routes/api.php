@@ -26,6 +26,8 @@ Route::post('/auth/discord_name/update', 'Api\Auth\AuthController@discordName');
 Route::get('/single/test', 'Api\Event\SingleController@test');
 
 Route::resources(['event/single' => Api\Event\SingleController::class]);
+Route::get('/event/badge', 'Api\Event\SingleController@badge');
+
 Route::post('/event/join', 'Api\Event\SingleController@join');
 
 Route::resources(['post' => Api\Post\PostController::class]);

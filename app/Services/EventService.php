@@ -150,6 +150,10 @@ class EventService
         return $this->eventRepository->find($event_id);
     }
 
+    public function getEvents($request){
+        return $this->eventRepository->findAll($request);
+    }
+
     public function findEventWithUserAndDuel($event_id){
         return $this->eventRepository->findWithUserAndDuel($event_id);
     }
