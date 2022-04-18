@@ -110,7 +110,7 @@ class EventRepository
     {
         $query = Event::query();
         $query->where('status',$request->status);
-        $query->wherehas('eventUsers.user', function ($q) use ($request) {
+        $query->wherehas('eventUsers', function ($q) use ($request) {
             $q->where('user_id', $request->user_id);
         });
 
