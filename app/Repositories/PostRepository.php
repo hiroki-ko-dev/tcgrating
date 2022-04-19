@@ -36,6 +36,9 @@ class PostRepository
         if(isset($request->body)){
             $post->body = $request->body;
         }
+        if(isset($request->image_url)){
+            $post->image_url = $request->image_url;
+        }
         if(isset($request->is_personal)){
             $post->is_personal = $request->is_personal;
         }
@@ -101,7 +104,7 @@ class PostRepository
     public function findForApi($request)
     {
         $query = Post::query();
-        $query->select('id', 'user_id', 'event_id', 'duel_id', 'title', 'body', 'created_at');
+        $query->select('id', 'user_id', 'event_id', 'duel_id', 'title', 'image_url', 'body', 'created_at');
         $query->where('id', $request->id);
         $query->with('user:id,name,twitter_simple_image_url');
         $query->with('postComments', function($q) {
@@ -115,7 +118,7 @@ class PostRepository
     public function findAllForApi($request, $paginate)
     {
         $query = Post::query();
-        $query->select('id', 'user_id', 'event_id', 'duel_id', 'title', 'body', 'created_at');
+        $query->select('id', 'user_id', 'event_id', 'duel_id', 'title', 'body', 'image_url', 'created_at');
         $query->where('game_id', $request->game_id);
         $query->where('post_category_id', $request->post_category_id);
         if(isset($request->duel_id)){

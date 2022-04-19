@@ -52,15 +52,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
-
         try {
             $posts = DB::transaction(function () use($request) {
 
                 $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
                 $request->merge(['post_category_id' => \App\Models\PostCategory::CATEGORY_FREE]);
-
-                Log::debug($request);
 
                 $this->postService->createPost($request);
 
