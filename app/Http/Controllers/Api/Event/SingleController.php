@@ -236,41 +236,5 @@ class SingleController extends Controller
 
         return $this->apiService->resConversionJson($events);
     }
-
-//    public function join(Request $request)
-//    {
-//        try {
-//            //追加
-//            $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
-//            $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
-//
-//            $event = DB::transaction(function () use($request) {
-//
-//                $this->eventService->createUser($request) ;
-//                $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
-//
-//                $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
-//
-//                $this->duelService->createUser($request) ;
-//
-//                $this->eventService->updateEventStatus($request->event_id, \APP\Models\Event::STATUS_READY);
-//
-//                return $event;
-//
-//            });
-//
-//
-//        } catch(\Exception $e){
-//            $event = [
-//                'result' => false,
-//                'error' => [
-//                    'messages' => [$e->getMessage()]
-//                ],
-//            ];
-//            return $this->apiService->resConversionJson($event, $e->getCode());
-//        }
-//
-//        return $this->apiService->resConversionJson($event);
-//    }
-
+    
 }

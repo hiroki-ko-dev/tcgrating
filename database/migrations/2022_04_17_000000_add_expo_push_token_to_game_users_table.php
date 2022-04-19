@@ -14,7 +14,7 @@ class AddExpoPushTokenToGameUsersTable extends Migration
     public function up()
     {
         Schema::table('game_users', function (Blueprint $table) {
-            $table->string('expo_push_token',200)->after('user_id');
+            $table->string('expo_push_token',200)->nullable()->after('user_id');
         });
     }
 
