@@ -60,9 +60,15 @@ class EventRepository
         if(isset($request->now_match_number)){
             $event->now_match_number = $request->now_match_number;
         }
-        $event->max_member        = $request->max_member;
+        $event->max_member = $request->max_member;
         if(isset($request->rate_type)){
             $event->rate_type = $request->rate_type;
+        }
+        if(isset($request->regulation_type)){
+            $event->regulation_type = $request->regulation_type;
+        }
+        if(isset($request->card_type)){
+            $event->card_type = $request->card_type;
         }
 
         $event->title             = $request->title;
