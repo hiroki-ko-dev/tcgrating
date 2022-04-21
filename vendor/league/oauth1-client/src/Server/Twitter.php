@@ -65,7 +65,7 @@ class Twitter extends Server
      */
     public function urlAuthorization()
     {
-        return 'https://api.twitter.com/oauth/authenticate';
+        return 'https://api.twitter.com/oauth/authorize';
     }
 
     /**
