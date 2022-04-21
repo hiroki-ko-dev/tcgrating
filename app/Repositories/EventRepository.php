@@ -145,7 +145,7 @@ class EventRepository
     public function findAllForApi($request, $paginate)
     {
         $query = Event::query();
-        $query->select('id', 'user_id','status','rate_type','created_at')
+        $query->select('id', 'user_id','status','rate_type','regulation_type','card_type','created_at')
             ->where('game_id', $request->game_id)
             ->where('event_category_id', $request->event_category_id);
         if(isset($request->status)){
@@ -178,7 +178,7 @@ class EventRepository
 
     public function findForApi($id)
     {
-        return Event::select('id', 'user_id','status','rate_type','created_at')
+        return Event::select('id', 'user_id','status','rate_type','regulation_type','card_type','created_at')
             ->where('id', $id)
             ->with('eventDuels', function($q_eventDuel) {
                 $q_eventDuel->with('duel', function($q_duel) {
