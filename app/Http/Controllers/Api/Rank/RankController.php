@@ -35,7 +35,7 @@ class RankController extends Controller
             $request = new Request();
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);;
 
-            $rates = $this->userService->getGameUsersByRankForApi($request, 50);
+            $rates = $this->userService->getGameUsersByRankForApi($request, 200);
 
         } catch(\Exception $e){
             $events = [
