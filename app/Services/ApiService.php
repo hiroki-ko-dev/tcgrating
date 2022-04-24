@@ -39,7 +39,7 @@ class ApiService
 
         if($expo_push_token){
             $data = array(
-                "to"  => "ExponentPushToken[KhlJf8PvNsZ5b9wqDQoIPB]",
+                "to"  => $expo_push_token,
                 "sound" => 'default',
                 "title"  => "ポケカ対戦マッチングしました",
                 "body" => 'Discordの対戦チャンネルで対戦を開始してください',
