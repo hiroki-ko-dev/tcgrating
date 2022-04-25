@@ -39,7 +39,6 @@ class TwitterController extends Controller
     public function handleProviderCallback() {
         try {
             // ユーザー詳細情報の取得
-            dd(Socialite::driver('twitter'));
             $twitterUser = Socialite::driver('twitter')->user();
             $user = $this->userService->getUserByTwitterId($twitterUser->id);
 
