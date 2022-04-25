@@ -44,14 +44,12 @@ class TwitterController extends Controller
 
             // TwitterIDが存在しない場合の処理
             if(is_null($user)){
-
                 // Twitter情報からユーザーアカウントを作成
                 $request             = new Request();
                 $request->twitter_id = $twitterUser->id;
                 $request->twitter_nickname  = $twitterUser->nickname;
                 $request->twitter_image_url = $twitterUser->avatar_original;
                 $request->twitter_simple_image_url = $twitterUser->user['profile_image_url_https'];
-
 
                 // すでにログイン中なら、ログインアカウントにTwitter情報を追加
                 if(Auth::check()){
@@ -85,7 +83,12 @@ class TwitterController extends Controller
                 Auth::login($user, true);
             }
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
+            if(session('loginAfterRedirectUrl')){
+                $redirectUrl = session('loginAfterRedirectUrl');
+                session()->forget('loginAfterRedirectUrl');
+                return redirect($redirectUrl);
+            }
             return redirect('/login')->with('flash_message', 'エラーが発生しました');
         }
 
