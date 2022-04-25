@@ -39,6 +39,7 @@ class TwitterController extends Controller
     public function handleProviderCallback() {
         try {
             // ユーザー詳細情報の取得
+            dd(Socialite::driver('twitter'));
             $twitterUser = Socialite::driver('twitter')->user();
             $user = $this->userService->getUserByTwitterId($twitterUser->id);
 
@@ -84,10 +85,11 @@ class TwitterController extends Controller
             }
 
         } catch (\Exception $e) {
-            if(session('loginAfterRedirectUrl')){
-                $redirectUrl = session('loginAfterRedirectUrl');
-                session()->forget('loginAfterRedirectUrl');
-                return redirect($redirectUrl);
+
+            if(session('api')){
+                session()->forget('api');
+                $loginId = 0;
+                return view('auth.api_logined',compact('loginId'));
             }
             return redirect('/login')->with('flash_message', 'エラーが発生しました');
         }
@@ -101,7 +103,8 @@ class TwitterController extends Controller
 
         if(session('api')){
             session()->forget('api');
-            return view('auth.api_logined');
+            $loginId = Auth::id();
+            return view('auth.api_logined',compact('loginId'));
         }
         return redirect('/user/' . Auth::user()->id);
     }

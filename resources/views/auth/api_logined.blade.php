@@ -8,11 +8,7 @@
 </body>
 
 <script type="text/javascript">
-  @if(Auth::check())
-    window.ReactNativeWebView.postMessage(0);
-  @else
-    window.ReactNativeWebView.postMessage({{Auth::id()}});
-  @endif
+  window.ReactNativeWebView.postMessage({{$loginId}});
 </script>
 
 </html>
