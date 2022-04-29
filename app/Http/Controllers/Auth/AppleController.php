@@ -36,7 +36,9 @@ class AppleController extends Controller
     }
 
     // Twitterコールバック
-    public function handleProviderCallback() {
+    public function handleProviderCallback(Request $request) {
+
+        dd($request);
 
         try {
             // ユーザー詳細情報の取得
