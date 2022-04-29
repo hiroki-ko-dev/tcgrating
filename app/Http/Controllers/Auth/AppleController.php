@@ -38,11 +38,7 @@ class AppleController extends Controller
     // Twitterコールバック
     public function handleProviderCallback(Request $request) {
 
-        dd(
-            [
-                Socialite::driver('apple')->stateless()
-            ]
-            );
+        dd(Socialite::driver('apple')->user());;
 
         try {
             // ユーザー詳細情報の取得
