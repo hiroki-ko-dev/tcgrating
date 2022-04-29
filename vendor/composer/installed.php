@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c9ddb472d51cc817f40a2db34c6e1c7ecb6d430b',
+        'reference' => '65419c37003566248f3550fa1349eee5c4c733a1',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -219,6 +219,15 @@
             'aliases' => array(),
             'reference' => 'a63e5e8f26ebbebf8ed3c5c691637325512eb0dc',
             'dev_requirement' => true,
+        ),
+        'firebase/php-jwt' => array(
+            'pretty_version' => 'v5.5.1',
+            'version' => '5.5.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../firebase/php-jwt',
+            'aliases' => array(),
+            'reference' => '83b609028194aa042ea33b5af2d41a7427de80e6',
+            'dev_requirement' => false,
         ),
         'fruitcake/laravel-cors' => array(
             'pretty_version' => 'v2.2.0',
@@ -481,7 +490,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c9ddb472d51cc817f40a2db34c6e1c7ecb6d430b',
+            'reference' => '65419c37003566248f3550fa1349eee5c4c733a1',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -536,6 +545,24 @@
             'install_path' => __DIR__ . '/../laravelcollective/html',
             'aliases' => array(),
             'reference' => '78c3cb516ac9e6d3d76cad9191f81d217302dea6',
+            'dev_requirement' => false,
+        ),
+        'lcobucci/clock' => array(
+            'pretty_version' => '2.2.0',
+            'version' => '2.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../lcobucci/clock',
+            'aliases' => array(),
+            'reference' => 'fb533e093fd61321bfcbac08b131ce805fe183d3',
+            'dev_requirement' => false,
+        ),
+        'lcobucci/jwt' => array(
+            'pretty_version' => '4.1.5',
+            'version' => '4.1.5.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../lcobucci/jwt',
+            'aliases' => array(),
+            'reference' => 'fe2d89f2eaa7087af4aa166c6f480ef04e000582',
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(
@@ -901,8 +928,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -1115,6 +1142,15 @@
             'reference' => 'c6c1022351a901512170118436c764e473f6de8c',
             'dev_requirement' => true,
         ),
+        'socialiteproviders/apple' => array(
+            'pretty_version' => '5.0.3',
+            'version' => '5.0.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../socialiteproviders/apple',
+            'aliases' => array(),
+            'reference' => 'afeda500417d98378f974f4bccaeeb35b1f69b55',
+            'dev_requirement' => false,
+        ),
         'socialiteproviders/manager' => array(
             'pretty_version' => 'v4.1.0',
             'version' => '4.1.0.0',
@@ -1131,6 +1167,15 @@
             'install_path' => __DIR__ . '/../socialiteproviders/twitter',
             'aliases' => array(),
             'reference' => 'e5edf2b6e3f37e64be6488111629ed5e41e645ad',
+            'dev_requirement' => false,
+        ),
+        'stella-maris/clock' => array(
+            'pretty_version' => '0.1.4',
+            'version' => '0.1.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../stella-maris/clock',
+            'aliases' => array(),
+            'reference' => '8a0a967896df4c63417385dc69328a0aec84d9cf',
             'dev_requirement' => false,
         ),
         'swiftmailer/swiftmailer' => array(
