@@ -18,6 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+// AppleコールバックURL
+Route::post('/auth/redirect', 'Auth\AppleController@handleProviderCallback');
+
 Route::get('/user/{user_id}', 'Api\Auth\AuthController@index');
 Route::post('/auth/expo/token/update', 'Api\Auth\AuthController@expoTokenUpdate');
 Route::get('/auth/logout', 'Api\Auth\AuthController@logout');
