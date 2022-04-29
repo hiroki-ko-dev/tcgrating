@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+use Laravel\Socialite\Two\User as OAuthTwoUser;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -36,9 +37,9 @@ class AppleController extends Controller
     }
 
     // Twitterコールバック
-    public function handleProviderCallback(Request $request) {
+    public function handleProviderCallback(OAuthTwoUser $socialUser) {
 
-        dd(Socialite::driver('apple')->user());;
+        dd($socialUser);
 
         try {
             // ユーザー詳細情報の取得
