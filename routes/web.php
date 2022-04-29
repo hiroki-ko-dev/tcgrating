@@ -54,7 +54,7 @@ use Illuminate\Support\Facades\Route;
             // API用TwitterログインURL
             Route::get('/api/login', 'Auth\AppleController@redirectToProviderForApi');
             // TwitterコールバックURL
-            Route::get('/redirect', 'Auth\AppleController@handleProviderCallback');
+            Route::post('/redirect', 'Auth\AppleController@handleProviderCallback');
             // TwitterログアウトURL
             Route::get('/logout', 'Auth\AppleController@logout');
         });
