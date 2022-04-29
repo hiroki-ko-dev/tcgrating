@@ -72,6 +72,11 @@ class UserService
         return $this->userRepository->findByTwitterId($id);
     }
 
+    public function getUserByAppleId($id)
+    {
+        return $this->userRepository->findByAppleId($id);
+    }
+
     public function getRatesWithPaginateOrderByRank($request, $pagination)
     {
         return $this->gameUserRepository->findAllByPaginateOrderByRank($request, $pagination);

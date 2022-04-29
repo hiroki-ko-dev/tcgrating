@@ -38,14 +38,26 @@ use Illuminate\Support\Facades\Route;
 
     // twitterログイン
     Route::prefix('auth')->group(function () {
-        // TwitterログインURL
-        Route::get('/twitter/login', 'Auth\TwitterController@redirectToProvider');
-        // API用TwitterログインURL
-        Route::get('/api/twitter/login', 'Auth\TwitterController@redirectToProviderForApi');
-        // TwitterコールバックURL
-        Route::get('/twitter/callback', 'Auth\TwitterController@handleProviderCallback');
-        // TwitterログアウトURL
-        Route::get('/twitter/logout', 'Auth\TwitterController@logout');
+        Route::prefix('twitter')->group(function () {
+            // TwitterログインURL
+            Route::get('/login', 'Auth\TwitterController@redirectToProvider');
+            // API用TwitterログインURL
+            Route::get('/api/login', 'Auth\TwitterController@redirectToProviderForApi');
+            // TwitterコールバックURL
+            Route::get('/callback', 'Auth\TwitterController@handleProviderCallback');
+            // TwitterログアウトURL
+            Route::get('/logout', 'Auth\TwitterController@logout');
+        });
+        Route::prefix('apple')->group(function () {
+            // TwitterログインURL
+            Route::get('/login', 'Auth\AppleController@redirectToProvider');
+            // API用TwitterログインURL
+            Route::get('/api/login', 'Auth\AppleController@redirectToProviderForApi');
+            // TwitterコールバックURL
+            Route::get('/redirect', 'Auth\AppleController@handleProviderCallback');
+            // TwitterログアウトURL
+            Route::get('/logout', 'Auth\AppleController@logout');
+        });
     });
 
 //    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');

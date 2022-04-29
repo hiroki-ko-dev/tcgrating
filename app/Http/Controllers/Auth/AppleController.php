@@ -12,7 +12,7 @@ use DB;
 
 use App\Services\UserService;
 
-class TwitterController extends Controller
+class AppleController extends Controller
 {
 
     protected $userService;
@@ -25,15 +25,14 @@ class TwitterController extends Controller
     // Twitterログイン
     public function redirectToProvider()
     {
-
-        return Socialite::driver('twitter')->redirect();
+        return Socialite::driver('apple')->redirect();
     }
 
     // Api用Twitterログイン
     public function redirectToProviderForApi()
     {
         session(['api' => true]);
-        return Socialite::driver('twitter')->redirect();
+        return Socialite::driver('apple')->redirect();
     }
 
     // Twitterコールバック
@@ -41,34 +40,30 @@ class TwitterController extends Controller
 
         try {
             // ユーザー詳細情報の取得
-            $twitterUser = Socialite::driver('twitter')->user();
-            $user = $this->userService->getUserByTwitterId($twitterUser->id);
+            $appleUser = Socialite::driver('apple')->user();
+
+            $user = $this->userService->getUserByAppleId($appleUser->id);
 
             // TwitterIDが存在しない場合の処理
             if(is_null($user)){
                 // Twitter情報からユーザーアカウントを作成
                 $request             = new Request();
-                $request->twitter_id = $twitterUser->id;
-                $request->twitter_nickname  = $twitterUser->nickname;
-                $request->twitter_simple_image_url = $twitterUser->avatar;
-                $request->twitter_image_url = str_replace('_normal', '', $twitterUser->avatar);
+                $request->apple_id = $appleUser->id;
 
                 // すでにログイン中なら、ログインアカウントにTwitter情報を追加
                 if(Auth::check()){
                     // ログインユーザーにTwitter情報をアップデート
                     $user = DB::transaction(function () use($request) {
                         $request->id = Auth::id();
-                        return $this->userService-> updateUser($request);
+                        return $this->userService->updateUser($request);
                     });
                     Auth::login($user, true);
 
                 // ログインしていないなら、新規アカウントを作成
                 }else{
                     $request->game_id    = session('selected_game_id');
-                    $request->name       = $twitterUser->name;
-                    $request->email      = $twitterUser->email;
-                    $request->password   = Hash::make($twitterUser->id.'hash_pass');
-                    $request->body       = $twitterUser->user['description'];
+                    $request->name       = $appleUser->name;
+                    $request->email      = $appleUser->email;
                     // 新規ユーザー作成
                     $user = DB::transaction(function () use($request) {
                         return $this->userService->makeUser($request);
@@ -77,11 +72,6 @@ class TwitterController extends Controller
                 }
 
             }else{
-                $user->twitter_nickname  = $twitterUser->nickname;
-                $user->twitter_simple_image_url = $twitterUser->avatar;
-                $user->twitter_image_url = str_replace('_normal', '', $twitterUser->avatar);
-                $user->save();
-
                 Auth::login($user, true);
             }
 
@@ -93,13 +83,6 @@ class TwitterController extends Controller
                 return view('auth.api_logined',compact('loginId'));
             }
             return redirect('/login')->with('flash_message', 'エラーが発生しました');
-        }
-
-        // duelページなどからTwitterログインしてきた場合に元のページに戻す
-        if(session('loginAfterRedirectUrl')){
-            $redirectUrl = session('loginAfterRedirectUrl');
-            session()->forget('loginAfterRedirectUrl');
-            return redirect($redirectUrl);
         }
 
         if(session('api')){

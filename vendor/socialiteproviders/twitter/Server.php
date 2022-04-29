@@ -22,7 +22,7 @@ class Server extends BaseServer
      */
     public function urlAuthorization()
     {
-        return 'https://api.twitter.com/oauth/authenticate';
+        return 'https://api.twitter.com/oauth/authorize';
     }
 
     /**
