@@ -40,7 +40,7 @@ class AppleController extends Controller
 
         dd(
             [
-                Socialite::driver('apple')->stateless()->user(),
+                Socialite::driver('apple'),
                 $request
             ]
             );
