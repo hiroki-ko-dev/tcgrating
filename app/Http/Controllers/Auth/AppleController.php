@@ -39,7 +39,14 @@ class AppleController extends Controller
     public function handleProviderCallback(Request $request)
     {
 
-        dd(Socialite::driver('apple')->user());
+        $id_token = Socialite::driver('apple')->id_token;
+        $tokenParts = explode(".", $id_token);
+        $tokenHeader = base64_decode($tokenParts[0]);
+        $tokenPayload = base64_decode($tokenParts[1]);
+        $jwtHeader = json_decode($tokenHeader);
+        $jwtPayload = json_decode($tokenPayload);
+
+        dd([$id_token,$tokenParts,$tokenHeader,$tokenPayload,$jwtHeader,$jwtPayload]);
 
         try {
             // ユーザー詳細情報の取得
