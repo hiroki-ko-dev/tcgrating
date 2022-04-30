@@ -72,9 +72,9 @@ class UserService
         return $this->userRepository->findByTwitterId($id);
     }
 
-    public function getUserByAppleId($id)
+    public function getUserByAppleCode($appleCode)
     {
-        return $this->userRepository->findByAppleId($id);
+        return $this->userRepository->findByAppleCode($appleCode);
     }
 
     public function getRatesWithPaginateOrderByRank($request, $pagination)

@@ -57,8 +57,8 @@ class UserRepository
         if(isset($request->twitter_image_url)){
             $user->twitter_image_url = $request->twitter_image_url;
         }
-        if(isset($request->apple_id)){
-            $user->apple_id = $request->apple_id;
+        if(isset($request->apple_code)){
+            $user->apple_code = $request->apple_code;
         }
         if(isset($request->twitter_simple_image_url)){
             $user->twitter_simple_image_url = $request->twitter_simple_image_url;
@@ -93,8 +93,8 @@ class UserRepository
         return User::where('twitter_id',$id)->first();
     }
 
-    public function findByAppleId($id){
-        return User::where('apple_id',$id)->first();
+    public function findByAppleCode($code){
+        return User::where('apple_code',$code)->first();
     }
 
     public function composeWhereClause($request)

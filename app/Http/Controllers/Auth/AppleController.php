@@ -58,13 +58,16 @@ class AppleController extends Controller
             $jwtPayload = json_decode($tokenPayload);
             $sub = json_decode($tokenPayload)['sub'];
 
-            $user = $this->userService->getUserByAppleCode($sub);
+            $user = null;
+            if($sub){
+                $user = $this->userService->getUserByAppleCode($sub);
+            }
 
             // TwitterIDが存在しない場合の処理
             if(is_null($user)){
                 // Twitter情報からユーザーアカウントを作成
                 $request             = new Request();
-                $request->apple_id = $appleUser->id;
+                $request->apple_code = $sub;
 
                 // すでにログイン中なら、ログインアカウントにTwitter情報を追加
                 if(Auth::check()){
@@ -78,8 +81,8 @@ class AppleController extends Controller
                 // ログインしていないなら、新規アカウントを作成
                 }else{
                     $request->game_id    = session('selected_game_id');
-                    $request->name       = $appleUser->name;
-                    $request->email      = $appleUser->email;
+                    $request->name       = '';
+                    $request->email      = json_decode($tokenPayload)['email'];
                     // 新規ユーザー作成
                     $user = DB::transaction(function () use($request) {
                         return $this->userService->makeUser($request);
