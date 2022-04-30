@@ -68,7 +68,7 @@ class TwitterController extends Controller
                     $request->name       = $twitterUser->name;
                     $request->email      = $twitterUser->email;
                     $request->password   = Hash::make($twitterUser->id.'hash_pass');
-                    $request->body       = $twitterUser->user['description'];
+                    $request->body       = '';
                     // 新規ユーザー作成
                     $user = DB::transaction(function () use($request) {
                         return $this->userService->makeUser($request);
