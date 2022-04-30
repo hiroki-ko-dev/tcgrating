@@ -39,7 +39,7 @@ class AppleController extends Controller
     public function handleProviderCallback(Request $request)
     {
 
-        $id_token = Socialite::driver('apple')->id_token;
+        $id_token = $request->id_token;
         $tokenParts = explode(".", $id_token);
         $tokenHeader = base64_decode($tokenParts[0]);
         $tokenPayload = base64_decode($tokenParts[1]);
