@@ -56,7 +56,7 @@ class AppleController extends Controller
             $tokenPayload = base64_decode($tokenParts[1]);
             $jwtHeader = json_decode($tokenHeader);
             $jwtPayload = json_decode($tokenPayload);
-            $sub = json_decode($tokenPayload)['sub'];
+            $sub = json_decode($tokenPayload)->sub;
 
             $user = null;
             if($sub){
@@ -82,7 +82,7 @@ class AppleController extends Controller
                 }else{
                     $request->game_id    = session('selected_game_id');
                     $request->name       = '';
-                    $request->email      = json_decode($tokenPayload)['email'];
+                    $request->email      = json_decode($tokenPayload)->email;
                     // 新規ユーザー作成
                     $user = DB::transaction(function () use($request) {
                         return $this->userService->makeUser($request);
