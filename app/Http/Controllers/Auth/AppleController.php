@@ -41,7 +41,15 @@ class AppleController extends Controller
     public function redirectToProviderForApi()
     {
         session(['api' => true]);
-        return Socialite::driver('apple')->redirect();
+        $url = 'https://appleid.apple.com/auth/authorize?';
+        $url = $url . 'client_id=' . config('services.apple.client_id');
+        $url = $url . '&scope=name email';
+        $url = $url . '&redirect_uri=' . config('services.apple.redirect');
+        $url = $url . '&response_type=code id_token ';
+        $url = $url . '&state=aaa';
+        $url = $url . '&nonce=bbb';
+        $url = $url . '&response_mode=form_post';
+        return redirect($url);
     }
 
     // Twitterコールバック
@@ -87,7 +95,7 @@ class AppleController extends Controller
                     $request->game_id    = $game_id;
                     $request->name       = '';
                     $request->email      = json_decode($tokenPayload)->email;
-                    $request->password   = Hash::make($twitterUser->id.'hash_pass');
+                    $request->password   = Hash::make($sub.'hash_pass');
                     $request->body       = '';
                     // 新規ユーザー作成
                     $user = DB::transaction(function () use($request) {
