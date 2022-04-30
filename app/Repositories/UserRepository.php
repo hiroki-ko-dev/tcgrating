@@ -15,6 +15,9 @@ class UserRepository
         if(isset($request->twitter_id)){
             $user->twitter_id = $request->twitter_id;
         }
+        if(isset($request->apple_code)){
+            $user->apple_code = $request->apple_code;
+        }
         $user->selected_game_id = $request->game_id;
         $user->name             = $request->name;
         $user->email            = $request->email;
