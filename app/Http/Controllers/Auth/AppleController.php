@@ -45,8 +45,9 @@ class AppleController extends Controller
         $tokenPayload = base64_decode($tokenParts[1]);
         $jwtHeader = json_decode($tokenHeader);
         $jwtPayload = json_decode($tokenPayload);
+        $sub = json_decode($tokenPayload)['sub'];
 
-        dd([$id_token,$tokenParts,$tokenHeader,$tokenPayload,$jwtHeader,$jwtPayload]);
+        dd([$id_token,$tokenParts,$tokenHeader,$tokenPayload,$jwtHeader,$jwtPayload,$sub]);
 
         try {
             // ユーザー詳細情報の取得
