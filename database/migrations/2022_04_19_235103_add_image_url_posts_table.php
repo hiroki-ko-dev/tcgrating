@@ -26,7 +26,7 @@ class AddImageUrlPostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->dropColumn('body');
+            $table->dropColumn('image_url');
         });
     }
 }

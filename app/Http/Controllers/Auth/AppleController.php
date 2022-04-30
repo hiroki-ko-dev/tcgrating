@@ -25,7 +25,16 @@ class AppleController extends Controller
     // Twitterログイン
     public function redirectToProvider()
     {
-        return Socialite::driver('apple')->redirect();
+        $url = 'https://appleid.apple.com/auth/authorize?';
+        $url = $url . 'client_id=' . config('services.apple.client_id');
+        $url = $url . '&scope=name email';
+        $url = $url . '&redirect_uri=' . config('services.apple.redirect');
+        $url = $url . '&response_type=code id_token ';
+        $url = $url . '&state=aaa';
+        $url = $url . '&nonce=bbb';
+        $url = $url . '&response_mode=form_post';
+
+        return redirect($url);
     }
 
     // Api用Twitterログイン
@@ -39,21 +48,17 @@ class AppleController extends Controller
     public function handleProviderCallback(Request $request)
     {
 
-        $id_token = $request->id_token;
-        $tokenParts = explode(".", $id_token);
-        $tokenHeader = base64_decode($tokenParts[0]);
-        $tokenPayload = base64_decode($tokenParts[1]);
-        $jwtHeader = json_decode($tokenHeader);
-        $jwtPayload = json_decode($tokenPayload);
-        $sub = json_decode($tokenPayload)['sub'];
-
-        dd([$id_token,$tokenParts,$tokenHeader,$tokenPayload,$jwtHeader,$jwtPayload,$sub]);
-
         try {
             // ユーザー詳細情報の取得
-            $appleUser = Socialite::driver('apple')->user();
+            $id_token = $request->id_token;
+            $tokenParts = explode(".", $id_token);
+            $tokenHeader = base64_decode($tokenParts[0]);
+            $tokenPayload = base64_decode($tokenParts[1]);
+            $jwtHeader = json_decode($tokenHeader);
+            $jwtPayload = json_decode($tokenPayload);
+            $sub = json_decode($tokenPayload)['sub'];
 
-            $user = $this->userService->getUserByAppleId($appleUser->id);
+            $user = $this->userService->getUserByAppleCode($sub);
 
             // TwitterIDが存在しない場合の処理
             if(is_null($user)){
