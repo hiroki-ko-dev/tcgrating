@@ -118,11 +118,11 @@ class AppleController extends Controller
             return redirect('/login')->with('flash_message', 'エラーが発生しました');
         }
 
-        if(session('api')){
+//        if(session('api')){
             session()->forget('api');
             $loginId = Auth::id();
             return view('auth.api_logined',compact('loginId'));
-        }
-        return redirect('/user/' . Auth::user()->id);
+//        }
+//        return redirect('/user/' . Auth::user()->id);
     }
 }
