@@ -64,7 +64,11 @@ class TwitterController extends Controller
 
                 // ログインしていないなら、新規アカウントを作成
                 }else{
-                    $request->game_id    = session('selected_game_id');
+                    $game_id = config('assets.site.game_ids.pokemon_card');
+                    if(session('selected_game_id')){
+                        $game_id = session('selected_game_id');
+                    }
+                    $request->game_id    = $game_id;
                     $request->name       = $twitterUser->name;
                     $request->email      = $twitterUser->email;
                     $request->password   = Hash::make($twitterUser->id.'hash_pass');
