@@ -110,10 +110,21 @@ class AuthController extends Controller
                 'discord_name.regex' => 'ディスコードの名前は「〇〇#数字4桁」の形式にしてください',
             ]);
 
+            $gameUser = $this->userService->getGameUserForApi($request);
             // discordNameがおかしかったらエラーで返す
             if ($validator->fails()) {
-                $gameUser = $this->userService->getGameUserForApi($request);
                 return $this->apiService->resConversionJson($gameUser);
+            }
+            // 名前が空ならここから作成
+            if(empty($gameUser->user->name)){
+                $name = explode( '#', $request->discord_name)[0];
+
+                // 選択しているゲームでフィルタ
+                $userRequest = new Request();
+                $userRequest->merge(['id' => $gameUser->user->id]);
+                $userRequest->merge(['name' => $name]);
+
+                $this->userService->updateUser($userRequest);
             }
 
             $gameUser = $this->userService->updateGameUser($request);
