@@ -67,7 +67,7 @@ class UserService
         return $this->userRepository->find($id);
     }
 
-    public function findGameUser($id)
+    public function getGameUser($id)
     {
         return $this->gameUserRepository->find($id);
     }
