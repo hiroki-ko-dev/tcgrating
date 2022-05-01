@@ -124,7 +124,7 @@ class AuthController extends Controller
 
                 // 選択しているゲームでフィルタ
                 $userRequest = new Request();
-                $userRequest->merge(['id' => $gameUser->user->id]);
+                $userRequest->merge(['id' => $gameUser->user_id]);
                 $userRequest->merge(['name' => $name[0]]);
 
                 $this->userService->updateUser($userRequest);
