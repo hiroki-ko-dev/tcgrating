@@ -116,7 +116,7 @@ class AuthController extends Controller
                 return $this->apiService->resConversionJson($gameUser);
             }
 
-            $gameUser = $this->userService->getGameUser($request);
+            $gameUser = $this->userService->getGameUser($request->id);
 
             // 名前が空ならここから作成
             if(empty($gameUser->user->name)){
