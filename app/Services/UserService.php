@@ -67,6 +67,11 @@ class UserService
         return $this->userRepository->find($id);
     }
 
+    public function findGameUser($id)
+    {
+        return $this->gameUserRepository->find($id);
+    }
+
     public function getUserByTwitterId($id)
     {
         return $this->userRepository->findByTwitterId($id);
