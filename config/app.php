@@ -177,8 +177,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         // Twitter
-//        Laravel\Socialite\SocialiteServiceProvider::class,
-        SocialiteProviders\Manager\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        // Appleログインで使おうとしたが、結果使わなかった
+//        SocialiteProviders\Manager\ServiceProvider::class,
     ],
 
     /*

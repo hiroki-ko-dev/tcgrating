@@ -50,8 +50,9 @@ class TwitterController extends Controller
                 $request             = new Request();
                 $request->twitter_id = $twitterUser->id;
                 $request->twitter_nickname  = $twitterUser->nickname;
-                $request->twitter_simple_image_url = $twitterUser->avatar;
-                $request->twitter_image_url = str_replace('_normal', '', $twitterUser->avatar);
+                $request->twitter_image_url = $twitterUser->avatar_original;
+                $request->twitter_simple_image_url = $twitterUser->user['profile_image_url_https'];
+
 
                 // すでにログイン中なら、ログインアカウントにTwitter情報を追加
                 if(Auth::check()){
@@ -72,7 +73,8 @@ class TwitterController extends Controller
                     $request->name       = $twitterUser->name;
                     $request->email      = $twitterUser->email;
                     $request->password   = Hash::make($twitterUser->id.'hash_pass');
-                    $request->body       = '';
+                    $request->body       = $twitterUser->user['description'];
+
                     // 新規ユーザー作成
                     $user = DB::transaction(function () use($request) {
                         return $this->userService->makeUser($request);
@@ -82,8 +84,8 @@ class TwitterController extends Controller
 
             }else{
                 $user->twitter_nickname  = $twitterUser->nickname;
-                $user->twitter_simple_image_url = $twitterUser->avatar;
-                $user->twitter_image_url = str_replace('_normal', '', $twitterUser->avatar);
+                $user->twitter_image_url = $twitterUser->avatar_original;
+                $user->twitter_simple_image_url = $twitterUser->user['profile_image_url_https'];
                 $user->save();
 
                 Auth::login($user, true);
