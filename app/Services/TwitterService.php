@@ -91,10 +91,10 @@ class TwitterService
             PHP_EOL .
             env('APP_URL') . '/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ';
 
-        if(config('assets.common.appEnv') == 'production'){
+//        if(config('assets.common.appEnv') == 'production'){
             $this->twitterRepository->tweet($apiKeys, $tweet);
             $this->discordPost($discord, $webHook);
-        }
+//        }
 
     }
 
@@ -172,10 +172,10 @@ class TwitterService
             PHP_EOL .
             'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' ;
 
-        if(config('assets.common.appEnv') == 'production'){
+//        if(config('assets.common.appEnv') == 'production'){
             $this->twitterRepository->tweet($apiKeys, $tweet);
             $this->discordPost($discord, $webHook);
-        }
+//        }
     }
 
     public function tweetByDuelFinish($duel)
