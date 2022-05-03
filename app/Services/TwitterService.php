@@ -101,55 +101,6 @@ class TwitterService
     /**
      * @param Request $event
      */
-    public function tweetByMakeApiEvent($event)
-    {
-        // Twitterの遊戯王アカウントでTweet
-        if($event->game_id == 1 || $event->game_id == 2){
-            $apiKeys = config('assets.twitter.yugioh');
-            $hashTag = '#遊戯王デュエルリンクス ';
-
-            // TwitterのポケモンアカウントでTweet
-        }elseif($event->game_id == 3){
-            $apiKeys = config('assets.twitter.pokemon');
-//            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
-            $hashTag = '';
-        }
-
-        // イベント作成によるメール文
-        $tweet =
-            $event->user->name. 'さんが対戦相手を探しています' . PHP_EOL .
-            '対戦ゲーム：' . $event->game->name . PHP_EOL .
-            '対戦日時' . date('Y/m/d H:i', strtotime($event->date)) . PHP_EOL .
-            PHP_EOL .
-            'https://hashimu.com/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ' . PHP_EOL .
-            'URLから対戦を受けましょう!' . PHP_EOL .
-            $hashTag;
-
-        if($event->rate_type == \App\Models\Event::RATE_TYPE_RATE){
-            $table = 'レート対戦';
-            $webHook = config('assets.discord.web_hook.rate');
-        }else{
-            $table = 'エキシビジョン戦';
-            $webHook = config('assets.discord.web_hook.exhibition');
-        }
-
-        // イベント作成によるメール文
-        $discord =
-            '@' . $event->user->gameUsers->where('game_id', $event->game_id)->first()->discord_name . ' さんが対戦相手を探しています' . PHP_EOL .
-            '対戦チャンネルは　「' . $table . ' ' . $event->eventDuels[0]->duel->room_id . '」　です。' . PHP_EOL .
-            'URLから対戦を受けましょう!' . PHP_EOL .
-            PHP_EOL .
-            env('APP_URL') . '/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ';
-
-//        if(config('assets.common.appEnv') == 'production'){
-            $this->twitterRepository->tweet($apiKeys, $tweet);
-            $this->discordPost($discord, $webHook);
-//        }
-    }
-
-    /**
-     * @param Request $event
-     */
     public function tweetByMatching($event)
     {
         // Twitterの遊戯王アカウントでTweet

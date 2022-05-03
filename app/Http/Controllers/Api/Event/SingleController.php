@@ -123,7 +123,7 @@ class SingleController extends Controller
                 $request->merge(['status' => \App\Models\Duel::STATUS_RECRUIT]);
                 $this->duelService->createInstant($request);
                 //twitterに投稿
-                $this->twitterService->tweetByMakeApiEvent($event);
+                $this->twitterService->tweetByMakeInstantEvent($event);
             });
 
         } catch(\Exception $e){
@@ -204,7 +204,7 @@ class SingleController extends Controller
                         // 送信
                         $this->apiService->duelMatching($event);
                         //twitterに投稿
-                        $this->twitterService->tweetByMakeApiEvent($event);
+                        $this->twitterService->tweetByInstantMatching($event->eventDuels[0]->duel);
                     }
                     return $event;
                 }
