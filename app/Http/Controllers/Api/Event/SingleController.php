@@ -197,7 +197,6 @@ class SingleController extends Controller
                         $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
                         $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
                         $this->eventService->createUser($request) ;
-                        $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
 
                         $this->duelService->createUser($request) ;
 
@@ -205,6 +204,8 @@ class SingleController extends Controller
                         $this->apiService->duelMatching($event);
                         //twitterに投稿
                         $this->twitterService->tweetByInstantMatching($event->eventDuels[0]->duel);
+                        // API用に変更
+                        $event = $this->eventService->findEventWithUserAndDuel($request->event_id);
                     }
                     return $event;
                 }
