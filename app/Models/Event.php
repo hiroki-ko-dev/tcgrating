@@ -25,6 +25,15 @@ class Event extends Model
         'invalid'  => self::STATUS_INVALID,
     ];
 
+    //定数の定義
+    const RATE_TYPE_RATE = 0;
+    const RATE_TYPE_EXHIBITION = 1;
+
+    const RATE_TYPE = [
+        'rate'  => self::RATE_TYPE_RATE,
+        'exhibition' => self::RATE_TYPE_EXHIBITION,
+    ];
+
     public function user(){
         return $this->belongsTo('App\Models\User','user_id','id');
     }
