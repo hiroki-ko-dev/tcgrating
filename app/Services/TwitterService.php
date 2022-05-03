@@ -154,7 +154,7 @@ class TwitterService
             '対戦の準備をしましょう！' . PHP_EOL .
             $hashTag;
 
-        if($duel->eventDuels[0]->event->rate_type == \App\Models\Event::RATE_TYPE_RATE){
+        if($duel->eventDuel->event->rate_type == \App\Models\Event::RATE_TYPE_RATE){
             $table = 'レート対戦';
             $webHook = config('assets.discord.web_hook.rate');
         }else{
