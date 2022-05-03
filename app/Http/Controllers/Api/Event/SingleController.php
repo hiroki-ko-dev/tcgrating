@@ -10,6 +10,7 @@ use App\Services\UserService;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\ApiService;
+use App\Services\TwitterService;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -21,6 +22,7 @@ class SingleController extends Controller
     protected $eventService;
     protected $duelService;
     protected $apiService;
+    protected $twitterService;
 
     /**
      * SingleController constructor.
@@ -28,16 +30,19 @@ class SingleController extends Controller
      * @param EventService $eventService
      * @param DuelService $duelService
      * @param ApiService $apiService
+     * @param TwitterService $twitterService
      */
     public function __construct(UserService $userService,
                                 EventService $eventService,
                                 DuelService $duelService,
-                                ApiService $apiService)
+                                ApiService $apiService,
+                                TwitterService $twitterService)
     {
         $this->userService  = $userService;
         $this->eventService = $eventService;
         $this->duelService = $duelService;
         $this->apiService = $apiService;
+        $this->twitterService = $twitterService;
     }
 
     public function test()
@@ -117,6 +122,8 @@ class SingleController extends Controller
 
                 $request->merge(['status' => \App\Models\Duel::STATUS_RECRUIT]);
                 $this->duelService->createInstant($request);
+                //twitterに投稿
+                $this->twitterService->tweetByMakeApiEvent($event);
             });
 
         } catch(\Exception $e){
@@ -196,6 +203,8 @@ class SingleController extends Controller
 
                         // 送信
                         $this->apiService->duelMatching($event);
+                        //twitterに投稿
+                        $this->twitterService->tweetByMakeApiEvent($event);
                     }
                     return $event;
                 }
@@ -236,5 +245,5 @@ class SingleController extends Controller
 
         return $this->apiService->resConversionJson($events);
     }
-    
+
 }
