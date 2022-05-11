@@ -6,12 +6,13 @@
 
 @section('content')
 
-  <div class="landing-bg">
-    <img class="img-fluid" src="{{ asset('/images/site/top/003_pokemon_card.jpg') }}" alt="hashimu-icon">
-    <p>リモートポケカのレーティング対戦</p>
-  </div>
 
   <div class="container">
+
+    <div class="landing-bg">
+      <img class="img-fluid" src="{{ asset('/images/site/top/003_pokemon_card.jpg') }}" alt="hashimu-icon">
+      <p>リモートポケカのレーティング対戦</p>
+    </div>
 
     @include('layouts.common.line')
 
@@ -42,22 +43,22 @@
     </div>
 
     <div class="row justify-content-center">
-      <div class="w-25">
-        <img class="img-fluid" src="{{ asset('/images/site/landing/under_allow.png') }}" alt="hashimu-icon">
-      </div>
+      <img class="img-fluid" src="{{ asset('/images/site/landing/under_allow.png') }}" alt="hashimu-icon">
     </div>
 
     <div class="row justify-content-center mb-2">
       <div class="col-12">
         <div class="box">
-          <div class="text-white font-weight-bold rounded site-color p-2">リモートポケカの対戦相手がすぐ見つかる</div>
-          <div class="d-flex flex-row mb-3">
-            <div class="w-50 rounded mt-1 pb-2">
+          <div class="text-white font-weight-bold rounded site-color p-3">リモートポケカの対戦相手がすぐ見つかる</div>
+          <div class="d-flex flex-row">
+            <div class="w-50 rounded mt-1">
               <img class="img-fluid" src="{{ asset('/images/site/landing/matching.png') }}" alt="hashimu-icon">
             </div>
-            <div class="w-50 m-2 text-left">
-              <div class="mb-2">同じく対戦相手を探している人が大勢利用しています。</div>
-              <div>ポケカプレイヤーが大勢利用しているから驚きのマッチング率！</div>
+            <div class="d-flex align-items-center">
+              <div class="text-left">
+                <div class="mb-2">同じく対戦相手を探している人が大勢利用しています。</div>
+                <div>ポケカプレイヤーが大勢利用しているから驚きのマッチング率！</div>
+              </div>
             </div>
           </div>
         </div>
@@ -67,13 +68,15 @@
     <div class="row justify-content-center">
       <div class="col-12">
         <div class="box">
-          <div class="text-white font-weight-bold rounded site-color p-2">レーティング機能で全国1位を目指せ！</div>
-          <div class="d-flex flex-row mb-3">
-            <div class="w-50 rounded mt-1 pb-2">
+          <div class="text-white font-weight-bold rounded site-color p-3">レーティング機能で全国1位を目指せ！</div>
+          <div class="d-flex flex-row">
+            <div class="w-50 rounded mt-1">
               <img class="img-fluid" src="{{ asset('/images/site/landing/ranking.png') }}" alt="hashimu-icon">
             </div>
-            <div class="w-50 m-2 text-left">
-              <div class="mb-2">勝敗によってレートが変動するので自分が全国何位か順位がわかる！</div>
+            <div class="d-flex align-items-center">
+              <div class="m-2 text-left">
+                <div class="mb-2">勝敗によってレートが変動するので自分が全国何位か順位がわかる！</div>
+              </div>
             </div>
           </div>
         </div>
@@ -81,9 +84,7 @@
     </div>
 
     <div class="row justify-content-center">
-      <div class="w-25">
-        <img class="img-fluid" src="{{ asset('/images/site/landing/under_allow.png') }}" alt="hashimu-icon">
-      </div>
+      <img class="img-fluid" src="{{ asset('/images/site/landing/under_allow.png') }}" alt="hashimu-icon">
     </div>
 
 
