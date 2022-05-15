@@ -1,6 +1,6 @@
-<div class="d-flex flex-row mb-3">
+<div class="d-flex flex-row align-items-center p-2">
   @if(session('selected_game_id') == null || session('selected_game_id') == config('assets.site.game_ids.pokemon_card'))
-    <div>
+    <div class="header-font">
       {{ __('ポケカ履歴書') }}
     </div>
     <div class="ml-auto">
