@@ -1,8 +1,9 @@
 <div class="row justify-content-center">
   <div class="col-12">
     <div class="box">
+
       <div class="box-header text-left">{{ __('対戦相手募集範囲') }}</div>
-      <div class="form-group row">
+      <div class="form-group row mb-4">
         <div class="col-md-12">
           <div class="text-left ml-5">
             <div>
@@ -17,6 +18,19 @@
           </div>
         </div>
       </div>
+
+      <div class="box-header text-left">{{ __('レギュレーション') }}</div>
+      <select name="regulation_type" class="form-control mb-4">
+        <option value="{{\App\Models\Event::RATE_TYPE_RATE}}" >スタンダード</option>
+        <option value="{{\App\Models\Event::RATE_TYPE_EXHIBITION}}" >エクストラ</option>
+      </select>
+
+      <div class="box-header text-left">{{ __('プロキシ') }}</div>
+      <select name="card_type" class="form-control mb-4">
+        <option value="{{\App\Models\Event::CARD_TYPE_NORMAL}}">なし</option>
+        <option value="{{\App\Models\Event::CARD_TYPE_PROXY}}">あり</option>
+      </select>
+
     </div>
   </div>
 </div>

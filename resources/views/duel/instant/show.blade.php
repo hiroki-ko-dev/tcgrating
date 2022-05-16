@@ -201,13 +201,31 @@
   <div class="row justify-content-center mb-4">
     <div class="col-12">
       <div class="box">
-        <div class="box-header text-left">{{ __('対戦場所') }}</div>
+
+        <div class="box-header text-left">{{ __('対戦情報') }}</div>
         <div class="row justify-content-center">
-          <div class="text-center"><h3 class="font-weight-bold text-danger">レート対戦{{$duel->room_id}}</h3></div>
+          <div class="w-30"><div class="font-weight-bold">対戦場所</div></div>
+          <div class="w-70"><h3 class="font-weight-bold text-danger">レート対戦{{$duel->room_id}}</h3></div>
         </div>
         <div class="row justify-content-center mb-4">
-          <div class="">※ページ下部Discordのボイスチャンネルです</div>
+          <div class="w-30"></div>
+          <div class="w-70">※ページ下部Discordのボイスチャンネルです</div>
         </div>
+
+        <div class="row justify-content-center mb-4">
+          <div class="w-30"><div class="font-weight-bold">レギュレーション</div></div>
+          <div class="w-70"><h3 class="font-weight-bold">
+              {{\App\Models\Event::REGULATION_TYPE_STR[$duel->eventDuel->event->regulation_type]}}
+          </h3></div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="w-30"><div class="font-weight-bold">プロキシ(カラーコピー)</div></div>
+          <div class="w-70"><h3 class="font-weight-bold">
+              {{\App\Models\Event::CARD_TYPE_STR[$duel->eventDuel->event->card_type]}}
+            </h3></div>
+        </div>
+
       </div>
     </div>
   </div>

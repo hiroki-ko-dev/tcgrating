@@ -34,6 +34,39 @@ class Event extends Model
         'exhibition' => self::RATE_TYPE_EXHIBITION,
     ];
 
+    const RATE_TYPE_STR = [
+        self::RATE_TYPE_RATE  => 'レート戦',
+        self::RATE_TYPE_EXHIBITION  => 'エキシビジョン戦',
+    ];
+
+    //定数の定義
+    const REGULATION_TYPE_STANDARD = 0;
+    const REGULATION_TYPE_EXTRA = 1;
+
+    const REGULATION_TYPE = [
+        'normal'  => self::REGULATION_TYPE_STANDARD,
+        'proxy' => self::REGULATION_TYPE_EXTRA,
+    ];
+
+    const REGULATION_TYPE_STR = [
+        self::REGULATION_TYPE_STANDARD  => 'スタンダード',
+        self::REGULATION_TYPE_EXTRA  => 'エクストラ',
+    ];
+
+    //定数の定義
+    const CARD_TYPE_NORMAL = 0;
+    const CARD_TYPE_PROXY = 1;
+
+    const CARD_TYPE = [
+        'normal'  => self::CARD_TYPE_NORMAL,
+        'proxy' => self::CARD_TYPE_PROXY,
+    ];
+
+    const CARD_TYPE_STR = [
+        self::CARD_TYPE_NORMAL  => 'なし',
+        self::CARD_TYPE_PROXY  => 'あり',
+    ];
+
     public function user(){
         return $this->belongsTo('App\Models\User','user_id','id');
     }
