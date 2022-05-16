@@ -12,8 +12,7 @@ class VideoRepository
     public function composeWhereClause($request)
     {
         $query = Video::query();
-//        $query->where('game_id', $request->game_id);
-        $query->where('game_id', 5);
+        $query->where('game_id', $request->game_id);
         return $query;
     }
 
