@@ -1,7 +1,37 @@
+@charset "UTF-8";
+
 .user-header {
   color: white;
   background-color: red;
   border-radius: 20px;
+}
+
+.resume {
+  width: 595px;
+  height: 842px;
+  background-image: url(/images/03_pokemon_card.jpg?54d50b25b655eea8419cb1435138979e);
+  background-position: center;
+  background-size: 100%;
+  /*横幅を20%、高さを60%に指定*/
+}
+
+.resume .content {
+  background-color: rgba(255, 255, 255, 0.562);
+  width: 100%;
+  height: 100%;
+}
+
+.resume .profile {
+  background-color: rgba(255, 255, 255, 0.562);
+  width: 100%;
+  height: 100%;
+}
+
+.resume .profile img {
+  top: 20px;
+  left: 20px;
+  width: 80px;
+  height: 80px;
 }
 
 
