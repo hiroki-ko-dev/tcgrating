@@ -26,7 +26,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
     if (typeof downloadLink.download === "string") {
       downloadLink.href = uri;
       // ファイル名
-      downloadLink.download = "component.png";
+      downloadLink.download = "pokeka-resume.png";
       // Firefox では body の中にダウンロードリンクがないといけないので一時的に追加
       document.body.appendChild(downloadLink);
       // ダウンロードリンクが設定された a タグをクリック
@@ -98,7 +98,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
 
               <div className="row">
                 <div className="rate col-8">
-                  <div className="title">全国ランキング</div>
+                  <div className="title">ランキング</div>
                   <div className="body">
                     <span className="number">{rankJson.ranking}</span>
                     <span className="staring">位</span>
