@@ -8,14 +8,16 @@ body {
   font-family: MyFont;
 }
 
-.container{
-  width: 595px;
-}
-.header-color{
-  width: 595px;
-}
-.footer{
-  width: 595px;
+@media screen and (max-width:595px) {
+  .container {
+    width: 595px;
+  }
+  .header-color {
+    width: 595px;
+  }
+  .footer {
+    width: 595px;
+  }
 }
 
 .resume{
