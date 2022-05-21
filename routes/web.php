@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 
     // ランディングページ系
     Route::get('/site/landing/pokemon_card', function () {return view('site.landing.03_pokemon_card');});
+    Route::get('/site/landing/resume', [App\Http\Controllers\SiteController::class, 'resume']);
 
     // プロキシページ系
     Route::get('/proxy', function () {return view('proxy.show');}); //管理人を表示

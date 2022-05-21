@@ -1,7 +1,11 @@
-.user-header{
-  color: white;
-  background-color: red;
-  border-radius: 20px;
+
+@font-face {
+  font-family: 'HuiFont';
+  src: url("../../../public/fonts/HuiFontP29.ttf");
+}
+
+body {
+  font-family: MyFont;
 }
 
 .resume{
@@ -10,20 +14,171 @@
   background-image: url("../../../public/images/site/user/03_pokemon_card.jpg");
   background-position: center;
   background-size:100%;/*横幅を20%、高さを60%に指定*/
+  font-family: HuiFont;
+  border: 15px solid #ffd700;
   .content {
     background-color: rgba(255, 255, 255, 0.562);
     width: 100%;
     height: 100%;
-  }
-  .profile {
-    background-color: rgba(255, 255, 255, 0.562);
-    width: 100%;
-    height: 100%;
-    img{
-      top: 20px;
-      left: 20px;
-      width: 80px;
-      height: 80px;
+    .header {
+      width: 595px;
+      height: 70px;
+      .title{
+        margin-left: 10px;
+        font-size: 50px;
+        font-weight: bold;
+
+        color: #ffd700;
+        text-shadow:1px 1px 0 #000, -1px -1px 0 #000,
+        -1px 1px 0 #000, 1px -1px 0 #000,
+        0px 1px 0 #000,  0-1px 0 #000,
+        -1px 0 0 #000, 1px 0 0 #000;
+      }
+    }
+    .title{
+      font-size: 30px;
+      font-weight: bold;
+      color: #ffd700;
+      text-shadow:1px 1px 0 #000, -1px -1px 0 #000,
+      -1px 1px 0 #000, 1px -1px 0 #000,
+      0px 1px 0 #000,  0-1px 0 #000,
+      -1px 0 0 #000, 1px 0 0 #000;
+    }
+    .body{
+      background-color: rgba(255,250,255, 0.9);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+    .fontGrey{
+      color: #adb5bd;
+    }
+    .profile {
+      width: 595px;
+      height: 150px;
+      margin-bottom: 40px;
+      .profileImage{
+        margin-top: 10px;
+        margin-left: 40px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        border: 4px solid #2f82c6;
+      }
+    }
+    .name{
+      .body{
+        height: 50px;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        border: 4px solid #2f82c6;
+      }
+    }
+    .rate{
+      .body{
+        height: 50px;
+        font-size: 30px;
+        font-weight: bold;
+        border: 4px solid #2f82c6;
+        text-align: right;
+        .number{
+          position: absolute;
+          top: 20px;
+          left: 70px;
+          font-size: 55px;
+          color: #FF0000;
+          text-shadow:1px 1px 0 #000, -1px -1px 0 #000,
+          -1px 1px 0 #000, 1px -1px 0 #000,
+          0px 1px 0 #000,  0-1px 0 #000,
+          -1px 0 0 #000, 1px 0 0 #000;
+        }
+        .staring{
+          margin-right: 10px;
+        }
+      }
+    }
+    .gender{
+      .body{
+        height: 50px;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        border: 4px solid #2f82c6;
+      }
+    }
+    .experience{
+      margin-left: 10px;
+      .body{
+        height: 60px;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        border: 4px solid #2f82c6;
+      }
+    }
+    .area{
+      .body{
+        height: 60px;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        border: 4px solid #2f82c6;
+      }
+    }
+
+    .pokemon{
+      margin-left: 10px;
+      .body{
+        height: 70px;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        border: 4px solid #2f82c6;
+      }
+    }
+
+    .regulation{
+      .body{
+        height: 70px;
+        font-size: 20px;
+        font-weight: bold;
+        border: 4px solid #2f82c6;
+        .standard{
+          margin-left: 20px;
+        }
+        .legend{
+          margin-left: 20px;
+        }
+        .extra{
+          margin-left: 20px;
+        }
+      }
+    }
+
+    .playStyle{
+      margin-left: 10px;
+      .body{
+        width: 555px;
+        height: 70px;
+        font-size: 17px;
+        font-weight: bold;
+        border: 4px solid #2f82c6;
+      }
+    }
+
+    .freeSpace{
+      margin-left: 10px;
+      .body{
+        padding: 5px;
+        width: 555px;
+        height: 150px;
+        font-size: 30px;
+        font-weight: bold;
+        white-space: pre-line;
+        border: 4px solid #2f82c6;
+      }
     }
   }
 }

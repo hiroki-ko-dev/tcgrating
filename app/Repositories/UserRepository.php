@@ -51,6 +51,9 @@ class UserRepository
         if(isset($request->body)) {
             $user->body = $request->body;
         }
+        if(isset($request->gender)) {
+            $user->gender = $request->gender;
+        }
         if(isset($request->twitter_id)){
             $user->twitter_id = $request->twitter_id;
         }

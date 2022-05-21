@@ -4,6 +4,10 @@
   <link rel="stylesheet" href="{{ mix('/css/user/user.css') }}">
 @endsection
 
+@section('addJs')
+  <script src="{{mix('/js/user/user.js')}}" defer></script>
+@endsection
+
 @section('content')
 <div class="container">
 
@@ -25,39 +29,47 @@
     @include('layouts.user.show.twitter')
   </div>
 
-  <div class="row justify-content-center m-1 mb-3">
-    <div class="col-12 page-header">
-      @include('layouts.user.show.header')
-    </div>
+  <div class="row justify-content-center">
+    <input type="hidden" id="gameUserJson" name="userJson" value="{{$gameUserJson}}">
+    <input type="hidden" id="rankJson" name="rankJson" value="{{$rankJson}}">
+    <div id='target-component' >ポケカ履歴書</div>
   </div>
 
-  <div class="row justify-content-center">
-    <div class="col-6 mb-4">
-      @include('layouts.user.show.image')
-    </div>
-    <div class="col-6">
-      <div class="row justify-content-center">
-        <div class="col-12 mb-4">
-          @include('layouts.user.show.name')
-        </div>
-        <div class="col-12 mb-4">
-          @include('layouts.user.show.rate')
-        </div>
+
+{{--    <div class="row justify-content-center m-1 mb-3">--}}
+{{--      <div class="col-12 page-header">--}}
+{{--        @include('layouts.user.show.header')--}}
+{{--      </div>--}}
+{{--    </div>--}}
+
+{{--    <div class="row justify-content-center">--}}
+{{--      <div class="col-6 mb-4">--}}
+{{--        @include('layouts.user.show.image')--}}
+{{--      </div>--}}
+{{--      <div class="col-6">--}}
+{{--        <div class="row justify-content-center">--}}
+{{--          <div class="col-12 mb-4">--}}
+{{--            @include('layouts.user.show.name')--}}
+{{--          </div>--}}
+{{--          <div class="col-12 mb-4">--}}
+{{--            @include('layouts.user.show.rate')--}}
+{{--          </div>--}}
+{{--        </div>--}}
+{{--      </div>--}}
+{{--    </div>--}}
+
+{{--    <div class="row justify-content-center">--}}
+{{--      <div class="col-12 mb-4">--}}
+{{--        @include('layouts.user.show.body')--}}
+{{--      </div>--}}
+{{--    </div>--}}
+
+    <div class="row justify-content-center">
+      <div class="col-12 mb-4">
+        @include('layouts.user.show.event')
       </div>
     </div>
-  </div>
 
-  <div class="row justify-content-center">
-    <div class="col-12 mb-4">
-      @include('layouts.user.show.body')
-    </div>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-12 mb-4">
-      @include('layouts.user.show.event')
-    </div>
-  </div>
 </div>
 
 <script type="text/javascript">

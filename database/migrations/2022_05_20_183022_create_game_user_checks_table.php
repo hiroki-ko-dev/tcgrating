@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddMatchNumberToDuelsTable extends Migration
+class CreateGameUserChecksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddMatchNumberToDuelsTable extends Migration
      */
     public function up()
     {
-        Schema::table('duels', function (Blueprint $table) {
-            $table->unsignedSmallInteger('match_number')->after('status');
+        Schema::create('game_user_checks', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('game_user_id')->constrained();
+            $table->unsignedSmallInteger('item_id');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddMatchNumberToDuelsTable extends Migration
      */
     public function down()
     {
-        Schema::table('duels', function (Blueprint $table) {
-            $table->dropColumn('match_number');
-        });
+        Schema::dropIfExists('game_user_checks');
     }
 }

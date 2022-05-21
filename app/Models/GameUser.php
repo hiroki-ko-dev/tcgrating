@@ -21,4 +21,9 @@ class GameUser extends Model
     {
         return $this->belongsTo('App\Models\User','user_id');
     }
+
+    public function gameUserChecks()
+    {
+        return $this->hasMany('App\Models\GameUserCheck','game_user_id', 'id');
+    }
 }

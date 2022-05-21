@@ -44,6 +44,17 @@ class SiteController extends Controller
         return back()->with('flash_message', '選択しているゲームを変更しました');;
     }
 
+    public function resume(Request $request)
+    {
+        //ログインしている場合はuserテーブルのselected_game_idも更新
+        if(Auth::check() == true){
+            return redirect('/user/' . Auth::user()->id);
+        }
+
+        session(['selected_game_id' => $request->input('selected_game_id')]);
+        return view('site.landing.resume');
+    }
+
     public function test()
     {
         $data = array(

@@ -45,11 +45,25 @@ class UserController extends Controller
      */
     public function show(Request $request,$user_id)
     {
-
         $user   = $this->userService->findUser($user_id);
+
+        $gameUserRequest = new \stdClass();
+        $gameUserRequest->user_id = $user_id;
+
+        // 選択しているゲームでフィルタ
+        if(Auth::check()) {
+            $gameUserRequest->game_id = Auth::user()->selected_game_id;
+        }else{
+            $gameUserRequest->game_id = session('selected_game_id');
+        }
+        $gameUserJson = $this->userService->getGameUserJson($gameUserRequest);
+
+        $this->userService->saveTwitterImage($user);
+        $rankJson = $this->userService->getGameUserRank($gameUserRequest);
+
         $events = $this->eventService->findAllEventByUserId($user_id);
 
-        return view('user.show',compact('user','events'));
+        return view('user.show',compact('user','gameUserJson', 'rankJson', 'events'));
     }
 
     /**
@@ -66,8 +80,9 @@ class UserController extends Controller
         }
 
         $user = $this->userService->findUser($user_id);
+        $gameUser = $user->gameUsers->where('game_id',$user->selected_game_id)->first();
 
-        return view('user.edit',compact('user'));
+        return view('user.edit',compact('user','gameUser'));
     }
 
 //    /**
@@ -92,11 +107,32 @@ class UserController extends Controller
         //アカウント認証しているユーザーのみ新規作成可能
         $this->middleware('auth');
         if(Auth::id() <> $request->id){
-            return back();
+            return back()->with('flash_message', 'アカウントエラーです');
         }
 
         DB::transaction(function () use($request){
             $this->userService->updateUser($request);
+            $gameUser = $this->userService->getGameUserByGameIdAndUserId(Auth::user()->selected_game_id,$request->id);
+            $request->merge(['user_id' => $request->id]);
+            $request->id = $gameUser->id;
+            $gameUser = $this->userService->updateGameUser($request);
+            $request->merge(['game_user_id' => $gameUser->id]);
+
+            $item_ids = array_merge( \App\Models\GameUserCheck::ITEM_ID_REGULATIONS,\App\Models\GameUserCheck::ITEM_ID_PLAY_STYLES);
+
+            if(isset($request->item_ids)){
+                foreach ($item_ids as $item_id){
+                    $request->merge(['item_id' => $item_id]);
+                    if(in_array($item_id,$request->item_ids)) {
+                        $this->userService->makeGameUserCheck($request);
+                    }else{
+                        $this->userService->dropGameUserCheck($request);
+                    }
+                }
+            }else{
+                $this->userService->dropGameUserCheck($request);
+            }
+
         });
 
         return redirect('/user/'.$request->input('id'))->with('flash_message', '保存しました');

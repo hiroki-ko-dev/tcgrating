@@ -7,6 +7,17 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
 (() => {
 
   let gameUserJson = JSON.parse(document.getElementById('gameUserJson').value);
+  let rankJson = JSON.parse(document.getElementById('rankJson').value);
+
+  const gameUserChecks = () => {
+
+    let checks = [];
+    gameUserJson.game_user_checks.forEach((gameUserCheck, index) => {
+      checks[gameUserCheck.item_id] = true;
+    });
+
+    return checks;
+  }
 
   // html2canvas で得られる URI を用いてダウンロードさせる関数
   // Ref: https://stackoverflow.com/questions/31656689/how-to-save-img-to-users-local-computer-using-html2canvas
@@ -31,7 +42,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
     // 画像に変換する component の id を指定
     const target = document.getElementById("resume");
     html2canvas(target).then(canvas => {
-      const targetImgUri = canvas.toDataURL("img/png");
+      const targetImgUri = canvas.toDataURL("img/jpg");
       saveAsImage(targetImgUri);
     });
   }
@@ -50,7 +61,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
             ダウンロード
           </button>
           <button className="btn site-color text-white rounded-pill btn-outline-secondary text-center"
-                  onClick="location.href='/user/{{$user->id}}/edit'">
+                  onClick={() => {location.href='/user/' + gameUserJson.user.id + '/edit'}}>
             編集する
           </button>
         </div>
@@ -58,42 +69,159 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
     );
   }
 
-
-  const imageView = url => {
-
-    console.log(gameUserJson);
-
-    return(
-      <div id="resume" className="resume">
-        <div className="content">
-          <div className="row justify-content-center">
-            <div className="profile">
-              <img
-                className="qrcode-img"
-                src={gameUserJson.user.twitter_image_url}
-                crossOrigin="anonymous"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   const ResumeComponent = () => {
 
-    console.log(gameUserJson);
-
     return(
       <div id="resume" className="resume">
         <div className="content">
-          <div className="row justify-content-center">
-            <div className="profile">
+
+          <div className="header">
+            <div className="title">ポケカ履歴書</div>
+          </div>
+
+          <div className="profile row">
+            <div className="col-5">
               <img
-                className="qrcode-img"
-                src={gameUserJson.user.twitter_image_url}
-                crossOrigin="anonymous"
+                className="profileImage"
+                src={"/storage/images/temp/twitter_game_3_user_" + gameUserJson.user.id + ".jpg"}
               />
+            </div>
+            <div className="col-7">
+              <div className="row">
+                <div className="name col-12">
+                  <div className="title">名前</div>
+                  <div className="body">
+                    {gameUserJson.user.name}
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="rate col-8">
+                  <div className="title">全国ランキング</div>
+                  <div className="body">
+                    <span className="number">{rankJson.ranking}</span>
+                    <span className="staring">位</span>
+
+                  </div>
+                </div>
+                <div className="gender col-4">
+                  <div className="title">性別</div>
+                  <div className="body">
+                    {gameUserJson.user.gender === 1 ? '♂'
+                      : gameUserJson.user.gender === 2 ? '♀' : ''
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="like row">
+            <div className="col-6">
+              <div className="experience">
+                <div className="title">ポケカ歴</div>
+                <div className="body">
+                  {gameUserJson.experience}
+                </div>
+              </div>
+            </div>
+            <div className="col-6">
+              <div className="area">
+                <div className="title">活動地域</div>
+                <div className="body">
+                  {gameUserJson.area}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="like row">
+
+            <div className="col-6">
+              <div className="pokemon">
+                <div className="title">好きなポケモン</div>
+                <div className="body">
+                  {gameUserJson.preference}
+                </div>
+              </div>
+            </div>
+
+            <div className="col-6">
+              <div className="regulation">
+                <div className="title">レギュレーション</div>
+                <div className="body">
+                  <div className="row">
+                    {gameUserChecks()[1]
+                      ? <div className='standard'>✅ スタンダード</div>
+                      : <div className='standard fontGrey'>⬜︎ スタンダード</div>
+                    }
+                    {gameUserChecks()[2]
+                      ? <div className='legend'>✅ 殿堂</div>
+                      : <div className='legend fontGrey'>⬜︎ 殿堂</div>
+                    }
+                  </div>
+                  <div className="row">
+                    {gameUserChecks()[3]
+                      ? <div className='extra'>✅ エクストラ</div>
+                      : <div className='extra fontGrey'>⬜︎ エクストラ</div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="playStyle row">
+            <div className="title">プレイスタイル</div>
+            <div className="body">
+              <div className="row">
+                <div className="col-4">
+                  {gameUserChecks()[101]
+                    ? <div className='left'>✅ リモート対戦募集！</div>
+                    : <div className='left fontGrey'>⬜︎ リモート対戦募集！</div>
+                  }
+                </div>
+                <div className="col-4">
+                  {gameUserChecks()[102]
+                    ? <div className='center'>✅ 大会に出たい！</div>
+                    : <div className='center fontGrey'>⬜︎ 大会に出たい！</div>
+                  }
+                </div>
+                <div className="col-4">
+                  {gameUserChecks()[103]
+                    ? <div className='right'>✅ 雑談がしたい！</div>
+                    : <div className='right fontGrey'>⬜︎ 雑談がしたい！</div>
+                  }
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-4">
+                  {gameUserChecks()[104]
+                    ? <div className='left'>✅ 初心者です！</div>
+                    : <div className='left fontGrey'>⬜︎ 初心者です！</div>
+                  }
+                </div>
+                <div className="col-4">
+                  {gameUserChecks()[105]
+                    ? <div className='center'>✅ エンジョイ勢です！</div>
+                    : <div className='center fontGrey'>⬜︎ エンジョイ勢です！</div>
+                  }
+                </div>
+                <div className="col-4">
+                  {gameUserChecks()[106]
+                    ? <div className='right'>✅ ガチ勢です！</div>
+                    : <div className='right fontGrey'>⬜︎ ガチ勢です！</div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="freeSpace row">
+            <div className="title">フリースペース</div>
+            <div className="body">
+              {gameUserJson.user.body}
             </div>
           </div>
 
