@@ -51,7 +51,7 @@
     <div class="row justify-content-center mb-2">
       <div class="col-12">
         <div class="box">
-          <div class="text-white font-weight-bold rounded site-color p-3">リモートポケカの対戦相手がすぐ見つかる</div>
+          <div class="text-white font-weight-bold rounded site-color p-3">リモートポケカの相手がすぐ見つかる</div>
           <div class="d-flex flex-row">
             <div class="w-50 rounded mt-1">
               <img class="img-fluid" src="{{ asset('/images/site/landing/matching.png') }}" alt="hashimu-icon">
