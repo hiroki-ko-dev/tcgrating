@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'HuiFont';
+  src: url("../../../public/fonts/HuiFontP29.ttf");
+}
+
 .landing-bg{
   background-color: black;
   display:inline-block;
@@ -9,20 +14,34 @@
     opacity: 0.5;
     display: block;
   }
-  p {
+  .title {
     position: absolute;/*絶対配置*/
     color: white;/*文字は白に*/
-    top: 60%;
+    top: 20%;
     left: 0;
-    font-family:'メイリオ', 'Meiryo', sans-serif;
+    font-family: HuiFont;
 
     width: 100%;
     text-align: center;
     font-weight: bold;
-    font-size: 1.5rem;
-    line-height: 50px;
-  }
 
+    font-size: 30px;
+    line-height: 50px;
+    @media screen and (min-width:480px) {
+      top: 30%;
+      font-size: 70px;
+      line-height: 120px;
+    }
+
+  }
+}
+
+.pictureFont{
+  font-family: HuiFont;
+  font-size: 20px;
+  @media screen and (min-width:480px) {
+    font-size: 40px;
+  }
 }
 
 

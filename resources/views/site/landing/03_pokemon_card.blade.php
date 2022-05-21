@@ -11,7 +11,9 @@
 
     <div class="landing-bg">
       <img class="img-fluid" src="{{ asset('/images/site/top/003_pokemon_card.jpg') }}" alt="hashimu-icon">
-      <p>リモートポケカのレーティング対戦</p>
+      <div class="title">
+        <div>リモートポケカの</div><div>レーティング対戦</div>
+      </div>
     </div>
 
     @include('layouts.common.line')
@@ -24,14 +26,14 @@
           <div class="d-flex flex-row mb-3">
             <div class="w-50 rounded bg-secondary m-1 pb-2">
               <img class="img-fluid" src="{{ asset('/images/site/landing/1.png') }}" alt="hashimu-icon">
-              <div class="text-white font-weight-bold">
+              <div class="pictureFont text-white font-weight-bold">
                 <div>対戦相手が</div>
                 <div>見つからない</div>
               </div>
             </div>
             <div class="w-50 rounded bg-secondary m-1 pb-2">
               <img class="img-fluid" src="{{ asset('/images/site/landing/2.png') }}" alt="hashimu-icon">
-              <div class="text-white font-weight-bold">
+              <div class="pictureFont text-white font-weight-bold">
                 <div>もっと強い相手と</div>
                 <div>戦いたい</div>
               </div>
