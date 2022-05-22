@@ -44,7 +44,7 @@
                         @foreach($posts as $post)
                           <div class="d-md-flex flex-row mb-3 border-bottom">
                             <div class="card-text" style="white-space: nowrap;">
-                              <span class="post-user">[{{$post->created_at}}]</span>[{{$post->post_comment_count}}]
+                              <span class="post-user">[{{$post->created_at}}]</span>[{{$post->post_comments_count}}]
                             </div>
                             <div class="card-text">
                                 <a href="/post/{{$post->id}}">{{$post->title}}</a>

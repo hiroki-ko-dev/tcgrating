@@ -44,5 +44,30 @@
   }
 }
 
+.iphone{
+  @media screen and (min-width:720px) {
+    width: 500px;
+  }
+}
+
+.download{
+  font-family: HuiFont;
+  font-size: 70px;
+  @media screen and (max-width:720px) {
+    font-size: 30px;
+  }
+}
+
+//.ps{
+//  @media screen and (min-width:480px) {
+//    visibility: hidden;
+//  }
+//}
+//.mobile{
+//  @media screen and (max-width:480px) {
+//    visibility: hidden;
+//  }
+//}
+
 
 

@@ -33,6 +33,7 @@ class PostController extends Controller
         $request->merge(['post_category_id' => $request->query('post_category_id')]);
 
         $posts =  $this->post_service->getPostAndCommentCountWithPagination($request,20);
+
         $post_category_id = $request->query('post_category_id');
 
         return view('post.index',compact('posts','post_category_id'));

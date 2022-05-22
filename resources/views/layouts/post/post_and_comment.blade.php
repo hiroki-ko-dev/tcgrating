@@ -29,6 +29,14 @@
                   <div type="body">{!! nl2br(e($post->body)) !!}</div>
               </div>
           </div>
+
+          @if(!empty($post->image_url))
+            <div class="form-group row mt-2">
+              <div class="col-md-12">
+                <img src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$post->image_url}}">
+              </div>
+            </div>
+          @endif
       </div>
 
       @if(!empty($comments))

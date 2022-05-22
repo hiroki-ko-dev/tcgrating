@@ -16,7 +16,25 @@
       </div>
     </div>
 
-    @include('layouts.common.line')
+    {{--    <div class="pc">--}}
+    {{--      @include('layouts.common.line')--}}
+    {{--    </div>--}}
+
+    <div class="row justify-content-center mobile mb-4 mt-2">
+      <div class="col-12">
+        <div class="box">
+          <div class="font-weight-bold mb-2 download">アプリをダウンロード！！</div>
+          <div class="d-flex flex-row mb-3">
+            <div class="w-50 rounded m-1 pb-2">
+              <img class="img-fluid iphone" src="{{ asset('/images/site/landing/iphone_download.png') }}" alt="hashimu-icon">
+            </div>
+            <div class="w-50 rounded m-1 pb-2">
+              <img class="img-fluid" src="{{ asset('/images/site/landing/android_download.png') }}" alt="hashimu-icon">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="row justify-content-center">
       <div class="col-12">
@@ -90,23 +108,44 @@
     </div>
 
 
-    <div class="row justify-content-center mb-4">
-      <div class="col-md-12">
+    {{--    <div class="pc row justify-content-center mb-4">--}}
+    {{--      <div class="col-md-12">--}}
+    {{--        <div class="box">--}}
+    {{--          <div class="row"><div class="col-12 text-danger font-weight-bold"><h5>まずはLINEオープンチャットに参加</h5></div></div>--}}
+    {{--          <div class="row"><div class="col-12">※話さず見ているだけでOK</div></div>--}}
+    {{--          <div class="row">--}}
+    {{--            <div class="col-sm-4"> </div>--}}
+    {{--            <div class="col-sm-4">--}}
+    {{--              <a href="https://line.me/ti/g2/Kt5eTJpAKQ9eV-De1_m7jeJA1XLIKaQFypvEZg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default">--}}
+    {{--                <img class="img-fluid" src="{{ asset('/images/site/line.png') }}" alt="hashimu-icon"></a>--}}
+    {{--            </div>--}}
+    {{--            <div class="col-sm-4"> </div>--}}
+    {{--          </div>--}}
+    {{--          <div class="row"><div class="col-12">※様子を見てすぐに退出してもOK</div></div>--}}
+    {{--        </div>--}}
+    {{--      </div>--}}
+    {{--    </div>--}}
+
+    {{--    <div class="mobile">--}}
+    {{--      @include('layouts.common.line')--}}
+    {{--    </div>--}}
+
+    <div class="row justify-content-center mobile mb-5">
+      <div class="col-12">
         <div class="box">
-          <div class="row"><div class="col-12 text-danger font-weight-bold"><h5>まずはLINEオープンチャットに参加</h5></div></div>
-          <div class="row"><div class="col-12">※話さず見ているだけでOK</div></div>
-          <div class="row">
-            <div class="col-sm-4"> </div>
-            <div class="col-sm-4">
-              <a href="https://line.me/ti/g2/Kt5eTJpAKQ9eV-De1_m7jeJA1XLIKaQFypvEZg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default">
-                <img class="img-fluid" src="{{ asset('/images/site/line.png') }}" alt="hashimu-icon"></a>
+          <div class="font-weight-bold mb-2 download">アプリをダウンロード！！</div>
+          <div class="d-flex flex-row mb-3">
+            <div class="w-50 rounded m-1 pb-2">
+              <img class="img-fluid iphone" src="{{ asset('/images/site/landing/iphone_download.png') }}" alt="hashimu-icon">
             </div>
-            <div class="col-sm-4"> </div>
+            <div class="w-50 rounded m-1 pb-5">
+              <img class="img-fluid" src="{{ asset('/images/site/landing/android_download.png') }}" alt="hashimu-icon">
+            </div>
           </div>
-          <div class="row"><div class="col-12">※様子を見てすぐに退出してもOK</div></div>
         </div>
       </div>
     </div>
+
   </div>
 
 @endsection
