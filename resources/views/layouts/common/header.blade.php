@@ -34,7 +34,7 @@
 
 @section('bodyHeader')
     <nav class="navbar navbar-expand-md header-color shadow-sm">
-          <div class="row align-items-center mt-4 mb-4">
+          <div class="header row align-items-center mt-4 mb-4">
             <div  class="col-5">
               <a href="{{ url('/') }}" title="{{config('assets.site.title')}}">
                 <img class="img-fluid" src="{{ asset('/images/site/logo.png') }}" alt="hashimu-icon">
@@ -72,7 +72,7 @@
               <div class="menu-content">
                 <ul>
                   <li><a href="/rank">ランキング</a></li>
-                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::CATEGORY_FREE}}">フリー掲示板</a></li>
+                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::CATEGORY_FREE}}">掲示板</a></li>
                   {{--                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::TEAM_WANTED}}">チームメンバー募集掲示板</a></li>--}}
                   {{--                  <li><a href="/team">チーム検索</a></li>--}}
                   {{--                    <li><a href="/team?user_id={{Auth::id()}}">マイチーム</a></li>--}}
@@ -80,7 +80,7 @@
                     @if(session('selected_game_id') == 3)
                       <li><a href="/site/how_to_use/instant">使い方</a></li>
                       <li><a href="/event/instant">1vs1対戦</a></li>
-                      <li><a href="/blog">記事</a></li>
+{{--                      <li><a href="/blog">記事</a></li>--}}
                       <li><a href="/proxy">プロキシ作成</a></li>
                     @else
                       <li><a href="/site/how_to_use/normal">使い方</a></li>
@@ -91,7 +91,7 @@
                     @if(Auth::user()->selected_game_id == 3)
                       <li><a href="/site/how_to_use/instant">使い方</a></li>
                       <li><a href="/event/instant">1vs1対戦</a></li>
-                      <li><a href="/blog">記事</a></li>
+{{--                      <li><a href="/blog">記事</a></li>--}}
                       <li><a href="/proxy">プロキシ作成</a></li>
                       @if(Auth::user()->role == 1)
                         <li><a href="/event/group">グループ対戦</a></li>

@@ -3,6 +3,7 @@
   @media screen and (max-width:480px) {
     font-size: 0.95rem;
   }
+  width: 100%;
 }
 
 .header-color{
@@ -12,9 +13,58 @@
       #333333 50%,
       #000000 100%
   );
+  width: 100%;
+  justify-content: center;
 }
 
-.menu-btn {
+.header{
+  width: 100%;
+  justify-content: center;
+}
+
+/* pcの際のメニューバー */
+@media screen and (min-width: 701px) {
+  .hamburger-menu{
+    width: 100%;
+  }
+  .menu-content {
+    width: 100%;
+    ul {
+      justify-content: center;
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    li {
+      width: 14%;
+      text-align: center;
+      float: left;
+      background-color: #1b2538;
+      border-right: 1px solid #bbbbbb;
+    }
+    li:last-child {
+      border-right: none;
+    }
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    li a:hover:not(.active) {
+      background-color: #a9bce2;
+    }
+    .active {
+      background-color: #da3c41;
+    }
+  }
+}
+
+/* スマホの際のメニューバー */
+@media screen and (max-width: 700px) {
+  .menu-btn {
     position: fixed;
     top: 10px;
     right: 10px;
@@ -24,10 +74,17 @@
     justify-content: center;
     align-items: center;
     z-index: 90;
-  background-color: #000000;
-}
-.menu-btn {
+    background-color: #000000;
     span {
+      content: '';
+      display: block;
+      height: 3px;
+      width: 25px;
+      border-radius: 3px;
+      background-color: #ffffff;
+      position: absolute;
+
+      &:before {
         content: '';
         display: block;
         height: 3px;
@@ -35,54 +92,62 @@
         border-radius: 3px;
         background-color: #ffffff;
         position: absolute;
-        &:before {
-            @extend span;
-            bottom: 8px;
-        }
-        &:after {
-            @extend span;
-            top: 8px;
-        }
-    }
-}
 
-.menu-content {
+        bottom: 8px;
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        height: 3px;
+        width: 25px;
+        border-radius: 3px;
+        background-color: #ffffff;
+        position: absolute;
+
+        top: 8px;
+      }
+    }
+  }
+  .menu-content {
     width: 70%;
     height: 100%;
     position: fixed;
     top: 0;
-    left: 100%;/*leftの値を変更してメニューを画面外へ*/
+    left: 100%; /*leftの値を変更してメニューを画面外へ*/
     z-index: 80;
     background-color: #000000;
-    transition: all 0.5s;/*アニメーション設定*/
-    ul{
-        padding: 70px 10px 0;
-        li{
-            border-bottom: solid 1px #ffffff;
-            list-style: none;
-            a{
-                display: block;
-                width: 80%;
-                font-size: 15px;
-                box-sizing: border-box;
-                color:#ffffff;
-                text-decoration: none;
-                padding: 9px 15px 10px 0;
-                position: relative;
-                &::before{
-                    content: "";
-                    width: 7px;
-                    height: 7px;
-                    border-top: solid 2px #ffffff;
-                    border-right: solid 2px #ffffff;
-                    transform: rotate(45deg);
-                    position: absolute;
-                    right: 11px;
-                    top: 16px;
-                }
-            }
+    transition: all 0.5s; /*アニメーション設定*/
+    ul {
+      padding: 70px 10px 0;
+      li {
+        border-bottom: solid 1px #ffffff;
+        list-style: none;
+        a {
+          display: block;
+          width: 80%;
+          font-size: 15px;
+          box-sizing: border-box;
+          color: #ffffff;
+          text-decoration: none;
+          padding: 9px 15px 10px 0;
+          position: relative;
+
+          &::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-top: solid 2px #ffffff;
+            border-right: solid 2px #ffffff;
+            transform: rotate(45deg);
+            position: absolute;
+            right: 11px;
+            top: 16px;
+          }
         }
+      }
     }
+  }
 }
 
 #menu-btn-check {
