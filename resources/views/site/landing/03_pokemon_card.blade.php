@@ -4,23 +4,29 @@
   <link rel="stylesheet" href="{{ mix('/css/site/landing.css') }}">
 @endsection
 
+@section('addJs')
+  <script src="https://unpkg.com/scrollreveal"></script>
+@endsection
+
 @section('content')
 
 
   <div class="container">
 
-    <div class="landing-bg">
+    <div class="landing-bg scrollReveal">
       <img class="img-fluid" src="{{ asset('/images/site/top/003_pokemon_card.jpg') }}" alt="hashimu-icon">
       <div class="title">
         <div>リモートポケカの</div><div>レーティング対戦</div>
       </div>
     </div>
 
+    <div class="scrollReveal">
       @include('layouts.common.line')
+    </div>
 
 {{--    @include('layouts.common.application')--}}
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center scrollReveal">
       <div class="col-12">
         <div class="box">
           <div class="font-weight-bold mb-2">リモートポケカで</div>
@@ -46,11 +52,11 @@
       </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center scrollReveal">
       <img class="img-fluid" src="{{ asset('/images/site/landing/under_allow.png') }}" alt="hashimu-icon">
     </div>
 
-    <div class="row justify-content-center mb-2">
+    <div class="row justify-content-center mb-2 scrollReveal">
       <div class="col-12">
         <div class="box">
           <div class="text-white font-weight-bold rounded site-color p-3">リモートポケカの相手がすぐ見つかる</div>
@@ -69,7 +75,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center scrollReveal">
       <div class="col-12">
         <div class="box">
           <div class="text-white font-weight-bold rounded site-color p-3">レーティング機能で全国1位を目指せ！</div>
@@ -87,7 +93,7 @@
       </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center scrollReveal">
       <img class="img-fluid" src="{{ asset('/images/site/landing/under_allow.png') }}" alt="hashimu-icon">
     </div>
 
@@ -110,14 +116,22 @@
     {{--      </div>--}}
     {{--    </div>--}}
 
+    <div class="scrollReveal">
           @include('layouts.common.line')
+    </div>
 
 {{--    @include('layouts.common.application')--}}
 
   </div>
-
 @endsection
 
+@section('addScript')
+  <script>
+    ScrollReveal().reveal('.scrollReveal' ,{
+      delay: 600
+    });
+  </script>
+@endsection
 
 @include('layouts.common.header')
 @include('layouts.common.google')
