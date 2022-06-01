@@ -44,21 +44,22 @@
             <div  class="col-7">
               <form id="selected_game_form" method="post" action="/site/update_selected_game">
                 @csrf
-                <div class="selected_game mr-2">
-                  <select id="selected_game_id" name="selected_game_id" class="form-control">
-                    @foreach(config('assets.site.games') as $key => $game)
-                      <option value="{{$key}}"
-                        @if(Auth::check())
-                          @if(Auth::user()->selected_game_id == $key)
-                            selected
-                          @endif
-                        @elseif(session('selected_game_id') == $key)
-                          selected
-                        @endif
-                      >{{$game}}</option>
-                    @endforeach
-                  </select>
-                </div>
+{{--                <div class="selected_game mr-2">--}}
+{{--                  <select id="selected_game_id" name="selected_game_id" class="form-control">--}}
+{{--                    @foreach(config('assets.site.games') as $key => $game)--}}
+{{--                      <option value="{{$key}}"--}}
+{{--                        @if(Auth::check())--}}
+{{--                          @if(Auth::user()->selected_game_id == $key)--}}
+{{--                            selected--}}
+{{--                          @endif--}}
+{{--                        @elseif(session('selected_game_id') == $key)--}}
+{{--                          selected--}}
+{{--                        @endif--}}
+{{--                      >{{$game}}</option>--}}
+{{--                    @endforeach--}}
+{{--                  </select>--}}
+{{--                </div>--}}
+                <input type="hidden" name="selected_game_id" value="{{config('assets.site.game_ids.pokemon_card')}}">
               </form>
           </div>
         {{--                <h2 class="sr-only">{{config('assets.site.title')}}</h2>--}}
