@@ -8,10 +8,13 @@
 
   <div class="container">
 
-    <div class="box">
+    <div class="box mb-3">
       <div class="row justify-content-center m-1 mb-3">
-        <h2>Twitterログインをしてポケカ履歴書を作ろう！！</h2>
+        <h3>当サイトはリモートポケカの対戦相手を探すサイトです</h3>
       </div>
+    </div>
+
+    <div class="box">
       <div class="row justify-content-center m-1 mb-3">
         <div class="col-4">
         </div>
@@ -20,6 +23,9 @@
         </div>
         <div class="col-4">
         </div>
+      </div>
+      <div class="row justify-content-center m-1 mb-3">
+        <h2>Twitterログインをしてポケカ履歴書を作ろう！！</h2>
       </div>
     </div>
 
