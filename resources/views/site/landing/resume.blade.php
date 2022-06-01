@@ -16,12 +16,8 @@
 
     <div class="box">
       <div class="row justify-content-center m-1 mb-3">
-        <div class="col-4">
-        </div>
-        <div class="col-4">
+        <div class="col-sm-4">
           <a href="/auth/twitter/login"><img class="img-fluid" src="{{ asset('/images/site/twitter/relation.png') }}" alt="hashimu-icon"></a>
-        </div>
-        <div class="col-4">
         </div>
       </div>
       <div class="row justify-content-center m-1 mb-3">
