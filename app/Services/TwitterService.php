@@ -91,10 +91,10 @@ class TwitterService
             PHP_EOL .
             env('APP_URL') . '/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ';
 
-//        if(config('assets.common.appEnv') == 'production'){
+        if(config('assets.common.appEnv') == 'production'){
             $this->twitterRepository->tweet($apiKeys, $tweet);
             $this->discordPost($discord, $webHook);
-//        }
+        }
 
     }
 
@@ -172,10 +172,10 @@ class TwitterService
             PHP_EOL .
             'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' ;
 
-//        if(config('assets.common.appEnv') == 'production'){
+        if(config('assets.common.appEnv') == 'production'){
             $this->twitterRepository->tweet($apiKeys, $tweet);
             $this->discordPost($discord, $webHook);
-//        }
+        }
     }
 
     public function tweetByDuelFinish($duel)
@@ -330,7 +330,7 @@ class TwitterService
      */
     public function tweetPromotion()
     {
-        if(config('assets.common.appEnv') == 'production'){
+//        if(config('assets.common.appEnv') == 'production'){
             $apiKeys = config('assets.twitter.pokemon');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
@@ -338,16 +338,28 @@ class TwitterService
             $randKey  =  array_rand(config('assets.tweet.promotion.promotion'));
             $tweet  =  config('assets.tweet.promotion.promotion')[$randKey];
 
-            // 対戦マッチング  によるメール文
-            $tweet =
-                $tweet .
-                PHP_EOL .
-                $hashTag . PHP_EOL .
-                'https://line.me/ti/g2/Kt5eTJpAKQ9eV-De1_m7jeJA1XLIKaQFypvEZg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default'
+            // 画像付きTweetの場合はこっち
+            if($randKey > 1000){
+                // 対戦マッチング  によるメール文
+                $tweet =
+                    $tweet . PHP_EOL .
+                    $hashTag
+                ;
+                $this->twitterRepository->imageTweet($apiKeys, $tweet);
+
+            }else{
+                // 対戦マッチング  によるメール文
+                $tweet =
+                    $tweet .
+                    PHP_EOL .
+                    $hashTag . PHP_EOL .
+                    'https://line.me/ti/g2/Kt5eTJpAKQ9eV-De1_m7jeJA1XLIKaQFypvEZg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default'
                 ;
 
-            $this->twitterRepository->tweet($apiKeys, $tweet);
-        }
+                $this->twitterRepository->tweet($apiKeys, $tweet);
+            }
+
+//        }
     }
 
     /**
