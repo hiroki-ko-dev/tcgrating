@@ -2,7 +2,13 @@
 
 @section('content')
   <div class="container">
-    @if(session('selected_game_id') == 3)
+    @if(session('selected_game_id') == 1)
+      <div class="row">
+        <div class="col-md-12">
+          <img class="img-fluid" src="{{ asset('/images/site/top/001_yugioh_duellinks.jpg') }}" alt="hashimu-icon">
+        </div>
+      </div>
+    @else
       <div class="row justify-content-center mb-2">
         <div class="col-md-12">
           <div class="box">
@@ -22,12 +28,6 @@
       <div class="row">
         <div class="col-md-12">
           <img class="img-fluid" src="{{ asset('/images/site/top/003_pokemon_card.jpg') }}" alt="hashimu-icon">
-        </div>
-      </div>
-    @else
-      <div class="row">
-        <div class="col-md-12">
-          <img class="img-fluid" src="{{ asset('/images/site/top/001_yugioh_duellinks.jpg') }}" alt="hashimu-icon">
         </div>
       </div>
     @endif
