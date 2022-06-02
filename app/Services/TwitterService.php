@@ -330,7 +330,7 @@ class TwitterService
      */
     public function tweetPromotion()
     {
-//        if(config('assets.common.appEnv') == 'production'){
+        if(config('assets.common.appEnv') == 'production'){
             $apiKeys = config('assets.twitter.pokemon');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
@@ -339,15 +339,15 @@ class TwitterService
             $tweet  =  config('assets.tweet.promotion.promotion')[$randKey];
 
             // 画像付きTweetの場合はこっち
-            if($randKey > 1000){
-                // 対戦マッチング  によるメール文
-                $tweet =
-                    $tweet . PHP_EOL .
-                    $hashTag
-                ;
-                $this->twitterRepository->imageTweet($apiKeys, $tweet);
-
-            }else{
+//            if($randKey > 1000){
+//                // 対戦マッチング  によるメール文
+//                $tweet =
+//                    $tweet . PHP_EOL .
+//                    $hashTag
+//                ;
+//                $this->twitterRepository->imageTweet($apiKeys, $tweet);
+//
+//            }else{
                 // 対戦マッチング  によるメール文
                 $tweet =
                     $tweet .
@@ -357,9 +357,9 @@ class TwitterService
                 ;
 
                 $this->twitterRepository->tweet($apiKeys, $tweet);
-            }
+//            }
 
-//        }
+        }
     }
 
     /**
