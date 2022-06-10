@@ -178,7 +178,7 @@ class UserService
             //URLからファイル名を取得 ここはお好きな方法でファイル名を決めてください。
             $file_name = 'twitter_game_3_user_' . $user->id . '.jpg';
             //URLからファイル取得
-            $img_downloaded = file_get_contents('/images/default-icon-mypage.png');
+            $img_downloaded = file_get_contents(env('APP_URL').'/images/default-icon-mypage.png');
             //一時ファイル作成
             $tmp = tmpfile();
             //一時ファイルに画像を書き込み
