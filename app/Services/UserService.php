@@ -177,7 +177,7 @@ class UserService
         } catch(\Exception $e){
             //URLからファイル名を取得 ここはお好きな方法でファイル名を決めてください。
             $file_name = 'twitter_game_3_user_' . $user->id . '.jpg';
-            Storage::putFileAs('/public/images/temp', '/public/images/default-icon-mypage.png', $file_name);
+            Storage::putFileAs('/public/images/temp', new File('/public/images/default-icon-mypage.png'), $file_name);
         }
     }
 
