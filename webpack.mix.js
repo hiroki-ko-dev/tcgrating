@@ -41,6 +41,7 @@ mix.styles([
     .sass('resources/sass/site/landing.scss', 'public/css/site/landing.css')
     .sass('resources/sass/proxy/proxy.scss', 'public/css/proxy/proxy.css')
     .sass('resources/sass/common/base.scss', 'public/css/scss.css')
+    .sass('resources/sass/event/index.scss', 'public/css/event/index.css')
     .styles('resources/css/sample/sample.css', 'public/css/sample/sample.css')
     .version()
 ;

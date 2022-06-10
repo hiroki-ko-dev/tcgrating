@@ -1,5 +1,9 @@
 @extends('layouts.common.common')
 
+@section('addCss')
+  <link rel="stylesheet" href="{{ mix('/css/event/index.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
@@ -29,40 +33,55 @@
     @endif
   </div>
 
-  <div class="row justify-content-center mb-4">
-    <div class="col-12">
-      <div class="box">
-        @if(!empty($events))
-          @foreach($events as $event)
-            <div class="row justify-content-center border-bottom p-2">
-              <div class="col-sm-12">
-                  <div class="d-sm-flex flex-row flex-wrap text-left">
-                    @if($event->status == \APP\Models\Event::STATUS_RECRUIT )
-                      <div class="post-user mr-3 sm-mr-5">[{{ __('対戦受付中') }}]</div>
-                    @elseif($event->status == \APP\Models\Event::STATUS_READY )
-                      <div class="post-user text-warning mr-3 sm-mr-5">[{{ __('マッチング済') }}]</div>
-                    @elseif($event->status == \APP\Models\Event::STATUS_FINISH )
-                      <div class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('対戦完了') }}]</div>
-                    @elseif($event->status == \APP\Models\Event::STATUS_CANCEL )
-                      <div class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('対戦キャンセル') }}]</div>
-                    @elseif($event->status == \APP\Models\Event::STATUS_INVALID )
-                      <div class="text-secondary font-weight-bold mr-3 sm-mr-5">[{{ __('無効試合') }}]</div>
-                    @endif
-                    <div class="mr-3 sm-mr-5">
-                      [対戦日時:{{$event->date}} {{$event->start_time}}]
-                    </div>
-                    <div>
-                      <a href="/duel/instant/{{$event->eventDuels[0]->duel_id}}">{{$event->eventUsers[0]->user->name }} vs @isset($event->eventUsers[1]){{$event->eventUsers[1]->user->name}}@else（　　）@endisset</a>
-                    </div>
-                  </div>
-                </div>
-            </div>
-          @endforeach
-        @endif
-            {{$events->links('pagination::bootstrap-4')}}
+  @if(!empty($events))
+    @foreach($events as $event)
+    <div class="box mb-3" onclick="location.href='/duel/instant/{{$event->eventDuels[0]->duel_id}}'">
+      <span class="mouseover">クリックで詳細へ</span>
+      <div class="row bg-light p-2">
+        <div class="col-4 m-0 p-0 text-left">
+          @if($event->status == \APP\Models\Event::STATUS_RECRUIT )
+            <div class="post-user justify-content-start">[{{ __('対戦受付中') }}]</div>
+          @elseif($event->status == \APP\Models\Event::STATUS_READY )
+            <div class="post-user text-warning justify-content-start">[{{ __('マッチング済') }}]</div>
+          @elseif($event->status == \APP\Models\Event::STATUS_FINISH )
+            <div class="text-secondary font-weight-bold justify-content-start">[{{ __('対戦完了') }}]</div>
+          @elseif($event->status == \APP\Models\Event::STATUS_CANCEL )
+            <div class="text-secondary font-weight-bold justify-content-start">[{{ __('対戦キャンセル') }}]</div>
+          @elseif($event->status == \APP\Models\Event::STATUS_INVALID )
+            <div class="text-secondary font-weight-bold justify-content-start">[{{ __('無効試合') }}]</div>
+          @endif
         </div>
+          <div class="col-8 m-0 p-0 text-right">
+            [対戦日：{{date('Y-m-d H:i', strtotime($event->date . ' ' . $event->start_time))}}]
+            </div>
+      </div>
+      <div class="row justify-content-center pb-2 align-items-center">
+        <div class="col-sm-5 mobile-left">
+          <img src="{{$event->eventUsers[0]->user->twitter_simple_image_url}}"
+               class="rounded-circle"
+               onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
+          >
+          {{$event->eventUsers[0]->user->name }}
+        </div>
+        <div class="col-sm-2">
+          <img class='vs pt-2 pb-2' src="/images/duel/vs.jpg">
+        </div>
+        <div class="col-sm-5 mobile-right">
+          @isset($event->eventUsers[1])
+            {{$event->eventUsers[1]->user->name }}
+            <img src="{{$event->eventUsers[1]->user->twitter_simple_image_url}}"
+                 class="rounded-circle"
+                 onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
+            >
+          @else
+            （募集中）
+          @endisset
+        </div>
+      </div>
     </div>
-</div>
+    @endforeach
+  @endif
+  {{$events->links('pagination::bootstrap-4')}}
 @endsection
 
 @include('layouts.common.header')
