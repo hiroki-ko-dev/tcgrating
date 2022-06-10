@@ -175,7 +175,9 @@ class UserService
             //一時ファイル削除
             fclose($tmp);
         } catch(\Exception $e){
-
+            //URLからファイル名を取得 ここはお好きな方法でファイル名を決めてください。
+            $file_name = 'twitter_game_3_user_' . $user->id . '.jpg';
+            Storage::putFileAs('/public/images/temp', new File('/public/images/default-icon-mypage.png'), $file_name);
         }
     }
 
