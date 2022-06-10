@@ -177,10 +177,12 @@ class UserService
         } catch(\Exception $e){
             //URLからファイル名を取得 ここはお好きな方法でファイル名を決めてください。
             $file_name = 'twitter_game_3_user_' . $user->id . '.jpg';
+            //URLからファイル取得
+            $img_downloaded = file_get_contents('/public/images/default-icon-mypage.png');
             //一時ファイル作成
             $tmp = tmpfile();
             //一時ファイルに画像を書き込み
-            fwrite($tmp, '/public/images/default-icon-mypage.png');
+            fwrite($tmp, $img_downloaded);
             //一時ファイルのパスを取得
             $tmp_path = stream_get_meta_data($tmp)['uri'];
             //storageに保存。
