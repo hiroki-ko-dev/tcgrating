@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html class="no-js no-svg" lang="ja">
 <head>
   @if(config('assets.common.appEnv') == 'production')

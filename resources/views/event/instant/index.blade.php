@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-12 page-header">
