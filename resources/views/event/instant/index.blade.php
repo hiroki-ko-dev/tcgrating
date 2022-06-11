@@ -83,6 +83,7 @@
     @endforeach
   @endif
   {{$events->links('pagination::bootstrap-4')}}
+  </div>
 @endsection
 
 @include('layouts.common.header')
