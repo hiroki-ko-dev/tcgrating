@@ -11,13 +11,13 @@
   @yield('addJs')
 </head>
   <body class="bg-light">
-    @if(config('assets.common.appEnv') == 'production')
-      @yield('tag_manager_body')
-    @endif
-    @yield('bodyHeader')
-    @if(config('assets.common.appEnv') == 'production')
-      @yield('adsense')
-    @endif
+      @if(config('assets.common.appEnv') == 'production')
+        @yield('tag_manager_body')
+      @endif
+      @yield('bodyHeader')
+      @if(config('assets.common.appEnv') == 'production')
+        @yield('adsense')
+      @endif
     <main class="py-4" id="main">
       @yield('content')
       @yield('addScript')
