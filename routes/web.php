@@ -80,6 +80,11 @@ use Illuminate\Support\Facades\Route;
         'post/comment' => Post\CommentController::class,
     ]);
 
+    // 商品
+    Route::resources([
+        'product'      => Product\ProductController::class,
+    ]);
+
     //記事
     Route::resources([
         'blog'         => Blog\BlogController::class,

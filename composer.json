@@ -21,7 +21,8 @@
         "laravel/ui": "^3.2",
         "laravelcollective/html": "^6.2",
         "socialiteproviders/apple": "^5.0",
-        "socialiteproviders/twitter": "^4.1"
+        "socialiteproviders/twitter": "^4.1",
+        "weidner/goutte": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
