@@ -180,6 +180,8 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         // Appleログインで使おうとしたが、結果使わなかった
 //        SocialiteProviders\Manager\ServiceProvider::class,
+        // スクレイピング用に追加
+        Weidner\Goutte\GoutteServiceProvider::class,
     ],
 
     /*
@@ -235,6 +237,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         // PDF利用のため追加
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        // スクレイピング用に追加
+        'Goutte' => Weidner\Goutte\GoutteFacade::class,
     ],
 
 ];

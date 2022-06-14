@@ -36,6 +36,7 @@ mix.styles([
     .sass('resources/sass/common/header.scss', 'public/css/scss.css')
     .sass('resources/sass/common/footer.scss', 'public/css/scss.css')
     .sass('resources/sass/post/post.scss', 'public/css/scss.css')
+    .sass('resources/sass/post/index.scss', 'public/css/post/index.css')
     .sass('resources/sass/blog/blog.scss', 'public/css/blog/blog.css')
     .sass('resources/sass/user/user.scss', 'public/css/user/user.css')
     .sass('resources/sass/site/landing.scss', 'public/css/site/landing.css')

@@ -43,6 +43,11 @@
           <div class="pb-2 mt-3">
               <div class="card-header">{{ __('コメント一覧') }}</div>
               <div>
+                @if(empty($comments[0]))
+                  <div class="p-2">
+                    現在コメントはありません
+                  </div>
+                @else
                   @foreach($comments as $comment)
                       <div class="pt-3">
                         <img src="{{$comment->user->twitter_simple_image_url}}" class="rounded-circle">
@@ -52,6 +57,7 @@
                           {!! nl2br(e($comment->body)) !!}
                       </div>
                   @endforeach
+                @endif
               </div>
           </div>
       @endif

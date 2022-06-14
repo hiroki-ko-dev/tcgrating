@@ -1,5 +1,9 @@
 @extends('layouts.common.common')
 
+@section('addCss')
+  <link rel="stylesheet" href="{{ mix('/css/post/index.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
@@ -36,28 +40,27 @@
     @endif
   </div>
 
-    <div class="row justify-content-center">
+  @if(!empty($posts))
+    @foreach($posts as $post)
+    <div class="card">
+      <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    @if(!empty($posts))
-                        @foreach($posts as $post)
-                          <div class="d-md-flex flex-row mb-3 border-bottom">
-                            <div class="card-text" style="white-space: nowrap;">
-                              <span class="post-user">[{{$post->created_at}}]</span>[{{$post->post_comments_count}}]
-                            </div>
-                            <div class="card-text">
-                                <a href="/post/{{$post->id}}">{{$post->title}}</a>
-                                @if(isset($post->team)){{$post->team->name}}@endif
-                            </div>
-                          </div>
-                        @endforeach
-                    @endif
-                </div>
+          <div class="card-body">
+            <div class="card-text" style="white-space: nowrap;">
+              <span class="post-user">[{{$post->created_at}}]</span>[{{$post->post_comments_count}}]
             </div>
-            {{$posts->appends(['post_category_id' => $post_category_id])->links('pagination::bootstrap-4')}}
+            <div class="card-text">
+                <a href="/post/{{$post->id}}">{{$post->title}}</a>
+                @if(isset($post->team)){{$post->team->name}}@endif
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+
+    @endforeach
+  @endif
+  {{$posts->appends(['post_category_id' => $post_category_id])->links('pagination::bootstrap-4')}}
 </div>
 @endsection
 
