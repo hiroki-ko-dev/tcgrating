@@ -83,10 +83,11 @@ import ReactDOM from 'react-dom';
       super();
       this.state = {
         // state宣伝で最初の一回は普通に宣言
-        proxies: [{id: 1, number: 0, url: ''}],
+        proxies: [{id: 1, number: 6, url: 'https://www.pokemon-card.com/assets/images/card_images/large/S9a/041187_P_NAZONOKUSA.jpg'}],
       };
       // 以降繰り返しのため、宣言をfor文で行う
       for(let i=2; i<10; i++){
+
         this.state.proxies.push({id: i, number: 0, url: ''})
       }
 
