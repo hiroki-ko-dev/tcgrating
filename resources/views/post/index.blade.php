@@ -42,7 +42,7 @@
 
   @if(!empty($posts))
     @foreach($posts as $post)
-    <div class="card">
+    <div class="card" onclick="location.href='/post/{{$post->id}}'">
       <div class="row justify-content-center">
         <div class="col-md-12">
           <div class="card-body">
@@ -50,7 +50,7 @@
               <span class="post-user">[{{$post->created_at}}]</span>[{{$post->post_comments_count}}]
             </div>
             <div class="card-text">
-                <a href="/post/{{$post->id}}">{{$post->title}}</a>
+                {{$post->title}}
                 @if(isset($post->team)){{$post->team->name}}@endif
             </div>
           </div>

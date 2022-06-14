@@ -3,6 +3,7 @@
 /* マウスオーバーで詳細への誘導を表示 */
 .box:hover {
   color: orange;
+  background-color: #82beee;
 }
 .box {
   position: relative;                  /* 指定した分だけ相対的に移動 */
