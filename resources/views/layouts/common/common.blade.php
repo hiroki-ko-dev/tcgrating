@@ -5,6 +5,12 @@
     @yield('tag_manager_header')
     @yield('analitics')
   @endif
+
+    {{--メタタグ--}}
+
+  <title>{{config('assets.site.title')}} | @yield('title')</title>
+  @yield('description')
+
   @yield('header')
   @yield('addCss')
 

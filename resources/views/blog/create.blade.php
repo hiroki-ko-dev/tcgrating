@@ -1,5 +1,11 @@
 @extends('layouts.common.common')
 
+@section('title','対戦')
+
+@section('description')
+  <meta name="description" content="ポケモンカードのブログ記事一覧です。最新情報から歴代パックや値段相場までまとめています。"/>
+@endsection
+
 @include('layouts.common.header')
 @include('layouts.common.google')
 

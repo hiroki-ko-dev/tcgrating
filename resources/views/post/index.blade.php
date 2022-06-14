@@ -1,5 +1,11 @@
 @extends('layouts.common.common')
 
+@section('title','掲示板')
+
+@section('description')
+  <meta name="description" content="ポケモンカードの掲示板です。雑談・デッキ相談・ルール質問まで幅広い交流を行いましょう。"/>
+@endsection
+
 @section('addCss')
   <link rel="stylesheet" href="{{ mix('/css/post/index.css') }}">
 @endsection

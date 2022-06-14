@@ -1,5 +1,11 @@
 @extends('layout.common.common')
 
+@section('title','TOP')
+
+@section('description')
+  <meta name="description" content="ポケモンカードのリモート対戦用のレーティングサイトです。ポケカのリモート対戦相手が見つからない、もっと強い相手と対戦したい!!という方はぜひ一目ご覧ください"/>
+@endsection
+
 @section('content')
 <section class="lp1-banner">
   <div class="container">

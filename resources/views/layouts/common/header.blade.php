@@ -2,15 +2,11 @@
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width,initial-scale=1, shrink-to-fit=no" name="viewport">
-    <title>{{config('assets.site.title')}}</title>
 
     <link rel="stylesheet" href="{{ mix('/css/all.css') }}">
     <link rel="stylesheet" href="{{ mix('/css/scss.css') }}">
     <script src="{{ mix('/js/all.js') }}"></script>
     <script src="{{ mix('/js/common/selected_game.js') }}"></script>
-
-    {{--メタタグ--}}
-    <meta name="description" content="ポケモンカードのリモート対戦用のレーティングサイトです。ポケカのリモート対戦相手が見つからない、もっと強い相手と対戦したい!!という方はぜひ一目ご覧ください"/>
 
     <!-- デフォルト分 -->
     <!-- Styles -->

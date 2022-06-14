@@ -1,8 +1,13 @@
 @extends('layouts.common.common')
 
+@section('title','プロキシ作成')
+
+@section('description')
+  <meta name="description" content="ポケモンカードのプロキシ作成を行うことができます。画像URLをセットして、印刷を行いましょう。"/>
+@endsection
+
 @section('addCss')
   <link rel="stylesheet" href="{{ mix('/css/proxy/proxy.css') }}">
-
 @endsection
 
 @section('addJs')
