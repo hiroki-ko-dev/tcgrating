@@ -43,6 +43,7 @@ mix.styles([
     .sass('resources/sass/proxy/proxy.scss', 'public/css/proxy/proxy.css')
     .sass('resources/sass/common/base.scss', 'public/css/scss.css')
     .sass('resources/sass/event/index.scss', 'public/css/event/index.css')
+    .sass('resources/sass/duel/show.scss', 'public/css/duel/show.css')
     .styles('resources/css/sample/sample.css', 'public/css/sample/sample.css')
     .version()
 ;
