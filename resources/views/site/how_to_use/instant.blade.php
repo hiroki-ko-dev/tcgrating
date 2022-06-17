@@ -9,6 +9,10 @@
 @section('content')
 <div class="container">
 
+  <a href="https://px.a8.net/svt/ejp?a8mat=3NCJU4+E6TXTE+2QOI+2TAWKX" rel="nofollow">
+    <img border="0" width="380"  alt="" src="https://www20.a8.net/svt/bgt?aid=220615276858&wid=001&eno=01&mid=s00000012789017015000&mc=1"></a>
+  <img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=3NCJU4+E6TXTE+2QOI+2TAWKX" alt="">
+
 {{--  対戦作成側--}}
 <input id="acd-check1" class="acd-check" type="checkbox">
 <label class="acd-label site-color mb-1" for="acd-check1">■対戦を作成する</label>

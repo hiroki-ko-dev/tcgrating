@@ -24,26 +24,17 @@
                   @csrf
                   <input type="hidden" name="post_category_id" value="{{$post_category_id}}">
                   <input type="hidden" name="team_id" value="{{$team_id}}">
-                  <div class="row">
-                    <label for="title" class="text-left font-weight-bold pl-2">{{ __('件名') }}</label>
-                  </div>
                   <div class="row pb-4">
-                      <input id="title" type="text" class="form-control w-100 @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
+                      <input id="title" type="text" placeholder="タイトルを入力" class="form-control w-100 @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
                       @error('title') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span> @enderror
                   </div>
-                  <div class="row">
-                    <label class="font-weight-bold pl-2">{{ __('内容') }}</label>
-                  </div>
                   <div class="row pb-4">
-                      <textarea id="body" type="body" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body"
+                      <textarea id="body" type="body" placeholder="本文を書く" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body"
                       style="height: 150px"></textarea>
                       @error('body') <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span> @enderror
                   </div>
-                  <div class="row">
-                          <label for="title" class="font-weight-bold">{{ __('デッキコード（省略可）') }}</label>
-                  </div>
                   <div class="row pb-4">
-                      <input id="image_url" type="text" class="form-control w-100 @error('image_url') is-invalid @enderror" name="image_url" value="{{ old('image_url') }}" >
+                      <input id="image_url" type="text" placeholder="デッキ相談の場合はデッキコードを書く（省略可）" class="form-control w-100 @error('image_url') is-invalid @enderror" name="image_url" value="{{ old('image_url') }}" >
 
                       @error('image_url')
                       <span class="invalid-feedback" role="alert">

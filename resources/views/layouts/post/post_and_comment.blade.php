@@ -26,7 +26,7 @@
 
           <div class="form-group row">
               <div class="col-md-12">
-                  <div type="body">{!! nl2br(e($post->body)) !!}</div>
+                  <div class="post-text">{!! nl2br(e($post->body)) !!}</div>
               </div>
           </div>
 
@@ -44,7 +44,7 @@
               <div class="card-header">{{ __('コメント一覧') }}</div>
               <div>
                 @if(empty($comments[0]))
-                  <div class="p-2">
+                  <div class="post-text p-2">
                     現在コメントはありません
                   </div>
                 @else
@@ -53,7 +53,7 @@
                         <img src="{{$comment->user->twitter_simple_image_url}}" class="rounded-circle">
                         <span class="post-user"><a href="/user/{{$comment->user_id}}">{{$comment->user->name}}</a> [{{$comment->created_at}}]</span>
                       </div>
-                      <div class="card-text border-bottom pt-2 pb-2">
+                      <div class="post-text border-bottom pt-2 pb-2">
                           {!! nl2br(e($comment->body)) !!}
                       </div>
                   @endforeach
