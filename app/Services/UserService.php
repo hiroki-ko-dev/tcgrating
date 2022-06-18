@@ -203,7 +203,11 @@ class UserService
 
         $gameUsers = $this->gameUserRepository->findAll($gameUserRequest);
         $rank['parameter'] = $gameUsers->count();
-        $rate = $gameUsers->where('user_id',$request->user_id)->first()->rate;
+        if(isset($gameUsers->where('user_id',$request->user_id)->first()->rate)){
+            $rate = $gameUsers->where('user_id',$request->user_id)->first()->rate;
+        }else{
+            $rate = 0;
+        }
         $rank['ranking'] = $gameUsers->where('rate','>',$rate)->count() + 1;
 
         $rankJson = json_encode($rank);
