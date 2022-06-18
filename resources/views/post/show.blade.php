@@ -10,7 +10,17 @@
   <link rel="stylesheet" href="{{ mix('/css/post/show.css') }}">
 @endsection
 
+@section('twitterHeader')
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@pokekaInfo" />
+  <meta name="twitter:title" content="ポケカ掲示板" />
+  <meta name="twitter:description" content="ポケカのデッキ相談・ルール質問・雑談などを掲示板で話しましょう！" />
+  <meta name="twitter:image" content="{{env('APP_URL')}}/images/post/twitter_thumb.png" />
+@endsection
+
 @section('content')
+
+
 <div class="container">
     <div class="row justify-content-center">
         <!-- フラッシュメッセージ -->

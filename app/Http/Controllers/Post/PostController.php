@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Post;
 use App\Http\Controllers\Controller;
 use App\Services\PostService;
 
+use App\Services\TwitterService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DB;
@@ -11,10 +12,13 @@ use DB;
 class PostController extends Controller
 {
     protected $post_service;
+    protected $twitterService;
 
-    public function __construct(PostService $post_service)
+    public function __construct(PostService $post_service,
+                                TwitterService $twitterService)
     {
         $this->post_service = $post_service;
+        $this->twitterService = $twitterService;
     }
 
     /**
@@ -82,7 +86,8 @@ class PostController extends Controller
         $request->merge(['team_id' => $request->team_id]);
 
         DB::transaction(function () use($request){
-            $this->post_service->createPost($request);
+            $post = $this->post_service->createPost($request);
+            $this->twitterService->tweetByStorePost($post);
         });
 
         return redirect('/post?post_category_id='.$request->input('post_category_id'))->with('flash_message', '新規投稿を行いました');

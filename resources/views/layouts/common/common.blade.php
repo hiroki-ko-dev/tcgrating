@@ -11,6 +11,7 @@
     @yield('description')
 
     @yield('header')
+    @yield('twitterHeader')
     @yield('addCss')
 
     @yield('addJs')

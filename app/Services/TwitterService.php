@@ -326,6 +326,28 @@ class TwitterService
     }
 
     /**
+     * @param $post
+     */
+    public function tweetByStorePost($post)
+    {
+//        if(config('assets.common.appEnv') == 'production'){
+            $apiKeys = config('assets.twitter.pokeka_info');
+
+            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
+
+            // 対戦マッチング  によるメール文
+            $tweet =
+                '【ポケカ掲示板】【' . \App\Models\Post::SUB_CATEGORY[$post->sub_category_id] .'】' . $post->title . PHP_EOL .
+                PHP_EOL .
+                'https://hashimu.com/post/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1 ' . PHP_EOL .
+                $hashTag;
+
+                $this->twitterRepository->tweet($apiKeys, $tweet);
+
+//        }
+    }
+
+    /**
      *
      */
     public function tweetPromotion()
