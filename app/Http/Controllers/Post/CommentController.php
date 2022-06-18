@@ -18,19 +18,19 @@ use App\Mail\PostCommentDuelMail;
 
 class CommentController extends Controller
 {
-    protected $post_service;
+    protected $postService;
     protected $event_service;
     protected $duel_service;
     protected $user_service;
     protected $twitterService;
 
-    public function __construct(PostService $post_service,
+    public function __construct(PostService $postService,
                                 EventService $event_service,
                                 DuelService $duel_service,
                                 UserService $user_service,
                                 TwitterService $twitterService)
     {
-        $this->post_service  = $post_service;
+        $this->postService  = $postService;
         $this->event_service = $event_service ;
         $this->duel_service  = $duel_service ;
         $this->user_service  = $user_service ;
@@ -56,8 +56,19 @@ class CommentController extends Controller
             return back()->with('flash_message', '新規投稿を行うにはログインしてください');
         }
 
-        $post_category_id = $request->query('post_category_id');
-        return view('post.create', compact('post_category_id'));
+        if($request->has('post_id')){
+
+            $post = $this->postService->getPost($request->post_id);
+            $postComment = new \stdClass();
+            $postComment->post = $post;
+            $postComment->id = 0;
+            $postComment->replyComments = $post->postComments->where('referral_id',0)->whereNotNull('referral_id');
+
+        }else{
+            $postComment = $this->postService->getComment($request->comment_id);
+        }
+
+        return view('post.comment.create', compact('postComment'));
     }
 
     /**
@@ -76,10 +87,10 @@ class CommentController extends Controller
         //追加
         $request->merge(['user_id' => Auth::guard()->user()->id]);
 
-        DB::transaction(function () use($request) {
-            $comment = $this->post_service->createComment($request);
+        $postComment = DB::transaction(function () use($request) {
+            $postComment = $this->postService->createComment($request);
 
-            $post = $this->post_service->findPostWithUser($request->post_id);
+            $post = $this->postService->findPostWithUser($request->post_id);
 
             //書き込みがイベント掲示板ならコメントがついたことをコメント者以外にメール通知
             if($post->post_category_id == \App\Models\PostCategory::CATEGORY_EVENT) {
@@ -103,7 +114,7 @@ class CommentController extends Controller
                 }
 
                 if(!empty($emails)) {
-                    Mail::send(new PostCommentEventMail($emails, $post, $comment));
+                    Mail::send(new PostCommentEventMail($emails, $post, $postComment));
                 }
             //書き込みが決闘掲示板ならコメントがついたことをコメント者以外にメール通知
             }elseif($post->post_category_id == \App\Models\PostCategory::CATEGORY_DUEL){
@@ -127,12 +138,13 @@ class CommentController extends Controller
                 }
 
                 if(!empty($emails)) {
-                    Mail::send(new PostCommentDuelMail($emails, $post, $comment));
+                    Mail::send(new PostCommentDuelMail($emails, $post, $postComment));
                 }
             }
+            return $postComment;
         });
 
-        return back()->with('flash_message', '新規投稿を行いました');
+        return redirect('/post/' . $postComment->post->id)->with('flash_message', 'コメントを行いました');
 
     }
 

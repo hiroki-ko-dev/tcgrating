@@ -50,10 +50,13 @@
           <div class="card-body">
             <div class="card-text" style="white-space: nowrap;">
               <span class="post-user">[{{$post->created_at}}]</span>[{{$post->post_comments_count}}]
+              <span class="bg-info rounded-pill text-white p-1">
+                {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
+              </span>
             </div>
             <div class="card-text">
-                {{$post->title}}
-                @if(isset($post->team)){{$post->team->name}}@endif
+              {{$post->title}}
+              @if(isset($post->team)){{$post->team->name}}@endif
             </div>
           </div>
         </div>

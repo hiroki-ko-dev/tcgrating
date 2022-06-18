@@ -28,21 +28,18 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-
-        Log::debug($request);
-
         try {
-            $posts =  $this->postService->createComment($request);
+            $comment =  $this->postService->createComment($request);
 
         } catch(\Exception $e){
-            $posts = [
+            $comment = [
                 'result' => false,
                 'error' => [
                     'messages' => [$e->getMessage()]
                 ],
             ];
-            return $this->apiService->resConversionJson($posts, $e->getCode());
+            return $this->apiService->resConversionJson($comment, $e->getCode());
         }
-        return $this->apiService->resConversionJson($posts);
+        return $this->apiService->resConversionJson($comment);
     }
 }

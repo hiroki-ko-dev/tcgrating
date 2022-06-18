@@ -12,16 +12,20 @@ class PostCommentRepository
     public function create($request)
     {
         $comment = new PostComment();
-        $comment->fill([
-            'post_id'          => $request->post_id,
-            'user_id'          => $request->user_id,
-            'body'             => $request->body,
-            'created_at'       => Carbon::now(),
-            'updated_at'       => Carbon::now()
-        ]);
+        if(isset($request->referral_id)){
+            $comment->referral_id = $request->referral_id;
+        }
+        $comment->post_id = $request->post_id;
+        $comment->number  = $request->number;
+
+        $comment->user_id = $request->user_id;
+        $comment->body    = $request->body;
+        if(isset($request->image_url)){
+            $comment->image_url = $request->image_url;
+        }
         $comment->save();
 
-        return $comment ;
+        return $comment;
     }
 
     public function find($id){

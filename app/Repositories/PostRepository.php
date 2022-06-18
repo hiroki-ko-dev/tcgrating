@@ -18,6 +18,9 @@ class PostRepository
         if(isset($request->post_category_id)){
             $post->post_category_id = $request->post_category_id;
         }
+        if(isset($request->sub_category_id)){
+            $post->sub_category_id = $request->sub_category_id;
+        }
         if(isset($request->user_id)){
             $post->user_id = $request->user_id;
         }
@@ -53,6 +56,10 @@ class PostRepository
         $query->where('game_id', $request->game_id);
         $query->where('post_category_id', $request->post_category_id);
         return $query;
+    }
+
+    public function find($id){
+        return Post::find($id);
     }
 
     public function findAll($request)

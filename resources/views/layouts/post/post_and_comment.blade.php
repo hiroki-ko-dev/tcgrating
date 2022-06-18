@@ -13,30 +13,47 @@
       <div>
           <div class="form-group row">
               <div class="col-md-12 mb-1">
-                <div class="font-weight-bold">{{$post->title}}</div>
+                <span class="bg-info rounded-pill text-white p-1">
+                  {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
+                </span>
+                <span class="pl-1 font-weight-bold">{{$post->title}}</span>
               </div>
           </div>
           <div class="form-group row">
             <div class="col-md-12">
-              <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle">
-              <a class="font-weight-bold" href="/user/{{$post->user_id}}">{{$post->user->name}}</a>
-              <span class="post-user">[{{$post->created_at}}]</span>
+              <span class="post-user">1. [{{$post->created_at}}]</span>
+              <a href="/post/comment/create?post_id={{$post->id}}">返信する</a>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-12">
+                <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle">
+                <a class="font-weight-bold" href="/user/{{$post->user_id}}">{{$post->user->name}}</a>
+              </div>
             </div>
           </div>
 
-          <div class="form-group row">
-              <div class="col-md-12">
-                  <div class="post-text">{!! nl2br(e($post->body)) !!}</div>
-              </div>
-          </div>
-
-          @if(!empty($post->image_url))
-            <div class="form-group row mt-2">
-              <div class="col-md-12">
-                <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$post->image_url}}" alt="{{$post->title}}">
-              </div>
+        @if(!empty($post->image_url))
+          <div class="form-group row mt-2">
+            <div class="col-md-12">
+              <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$post->image_url}}" alt="{{$post->title}}">
             </div>
-          @endif
+          </div>
+        @endif
+
+        <div class="form-group row">
+            <div class="col-md-12">
+                <div class="post-text">{!! nl2br(e($post->body)) !!}</div>
+            </div>
+        </div>
+
+        @if($post->postComments->where('referral_id',0)->whereNotNull('referral_id')->count() > 0)
+          <div class="row mt-2 pb-2">
+            <div class="bg-pink p-1 ml-3 font-weight-bold text-redPurple">
+              <a href="/post/comment/create?post_id={{$post->id}}" class="text-redPurple">{{$post->postComments->where('referral_id',0)->whereNotNull('referral_id')->count()}}件の返信</a>
+            </div>
+          </div>
+        @endif
+
       </div>
 
       @if(!empty($comments))
@@ -50,13 +67,43 @@
                 @else
                   @foreach($comments as $comment)
                       <div class="pt-3">
+                        <div>
+                          <span class="post-user">{{$comment->number}}. [{{$comment->created_at}}]</span>
+                          <a href="/post/comment/create?comment_id={{$comment->id}}">返信する</a>
+                        </div>
                         <img src="{{$comment->user->twitter_simple_image_url}}" class="rounded-circle">
-                        <span class="post-user"><a href="/user/{{$comment->user_id}}">{{$comment->user->name}}</a> [{{$comment->created_at}}]</span>
+                        <span class="post-user"><a href="/user/{{$comment->user_id}}">{{$comment->user->name}}</a></span>
                       </div>
-                      <div class="post-text border-bottom pt-2 pb-2">
+                      @if(!empty($comment->image_url))
+                        <div class="form-group row mt-2">
+                          <div class="col-md-12">
+                            <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$post->image_url}}" alt="{{$post->title}}">
+                          </div>
+                        </div>
+                      @endif
+                      @if(!is_null($comment->referral_id))
+                        <div class="row mt-2">
+                          <div class="bg-skyblue p-1 ml-3 font-weight-bold text-primary">
+                            @if($comment->referral_id == 0)
+                              <a href="/post/comment/create?post_id={{$post->id}}">>>1</a>
+                            @else
+                              <a href="/post/comment/create?comment_id={{$comment->referralComment->id}}">>>{{$comment->referralComment->number}}</a>
+                            @endif
+                          </div>
+                        </div>
+                      @endif
+                      <div class="post-text pb-2">
                           {!! nl2br(e($comment->body)) !!}
                       </div>
-                  @endforeach
+                      @if($comment->replyComments->count() > 0)
+                        <div class="row mt-2 pb-2">
+                          <div class="bg-pink p-1 ml-3 font-weight-bold">
+                            <a href="/post/comment/create?comment_id={{$comment->id}}" class="text-redPurple">{{$comment->replyComments->count()}}件の返信</a>
+                          </div>
+                        </div>
+                      @endif
+                    <div class="border-bottom"></div>
+                @endforeach
                 @endif
               </div>
           </div>
@@ -71,19 +118,19 @@
               @csrf
               <input type="hidden" name="post_id" value="{{$post->id}}">
               <div class="form-group row">
-                <div class="col-md-12">
-                  <textarea id="body" type="body" class="form-control @error('body') is-invalid @enderror" name="body" value="{{ old('body') }}" required autocomplete="body"></textarea>
-
+                  <textarea id="body" type="body" placeholder="コメント本文" class="form-control @error('body') is-invalid @enderror" name="body" style="height: 150px" value="{{ old('body') }}" required autocomplete="body"></textarea>
                   @error('body')
-                  <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                   @enderror
-                </div>
               </div>
+            <div class="form-group row">
+              <input id="image_url" type="text" placeholder="デッキコードを書く（省略可）" class="form-control w-100 @error('image_url') is-invalid @enderror" name="image_url" value="{{ old('image_url') }}" >
+            </div>
               <div class="form-group row mb-0">
                   <div class="col-md-6 offset-md-5">
-                      <button type="submit" class="btn site-color rounded-pill btn-outline-secondary text-light pl-5 pr-5">
+                      <button type="submit" class="btn site-color rounded-pill btn-outline-secondary text-light pl-5 pr-5" onClick="return requestConfirm();">
                           {{ __('投稿') }}
                       </button>
                       <a href="/reload">　　返信を確認</a>

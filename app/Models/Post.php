@@ -10,6 +10,17 @@ class Post extends Model
     use HasFactory;
     protected $guarded = [];
 
+    //定数の定義
+    const SUB_CATEGORY_FREE = 0;
+    const SUB_CATEGORY_DECK = 1;
+    const SUB_CATEGORY_RULE = 2;
+
+    const SUB_CATEGORY = [
+        self::SUB_CATEGORY_FREE  => '雑談',
+        self::SUB_CATEGORY_DECK  => 'デッキ相談',
+        self::SUB_CATEGORY_RULE  => 'ルール質問',
+    ];
+
     public function postComments(){
         return $this->hasMany('App\Models\PostComment','post_id','id');
     }

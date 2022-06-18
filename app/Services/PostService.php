@@ -25,7 +25,20 @@ class PostService
 
     public function createComment($request)
     {
+        $post = $this->getPost($request->post_id);
+        if(isset($post->postComments)){
+            $number = $post->postComments->count() + 2;
+        }else{
+            $number = 2;
+        }
+        $request->merge(['number' => $number]);
+
         return $this->postCommentRepository->create($request);
+    }
+
+    public function getPost($id)
+    {
+        return $this->postRepository->find($id);
     }
 
     public function findPostWithUser($id)
@@ -61,6 +74,11 @@ class PostService
     public function getPostForApi($request, $paginate)
     {
         return $this->postRepository->findForApi($request, $paginate);
+    }
+
+    public function getComment($comment_id)
+    {
+        return $this->postCommentRepository->find($comment_id);
     }
 
     public function getPostsForApi($request, $paginate)
