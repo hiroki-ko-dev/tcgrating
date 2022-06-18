@@ -3,7 +3,15 @@
 @section('title','対戦')
 
 @section('description')
-  <meta name="description" content="ポケモンカードのリモート対戦用のレーティングサイトです。ポケカのリモート対戦相手が見つからない、もっと強い相手と対戦したい!!という方はぜひ一目ご覧ください"/>
+  <meta name="description" content="ポケモンカードのリモート対戦用のレーティングサイトです。ポケカのリモート対戦相手が見つからない、もっと強い相手と対戦したい!!という方はぜひ一目ご覧ください。またランキング機能もあるので、全国一位を目指しましょう！"/>
+@endsection
+
+@section('twitterHeader')
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@remotoPokeka" />
+  <meta name="twitter:title" content="リモートポケカ対戦マッチング" />
+  <meta name="twitter:description" content="リモートポケカのマッチングサイトです。対戦相手がすぐ見つかります。またランキング機能もあるので、全国一位を目指しましょう！" />
+  <meta name="twitter:image" content="{{env('APP_URL')}}/images/duel/twitter_thumb.png" />
 @endsection
 
 @section('addCss')
