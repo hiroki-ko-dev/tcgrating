@@ -72,10 +72,6 @@
 
 </div>
 
-<script type="text/javascript">
-  window.ReactNativeWebView.postMessage({{Auth::id()}});
-</script>
-
 @endsection
 
 @include('layouts.common.header')

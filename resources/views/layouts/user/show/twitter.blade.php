@@ -5,7 +5,7 @@
         <div class="box-header">{{ __('Twitter連携') }}</div>
         <a href="/auth/twitter/login"><img class="img-fluid" src="{{ asset('/images/site/twitter/relation.png') }}" alt="hashimu-icon"></a>
       @else
-        ※このユーザーはTwitter未連携です
+{{--        ※このユーザーはTwitter未連携です--}}
       @endif
     </div>
   </div>
