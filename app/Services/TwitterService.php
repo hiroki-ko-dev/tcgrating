@@ -330,7 +330,7 @@ class TwitterService
      */
     public function tweetByStorePost($post)
     {
-//        if(config('assets.common.appEnv') == 'production'){
+        if(config('assets.common.appEnv') == 'production'){
             $apiKeys = config('assets.twitter.pokeka_info');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
@@ -344,7 +344,7 @@ class TwitterService
 
                 $this->twitterRepository->tweet($apiKeys, $tweet);
 
-//        }
+        }
     }
 
     /**
