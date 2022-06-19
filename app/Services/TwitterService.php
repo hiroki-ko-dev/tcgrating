@@ -334,16 +334,48 @@ class TwitterService
             $apiKeys = config('assets.twitter.pokeka_info');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
+            $link = 'https://hashimu.com/post/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1';
 
             // 対戦マッチング  によるメール文
             $tweet =
                 '【ポケカ掲示板】【' . \App\Models\Post::SUB_CATEGORY[$post->sub_category_id] .'】' . $post->title . PHP_EOL .
                 PHP_EOL .
-                'https://hashimu.com/post/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1 ' . PHP_EOL .
+                $link . PHP_EOL .
+                PHP_EOL .
                 $hashTag;
 
                 $this->twitterRepository->tweet($apiKeys, $tweet);
 
+            if($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_FREE){
+                $webHook = config('assets.discord.web_hook.chat');
+                $discord =
+                    'ポケカ掲示板に以下のトークが投稿されました。' . PHP_EOL .
+                    'みんなでトークを開始しましょう！' . PHP_EOL .
+                    PHP_EOL .
+                    $post->title . PHP_EOL .
+                    PHP_EOL .
+                    $link;
+
+            }elseif($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_DECK){
+                $webHook = config('assets.discord.web_hook.deck');
+                $discord =
+                    'ポケカ掲示板に以下のデッキ相談が投稿されました。' . PHP_EOL .
+                    'デッキ構築が上手い人は迷える子羊を救ってあげましょう！' . PHP_EOL .
+                    PHP_EOL .
+                    '【デッキ相談】' . $post->title . PHP_EOL .
+                    PHP_EOL .
+                    $link;
+            }elseif($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_RULE) {
+                $webHook = config('assets.discord.web_hook.rule');
+                $discord =
+                    'ポケカ掲示板に以下のデッキ相談が投稿されました。' . PHP_EOL .
+                    'ルールに詳しい人は迷える子羊を救ってあげましょう！' . PHP_EOL .
+                    PHP_EOL .
+                    '【ルール質問】' . $post->title . PHP_EOL .
+                    PHP_EOL .
+                    $link;
+            }
+            $this->discordPost($discord, $webHook);
         }
     }
 

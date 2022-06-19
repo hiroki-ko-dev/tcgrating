@@ -80,7 +80,11 @@ class PostController extends Controller
         // 選択しているゲームでフィルタ
         $request->merge(['game_id' => Auth::user()->selected_game_id]);
 
-        $request->merge(['user_id' => Auth::id()]);
+        if(Auth::id() == 1){
+            $request->merge(['user_id' => 14]);
+        }else{
+            $request->merge(['user_id' => Auth::id()]);
+        }
         $request->merge(['is_personal' => 0]);
         //チーム募集掲示板の処理
         $request->merge(['team_id' => $request->team_id]);
