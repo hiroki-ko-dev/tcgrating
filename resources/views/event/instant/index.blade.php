@@ -88,7 +88,7 @@
     </div>
     @endforeach
   @endif
-  {{$events->links('pagination::bootstrap-4')}}
+    {{$events->links('layouts.common.pagination.bootstrap-4')}}
   </div>
 @endsection
 
