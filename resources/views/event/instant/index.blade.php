@@ -53,7 +53,7 @@
           @elseif($event->status == \APP\Models\Event::STATUS_FINISH )
             <div class="text-secondary font-weight-bold justify-content-start">[{{ __('対戦完了') }}]</div>
           @elseif($event->status == \APP\Models\Event::STATUS_CANCEL )
-            <div class="text-secondary font-weight-bold justify-content-start">[{{ __('対戦キャンセル') }}]</div>
+            <div class="text-secondary font-weight-bold justify-content-start">[{{ __('キャンセル') }}]</div>
           @elseif($event->status == \APP\Models\Event::STATUS_INVALID )
             <div class="text-secondary font-weight-bold justify-content-start">[{{ __('無効試合') }}]</div>
           @endif
