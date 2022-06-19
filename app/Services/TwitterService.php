@@ -368,7 +368,7 @@ class TwitterService
             }elseif($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_RULE) {
                 $webHook = config('assets.discord.web_hook.rule');
                 $discord =
-                    'ポケカ掲示板に以下のデッキ相談が投稿されました。' . PHP_EOL .
+                    'ポケカ掲示板に以下のルール質問が投稿されました。' . PHP_EOL .
                     'ルールに詳しい人は迷える子羊を救ってあげましょう！' . PHP_EOL .
                     PHP_EOL .
                     '【ルール質問】' . $post->title . PHP_EOL .
