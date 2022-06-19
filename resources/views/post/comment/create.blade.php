@@ -73,15 +73,17 @@
           </div>
         @endif
 
-        <div class="row">
-          <div class="bg-skyblue p-1 ml-3 font-weight-bold text-primary">
-            @if($postComment->referral_id === 0)
-              <a href="/post/comment/create?post_id={{$postComment->post->id}}">>>1</a>
-            @elseif($postComment->referral_id > 0)
-              <a href="/post/comment/create?comment_id={{$postComment->referralComment->id}}">>>{{$postComment->referralComment->number}}</a>
-            @endif
+        @if(!is_null($postComment->referral_id))
+          <div class="row">
+            <div class="bg-skyblue p-1 ml-3 font-weight-bold text-primary">
+              @if($postComment->referral_id === 0)
+                <a href="/post/comment/create?post_id={{$postComment->post->id}}">>>1</a>
+              @elseif($postComment->referral_id > 0)
+                <a href="/post/comment/create?comment_id={{$postComment->referralComment->id}}">>>{{$postComment->referralComment->number}}</a>
+              @endif
+            </div>
           </div>
-        </div>
+        @endif
         <div class="row m-1 mb-3">
           <div class="post-text">{!! nl2br(e($postComment->body)) !!}</div>
         </div>
