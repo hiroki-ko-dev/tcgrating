@@ -75,7 +75,7 @@
 
         <div class="row">
           <div class="bg-skyblue p-1 ml-3 font-weight-bold text-primary">
-            @if($postComment->referral_id == 0)
+            @if($postComment->referral_id === 0)
               <a href="/post/comment/create?post_id={{$postComment->post->id}}">>>1</a>
             @else
               <a href="/post/comment/create?comment_id={{$postComment->referralComment->id}}">>>{{$postComment->referralComment->number}}</a>
