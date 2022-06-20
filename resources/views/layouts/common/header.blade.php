@@ -94,11 +94,14 @@
                       <li><a href="/event/group">グループ対戦</a></li>
                       <li><a href="/event/swiss">スイスドロー対戦</a></li>
                     @endif
+                    <li><a href="/shop">商品購入</a></li>
+                    <li><a href="/user/{{Auth::id()}}">ポケカ履歴書</a></li>
                   @else
                     <li><a href="/site/how_to_use/normal">使い方</a></li>
                     <li><a href="/event/single">1vs1対戦</a></li>
+                    <li><a href="/user/{{Auth::id()}}">マイページ</a></li>
                   @endif
-                  <li><a href="/user/{{Auth::id()}}">マイページ</a></li>
+
                   <li><a  href="" onclick="event.preventDefault();
                                        document.getElementById('logout-form').submit();">ログアウト</a></li>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

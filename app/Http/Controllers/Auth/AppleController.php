@@ -93,11 +93,14 @@ class AppleController extends Controller
                         $game_id = session('selected_game_id');
                     }
                     $request->game_id    = $game_id;
-                    $request->name       = '';
+                    $request->name       = 'ユーザー';
                     $request->email      = json_decode($tokenPayload)->email;
                     $request->password   = Hash::make($sub.'hash_pass');
                     $request->body       = '';
-                    // 新規ユーザー作成
+                    $request->twitter_nickname = 'ユーザー';
+                    $request->twitter_image_url = '/images/icon/default-icon-mypage.jpg';
+                    $request->twitter_simple_image_url = '/images/icon/default-account.png';
+                        // 新規ユーザー作成
                     $user = DB::transaction(function () use($request) {
                         return $this->userService->makeUser($request);
                     });
