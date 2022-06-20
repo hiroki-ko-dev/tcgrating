@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Post;
+namespace App\Http\Controllers\Blog;
 use App\Http\Controllers\Controller;
 use App\Services\PostService;
 use App\Services\EventService;
