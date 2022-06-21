@@ -7,7 +7,7 @@
 @endsection
 
 @section('addCss')
-  <link rel="stylesheet" href="{{ mix('/css/blog/blog.css') }}">
+  <link rel="stylesheet" href="{{ mix('/css/blog/show.css') }}">
 @endsection
 
 @section('content')

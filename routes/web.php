@@ -82,8 +82,9 @@ use Illuminate\Support\Facades\Route;
 
     // 商品
     Route::resources([
-        'product'      => Product\ProductController::class,
+        'item'      => Item\ItemController::class,
     ]);
+    Route::post('/item/charge', [App\Http\Controllers\Item\ItemController::class, 'charge']);
 
     //記事
     Route::resources([
@@ -110,7 +111,6 @@ use Illuminate\Support\Facades\Route;
     Route::resources([
         'duel/single' => Duel\SingleController::class,
         'duel/instant' => Duel\InstantController::class,
-        'duel/point'  => Duel\PointController::class,
         'duel/swiss'   => Duel\SwissController::class,
     ]);
 

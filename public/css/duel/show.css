@@ -1,3 +1,15 @@
-.result-button{width:150px}.finish-button,.result-button{color:#fff;font-weight:700;height:50px}.finish-button{width:270px}
+.result-button {
+  font-weight: bold;
+  color: #FFFFFF;
+  width: 150px;
+  height: 50px;
+}
 
-/*# sourceMappingURL=show.css.map*/
+.finish-button {
+  font-weight: bold;
+  color: #FFFFFF;
+  width: 270px;
+  height: 50px;
+}
+
+

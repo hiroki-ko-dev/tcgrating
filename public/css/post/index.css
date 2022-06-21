@@ -1,3 +1,21 @@
-.post-user{color:green;font-weight:700}.card:hover{background-color:#82beee;color:orange}@media screen and (min-width:600px){.card-text{font-size:24px}}
+@charset "UTF-8";
 
-/*# sourceMappingURL=index.css.map*/
+.post-user {
+  font-weight: bold;
+  color: #008000;
+}
+
+/* マウスオーバーで詳細への誘導を表示 */
+
+.card:hover {
+  color: orange;
+  background-color: #82beee;
+}
+
+@media screen and (min-width: 600px) {
+  .card-text {
+    font-size: 24px;
+  }
+}
+
+

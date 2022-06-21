@@ -38,7 +38,6 @@ class BlogController extends Controller
             $request->merge(['is_released' => 1]);
         }
 
-
         $blogs =  $this->blogService->getBlogByPaginate($request,20);
 
         return view('blog.index',compact('blogs'));
@@ -75,6 +74,7 @@ class BlogController extends Controller
 
             $blog = DB::transaction(function () use($request) {
                 $blog = $this->blogService->makeBlog($request);
+                $this->twitterService->tweetByStorePost($post);
                 return $blog;
             });
 

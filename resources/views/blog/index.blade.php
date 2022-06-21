@@ -7,7 +7,7 @@
 @endsection
 
 @section('addCss')
-  <link rel="stylesheet" href="{{ mix('/css/blog/blog.css') }}">
+  <link rel="stylesheet" href="{{ mix('/css/blog/index.css') }}">
 @endsection
 
 @section('content')
@@ -61,17 +61,17 @@
               <div class="row justify-content-center border-bottom p-2">
                 <div class="col-sm-12">
                   <div class="d-flex flex-row text-left">
-                    <div class="w-40 mr-2">
+                    <div class="thumbnail-w mr-2">
                       <img class="thumbnail" src="{{ $blog->thumbnail_image_url }}" alt="hashimu-icon">
                     </div>
-                    <div class="w-60">
+                    <div class="string-w">
                       <div class="thumbnail-date">
                         [作成日時:{{$blog->created_at}}]
                       </div>
-                      <div class="text-break">
-                        <h5>
+                      <div class="text-break h-100 d-flex align-items-center">
+                        <h3>
                           <a href="/blog/{{$blog->id}}">{{$blog->title}}</a>
-                        </h5>
+                        </h3>
                       </div>
                     </div>
                   </div>

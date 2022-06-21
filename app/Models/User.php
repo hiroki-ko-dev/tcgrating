@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+// Stripe決済を使うための追加
+use Laravel\Cashier\Billable;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    // Stripe決済を使うための追加
+    use Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -39,6 +44,16 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+
+    //定数の定義
+    const ROLE_USER   = 0;
+    const ROLE_ADMIN  = 1;
+
+    const ROLES = [
+        self::ROLE_USER => 'メンバー',
+        self::ROLE_ADMIN => '管理者',
     ];
 
     public function post()

@@ -1,3 +1,16 @@
-.post-user{color:green;font-weight:700}.post-text{font-size:30px}@media screen and (max-width:500px){.post-text{font-size:20px}}
+.post-user {
+  font-weight: bold;
+  color: #008000;
+}
 
-/*# sourceMappingURL=show.css.map*/
+.post-text {
+  font-size: 30px;
+}
+
+@media screen and (max-width: 500px) {
+  .post-text {
+    font-size: 20px;
+  }
+}
+
+
