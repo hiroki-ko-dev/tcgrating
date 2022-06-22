@@ -74,7 +74,7 @@ class BlogController extends Controller
 
             $blog = DB::transaction(function () use($request) {
                 $blog = $this->blogService->makeBlog($request);
-                $this->twitterService->tweetByStorePost($post);
+//                $this->twitterService->tweetByStorePost($request);
                 return $blog;
             });
 
