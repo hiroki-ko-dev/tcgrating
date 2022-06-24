@@ -56,6 +56,51 @@
     </div>
   </div>
 
+  <div class="row justify-content-center mb-4">
+    <div class="col-6">
+      <div class="box">
+        <div class="row justify-content-center mb-4 site-color text-white">
+          前の記事
+        </div>
+        @if($preview)
+          <a href="/blog/{{$preview->id}}">
+            <div class="row justify-content-center mb-4">
+            {{$preview->title}}
+            </div>
+            <div class="row justify-content-center mb-4">
+              <img class="thumbnail" src="{{ $preview->thumbnail_image_url }}" alt="hashimu-icon">
+            </div>
+          </a>
+        @else
+          <div class="row justify-content-center mb-4">
+            記事がありません
+          </div>
+        @endif
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="box">
+        <div class="row justify-content-center mb-4 site-color text-white"">
+          次の記事
+        </div>
+        @if($next)
+          <a href="/blog/{{$next->id}}">
+            <div class="row justify-content-center mb-4">
+              <a href="/blog/{{$next->id}}">{{$next->title}}</a>
+            </div>
+            <div class="row justify-content-center mb-4">
+              <img class="thumbnail" src="{{ $next->thumbnail_image_url }}" alt="hashimu-icon">
+            </div>
+          </a>
+        @else
+          <div class="row justify-content-center mb-4">
+            更新中
+          </div>
+        @endif
+      </div>
+    </div>
+  </div>
+
   @include('layouts.common.line')
 
     <div class="row justify-content-center mb-4">
