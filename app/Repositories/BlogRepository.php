@@ -56,6 +56,14 @@ class BlogRepository
         return Blog::find($id);
     }
 
+    public function findByPreview($id)
+    {
+        return Blog::where('id', '<=', $id)
+                    ->where('is_released',1)
+                    ->orderBy('id','desc')
+                    ->first();
+    }
+
     public function findAll($request)
     {
         $query = $this->composeWhereClause($request);

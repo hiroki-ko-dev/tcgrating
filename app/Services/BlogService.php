@@ -46,6 +46,15 @@ class BlogService
         return $this->blogRepository->find($blog_id);
     }
 
+    /**
+     * @param $blog_id
+     * @return mixed
+     */
+    public function getPreviewBlog($blog_id)
+    {
+        return $this->blogRepository->findByPreview($blog_id);
+    }
+
     public function getBlogByPaginate($request, $paginate)
     {
         return $this->blogRepository->findAllByPaginate($request, $paginate);
