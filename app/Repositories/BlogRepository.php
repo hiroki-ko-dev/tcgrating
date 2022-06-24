@@ -64,6 +64,14 @@ class BlogRepository
                     ->first();
     }
 
+    public function findByNext($id)
+    {
+        return Blog::where('id', '>=', $id)
+            ->where('is_released',1)
+            ->orderBy('id','desc')
+            ->first();
+    }
+
     public function findAll($request)
     {
         $query = $this->composeWhereClause($request);

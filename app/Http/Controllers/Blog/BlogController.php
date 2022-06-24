@@ -100,7 +100,7 @@ class BlogController extends Controller
     {
         $blog = $this->blogService->getBlog($blog_id);
         $preview = $this->blogService->getPreviewBlog($blog_id - 1);
-        $next = $this->blogService->getBlog($blog_id + 1);
+        $next = $this->blogService->getNextBlog($blog_id + 1);
 
         return view('blog.show',compact('blog','preview', 'next'));
 

@@ -55,6 +55,15 @@ class BlogService
         return $this->blogRepository->findByPreview($blog_id);
     }
 
+    /**
+     * @param $blog_id
+     * @return mixed
+     */
+    public function getNextBlog($blog_id)
+    {
+        return $this->blogRepository->findByNext($blog_id);
+    }
+
     public function getBlogByPaginate($request, $paginate)
     {
         return $this->blogRepository->findAllByPaginate($request, $paginate);
