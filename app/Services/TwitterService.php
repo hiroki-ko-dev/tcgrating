@@ -328,7 +328,7 @@ class TwitterService
     /**
      * @param $blog
      */
-    public function tweetByStorePost($blog)
+    public function tweetByBlog($blog)
     {
         if(config('assets.common.appEnv') == 'production'){
             $apiKeys = config('assets.twitter.pokeka_info');
@@ -348,13 +348,13 @@ class TwitterService
 
 //                $webHook = config('assets.discord.web_hook.deck');
 //                $discord =
-//                    'ポケカ掲示板に以下のデッキ相談が投稿されました。' . PHP_EOL .
+//                    'ポケカ掲示板に以下の記事が投稿されました。' . PHP_EOL .
 //                    'デッキ構築が上手い人は迷える子羊を救ってあげましょう！' . PHP_EOL .
 //                    PHP_EOL .
-//                    '【デッキ相談】' . $post->title . PHP_EOL .
+//                    $blog->title . PHP_EOL .
 //                    PHP_EOL .
 //                    $link;
-
+//
 //            $this->discordPost($discord, $webHook);
         }
     }
@@ -362,13 +362,13 @@ class TwitterService
     /**
      * @param $post
      */
-    public function tweetByBlog($post)
+    public function tweetByStorePost($post)
     {
         if(config('assets.common.appEnv') == 'production'){
             $apiKeys = config('assets.twitter.pokeka_info');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
-            $link = 'https://hashimu.com/blog/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1';
+            $link = 'https://hashimu.com/post/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1';
 
             // 対戦マッチング  によるメール文
             $tweet =
