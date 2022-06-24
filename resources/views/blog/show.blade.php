@@ -15,7 +15,7 @@
   <meta name="twitter:site" content="@pokekaInfo" />
   <meta name="twitter:title" content="ポケカ掲示板" />
   <meta name="twitter:description" content="ポケカのデッキ相談・ルール質問・雑談などを掲示板で話しましょう！" />
-  <meta name="twitter:image" content="{{$blog->thumbnail_image_url}}" />
+  <meta name="twitter:image" content="{{str_replace('amp;', '', $blog->thumbnail_image_url)}}" />
 @endsection
 
 @section('content')
@@ -99,22 +99,21 @@
         @endif
       </div>
     </div>
-  </div>
 
   @include('layouts.common.line')
 
-    <div class="row justify-content-center mb-4">
-      <div class="col-sm-12">
-        <div class="box">
-          @if(Auth::check() && Auth::id() == 1)
-            <button type=“button”  class="btn site-color text-white rounded-pill btn-outline-secondary text-center" onclick="location.href='/blog/{{$blog->id}}/edit'">編集する</button>
-          @endif
-            <button type=“button”  class="btn btn-secondary text-white rounded-pill btn-outline-secondary text-center" onclick="location.href='/blog'">記事一覧へ</button>
-        </div>
+  <div class="row justify-content-center mb-4">
+    <div class="col-sm-12">
+      <div class="box">
+        @if(Auth::check() && Auth::id() == 1)
+          <button type=“button”  class="btn site-color text-white rounded-pill btn-outline-secondary text-center" onclick="location.href='/blog/{{$blog->id}}/edit'">編集する</button>
+        @endif
+          <button type=“button”  class="btn btn-secondary text-white rounded-pill btn-outline-secondary text-center" onclick="location.href='/blog'">記事一覧へ</button>
       </div>
     </div>
-
+  </div>
 </div>
+
 
 @endsection
 

@@ -39,42 +39,10 @@
       @include('layouts.blog._form')
     </form>
   </div>
-
 @endsection
 
 @section('addScript')
-  <script>
-    // ClassicEditor
-    //   .create( document.querySelector( '#editor' ) )
-    //   .catch( error => {
-    //     console.error( error );
-    //   } );
-
-    CKEDITOR.editorConfig = function( config ) {
-      config.contentsCss = [{{ mix('/css/blog/show.css') }}]; //このコードを追加する
-    };
-
-    // CKEDITOR.stylesSet.add( 'default', [
-    //   // Block Styles
-    //   { name: 'List',       element: 'h3',      styles: { 'color': 'Blue' }, attributes: { class: 'some-class' }},
-    //   { name: 'Red Title',        element: 'h3',      styles: { 'color': 'Red' }, attributes: { class: 'some-class' }},
-    //
-    //   // Inline Styles
-    //   { name: 'Marker: Yellow',   element: 'span',    styles: { 'background-color': 'Yellow' } },
-    //   { name: 'Marker: Green',    element: 'span',    styles: { 'background-color': 'Lime' } },
-    //
-    //   // Object Styles
-    //   {
-    //     name: 'Image on Left',
-    //     element: 'img',
-    //     attributes: {
-    //       style: 'padding: 5px; margin-right: 5px',
-    //       border: '2',
-    //       align: 'left'
-    //     }
-    //   }
-    // ] );
-  </script>
+  @include('layouts.common._ckeditor')
 @endsection
 
 @include('layouts.common.header')

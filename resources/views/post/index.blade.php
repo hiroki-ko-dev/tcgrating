@@ -49,7 +49,7 @@
         <div class="col-md-12">
           <div class="card-body">
             <div class="card-text" style="white-space: nowrap;">
-              <span class="post-user">[{{$post->created_at}}]</span>[{{$post->post_comments_count}}]
+              <span class="post-user">[{{$post->created_at}}]</span>[{{$post->post_comments_count + 1}}]
               <span class="bg-info rounded-pill text-white p-1">
                 {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
               </span>
