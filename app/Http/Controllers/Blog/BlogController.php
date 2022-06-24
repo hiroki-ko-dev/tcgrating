@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog;
 use App\Http\Controllers\Controller;
 use App\Services\BlogService;
+use App\Services\TwitterService;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -14,10 +15,13 @@ use DB;
 class BlogController extends Controller
 {
     protected $blogService;
+    protected $twitterService;
 
-    public function __construct(BlogService $blogService)
+    public function __construct(BlogService $blogService,
+                                TwitterService $twitterService)
     {
         $this->blogService = $blogService;
+        $this->twitterService = $twitterService;
     }
 
     /**
@@ -74,7 +78,9 @@ class BlogController extends Controller
 
             $blog = DB::transaction(function () use($request) {
                 $blog = $this->blogService->makeBlog($request);
-//                $this->twitterService->tweetByStorePost($request);
+                if(!empty($request->is_tweeted)){
+                    $this->twitterService->tweetByStorePost($request);
+                }
                 return $blog;
             });
 
