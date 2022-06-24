@@ -47,7 +47,7 @@
       <div class="row bg-light p-2">
         <div class="col-4 m-0 p-0 text-left">
           @if($event->status == \APP\Models\Event::STATUS_RECRUIT )
-            <div class="post-user justify-content-start">[{{ __('対戦受付中') }}]</div>
+            <div class="post-user text-danger justify-content-start">[{{ __('対戦受付中') }}]</div>
           @elseif($event->status == \APP\Models\Event::STATUS_READY )
             <div class="post-user text-warning justify-content-start">[{{ __('マッチング済') }}]</div>
           @elseif($event->status == \APP\Models\Event::STATUS_FINISH )

@@ -326,40 +326,6 @@ class TwitterService
     }
 
     /**
-     * @param $blog
-     */
-    public function tweetByBlog($blog)
-    {
-        if(config('assets.common.appEnv') == 'production'){
-            $apiKeys = config('assets.twitter.pokeka_info');
-
-            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
-            $link = 'https://hashimu.com/blog/' . $blog->id . '?selected_game_id=' . $blog->game_id . '&remotopokeka=1';
-
-            // 対戦マッチング  によるメール文
-            $tweet =
-                '【ポケカ掲示板】' . $blog->title . PHP_EOL .
-                PHP_EOL .
-                $link . PHP_EOL .
-                PHP_EOL .
-                $hashTag;
-
-                $this->twitterRepository->tweet($apiKeys, $tweet);
-
-//                $webHook = config('assets.discord.web_hook.deck');
-//                $discord =
-//                    'ポケカ掲示板に以下の記事が投稿されました。' . PHP_EOL .
-//                    'デッキ構築が上手い人は迷える子羊を救ってあげましょう！' . PHP_EOL .
-//                    PHP_EOL .
-//                    $blog->title . PHP_EOL .
-//                    PHP_EOL .
-//                    $link;
-//
-//            $this->discordPost($discord, $webHook);
-        }
-    }
-
-    /**
      * @param $post
      */
     public function tweetByStorePost($post)
@@ -412,6 +378,41 @@ class TwitterService
             $this->discordPost($discord, $webHook);
         }
     }
+
+    /**
+     * @param $blog
+     */
+    public function tweetByBlog($blog)
+    {
+        if(config('assets.common.appEnv') == 'production'){
+            $apiKeys = config('assets.twitter.pokeka_info');
+
+            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
+            $link = 'https://hashimu.com/blog/' . $blog->id . '?selected_game_id=' . $blog->game_id . '&remotopokeka=1';
+
+            // 対戦マッチング  によるメール文
+            $tweet =
+                '【ポケカ掲示板】' . $blog->title . PHP_EOL .
+                PHP_EOL .
+                $link . PHP_EOL .
+                PHP_EOL .
+                $hashTag;
+
+            $this->twitterRepository->tweet($apiKeys, $tweet);
+
+                $webHook = config('assets.discord.web_hook.blog');
+                $discord =
+                    'ポケカ記事が更新されました。' . PHP_EOL .
+                    '最新情報をチェックしましょう！！' . PHP_EOL .
+                    PHP_EOL .
+                    $blog->title . PHP_EOL .
+                    PHP_EOL .
+                    $link;
+
+            $this->discordPost($discord, $webHook);
+        }
+    }
+
 
     /**
      *
