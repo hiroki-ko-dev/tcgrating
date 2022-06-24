@@ -392,7 +392,7 @@ class TwitterService
 
             // 対戦マッチング  によるメール文
             $tweet =
-                '【ポケカ掲示板】' . $blog->title . PHP_EOL .
+                '【ポケカ記事】' . $blog->title . PHP_EOL .
                 PHP_EOL .
                 $link . PHP_EOL .
                 PHP_EOL .
@@ -405,7 +405,7 @@ class TwitterService
                     'ポケカ記事が更新されました。' . PHP_EOL .
                     '最新情報をチェックしましょう！！' . PHP_EOL .
                     PHP_EOL .
-                    $blog->title . PHP_EOL .
+                    '【ポケカ記事】' . $blog->title . PHP_EOL .
                     PHP_EOL .
                     $link;
 

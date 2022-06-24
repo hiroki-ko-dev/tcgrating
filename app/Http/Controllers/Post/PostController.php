@@ -80,11 +80,11 @@ class PostController extends Controller
         // 選択しているゲームでフィルタ
         $request->merge(['game_id' => Auth::user()->selected_game_id]);
 
-        if(Auth::id() == 1){
-            $request->merge(['user_id' => 14]);
-        }else{
-            $request->merge(['user_id' => Auth::id()]);
+        // ユーザーIDをアドミンでは選べるようにする
+        if(empty($request->user_id)){
+            $request->merge(['user_id' => Auth::guard()->user()->id]);
         }
+
         $request->merge(['is_personal' => 0]);
         //チーム募集掲示板の処理
         $request->merge(['team_id' => $request->team_id]);
@@ -107,6 +107,7 @@ class PostController extends Controller
     {
         $post     = $this->post_service->findPostWithUser($post_id);
         $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post_id,100);
+
         return view('post.show',compact('post','comments'));
     }
 

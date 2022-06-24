@@ -128,6 +128,20 @@
             <div class="form-group row">
               <input id="image_url" type="text" placeholder="デッキコードを書く（省略可）" class="form-control w-100 @error('image_url') is-invalid @enderror" name="image_url" value="{{ old('image_url') }}" >
             </div>
+
+            @if(Auth::check() && Auth::user()->role == \App\Models\User::ROLE_ADMIN)
+              <div class="form-group row">
+                <select name="user_id" class="form-control">
+                  @foreach(config('assets.account.sakura') as $key => $name)
+                    <option value="{{$key}}"
+                            @if(old('tool_id'))
+                            selected
+                      @endif
+                    >{{$name}}</option>
+                  @endforeach
+                </select>
+              </div>
+            @endif
               <div class="form-group row mb-0">
                   <div class="col-md-6 offset-md-5">
                       <button type="submit" class="btn site-color rounded-pill btn-outline-secondary text-light pl-5 pr-5" onClick="return requestConfirm();">

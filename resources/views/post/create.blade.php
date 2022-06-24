@@ -51,6 +51,20 @@
                 </select>
               </div>
 
+            @if(Auth::check() && Auth::user()->role == \App\Models\User::ROLE_ADMIN)
+              <div class="form-group row">
+                <select name="user_id" class="form-control">
+                  @foreach(config('assets.account.sakura') as $key => $name)
+                    <option value="{{$key}}"
+                            @if(old('tool_id'))
+                            selected
+                      @endif
+                    >{{$name}}</option>
+                  @endforeach
+                </select>
+              </div>
+            @endif
+
               <div class="row justify-content-center">
                 <button type="submit" class="btn btn btn-dark rounded-pill pl-5 pr-5">
                     {{ __('投稿') }}

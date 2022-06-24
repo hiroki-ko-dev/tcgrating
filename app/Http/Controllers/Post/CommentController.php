@@ -84,8 +84,10 @@ class CommentController extends Controller
             return back()->with('flash_message', 'コメントを行うにはログインをしてください');
         }
 
-        //追加
-        $request->merge(['user_id' => Auth::guard()->user()->id]);
+        // ユーザーIDをアドミンでは選べるようにする
+        if(empty($request->user_id)){
+            $request->merge(['user_id' => Auth::guard()->user()->id]);
+        }
 
         $postComment = DB::transaction(function () use($request) {
             $postComment = $this->postService->createComment($request);
