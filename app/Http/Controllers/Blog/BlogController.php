@@ -138,7 +138,7 @@ class BlogController extends Controller
         DB::transaction(function () use($request){
             $blog = $this->blogService->saveBlog($request);
             if(!empty($request->is_tweeted)){
-                $this->twitterService->tweetByStorePost($blog);
+                $this->twitterService->tweetByBlog($blog);
             }
         });
 
