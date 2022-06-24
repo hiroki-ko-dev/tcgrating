@@ -326,15 +326,49 @@ class TwitterService
     }
 
     /**
-     * @param $post
+     * @param $blog
      */
-    public function tweetByStorePost($post)
+    public function tweetByStorePost($blog)
     {
         if(config('assets.common.appEnv') == 'production'){
             $apiKeys = config('assets.twitter.pokeka_info');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
-            $link = 'https://hashimu.com/post/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1';
+            $link = 'https://hashimu.com/blog/' . $blog->id . '?selected_game_id=' . $blog->game_id . '&remotopokeka=1';
+
+            // 対戦マッチング  によるメール文
+            $tweet =
+                '【ポケカ掲示板】' . $blog->title . PHP_EOL .
+                PHP_EOL .
+                $link . PHP_EOL .
+                PHP_EOL .
+                $hashTag;
+
+                $this->twitterRepository->tweet($apiKeys, $tweet);
+
+//                $webHook = config('assets.discord.web_hook.deck');
+//                $discord =
+//                    'ポケカ掲示板に以下のデッキ相談が投稿されました。' . PHP_EOL .
+//                    'デッキ構築が上手い人は迷える子羊を救ってあげましょう！' . PHP_EOL .
+//                    PHP_EOL .
+//                    '【デッキ相談】' . $post->title . PHP_EOL .
+//                    PHP_EOL .
+//                    $link;
+
+//            $this->discordPost($discord, $webHook);
+        }
+    }
+
+    /**
+     * @param $post
+     */
+    public function tweetByBlog($post)
+    {
+        if(config('assets.common.appEnv') == 'production'){
+            $apiKeys = config('assets.twitter.pokeka_info');
+
+            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
+            $link = 'https://hashimu.com/blog/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1';
 
             // 対戦マッチング  によるメール文
             $tweet =
@@ -344,7 +378,7 @@ class TwitterService
                 PHP_EOL .
                 $hashTag;
 
-                $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->twitterRepository->tweet($apiKeys, $tweet);
 
             if($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_FREE){
                 $webHook = config('assets.discord.web_hook.chat');

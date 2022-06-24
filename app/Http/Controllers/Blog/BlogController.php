@@ -79,7 +79,7 @@ class BlogController extends Controller
             $blog = DB::transaction(function () use($request) {
                 $blog = $this->blogService->makeBlog($request);
                 if(!empty($request->is_tweeted)){
-                    $this->twitterService->tweetByStorePost($request);
+                    $this->twitterService->tweetByBlog($blog);
                 }
                 return $blog;
             });
@@ -134,7 +134,10 @@ class BlogController extends Controller
 
         $request->merge(['id' => $blog_id]);
         DB::transaction(function () use($request){
-            $this->blogService->saveBlog($request);
+            $blog = $this->blogService->saveBlog($request);
+            if(!empty($request->is_tweeted)){
+                $this->twitterService->tweetByStorePost($blog);
+            }
         });
 
         return redirect('/blog/' . $blog_id)->with('flash_message', '保存しました');
