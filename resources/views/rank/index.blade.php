@@ -48,28 +48,26 @@
                 </thead>
                 <tbody>
                 @foreach($rates as $i => $rate)
+                  @if(isset($rate->user))
                     <tr>
-                        <td scope="col" class="align-middle">
-                          @if($rates->firstItem()+$i <= 4)
-                            <img style="width:50px;" src="/images/icon/rank/{{$rates->firstItem()+$i}}.png">
-                          @else
-                            {{$rates->firstItem()+$i}}
-                          @endif
-                        </td>
-                        <td scope="col" class="align-middle">
-                          @if(isset($rate->user->twitter_simple_image_url))
-                            <img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle"
-                                 onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
-                            >
-                          @else
-                            <img src="{{ asset('/images/icon/default-account.png') }}" class="rounded-circle">
-                          @endif
-                        </td>
+                      <td scope="col" class="align-middle">
+                        @if($rates->firstItem()+$i <= 4)
+                          <img style="width:50px;" src="/images/icon/rank/{{$rates->firstItem()+$i}}.png">
+                        @else
+                          {{$rates->firstItem()+$i}}
+                        @endif
+                      </td>
+                      <td scope="col" class="align-middle">
+                          <img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle"
+                               onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
+                          >
+                      </td>
                       <td scope="col" class="text-left align-middle">
                         <a href="/user/{{$rate->user->id}}">{{$rate->user->name}}</a>
                       </td>
-                        <td scope="col" class="align-middle">{{$rate->rate}}</td>
+                      <td scope="col" class="align-middle">{{$rate->rate}}</td>
                     </tr>
+                  @endif
                 @endforeach
                 </tbody>
             </table>
