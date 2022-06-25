@@ -37,6 +37,11 @@
       </div>
 
       @if(!empty($postComment->post->image_url))
+        <div class="form-group row mt-2">
+          <div class="col-12">
+            デッキコード：{{$postComment->post->image_url}}
+          </div>
+        </div>
         <div class="row m-1 mb-3">
             <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$postComment->post->image_url}}" alt="{{$postComment->post->title}}">
         </div>
@@ -68,6 +73,11 @@
         </div>
 
         @if(!empty($postComment->image_url))
+          <div class="form-group row mt-2">
+            <div class="col-12">
+              デッキコード：{{$postComment->image_url}}
+            </div>
+          </div>
           <div class="row m-1 mb-3">
             <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$postComment->image_url}}" alt="{{$postComment->post->title}}">
           </div>
@@ -163,6 +173,11 @@
         </div>
 
         @if(!empty($replyComment->image_url))
+          <div class="form-group row mt-2">
+            <div class="col-12">
+              デッキコード：{{$replyComment->image_url}}
+            </div>
+          </div>
           <div class="row m-1 mb-3">
             <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$replyComment->image_url}}" alt="{{$replyComment->post->title}}">
           </div>
