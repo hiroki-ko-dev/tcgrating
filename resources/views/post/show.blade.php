@@ -15,7 +15,11 @@
   <meta name="twitter:site" content="@pokekaInfo" />
   <meta name="twitter:title" content="ポケカ掲示板" />
   <meta name="twitter:description" content="ポケカのデッキ相談・ルール質問・雑談などを掲示板で話しましょう！" />
-  <meta name="twitter:image" content="{{env('APP_URL')}}/images/post/twitter_thumb.png" />
+  @if($post->image_url)
+    <meta name="twitter:image" content="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$post->image_url}}" />
+  @else
+    <meta name="twitter:image" content="{{env('APP_URL')}}/images/post/twitter_thumb.png" />
+  @endif
 @endsection
 
 @section('content')

@@ -12,12 +12,11 @@
       </div>
       <div>
           <div class="form-group row">
-              <div class="col-md-12 mb-1">
-                <span class="bg-info rounded-pill text-white p-1">
+              <h4 class="pl-1 font-weight-bold">
+                <span class="bg-info rounded-pill text-white p-2 m-2">
                   {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
-                </span>
-                <span class="pl-1 font-weight-bold">{{$post->title}}</span>
-              </div>
+                </span>{{$post->title}}
+              </h4>
           </div>
           <div class="form-group row">
             <div class="col-md-12">

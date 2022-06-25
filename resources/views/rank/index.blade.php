@@ -6,6 +6,14 @@
   <meta name="description" content="ポケモンカードのリモート対戦用のレーティングサイトです。ポケカのリモート対戦相手が見つからない、もっと強い相手と対戦したい!!という方はぜひ一目ご覧ください"/>
 @endsection
 
+@section('twitterHeader')
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@pokekaInfo" />
+  <meta name="twitter:title" content="ポケカ掲示板" />
+  <meta name="twitter:description" content="ポケカのデッキ相談・ルール質問・雑談などを掲示板で話しましょう！" />
+  <meta name="twitter:image" content="{{env('APP_URL')}}/images/duel/twitter_thumb.png" />
+@endsection
+
 @section('content')
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
@@ -49,9 +57,13 @@
                           @endif
                         </td>
                         <td scope="col" class="align-middle">
-                          <img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle"
-                               onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
-                          >
+                          @if($rate->user->twitter_simple_image_url)
+                            <img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle"
+                                 onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
+                            >
+                          @else
+                            <img src="{{ asset('/images/icon/default-account.png') }}" class="rounded-circle">
+                          @endif
                         </td>
                       <td scope="col" class="text-left align-middle">
                         <a href="/user/{{$rate->user->id}}">{{$rate->user->name}}</a>
