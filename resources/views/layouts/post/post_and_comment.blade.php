@@ -16,7 +16,7 @@
               <span class="bg-info rounded-pill text-white p-2">
                   {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
               </span>
-              <h4 class="pl-1 text-nowrap">
+              <h4 class="pl-1">
                 {{$post->title}}
               </h4>
             </div>
