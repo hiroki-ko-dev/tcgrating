@@ -64,7 +64,7 @@
       </div>
 
       @if(!empty($comments))
-          <div class="pb-2 mt-3">
+          <div class="pb-5 mt-3">
               <div class="card-header">{{ __('コメント一覧') }}</div>
               <div>
                 @if(empty($comments[0]))
