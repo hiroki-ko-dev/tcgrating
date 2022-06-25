@@ -12,8 +12,8 @@
       </div>
       <div>
           <div class="form-group row">
-            <div class="col-12">
-              <span class="bg-info rounded-pill text-white p-2">
+            <div class="col-sm-12">
+              <span class="bg-info rounded-pill text-white p-1">
                   {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
               </span>
               <h4 class="pl-1">
