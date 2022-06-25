@@ -83,7 +83,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
             <div className="col-5">
               <img
                 className="profileImage"
-                src={"/storage/images/temp/twitter_game_3_user_" + gameUserJson.user.id + ".jpg"}
+                src={"/images/temp/twitter_game_3_user_" + gameUserJson.user.id + ".jpg"}
               />
             </div>
             <div className="col-7">
