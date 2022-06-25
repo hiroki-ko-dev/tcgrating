@@ -73,7 +73,7 @@
             </table>
         </div>
       </div>
-      {{$rates->links('pagination::bootstrap-4')}}
+      {{$rates->links('layouts.common.pagination.bootstrap-4')}}
     </div>
   </div>
 </div>
