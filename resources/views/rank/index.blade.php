@@ -57,7 +57,7 @@
                           @endif
                         </td>
                         <td scope="col" class="align-middle">
-                          @if($rate->user->twitter_simple_image_url)
+                          @if(isset($rate->user->twitter_simple_image_url))
                             <img src="{{$rate->user->twitter_simple_image_url}}" class="rounded-circle"
                                  onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
                             >
