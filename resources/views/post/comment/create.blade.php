@@ -145,6 +145,20 @@
             </span>
           @enderror
       </div>
+      @if(Auth::check() && Auth::user()->role == \App\Models\User::ROLE_ADMIN)
+        <div class="form-group row">
+          <select name="user_id" class="form-control">
+            @foreach(config('assets.account.sakura') as $key => $name)
+              <option value="{{$key}}"
+                      @if(old('user_id'))
+                      selected
+                @endif
+              >{{$name}}</option>
+            @endforeach
+          </select>
+        </div>
+      @endif
+
       <div class="row justify-content-center">
         <div class="col-12">
           <button type="submit" class="btn btn-dark w-100" onClick="return requestConfirm();">

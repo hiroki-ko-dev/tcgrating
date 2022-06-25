@@ -146,7 +146,7 @@
                 <select name="user_id" class="form-control">
                   @foreach(config('assets.account.sakura') as $key => $name)
                     <option value="{{$key}}"
-                            @if(old('tool_id'))
+                            @if(old('user_id'))
                             selected
                       @endif
                     >{{$name}}</option>
