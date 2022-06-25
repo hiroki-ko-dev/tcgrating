@@ -39,7 +39,7 @@
       @if(!empty($postComment->post->image_url))
         <div class="form-group row mt-2">
           <div class="col-12">
-            デッキコード：{{$postComment->post->image_url}}
+            デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$postComment->image_url}}">{{$postComment->image_url}}</a>
           </div>
         </div>
         <div class="row m-1 mb-3">
@@ -175,7 +175,7 @@
         @if(!empty($replyComment->image_url))
           <div class="form-group row mt-2">
             <div class="col-12">
-              デッキコード：{{$replyComment->image_url}}
+              デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$replyComment->image_url}}">{{$replyComment->image_url}}</a>
             </div>
           </div>
           <div class="row m-1 mb-3">

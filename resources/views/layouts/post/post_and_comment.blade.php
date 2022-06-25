@@ -37,7 +37,7 @@
         @if(!empty($post->image_url))
           <div class="form-group row mt-2">
             <div class="col-12">
-            デッキコード：{{$post->image_url}}
+            デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$post->image_url}}">{{$post->image_url}}</a>
             </div>
           </div>
           <div class="form-group row mt-2">
@@ -84,7 +84,7 @@
                       @if(!empty($comment->image_url))
                         <div class="form-group row mt-2">
                           <div class="col-12">
-                            デッキコード：{{$comment->image_url}}
+                            デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$comment->image_url}}">{{$comment->image_url}}</a>
                           </div>
                         </div>
                         <div class="form-group row mt-2">
