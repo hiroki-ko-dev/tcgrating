@@ -10,7 +10,7 @@
               {{ __('掲示板') }}
           @endif
       </div>
-      <div>
+      <div class="pb-2">
           <div class="form-group row">
             <div class="col-sm-12">
               <span class="bg-info rounded-pill text-white p-1">
@@ -26,7 +26,7 @@
               <span class="post-user">1. [{{$post->created_at}}]</span>
               <a href="/post/comment/create?post_id={{$post->id}}">返信する</a>
             </div>
-            <div class="form-group row">
+            <div class="row pl-3">
               <div class="col-md-12">
                 <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle">
                 <a class="font-weight-bold" href="/user/{{$post->user_id}}">{{$post->user->name}}</a>
