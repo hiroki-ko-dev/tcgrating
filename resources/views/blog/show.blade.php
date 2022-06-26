@@ -57,8 +57,8 @@
   </div>
 
   <div class="row justify-content-center mb-4">
-    <div class="d-flex flex-row mb-4">
-      <div class="box w-50 m-2">
+    <div class="d-flex flex-row justify-content-center mb-4">
+      <div class="box w-40 m-2">
         <div class="row justify-content-center mb-4 site-color text-white">
           前の記事
         </div>
@@ -77,7 +77,7 @@
           </div>
         @endif
       </div>
-      <div class="box w-50 m-2">
+      <div class="box w-40 m-2">
         <div class="row justify-content-center mb-4 site-color text-white"">
           次の記事
         </div>
@@ -98,7 +98,11 @@
       </div>
     </div>
 
-  @include('layouts.common.line')
+  <div class="row justify-content-center p-4">
+    <div class="col-md-12">
+        @include('layouts.common.line')
+    </div>
+  </div>
 
   <div class="row justify-content-center mb-4">
     <div class="col-sm-12">
