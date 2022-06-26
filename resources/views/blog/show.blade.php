@@ -15,7 +15,7 @@
   <meta name="twitter:site" content="@pokekaInfo" />
   <meta name="twitter:title" content="ポケカ掲示板" />
   <meta name="twitter:description" content="ポケカのデッキ相談・ルール質問・雑談などを掲示板で話しましょう！" />
-  <meta name="twitter:image" content="{{str_replace('amp;', '', $blog->thumbnail_image_url)}}" />
+  <meta name="twitter:image" content="{!! $blog->thumbnail_image_url !!}" />
 @endsection
 
 @section('content')
@@ -57,8 +57,8 @@
   </div>
 
   <div class="row justify-content-center mb-4">
-    <div class="col-6">
-      <div class="box">
+    <div class="d-flex flex-row mb-4">
+      <div class="box w-50 m-2">
         <div class="row justify-content-center mb-4 site-color text-white">
           前の記事
         </div>
@@ -77,9 +77,7 @@
           </div>
         @endif
       </div>
-    </div>
-    <div class="col-6">
-      <div class="box">
+      <div class="box w-50 m-2">
         <div class="row justify-content-center mb-4 site-color text-white"">
           次の記事
         </div>
