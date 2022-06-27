@@ -144,7 +144,7 @@ class Provider extends AbstractProvider
         $kid = $token->headers()->get('kid');
 
         if (isset($publicKeys[$kid])) {
-            $publicKey = openssl_pkey_get_details($publicKeys[$kid]);
+            $publicKey = openssl_pkey_get_details($publicKeys[$kid]->getKeyMaterial());
             $constraints = [
                 new SignedWith(new Sha256(), InMemory::plainText($publicKey['key'])),
                 new IssuedBy(self::URL),
@@ -178,8 +178,10 @@ class Provider extends AbstractProvider
         if ($this->usesState()) {
             $state = explode('.', $appleUserToken['nonce'])[1];
             if ($state === $this->request->input('state')) {
-                $this->request->session()->put('state', $state);
-                $this->request->session()->put('state_verify', $state);
+                $this->request->session()->put([
+                    'state'        => $state,
+                    'state_verify' => $state,
+                ]);
             }
 
             if ($this->hasInvalidState()) {
