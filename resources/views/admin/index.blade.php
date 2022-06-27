@@ -36,7 +36,7 @@
       </div>
     </div>
   </div>
-
+  {{Form::select('age', ['Under 18', '19 to 64', 'Over 65'])}}
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="box">
