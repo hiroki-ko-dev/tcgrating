@@ -92,6 +92,7 @@ class CommentController extends Controller
         $postComment = DB::transaction(function () use($request) {
             $postComment = $this->postService->createComment($request);
 
+            $post = $this->postService->savePostForUpdated($request->post_id);
             $post = $this->postService->findPostWithUser($request->post_id);
 
             //書き込みがイベント掲示板ならコメントがついたことをコメント者以外にメール通知

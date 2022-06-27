@@ -36,6 +36,11 @@ class PostService
         return $this->postCommentRepository->create($request);
     }
 
+    public function savePostForUpdated($post_id)
+    {
+        return $this->postRepository->updateForUpdated($post_id);
+    }
+
     public function getPost($id)
     {
         return $this->postRepository->find($id);

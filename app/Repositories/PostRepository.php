@@ -50,6 +50,10 @@ class PostRepository
         return $post;
     }
 
+    public function updateForUpdated($id){
+        $this->find($id)->touch();
+    }
+
     public function composeWhereClause($request)
     {
         $query = Post::query();
@@ -88,7 +92,7 @@ class PostRepository
     {
         $query = $this->composeWhereClause($request);
         return $query->withCount('postComments')
-                    ->OrderBy('id','desc')
+                    ->OrderBy('updated_at','desc')
                     ->paginate($paginate);
     }
 
