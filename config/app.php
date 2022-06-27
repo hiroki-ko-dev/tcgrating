@@ -182,6 +182,8 @@ return [
 //        SocialiteProviders\Manager\ServiceProvider::class,
         // スクレイピング用に追加
         Weidner\Goutte\GoutteServiceProvider::class,
+        // Formを動かす用
+        Collective\Html\HtmlServiceProvider::class,
     ],
 
     /*
@@ -239,6 +241,9 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         // スクレイピング用に追加
         'Goutte' => Weidner\Goutte\GoutteFacade::class,
+        // Formを動かす用
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];
