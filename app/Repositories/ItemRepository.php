@@ -9,25 +9,33 @@ use Illuminate\Http\Request;
 class ItemRepository
 {
 
-    public function composeSaveClause($blog, $request){
+    public function composeSaveClause($item, $request){
         if(isset($request->game_id)){
-            $blog->game_id = $request->game_id;
+            $item->game_id = $request->game_id;
         }
-        if(isset($request->user_id)) {
-            $blog->user_id = $request->user_id;
+        if(isset($request->name)) {
+            $item->name = $request->name;
         }
-        $blog->title   = $request->title;
-        $blog->thumbnail_image_url    = $request->thumbnail_image_url;
-        $blog->body    = $request->body;
-        $blog->is_released = $request->is_released;
-        $blog->save();
-        return $blog;
+        if(isset($request->body)) {
+            $item->body    = $request->body;
+        }
+        if(isset($request->image_url)) {
+            $item->image_url = $request->image_url;
+        }
+        if(isset($request->price)) {
+            $item->price = $request->price;
+        }
+        if(isset($request->is_released)) {
+            $item->is_released = $request->is_released;
+        }
+        $item->save();
+        return $item;
     }
 
     public function create($request)
     {
-        $blog = new Blog();
-        return $this->composeSaveClause($blog, $request);
+        $item = new Item();
+        return $this->composeSaveClause($item, $request);
     }
 
     /**
@@ -39,6 +47,15 @@ class ItemRepository
         $blog = $this->find($request->id);
 
         return $this->composeSaveClause($blog, $request);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function find($id)
+    {
+        return Item::find($id);
     }
 
     public function composeWhereClause($request)

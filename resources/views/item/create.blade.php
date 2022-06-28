@@ -14,12 +14,23 @@
     </div>
   </div>
 
+  <div class="row justify-content-center">
+    <!-- フラッシュメッセージ -->
+    @if (session('flash_message'))
+      <div class="col-12">
+        <div class="text-center alert-danger rounded p-3 mb-3">
+          {{ session('flash_message') }}
+        </div>
+      </div>
+    @endif
+  </div>
+
   <div class="col-md-12">
       <div class="box w-100">
           <form method="POST" action="/item">
               @csrf
 
-            @include('layouts.item._form')
+            @include('layouts.item._form', ['item' => new \App\Models\Item()])
           </form>
         </div>
     </div>

@@ -39,15 +39,29 @@
   </div>
 
   @if(!empty($items))
-    @foreach($items as $item)
-    <div class="card" onclick="location.href='/item/{{$item->id}}'">
+    @foreach($items as $i => $item)
+      <input type="hidden" id="item_id_{{$item->id}}" name="item_id" value="{{$item->id}}">
       <div class="row justify-content-center">
-        <div class="col-md-12">
-          <div class="card-body">
-            <div class="card-text">
-              {{$item->description}}
+        <div class="col-3">
+          <div class="box">
+            <div>
+              {{$item->name}}
             </div>
-          </div>
+            <div>
+              {{$item->body}}
+            </div>
+            <div>
+              {{$item->price}}円
+            </div>
+            <div>
+              <img class="img-fluid" src="{{$item->image_url}}" alt="{{$item->name}}">
+            </div>
+            <div>
+              <div>{{Form::select('amount', range(1, $item->amount), array('id' => 'amount_' . $item->id))}}個</div>
+            </div>
+            <div>
+              <button id="cart_{{$item->id}}" class="cart">カートに追加する</button>
+            </div>
         </div>
       </div>
     </div>
@@ -75,6 +89,52 @@
   {{$items->links('layouts.common.pagination.bootstrap-4')}}
 </div>
 @endsection
+
+@section('addScript')
+<script>
+  // 税率変更ボタンクリック処理
+  $('.cart').on('click', function() {
+    if(confirm('カートに追加しますか？。')){
+      var item_id = $(this).attr('id').split('_')[1];
+      $('#' + id).prop('disabled', true);
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        url: "{{ url('/admin/invoice/organizer/summary/tax/change') }}" + '/' + id,
+        dataType: "json",
+        data: {
+          item_id: 100,
+          amount: "テストタイトル",
+        },
+      })
+        // Ajaxリクエストが成功した場合
+        .done(function(data) {
+          alert("カートに入れました。");
+
+          var price_id = '#price_' + id;
+          $(price_id).first().text("¥" + data);
+          $('#' + id).prop('disabled', true);
+          $('#' + id).removeClass('change');
+          $('#' + id).addClass('finish');
+          $('#' + id).val('完了');
+        })
+        // Ajaxリクエストが失敗した場合
+        .fail(function(data) {
+          alert("税率変更処理に失敗しました。");
+          $('#' + id).prop('disabled', false);
+        });
+    }else{
+    }
+  });
+
+
+
+</script>
+@endsection
+
+
 
 @include('layouts.common.header')
 @include('layouts.common.google')

@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\Item;
 use App\Http\Controllers\Controller;
-use App\Services\ItemService;
 
+use App\Services\ItemService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-use Stripe\Stripe;
-use Stripe\Customer;
-use Stripe\Charge;
-
 use DB;
 
-class ItemController extends Controller
+class CartController extends Controller
 {
     protected $itemService;
 
@@ -35,9 +31,9 @@ class ItemController extends Controller
             $request->merge(['game_id' => session('selected_game_id')]);
         }
 
-        $items =  $this->itemService->getItemsByPaginate($request,20);
+        $carts = $this->itemService->getCarts($request);
 
-        return view('item.index',compact('items'));
+        return view('item.index',compact('items','carts'));
     }
 
     /**
@@ -46,6 +42,13 @@ class ItemController extends Controller
      */
     public function create(Request $request)
     {
+        // 選択しているゲームでフィルタ
+        if(Auth::check()) {
+            $request->merge(['game_id' => Auth::user()->selected_game_id]);
+        }else{
+            $request->merge(['game_id' => session('selected_game_id')]);
+        }
+
 
         return view('item.create');
     }
@@ -56,41 +59,18 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        // 選択しているゲームでフィルタ
-        if(!Auth::check() || Auth::id() <> 1) {
-            return back()->with('flash_message', '新規投稿を行うにはログインしてください');
-        }
-
         try {
-            // 選択しているゲームでフィルタ
-            if(Auth::check()) {
-                $request->merge(['game_id' => Auth::user()->selected_game_id]);
-            }else{
-                $request->merge(['game_id' => session('selected_game_id')]);
-            }
-            $item = DB::transaction(function () use ($request) {
-                return $this->itemService->makeItem($request);
+            $cart = DB::transaction(function () use($request) {
+                return $this->itemService->makeCart($request);
             });
 
-            return redirect('/item/' . $item->id)->with('flash_message', '商品を保存しました');
+            return $cart;
 
         } catch (\Exception $e) {
             report($e);
             return back()->with('flash_message', $e->getMessage());
         }
     }
-
-    /**
-     * @param $item_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function show($item_id)
-    {
-        $item = $this->itemService->getItem($item_id);
-
-        return view('item.show', compact('item'));
-    }
-
 
     /*単発決済用のコード*/
     public function charge(Request $request)
