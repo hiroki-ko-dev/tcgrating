@@ -81,10 +81,15 @@ use Illuminate\Support\Facades\Route;
     ]);
 
     // 商品
-    Route::resources([
-        'item'      => Item\ItemController::class,
-    ]);
     Route::post('/item/charge', [App\Http\Controllers\Item\ItemController::class, 'charge']);
+    Route::get('/item/transaction/register', [App\Http\Controllers\Item\TransactionController::class, 'register']);
+    Route::get('/item/transaction/completion', [App\Http\Controllers\Item\TransactionController::class, 'completion']);
+    Route::resources([
+        'item/cart'        => Item\CartController::class,
+        'item/transaction' => Item\TransactionController::class,
+        'item'             => Item\ItemController::class,
+    ]);
+
 
     //記事
     Route::resources([

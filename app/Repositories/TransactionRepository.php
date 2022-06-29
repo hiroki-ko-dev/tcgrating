@@ -1,30 +1,35 @@
 <?php
 
 namespace App\Repositories;
-use App\Models\Cart;
+use App\Models\Transaction;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class CartRepository
+class TransactionRepository
 {
 
-    public function composeSaveClause($cart, $request){
-        if(isset($request->item_id)) {
-            $cart->item_id = $request->item_id;
+    public function composeSaveClause($transaction, $request){
+        if(isset($request->user_id)) {
+            $transaction->user_id = $request->user_id;
         }
-        if(isset($request->user_id)){
-            $cart->user_id = $request->user_id;
+        if(isset($request->send_status)) {
+            $transaction->send_status = $request->send_status;
         }
-        $cart->quantity = $request->quantity;
-        $cart->save();
-        return $cart;
+        if(isset($request->price)){
+            $transaction->price = $request->price;
+        }
+        if(isset($request->postage)){
+            $transaction->postage = $request->postage;
+        }
+        $transaction->save();
+        return $transaction;
     }
 
     public function create($request)
     {
-        $cart = new Cart();
-        return $this->composeSaveClause($cart, $request);
+        $transaction = new Transaction();
+        return $this->composeSaveClause($transaction, $request);
     }
 
     public function update($request)

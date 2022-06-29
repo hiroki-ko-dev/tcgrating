@@ -22,15 +22,19 @@ class Item extends Model
         return $this->hasMany('App\Models\TransactionItem','item_id','id');
     }
 
-    public function getAmountAttribute(){
+    /**
+     * @return int
+     * 入荷数-購入数を行い、現在の在庫数を出す
+     */
+    public function getQuantityAttribute(){
         if($this->itemStocks){
-            $itemStocks = $this->itemStocks->sum('amount');
+            $itemStocks = $this->itemStocks->sum('quantity');
         }else{
             $itemStocks = 0;
         }
 
         if($this->transactionItems){
-            $transactionItems = $this->transactionItems->sum('amount');
+            $transactionItems = $this->transactionItems->sum('quantity');
         }else{
             $transactionItems = 0;
         }

@@ -1,0 +1,17 @@
+.container{
+  position:relative;
+}
+
+#cart{
+  background-color: #82beee;
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+#cart-number{
+  font-size: 30px;
+}

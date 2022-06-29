@@ -10,7 +10,11 @@ class Cart extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function game(){
-        return $this->belongsTo('App\Models\Game','game_id','id');
+    public function user(){
+        return $this->belongsTo('App\Models\User','user_id','id');
+    }
+
+    public function item(){
+        return $this->belongsTo('App\Models\Item','item_id','id');
     }
 }

@@ -1,0 +1,119 @@
+@extends('layouts.common.common')
+
+@section('title','対戦')
+
+@section('description')
+  <meta name="description" content="ポケモンカードのブログ記事一覧です。最新情報から歴代パックや値段相場までまとめています。"/>
+@endsection
+
+@section('addCss')
+{{--  <link rel="stylesheet" href="{{ mix('/css/cart/index.css') }}">--}}
+@endsection
+
+@section('content')
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <!-- フラッシュメッセージ -->
+      @if (session('flash_message'))
+        <div class="col-12">
+          <div class="text-center alert-danger rounded p-3 mb-3">
+            {{ session('flash_message') }}
+          </div>
+        </div>
+      @endif
+    </div>
+
+    <div class="row justify-content-center m-1 mb-3">
+      <div class="col-12 page-header">
+        <div class="d-flex flex-row mb-3">
+          <div>
+            {{ __('カート一覧') }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <!-- フラッシュメッセージ -->
+      @if (session('flash_message'))
+        <div class="col-md-12">
+          <div class="text-center alert-danger rounded p-3 mb-3">
+            {{ session('flash_message') }}
+          </div>
+        </div>
+      @endif
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="box">
+          <div class="card-text border-bottom p-2">
+            <table id="cart_table" class="table">
+              <thead>
+              <tr>
+                <th scope="col" class="w-10">商品画像</th>
+                <th scope="col" class="w-30">商品名</th>
+                <th scope="col" class="w-10 text-left">販売価格</th>
+                <th scope="col" class="w-10">数量</th>
+                <th scope="col" class="w-10">小計</th>
+                <th scope="col" class="w-30">削除</th>
+              </tr>
+              </thead>
+              <tbody>
+              @foreach($carts as $i => $cart)
+                  <tr>
+                    <td scope="col" class="align-middle">
+                      <img class="img-fluid" src="{{ $cart->item->image_url }}" alt="hashimu-icon">
+                    </td>
+                    <td scope="col" class="align-middle">
+                      {{ $cart->item->name }}
+                    </td>
+                    <td scope="col" class="priceCol price align-middle">
+                      {{ $cart->item->price }}
+                    </td>
+                    <td scope="col" class="quantityCol align-middle">
+                      <select id="quantity_{{$cart->id}}" name="quantity" class="quantity" data-id="{{$cart->id}}">
+                        @for($i=1; $i <= $cart->item->quantity; $i++)
+                          <option value="{{$i}}" @if($i == old('quantity',$cart->quantity)) selected @endif>{{$i}}</option>
+                        @endfor
+                      </select>
+                    </td>
+                    <td scope="col" class="subtotalCol subtotal align-middle">
+                      {{ $cart->item->price * $cart->quantity }}
+                    </td>
+                    <td scope="col" class="align-middle">
+                      <button class="delete btn bg-secondary text-white" data-id="{{$cart->id}}">削除する</button>
+                    </td>
+                  </tr>
+              @endforeach
+              <tr>
+                <td colspan="4" class="text-right">合計金額：</td>
+                <td id="total_price">0</td>
+                <td></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="box">
+          <button class="btn bg-primary text-white w-50" onclick="location.href='/item/transaction/register'">レジに進む</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+@endsection
+
+@section('addScript')
+  <script src="/js/item/cart/index.js"></script>
+@endsection
+
+@include('layouts.common.header')
+@include('layouts.common.google')
+@include('layouts.common.footer')

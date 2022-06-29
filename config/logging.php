@@ -61,6 +61,7 @@ return [
             'emoji' => ':boom:',
 //            'level' => env('LOG_LEVEL', 'critical'),
             'level' => 'debug',
+            'short' => true,
         ],
 
         'papertrail' => [

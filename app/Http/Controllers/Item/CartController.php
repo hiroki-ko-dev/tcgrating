@@ -24,16 +24,9 @@ class CartController extends Controller
      */
     public function index(Request $request)
     {
-        // 選択しているゲームでフィルタ
-        if(Auth::check()) {
-            $request->merge(['game_id' => Auth::user()->selected_game_id]);
-        }else{
-            $request->merge(['game_id' => session('selected_game_id')]);
-        }
-
         $carts = $this->itemService->getCarts($request);
 
-        return view('item.index',compact('items','carts'));
+        return view('item.cart.index',compact('carts'));
     }
 
     /**
@@ -49,7 +42,6 @@ class CartController extends Controller
             $request->merge(['game_id' => session('selected_game_id')]);
         }
 
-
         return view('item.create');
     }
 
@@ -61,11 +53,42 @@ class CartController extends Controller
     {
         try {
             $cart = DB::transaction(function () use($request) {
+                \Log::debug($request->quantity);
                 return $this->itemService->makeCart($request);
             });
+            $cart_number = Auth::user()->carts->sum('quantity');
+            return $cart_number;
+        } catch (\Exception $e) {
+            report($e);
+            return back()->with('flash_message', $e->getMessage());
+        }
+    }
 
-            return $cart;
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function update(Request $request)
+    {
+        try {
+            $cart = DB::transaction(function () use($request) {
+                return $this->itemService->saveCart($request);
+            });
+            $cart_number = Auth::user()->carts->sum('quantity');
+            return $cart_number;
+        } catch (\Exception $e) {
+            report($e);
+            return back()->with('flash_message', $e->getMessage());
+        }
+    }
 
+    public function destroy(Request $request) {
+
+        try {
+            DB::transaction(function () use($request) {
+                $this->itemService->destroyCart($request->cart_id);
+            });
+            return true;
         } catch (\Exception $e) {
             report($e);
             return back()->with('flash_message', $e->getMessage());

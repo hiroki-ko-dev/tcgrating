@@ -40,6 +40,7 @@ mix.styles([
     .sass('resources/sass/blog/index.scss', 'public/css/blog/index.css')
     .sass('resources/sass/blog/show.scss', 'public/css/blog/show.css')
     .sass('resources/sass/user/user.scss', 'public/css/user/user.css')
+    .sass('resources/sass/item/index.scss', 'public/css/item/index.css')
     .sass('resources/sass/site/landing.scss', 'public/css/site/landing.css')
     .sass('resources/sass/proxy/proxy.scss', 'public/css/proxy/proxy.css')
     .sass('resources/sass/common/base.scss', 'public/css/scss.css')
@@ -59,6 +60,8 @@ mix.js('resources/js/user/user.js', 'public/js/user/user.js').react();
 mix.js('resources/js/sample.js', 'public/js/sample').react()
   .js('resources/js/common/selected_game.js', 'public/js/common/selected_game.js')
   .js('resources/js/duel/duel.js', 'public/js/duel/duel.js')
+  .js('resources/js/item/index.js', 'public/js/item/index.js')
+  .js('resources/js/item/cart/index.js', 'public/js/item/cart/index.js')
   .sourceMaps()
   .autoload({
     "jquery": ['$', 'window.jQuery'],

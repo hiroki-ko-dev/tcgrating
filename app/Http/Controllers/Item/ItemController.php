@@ -7,10 +7,6 @@ use App\Services\ItemService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-use Stripe\Stripe;
-use Stripe\Customer;
-use Stripe\Charge;
-
 use DB;
 
 class ItemController extends Controller

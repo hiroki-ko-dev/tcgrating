@@ -7,11 +7,15 @@
 @endsection
 
 @section('addCss')
-  <link rel="stylesheet" href="{{ mix('/css/post/index.css') }}">
+  <link rel="stylesheet" href="{{ mix('/css/item/index.css') }}">
 @endsection
 
 @section('content')
 <div class="container">
+  <div id="cart" class="cart text-center" onclick="location.href='/item/cart'">カート
+    <div id="cart-number" class="text-center">{{Auth::user()->carts->sum('quantity')}}</div>
+  </div>
+
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-sm-6 text-center page-header mb-2">
       <h2>{{ __('商品一覧') }}</h2>
@@ -39,34 +43,39 @@
   </div>
 
   @if(!empty($items))
+    <div class="row">
     @foreach($items as $i => $item)
       <input type="hidden" id="item_id_{{$item->id}}" name="item_id" value="{{$item->id}}">
-      <div class="row justify-content-center">
-        <div class="col-3">
+        <div class="col-3 p-1">
           <div class="box">
-            <div>
+            <div class="bg-skyblue p-1">
               {{$item->name}}
             </div>
-            <div>
-              {{$item->body}}
-            </div>
-            <div>
+            <div class="p-1">
               {{$item->price}}円
+            </div>
+            <div class="p-1">
+              <div>在庫数：{{$item->quantity}}個</div>
+            </div>
+            <div class="p-1 after_visible_{{$item->id}}">
+              <div class="visible_{{$item->id}}">
+                <select id="quantity_{{$item->id}}" name="quantity">
+                  @for($i=1; $i <= $item->quantity; $i++)
+                    <option value="{{$i}}" @if($i == old('quantity')) selected @endif>{{$i}}</option>
+                  @endfor
+                </select>
+              </div>
+            </div>
+            <div class="p-1">
+              <button id="cart_{{$item->id}}" class="btn bg-pink cart_btn visible_{{$item->id}}">カートに追加する</button>
             </div>
             <div>
               <img class="img-fluid" src="{{$item->image_url}}" alt="{{$item->name}}">
             </div>
-            <div>
-              <div>{{Form::select('amount', range(1, $item->amount), array('id' => 'amount_' . $item->id))}}個</div>
-            </div>
-            <div>
-              <button id="cart_{{$item->id}}" class="cart">カートに追加する</button>
-            </div>
         </div>
-      </div>
     </div>
-
     @endforeach
+    </div>
   @endif
 
   <div class="content">
@@ -88,50 +97,11 @@
 
   {{$items->links('layouts.common.pagination.bootstrap-4')}}
 </div>
+
 @endsection
 
 @section('addScript')
-<script>
-  // 税率変更ボタンクリック処理
-  $('.cart').on('click', function() {
-    if(confirm('カートに追加しますか？。')){
-      var item_id = $(this).attr('id').split('_')[1];
-      $('#' + id).prop('disabled', true);
-      $.ajax({
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        type: 'POST',
-        url: "{{ url('/admin/invoice/organizer/summary/tax/change') }}" + '/' + id,
-        dataType: "json",
-        data: {
-          item_id: 100,
-          amount: "テストタイトル",
-        },
-      })
-        // Ajaxリクエストが成功した場合
-        .done(function(data) {
-          alert("カートに入れました。");
-
-          var price_id = '#price_' + id;
-          $(price_id).first().text("¥" + data);
-          $('#' + id).prop('disabled', true);
-          $('#' + id).removeClass('change');
-          $('#' + id).addClass('finish');
-          $('#' + id).val('完了');
-        })
-        // Ajaxリクエストが失敗した場合
-        .fail(function(data) {
-          alert("税率変更処理に失敗しました。");
-          $('#' + id).prop('disabled', false);
-        });
-    }else{
-    }
-  });
-
-
-
-</script>
+  <script src="/js/item/index.js"></script>
 @endsection
 
 
