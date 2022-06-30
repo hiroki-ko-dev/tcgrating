@@ -14,21 +14,20 @@
   <div class="container">
 
     <div class="row justify-content-center m-1 mb-3">
-      <div class="col-12 page-header">
-        <div class="d-flex flex-row mb-3">
-          <div>
+      <div class="col-12">
+        <div class="text-center mb-3">
+          <h1 class="font-weight-bold">
             {{ __('購入完了画面') }}
-          </div>
+          </h1>
         </div>
       </div>
     </div>
 
     <div class="row justify-content-center m-1 mb-3">
       <div class="col-12">
-        <div class="d-flex flex-row mb-3">
-          <div>
-            {{ __('購入が完了しました') }}
-          </div>
+        <div class="mb-3">
+          <h5 class="mb-3">{{ __('購入が完了しました。') }}</h5>
+          <h5 class="mb-3">{{ __('購入内容の詳細については、確認のため自動送信メールでご連絡させて頂いております。') }}</h5>
         </div>
       </div>
     </div>

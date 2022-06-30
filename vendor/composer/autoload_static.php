@@ -27,6 +27,7 @@ class ComposerStaticInitbeaf35961655b9344fa12aa33ef78b8e
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
@@ -108,6 +109,7 @@ class ComposerStaticInitbeaf35961655b9344fa12aa33ef78b8e
         ),
         'P' => 
         array (
+            'Pusher\\' => 7,
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
@@ -405,6 +407,10 @@ class ComposerStaticInitbeaf35961655b9344fa12aa33ef78b8e
         'Ramsey\\Collection\\' => 
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
+        ),
+        'Pusher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
         ),
         'Psy\\' => 
         array (
@@ -735,6 +741,7 @@ class ComposerStaticInitbeaf35961655b9344fa12aa33ef78b8e
         'App\\Http\\Controllers\\Event\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Event/UserController.php',
         'App\\Http\\Controllers\\Item\\CartController' => __DIR__ . '/../..' . '/app/Http/Controllers/Item/CartController.php',
         'App\\Http\\Controllers\\Item\\ItemController' => __DIR__ . '/../..' . '/app/Http/Controllers/Item/ItemController.php',
+        'App\\Http\\Controllers\\Item\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Item/TransactionController.php',
         'App\\Http\\Controllers\\Post\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Post/CommentController.php',
         'App\\Http\\Controllers\\Post\\PostController' => __DIR__ . '/../..' . '/app/Http/Controllers/Post/PostController.php',
         'App\\Http\\Controllers\\ProxyController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProxyController.php',
@@ -806,6 +813,8 @@ class ComposerStaticInitbeaf35961655b9344fa12aa33ef78b8e
         'App\\Repositories\\PostRepository' => __DIR__ . '/../..' . '/app/Repositories/PostRepository.php',
         'App\\Repositories\\TeamRepository' => __DIR__ . '/../..' . '/app/Repositories/TeamRepository.php',
         'App\\Repositories\\TeamUserRepository' => __DIR__ . '/../..' . '/app/Repositories/TeamUserRepository.php',
+        'App\\Repositories\\TransactionItemRepository' => __DIR__ . '/../..' . '/app/Repositories/TransactionItemRepository.php',
+        'App\\Repositories\\TransactionRepository' => __DIR__ . '/../..' . '/app/Repositories/TransactionRepository.php',
         'App\\Repositories\\TwitterRepository' => __DIR__ . '/../..' . '/app/Repositories/TwitterRepository.php',
         'App\\Repositories\\UserRepository' => __DIR__ . '/../..' . '/app/Repositories/UserRepository.php',
         'App\\Repositories\\VideoRepository' => __DIR__ . '/../..' . '/app/Repositories/VideoRepository.php',
@@ -816,6 +825,7 @@ class ComposerStaticInitbeaf35961655b9344fa12aa33ef78b8e
         'App\\Services\\ItemService' => __DIR__ . '/../..' . '/app/Services/ItemService.php',
         'App\\Services\\PostService' => __DIR__ . '/../..' . '/app/Services/PostService.php',
         'App\\Services\\ProductService' => __DIR__ . '/../..' . '/app/Services/ProductService.php',
+        'App\\Services\\StripeService' => __DIR__ . '/../..' . '/app/Services/StripeService.php',
         'App\\Services\\TeamService' => __DIR__ . '/../..' . '/app/Services/TeamService.php',
         'App\\Services\\TwitterService' => __DIR__ . '/../..' . '/app/Services/TwitterService.php',
         'App\\Services\\UserService' => __DIR__ . '/../..' . '/app/Services/UserService.php',
@@ -5295,6 +5305,13 @@ class ComposerStaticInitbeaf35961655b9344fa12aa33ef78b8e
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
+        'Pusher\\ApiErrorException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/ApiErrorException.php',
+        'Pusher\\Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Pusher.php',
+        'Pusher\\PusherCrypto' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherCrypto.php',
+        'Pusher\\PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherException.php',
+        'Pusher\\PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInstance.php',
+        'Pusher\\PusherInterface' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInterface.php',
+        'Pusher\\Webhook' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Webhook.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',
