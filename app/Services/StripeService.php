@@ -4,18 +4,21 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 
+use App\Repositories\UserRepository;
+
 use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\Charge;
+use Auth;
 
 class StripeService
 {
-//    protected $userRepository;
-//
-//    public function __construct(UserRepository $userRepository)
-//    {
-//        $this->userRepository = $userRepository;
-//    }
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
 
 
     /**
@@ -30,18 +33,15 @@ class StripeService
 
         $stripeCustomer = Customer::create([
             'source' => $stripeToken,
-//            'description' => $transaction->user->id,
-            'email' => 'majikarubanana22@yahoo.co.jp'
+            'email' => $transaction->user->email,
+            'name' => $transaction->user->name,
+            'description' => 'user_id:' . $transaction->user->id . ' transaction_id:' . $transaction->id,
         ]);
-
-//            $this->userRepository->update();
-
 
         Charge::create([
             'customer' => $stripeCustomer->id,
             "amount" => $transaction->price,
             "currency" => "JPY",
-//            "source" => $stripeToken,
             "description" => $transaction->id,
         ]);
 

@@ -135,8 +135,10 @@
   <script type="text/javascript">
     'use strict';
 
+    const key = @json(config('assets.common.stripe.pk_key'));
+
     // Create a Stripe client
-    var stripe = Stripe('pk_test_51LCRvZF4LBAXHYV32x6aEh8RP5TGV2kX8uS4JVxD5apGXwLmpvRVghWZGxQdOujRzS33CsmsMU3RUfUQMosrR0CN00ScZbDWpn');
+    var stripe = Stripe(key);
 
     // Create an instance of Elements
     var elements = stripe.elements();
@@ -177,17 +179,18 @@
     var form = document.getElementById('payment-form');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
-
-      stripe.createToken(card).then(function(result) {
-        if (result.error) {
-          // エラー表示.
-          var errorElement = document.getElementById('card-errors');
-          errorElement.textContent = result.error.message;
-        } else {
-          // トークンをサーバに送信
-          stripeTokenHandler(result.token);
-        }
-      });
+      if(confirm('購入を確定してよろしいですか？')) {
+        stripe.createToken(card).then(function (result) {
+          if (result.error) {
+            // エラー表示.
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+          } else {
+            // トークンをサーバに送信
+            stripeTokenHandler(result.token);
+          }
+        });
+      }
     });
 
     function stripeTokenHandler(token) {

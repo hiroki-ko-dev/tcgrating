@@ -69,6 +69,9 @@ class UserRepository
         if(isset($request->twitter_simple_image_url)){
             $user->twitter_simple_image_url = $request->twitter_simple_image_url;
         }
+        if(isset($request->stripe_id)){
+            $user->stripe_id = $request->stripe_id;
+        }
         $user->save();
 
         return $user;
