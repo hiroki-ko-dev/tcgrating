@@ -124,6 +124,11 @@ use Illuminate\Support\Facades\Route;
         'rank' => RankController::class,
     ]);
 
+    //ランキング系スレッド
+    Route::resources([
+        'opinion' => OpinionController::class,
+    ]);
+
     //管理者専用
     Route::resources([
         'admin' => AdminController::class,
