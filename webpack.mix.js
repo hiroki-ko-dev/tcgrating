@@ -41,6 +41,8 @@ mix.styles([
     .sass('resources/sass/blog/show.scss', 'public/css/blog/show.css')
     .sass('resources/sass/user/user.scss', 'public/css/user/user.css')
     .sass('resources/sass/item/index.scss', 'public/css/item/index.css')
+    .sass('resources/sass/item/show.scss', 'public/css/item/show.css')
+    .sass('resources/sass/item/cart/index.scss', 'public/css/item/cart/index.css')
     .sass('resources/sass/site/landing.scss', 'public/css/site/landing.css')
     .sass('resources/sass/proxy/proxy.scss', 'public/css/proxy/proxy.css')
     .sass('resources/sass/common/base.scss', 'public/css/scss.css')

@@ -48,10 +48,12 @@
     <div class="row">
     @foreach($items as $i => $item)
       <input type="hidden" id="item_id_{{$item->id}}" name="item_id" value="{{$item->id}}">
-      <div class="col-sm-3 col-6 p-1">
+      <div class="col-sm-3 col-6 p-2">
         <div class="box">
-          <div class="site-color text-white p-1">
-            <span class="item-name">{{$item->name}}</span>
+          <div class="p-1">
+            <a href="/item/{{$item->id}}">
+              <span class="item-name">{{$item->name}}</span>
+            </a>
           </div>
           <div class="p-1">
             ¥{{number_format($item->price)}}円
@@ -105,8 +107,6 @@
 @section('addScript')
   <script src="/js/item/index.js"></script>
 @endsection
-
-
 
 @include('layouts.common.header')
 @include('layouts.common.google')

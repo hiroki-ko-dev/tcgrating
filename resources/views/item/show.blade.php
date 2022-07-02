@@ -7,7 +7,7 @@
 @endsection
 
 @section('addCss')
-  <link rel="stylesheet" href="{{ mix('/css/blog/show.css') }}">
+  <link rel="stylesheet" href="{{ mix('/css/item/show.css') }}">
 @endsection
 
 @section('twitterHeader')
@@ -20,6 +20,12 @@
 
 @section('content')
 <div class="container">
+
+  <div id="cart" class="cart text-center" onclick="location.href='/item/cart'">
+    <div id="cart-image">
+      <div id="cart-number" class="text-center">{{Auth::user()->carts->sum('quantity')}}</div>
+    </div>
+  </div>
 
   <div class="row justify-content-center">
     <!-- フラッシュメッセージ -->
@@ -38,57 +44,57 @@
     </div>
   </div>
 
-  <div class="row justify-content-center border-bottom p-2">
-    <div class="col-sm-12">
-      <img class="thumbnail" src="{{ $item->image_url }}" alt="hashimu-icon">
-    </div>
-  </div>
-
+  <div class="box">
   <div class="row justify-content-center mb-4">
     <div class="col-sm-12">
-      <div class="box">
         <h3 class="text-left">{{$item->name}}</h3>
       </div>
-    </div>
   </div>
 
-  <div class="row justify-content-center mb-4">
-    <div class="col-sm-12">
-      <div class="box">
-        <div class="blog-body">
-          <div type="body" class="text-left">{!! $item->body !!}</div>
-        </div>
+  <div class="row justify-content-center p-2">
+    <div class="col-sm-6 p-1">
+      <img class="img-fluid" src="{{ $item->image_url }}" alt="hashimu-icon">
+    </div>
+    <div class="col-sm-6 p-2">
+      <div class="blog-body">
+        <div type="body" class="text-left">{!! $item->body !!}</div>
       </div>
     </div>
   </div>
 
   <div class="row justify-content-center mb-4">
     <div class="col-sm-12">
-      <div class="box">
-        <div class="text-left">{{$item->price}}円</div>
-      </div>
+      <div class="text-center">{{number_format($item->price)}}円</div>
+    </div>
+  </div>
+
+  <div class="row  text-center mb-4">
+    <div class="col-6">
+        在庫：{{$item->quantity}}個
+    </div>
+    <div class="col-6">
+      購入：
+      <select id="quantity_{{$item->id}}" name="quantity">
+        @for($i=1; $i <= $item->quantity; $i++)
+          <option value="{{$i}}" @if($i == old('quantity',1)) selected @endif>{{$i}}</option>
+        @endfor
+      </select>
+      個
     </div>
   </div>
 
   <div class="row justify-content-center mb-4">
-    <div class="col-sm-12">
-      <div class="box">
-        <div class="text-left">{{$item->amount}}個</div>
-      </div>
+    <div class="col-sm-12 text-center">
+        <button type=“submit” id="cart_{{$item->id}}" class="btn cart_btn site-color text-white btn-outline-secondary text-center">カートに追加する</button>
     </div>
   </div>
-
-
-  <div class="row justify-content-center mb-4">
-    <div class="col-sm-12">
-      <div class="box">
-          <button type=“button”  class="btn site-color text-white rounded-pill btn-outline-secondary text-center" onclick="location.href='/item/{{$item->id}}/edit'">カートに追加する</button>
-      </div>
-    </div>
   </div>
 </div>
 
+@endsection
 
+@section('addScript')
+  <script src="/js/item/index.js"></script>
 @endsection
 
 @include('layouts.common.header')

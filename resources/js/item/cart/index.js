@@ -8,22 +8,23 @@ function totalPrice(){
   var col = $(".subtotal").index();
 
   var total_price = 0;
-  for(var i = 0; i < $("#cart_table tbody").children().length - 1 ; i++) {
-    total_price += parseInt($("#cart_table tbody tr").eq(i).children('td').eq(col).text());
+  for(var i = 0; i < $("#cart_table").children('.row').length ; i++) {
+    total_price += parseInt($(".subtotal").eq(i).text());
   }
   $('#total_price').text(total_price);
 }
 
 // 合計金額を計算
 function subTotalPrice(){
-  var priceCol = $(".priceCol").index();
-  var quantityCol = $(".quantityCol").index();
-  var subTotalCol = $(".subtotalCol").index();
 
-  for(var i = 0; i < $("#cart_table tbody").children().length - 1 ; i++) {
-    var price = parseInt($("#cart_table tbody tr").eq(i).children('td').eq(priceCol).text());
-    var quantity = parseInt($("#cart_table tbody tr").eq(i).children('td').eq(quantityCol).children('select').val());
-    $("#cart_table tbody tr").eq(i).children('td').eq(subTotalCol).text(quantity * price);
+  for(var i = 0; i < $("#cart_table").children('.row').length ; i++) {
+    var price = parseInt($(".price").eq(i).text());
+    var quantity = parseInt($(".quantity").eq(i).val());
+    $(".subtotal").eq(i).text(quantity * price);
+
+    console.log('price:' + price);
+    console.log('quantity:' + quantity);
+    console.log('subtotal:' + quantity * price);
   }
   totalPrice();
 }
@@ -71,7 +72,7 @@ $('.delete').on('click', function() {
   })
     // Ajaxリクエストが成功した場合
     .done(() => {
-      $(this).parents('tr').remove();
+      $(this).parents('.row').remove();
       totalPrice();
     })
     // Ajaxリクエストが失敗した場合
