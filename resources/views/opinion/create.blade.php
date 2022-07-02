@@ -23,8 +23,8 @@
 
             <div class="row pb-4">
               <select id="type" name="type" class="type form-control mb-4">
-                @foreach(\App\Models\Opinion::TYPE as $key => $type)
-                  <option value="{{$key}}">カテゴリ：{{\App\Models\Opinion::TYPE[$key]}}</option>
+                @foreach(\App\Models\Opinion::TYPES as $key => $type)
+                  <option value="{{$key}}">カテゴリ：{{\App\Models\Opinion::TYPES[$key]}}</option>
                 @endforeach
               </select>
             </div>

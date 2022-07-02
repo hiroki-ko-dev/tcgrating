@@ -14,7 +14,7 @@ class Opinion extends Model
     const TYPE_REQUEST = 0;
     const TYPE_REPORT  = 1;
 
-    const TYPE = [
+    const TYPES = [
         self::TYPE_REQUEST  => '要望',
         self::TYPE_REPORT   => '通報',
     ];

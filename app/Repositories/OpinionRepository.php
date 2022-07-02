@@ -46,6 +46,14 @@ class OpinionRepository
         return Opinion::find($id);
     }
 
+    public function findAll($request)
+    {
+        return Opinion::get();
+    }
 
+    public function findAllOfPagination($request, $paginate)
+    {
+        return Opinion::orderBy('id','desc')->paginate($paginate);
+    }
 
 }

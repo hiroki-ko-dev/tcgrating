@@ -111,6 +111,7 @@
                 @endif
                 @if(Auth::check() && Auth::user()->role == 1)
                   <li><a href="/admin">管理者用</a></li>
+                  <li><a href="/opinion">意見</a></li>
                 @endif
               </ul>
             </div>

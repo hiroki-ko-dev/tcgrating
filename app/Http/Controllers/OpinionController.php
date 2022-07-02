@@ -22,6 +22,13 @@ class OpinionController extends Controller
         $this->opinionService = $opinionService;
     }
 
+    public function index(Request $request)
+    {
+        $opinions = $this->opinionService->getOpinionsOfPagination($request, 20);
+
+        return view('opinion.index', compact('opinions'));
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
@@ -47,6 +54,17 @@ class OpinionController extends Controller
         $this->opinionService->makeOpinion($request);
 
         return view('opinion.store');
+    }
+
+    /**
+     * @param $opinion_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function show($opinion_id)
+    {
+        $opinion = $this->opinionService->getOpinion($opinion_id);
+
+        return view('opinion.show', compact('opinion'));
     }
 
 }
