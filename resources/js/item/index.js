@@ -20,7 +20,7 @@ $('.cart_btn').on('click', function() {
         $('.visible_' + item_id).fadeOut();
         html = '<div class="user-list">✅カートに入れました</div>';
         $(".after_visible_" + item_id).append(html); //できあがったテンプレートを user-tableクラスの中に追加
-        $('#cart-number').html('<p>' + cart_number + '<p>');
+        $('#cart-number').html('<p>' + cart_number + '<p>').hide().fadeIn(1500);
       })
       // Ajaxリクエストが失敗した場合
       .fail((error) => {

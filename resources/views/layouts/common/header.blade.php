@@ -34,7 +34,8 @@
       <div class="header row align-items-center mt-4 mb-4">
         <div  class="col-5">
           <a href="{{ url('/') }}" title="{{config('assets.site.title')}}">
-            <img class="img-fluid" src="{{ asset('/images/site/logo.png') }}" alt="hashimu-icon">
+            <span class="text-white">TcgRating</span>
+{{--            <img class="img-fluid" src="{{ asset('/images/site/logo.png') }}" alt="hashimu-icon">--}}
 {{--                <div class="font-weight-bold text-white header-site-title">TCGレーティング</div>--}}
           </a>
         </div>
