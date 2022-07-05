@@ -1,5 +1,10 @@
 @import "cart";
 
+@font-face {
+  font-family: 'HuiFont';
+  src: url("../../../public/fonts/HuiFontP29.ttf");
+}
+
 .item-name{
   font-weight: 600;
   border-radius: 10px;
@@ -8,4 +13,22 @@
 .box{
   padding: 0;
   box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .5);
+
+  position: relative;/*相対配置*/
+  object-fit: cover;
+  .sold-out{
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    z-index: 10;
+    position: absolute;/*絶対配置*/
+    color: white;/*文字は白に*/
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    font-family: HuiFont;
+  }
 }
+

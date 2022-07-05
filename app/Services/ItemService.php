@@ -67,7 +67,12 @@ class ItemService
     {
         if(Auth::Check()){
             $request->merge(['user_id' => Auth::id()]);
-            $cart = $this->cartRepository->create($request);
+            $carts = $this->getCarts($request);
+            if(in_array($request->item_id, $carts->pluck('item_id'))){
+                $cart = 'is_put';
+            }else{
+                $cart = $this->cartRepository->create($request);
+            }
         }else{
             $carts = session('carts');
             $count = count($carts);
@@ -76,6 +81,8 @@ class ItemService
             session()->put('carts', $carts);
             $cart = $carts[$count];
         }
+
+        return $cart;
     }
 
     /**

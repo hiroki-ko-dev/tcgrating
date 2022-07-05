@@ -53,7 +53,6 @@ class CartController extends Controller
     {
         try {
             $cart = DB::transaction(function () use($request) {
-                \Log::debug($request->quantity);
                 return $this->itemService->makeCart($request);
             });
             $cart_number = Auth::user()->carts->sum('quantity');

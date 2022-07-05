@@ -72,7 +72,8 @@ $('.delete').on('click', function() {
   })
     // Ajaxリクエストが成功した場合
     .done(() => {
-      $(this).parents('.row').remove();
+      $(this).parents('.row').fadeOut(1000);
+      $(this).parents('.row').find('.subtotal').text(0);
       totalPrice();
     })
     // Ajaxリクエストが失敗した場合
