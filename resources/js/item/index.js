@@ -3,6 +3,8 @@ $('.cart_btn').on('click', function() {
   if(confirm('カートに追加しますか？。')){
     var item_id = $(this).attr('id').split('_')[1];
     var quantity = $('#quantity_' + item_id).val();
+    console.log(item_id);
+    console.log(quantity);
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

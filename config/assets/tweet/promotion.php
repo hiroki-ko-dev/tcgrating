@@ -128,5 +128,15 @@ return [
             PHP_EOL .
             '#ポケカ履歴書'  . PHP_EOL
         ,
+        '1002'   =>
+            '【ポケカ履歴書が簡単に作れる】' . PHP_EOL .
+            PHP_EOL .
+            '以下のリンクからポケカ履歴書の作成ができます！' . PHP_EOL .
+            'よろしければご利用ください！'  . PHP_EOL .
+            PHP_EOL .
+            env('APP_URL') . '/site/landing/resume?remotopokeka=1&selected_game_id=3' . PHP_EOL .
+            PHP_EOL .
+            '#ポケカ履歴書'  . PHP_EOL
+        ,
     ],
 ];

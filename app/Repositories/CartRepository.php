@@ -16,6 +16,9 @@ class CartRepository
         if(isset($request->user_id)){
             $cart->user_id = $request->user_id;
         }
+        if(isset($request->user_id)){
+            $cart->user_id = $request->user_id;
+        }
         $cart->quantity = $request->quantity;
         $cart->save();
         return $cart;
@@ -37,9 +40,6 @@ class CartRepository
     public function composeWhereClause($request)
     {
         $query = Cart::query();
-        if(isset($request->item_id)){
-            $query->where('game_id', $request->item_id);
-        }
         if(isset($request->user_id)){
             $query->where('user_id', $request->user_id);
         }

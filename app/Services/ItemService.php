@@ -68,7 +68,7 @@ class ItemService
         if(Auth::Check()){
             $request->merge(['user_id' => Auth::id()]);
             $carts = $this->getCarts($request);
-            if(in_array($request->item_id, $carts->pluck('item_id'))){
+            if(in_array($request->item_id, $carts->pluck('item_id')->toArray())){
                 $cart = 'is_put';
             }else{
                 $cart = $this->cartRepository->create($request);
