@@ -114,6 +114,24 @@
       </section>
     </div>
 
+    <form method="POST"  id="payment-form" action="/item/transaction">
+      @csrf
+
+      <div class="box mb-3">
+      <div class="row justify-content-center pb-3">
+        <div class="col-md-12">
+          <button type="submit" id="payment-form" class="btn bg-primary text-white w-50">購入を決定する</button>
+        </div>
+      </div>
+
+
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <button class="btn bg-secondary text-white w-50" onclick="location.href='/item/cart/customer'">戻る</button>
+        </div>
+      </div>
+    </div>
+    </form>
 
   </div>
 @endsection
@@ -172,7 +190,7 @@
           if (result.error) {
             // エラー表示.
             var errorElement = document.getElementById('card-errors');
-            errorElement.textContent = result.error.message;
+            console.log(result.error.message);
           } else {
             // トークンをサーバに送信
             stripeTokenHandler(result.token);

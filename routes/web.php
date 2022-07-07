@@ -82,8 +82,8 @@ use Illuminate\Support\Facades\Route;
 
     // 商品
     Route::post('/item/charge', [App\Http\Controllers\Item\ItemController::class, 'charge']);
-    Route::get('/item/transaction/register', [App\Http\Controllers\Item\TransactionController::class, 'register']);
     Route::get('/item/transaction/customer', [App\Http\Controllers\Item\TransactionController::class, 'customer']);
+    Route::post('/item/transaction/register', [App\Http\Controllers\Item\TransactionController::class, 'register']);
     Route::get('/item/transaction/completion', [App\Http\Controllers\Item\TransactionController::class, 'completion']);
     Route::resources([
         'item/cart'        => Item\CartController::class,

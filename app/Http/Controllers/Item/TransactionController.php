@@ -50,7 +50,7 @@ class TransactionController extends Controller
      */
     public function register(Request $request)
     {
-        $request->merge(['user_idid' => Auth::id()]);
+        $request->merge(['id' => Auth::id()]);
         $user = $this->userService->updateUser($request);
 
         $carts = $this->itemService->getCarts($request);

@@ -85,23 +85,6 @@
     </div>
   @endif
 
-{{--  <div class="content">--}}
-{{--    <form action="/item/charge" method="POST">--}}
-{{--      @csrf--}}
-{{--      <script--}}
-{{--        src="https://checkout.stripe.com/checkout.js" class="stripe-button"--}}
-{{--        data-key="{{ config('assets.common.stripe.pk_key') }}"--}}
-{{--        data-amount="10000"--}}
-{{--        data-name="Stripe Demo"--}}
-{{--        data-label="決済をする"--}}
-{{--        data-description="Online course about integrating Stripe"--}}
-{{--        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"--}}
-{{--        data-locale="auto"--}}
-{{--        data-currency="JPY">--}}
-{{--      </script>--}}
-{{--    </form>--}}
-{{--  </div>--}}
-
   {{$items->links('layouts.common.pagination.bootstrap-4')}}
 </div>
 

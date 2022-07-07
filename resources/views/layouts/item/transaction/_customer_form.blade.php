@@ -1,4 +1,4 @@
-<form method="POST"  id="payment-form" action="/item/transaction">
+<form method="POST"  id="payment-form" action="/item/transaction/register">
   @csrf
 
   <div class="box mb-3">
