@@ -16,6 +16,14 @@
   background-color: #FFCED7;
 }
 
+.bg-twitter{
+  background-color: #00acee;
+}
+
+.bg-discord{
+  background-color: #00acee;
+}
+
 .text-redPurple{
   color:  #DA508F;
 }
@@ -79,6 +87,9 @@
     width: 90%;
 }
 
+.btn.bg-twitter:hover {
+  background-color: #015b7d; /*リンクにマウスが乗ったら背景色を変更する*/
+}
 
 /* モバイル時のページネーションサイズの修正 */
 @media screen and (max-width:767px) {

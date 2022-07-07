@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Services\ItemService;
 use App\Services\StripeService;
 
+use App\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -12,12 +13,15 @@ use DB;
 
 class TransactionController extends Controller
 {
+    protected $userService;
     protected $itemService;
     protected $stripeService;
 
-    public function __construct(ItemService $itemService,
+    public function __construct(UserService $userService,
+                                ItemService $itemService,
                                 StripeService $stripeService)
     {
+        $this->userService = $userService;
         $this->itemService = $itemService;
         $this->stripeService = $stripeService;
     }
@@ -26,10 +30,29 @@ class TransactionController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function register()
+    public function customer()
     {
-        $request = new Request();
-        $request->merge(['user_id' => Auth::id()]);
+        session()->forget('loginAfterRedirectUrl');
+
+        if(Auth::check()){
+            $user = Auth::user();
+        }else{
+            session(['loginAfterRedirectUrl' => env('APP_URL').'/item/transaction/customer']);
+            $user = new \App\Models\User();
+        }
+
+        return view('item.transaction.customer', compact('user'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function register(Request $request)
+    {
+        $request->merge(['user_idid' => Auth::id()]);
+        $user = $this->userService->updateUser($request);
+
         $carts = $this->itemService->getCarts($request);
         $totalPrice = $this->itemService->getCartTotalPrice($carts);
 

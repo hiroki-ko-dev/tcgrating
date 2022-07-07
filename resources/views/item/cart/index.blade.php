@@ -81,62 +81,13 @@
       @endforeach
       <div>
         <div class="text-right">合計金額：¥<span id="total_price">0</span></div>
-
       </div>
     </div>
-
-
-{{--            <table id="cart_table" class="table">--}}
-{{--              <thead>--}}
-{{--              <tr>--}}
-{{--                <th scope="col">商品画像</th>--}}
-{{--                <th scope="col">商品名</th>--}}
-{{--                <th scope="col text-left">販売価格</th>--}}
-{{--                <th scope="col">数量</th>--}}
-{{--                <th scope="col">小計</th>--}}
-{{--                <th scope="col">削除</th>--}}
-{{--              </tr>--}}
-{{--              </thead>--}}
-{{--              <tbody>--}}
-{{--              @foreach($carts as $i => $cart)--}}
-{{--                  <tr>--}}
-{{--                    <td scope="col" class="img align-middle">--}}
-{{--                      <img class="img-fluid" src="{{ $cart->item->image_url }}" alt="hashimu-icon">--}}
-{{--                    </td>--}}
-{{--                    <td scope="col" class="string align-middle">--}}
-{{--                      {{ $cart->item->name }}--}}
-{{--                    </td>--}}
-{{--                    <td scope="col" class="string priceCol price align-middle">--}}
-{{--                      {{ $cart->item->price }}--}}
-{{--                    </td>--}}
-{{--                    <td scope="col" class="string quantityCol align-middle">--}}
-{{--                      <select id="quantity_{{$cart->id}}" name="quantity" class="quantity" data-id="{{$cart->id}}">--}}
-{{--                        @for($i=1; $i <= $cart->item->quantity; $i++)--}}
-{{--                          <option value="{{$i}}" @if($i == old('quantity',$cart->quantity)) selected @endif>{{$i}}</option>--}}
-{{--                        @endfor--}}
-{{--                      </select>--}}
-{{--                    </td>--}}
-{{--                    <td scope="col" class="string subtotalCol subtotal align-middle">--}}
-{{--                      {{ $cart->item->price * $cart->quantity }}--}}
-{{--                    </td>--}}
-{{--                    <td scope="col" class="string align-middle">--}}
-{{--                      <button class="delete btn bg-secondary text-white" data-id="{{$cart->id}}">削除する</button>--}}
-{{--                    </td>--}}
-{{--                  </tr>--}}
-{{--              @endforeach--}}
-{{--              <tr>--}}
-{{--                <td colspan="4" class="text-right">合計金額：</td>--}}
-{{--                <td id="total_price">0</td>--}}
-{{--                <td></td>--}}
-{{--              </tr>--}}
-{{--              </tbody>--}}
-{{--            </table>--}}
-
 
     <div class="row justify-content-center">
       <div class="col-md-12">
         <div class="box">
-          <button class="btn bg-primary text-white w-50" onclick="location.href='/item/transaction/register'">レジに進む</button>
+          <button class="btn bg-primary text-white w-50" onclick="location.href='/item/transaction/customer'">レジに進む</button>
         </div>
       </div>
     </div>

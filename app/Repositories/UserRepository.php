@@ -42,11 +42,32 @@ class UserRepository
     public function update($request)
     {
         $user = User::find($request->id);
+        if(isset($request->name)) {
+            $user->name = $request->name;
+        }
+        if(isset($request->first_name)) {
+            $user->first_name = $request->first_name;
+        }
+        if(isset($request->last_name)) {
+            $user->last_name = $request->last_name;
+        }
         if(isset($request->email)) {
             $user->email = $request->email;
         }
-        if(isset($request->name)) {
-            $user->name = $request->name;
+        if(isset($request->tel)) {
+            $user->tel = $request->tel;
+        }
+        if(isset($request->post_code)) {
+            $user->post_code = $request->post_code;
+        }
+        if(isset($request->address1)) {
+            $user->address1 = $request->address1;
+        }
+        if(isset($request->address2)) {
+            $user->address2 = $request->address2;
+        }
+        if(isset($request->address3)) {
+            $user->address3 = $request->address3;
         }
         if(isset($request->body)) {
             $user->body = $request->body;

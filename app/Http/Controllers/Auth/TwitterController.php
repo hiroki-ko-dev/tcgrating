@@ -58,8 +58,8 @@ class TwitterController extends Controller
                 if(Auth::check()){
                     // ログインユーザーにTwitter情報をアップデート
                     $user = DB::transaction(function () use($request) {
-                        $request->id = Auth::id();
-                        return $this->userService-> updateUser($request);
+                        $request->user_id = Auth::id();
+                        return $this->userService->updateUser($request);
                     });
                     Auth::login($user, true);
 

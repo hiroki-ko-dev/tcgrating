@@ -14,21 +14,17 @@
 <div class="container">
   <div id="cart" class="cart text-center" onclick="location.href='/item/cart'">
     <div id="cart-image">
-      @if(Auth::check())
-        <div id="cart-number" class="text-center">{{Auth::user()->carts->sum('quantity')}}</div>
-      @else
-        <div id="cart-number" class="text-center">0</div>
-      @endif
+      <div id="cart-number" class="text-center">{{Auth::user()->carts->sum('quantity')}}</div>
     </div>
   </div>
 
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-sm-6 mb-2">
-      <h5>{{ __('商品一覧') }}</h5>
+      <h5>{{ __('購入履歴一覧') }}</h5>
     </div>
     <div class="col-sm-6">
       <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
-      @if(Auth::check() && Auth::user()->role == \App\Models\User::ROLE_ADMIN)
+      @if(Auth::user()->role == \App\Models\User::ROLE_ADMIN)
         <btton class="btn site-color text-white btn-outline-secondary text-center w-100"
                onclick="location.href='/item/create'">
           {{ __('+ 商品の追加') }}
