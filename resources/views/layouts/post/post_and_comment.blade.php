@@ -28,7 +28,7 @@
             </div>
             <div class="row pl-3">
               <div class="col-md-12">
-                <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle">
+                <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
                 <a class="font-weight-bold" href="/user/{{$post->user_id}}">{{$post->user->name}}</a>
               </div>
             </div>
@@ -78,7 +78,7 @@
                           <span class="post-user">{{$comment->number}}. [{{$comment->created_at}}]</span>
                           <a href="/post/comment/create?comment_id={{$comment->id}}">返信する</a>
                         </div>
-                        <img src="{{$comment->user->twitter_simple_image_url}}" class="rounded-circle">
+                        <img src="{{$comment->user->twitter_simple_image_url}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
                         <span class="post-user"><a href="/user/{{$comment->user_id}}">{{$comment->user->name}}</a></span>
                       </div>
                       @if(!empty($comment->image_url))

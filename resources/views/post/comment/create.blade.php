@@ -31,7 +31,7 @@
       </div>
       <div class="row mb-3">
         <div class="col-md-12 mb-1">
-          <img src="{{$postComment->post->user->twitter_simple_image_url}}" class="rounded-circle">
+          <img src="{{$postComment->post->user->twitter_simple_image_url}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
           <a class="font-weight-bold" href="/user/{{$postComment->post->user_id}}">{{$postComment->post->user->name}}</a>
         </div>
       </div>
@@ -67,7 +67,7 @@
         </div>
         <div class="row mb-3">
           <div class="col-md-12 mb-1">
-            <img src="{{$postComment->user->twitter_simple_image_url}}" class="rounded-circle">
+            <img src="{{$postComment->user->twitter_simple_image_url}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
             <a class="font-weight-bold" href="/user/{{$postComment->user_id}}">{{$postComment->user->name}}</a>
           </div>
         </div>
@@ -181,7 +181,7 @@
         </div>
         <div class="row mb-3">
           <div class="col-md-12">
-            <img src="{{$replyComment->user->twitter_simple_image_url}}" class="rounded-circle">
+            <img src="{{$replyComment->user->twitter_simple_image_url}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
             <a class="font-weight-bold" href="/user/{{$replyComment->user_id}}">{{$replyComment->user->name}}</a>
           </div>
         </div>
