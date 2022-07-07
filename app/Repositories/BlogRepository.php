@@ -82,7 +82,7 @@ class BlogRepository
     {
         $query = $this->composeWhereClause($request);
         return $query->withCount('blogComment')
-                    ->OrderBy('id','desc')
+                    ->OrderBy('updated_at','desc')
                     ->paginate($paginate);
     }
 
