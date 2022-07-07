@@ -66,6 +66,11 @@ use Illuminate\Support\Facades\Route;
         'user' => UserController::class,
     ]);
 
+    //ユーザー系スレッド
+    Route::resources([
+        'resume' => ResumeController::class,
+    ]);
+
     //チーム系スレッド
     Route::resources([
         'team'      => Team\TeamController::class,

@@ -39,7 +39,7 @@ mix.styles([
     .sass('resources/sass/post/index.scss', 'public/css/post/index.css')
     .sass('resources/sass/blog/index.scss', 'public/css/blog/index.css')
     .sass('resources/sass/blog/show.scss', 'public/css/blog/show.css')
-    .sass('resources/sass/user/user.scss', 'public/css/user/user.css')
+    .sass('resources/sass/resume/resume.scss', 'public/css/resume/resume.css')
     .sass('resources/sass/item/index.scss', 'public/css/item/index.css')
     .sass('resources/sass/item/show.scss', 'public/css/item/show.css')
     .sass('resources/sass/item/cart/index.scss', 'public/css/item/cart/index.css')
@@ -57,7 +57,7 @@ mix.js('resources/js/app.js', 'public/js')
   .js('resources/js/common/calendar.js', 'public/js/common');
 
 mix.js('resources/js/proxy/proxy.js', 'public/js/proxy/proxy.js').react();
-mix.js('resources/js/user/user.js', 'public/js/user/user.js').react();
+mix.js('resources/js/resume/resume.js', 'public/js/resume/resume.js').react();
 
 mix.js('resources/js/sample.js', 'public/js/sample').react()
   .js('resources/js/common/selected_game.js', 'public/js/common/selected_game.js')

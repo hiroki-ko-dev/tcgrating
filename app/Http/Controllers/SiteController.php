@@ -48,10 +48,12 @@ class SiteController extends Controller
     {
         //ログインしている場合はuserテーブルのselected_game_idも更新
         if(Auth::check() == true){
-            return redirect('/user/' . Auth::user()->id);
+            return redirect('/resume/' . Auth::user()->id);
         }
 
+        session(['loginAfterRedirectUrl' => env('APP_URL').'/resume']);
         session(['selected_game_id' => $request->input('selected_game_id')]);
+
         return view('site.landing.resume');
     }
 

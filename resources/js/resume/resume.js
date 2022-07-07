@@ -61,7 +61,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
             ダウンロード
           </button>
           <button className="btn site-color text-white rounded-pill btn-outline-secondary text-center"
-                  onClick={() => {location.href='/user/' + gameUserJson.user.id + '/edit'}}>
+                  onClick={() => {location.href='/resume/' + gameUserJson.user.id + '/edit'}}>
             編集する
           </button>
         </div>

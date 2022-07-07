@@ -113,6 +113,6 @@ class TwitterController extends Controller
             $loginId = Auth::id();
             return view('auth.api_logined',compact('loginId'));
         }
-        return redirect('/user/' . Auth::user()->id);
+        return redirect('/resume/' . Auth::user()->id);
     }
 }
