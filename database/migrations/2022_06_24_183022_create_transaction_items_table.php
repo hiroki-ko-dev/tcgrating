@@ -15,6 +15,7 @@ class CreateTransactionItemsTable extends Migration
     {
         Schema::create('transaction_items', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('transaction_id')->constrained();
             $table->foreignId('item_id')->constrained();
             $table->unsignedSmallInteger('quantity');
             $table->unsignedSmallInteger('price');
