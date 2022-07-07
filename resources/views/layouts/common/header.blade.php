@@ -97,7 +97,7 @@
                       <li><a href="/event/swiss">スイスドロー対戦</a></li>
                       <li><a href="/item">商品購入</a></li>
                     @endif
-                    <li><a href="/user/{{Auth::id()}}">ポケカ履歴書</a></li>
+                    <li><a href="/resume/{{Auth::id()}}">ポケカ履歴書</a></li>
                   @else
                     <li><a href="/site/how_to_use/normal">使い方</a></li>
                     <li><a href="/event/single">1vs1対戦</a></li>
