@@ -63,7 +63,7 @@
                           >
                       </td>
                       <td scope="col" class="text-left align-middle">
-                        <a href="/user/{{$rate->user->id}}">{{$rate->user->name}}</a>
+                        <a href="/resume/{{$rate->user->id}}">{{$rate->user->name}}</a>
                       </td>
                       <td scope="col" class="align-middle">{{$rate->rate}}</td>
                     </tr>

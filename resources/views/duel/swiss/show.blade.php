@@ -60,13 +60,13 @@
                 @endif
               @endif
               <img src="{{$duel->duelUsers[0]->user->twitter_simple_image_url}}" class="rounded-circle">
-              <a href="/user/{{$duel->duelUsers[0]->user_id}}">{{$duel->duelUsers[0]->user->name}}</a>
+              <a href="/resume/{{$duel->duelUsers[0]->user_id}}">{{$duel->duelUsers[0]->user->name}}</a>
                 大会レート：{{$duel->eventDuel->event->eventUsers->where('user_id',$duel->duelUsers[0]->user_id)->first()->event_rate}}
             </div>
             <div class="col-md-12 m-1 pt-2 pb-2"><img src="/images/duel/vs.jpg"></div>
             <div class="col-md-12">
               <img src="{{$duel->duelUsers[1]->user->twitter_simple_image_url}}" class="rounded-circle">
-              <a href="/user/{{$duel->duelUsers[1]->user_id}}">{{$duel->duelUsers[1]->user->name}}</a>
+              <a href="/resume/{{$duel->duelUsers[1]->user_id}}">{{$duel->duelUsers[1]->user->name}}</a>
                 大会レート：{{$duel->eventDuel->event->eventUsers->where('user_id',$duel->duelUsers[1]->user_id)->first()->event_rate}}
 
               @if(Auth::check() && $duel->status == \App\Models\Duel::STATUS_READY)
@@ -101,7 +101,7 @@
           <div class="form-group row">
             <div class="col-md-12">
               <img src="{{$passUser->twitter_simple_image_url}}" class="rounded-circle">
-              <a href="/user/{{$passUser->user_id}}">{{$passUser->name}}</a>
+              <a href="/resume/{{$passUser->user_id}}">{{$passUser->name}}</a>
               大会レート：{{$duels[0]->eventDuel->event->eventUsers->where('user_id',$passUser->id)->first()->event_rate}}
             </div>
           </div>
