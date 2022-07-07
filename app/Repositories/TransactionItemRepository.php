@@ -10,8 +10,8 @@ class TransactionItemRepository
 {
 
     public function composeSaveClause($transaction, $request){
-        if(isset($request->user_id)) {
-            $transaction->user_id = $request->user_id;
+        if(isset($request->transaction_id)) {
+            $transaction->transaction_id = $request->transaction_id;
         }
         if(isset($request->item_id)) {
             $transaction->item_id = $request->item_id;

@@ -121,6 +121,7 @@ class ItemService
 
         foreach($carts as $cart){
             $transactionItemRequest = new Request();
+            $transactionItemRequest->transaction_id = $transaction->id;
             $transactionItemRequest->item_id  = $cart->item_id;
             $transactionItemRequest->quantity = $cart->quantity;
             $transactionItemRequest->price = $cart->item->price;

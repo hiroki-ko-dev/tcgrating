@@ -51,7 +51,9 @@ class TransactionController extends Controller
     public function register(Request $request)
     {
         $request->merge(['id' => Auth::id()]);
-        $user = $this->userService->updateUser($request);
+        $user = DB::transaction(function () use ($request) {
+            return $this->userService->updateUser($request);
+        });
 
         $carts = $this->itemService->getCarts($request);
         $totalPrice = $this->itemService->getCartTotalPrice($carts);
@@ -66,10 +68,13 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         try {
-            $transactionRequest = new Request();
-            $transactionRequest->merge(['user_id' => Auth::id()]);
-            $transaction = $this->itemService->saveTransactionByCarts($transactionRequest);
-            $this->stripeService->settlement($transaction, $request->stripe_token);
+            $transaction = DB::transaction(function () use ($request) {
+                $transactionRequest = new Request();
+                $transactionRequest->merge(['user_id' => Auth::id()]);
+                $transaction = $this->itemService->saveTransactionByCarts($transactionRequest);
+                $this->stripeService->settlement($transaction, $request->stripe_token);
+                return $transaction;
+           });
 
         } catch (\Exception $ex) {
             return $ex->getMessage();
