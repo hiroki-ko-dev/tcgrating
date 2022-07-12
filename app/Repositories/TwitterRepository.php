@@ -33,7 +33,7 @@ class TwitterRepository
         );
 
         // ④画像をアップロードし、画像のIDを取得
-        $imageId = $twitter->upload('media/upload', ['media' => 'public/images/site/user/pokeka-resume.png']);
+        $imageId = $twitter->upload('media/upload', ['media' => 'public/images/site/resume/pokeka-resume.png']);
 
         $twitter->post("statuses/update", [
             "status" => $tweet,
