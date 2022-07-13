@@ -12,24 +12,12 @@
 
 @section('content')
 <div class="container">
-  <div id="cart" class="cart text-center" onclick="location.href='/item/cart'">
-    <div id="cart-image">
-      <div id="cart-number" class="text-center">{{Auth::user()->carts->sum('quantity')}}</div>
-    </div>
-  </div>
 
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-sm-6 mb-2">
       <h5>{{ __('購入履歴一覧') }}</h5>
     </div>
     <div class="col-sm-6">
-      <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
-      @if(Auth::user()->role == \App\Models\User::ROLE_ADMIN)
-        <btton class="btn site-color text-white btn-outline-secondary text-center w-100"
-               onclick="location.href='/item/create'">
-          {{ __('+ 商品の追加') }}
-        </btton>
-      @endif
     </div>
   </div>
 
@@ -44,48 +32,31 @@
     @endif
   </div>
 
-  @if(!empty($items))
-    <div class="row">
-    @foreach($items as $i => $item)
-      <input type="hidden" id="item_id_{{$item->id}}" name="item_id" value="{{$item->id}}">
-      <div class="col-sm-3 col-6 p-2">
-        <div class="box">
-          @if($item->quantity == 0)
-            <div class="sold-out">sold out</div>
-          @endif
-          <div class="p-1">
-            <a href="/item/{{$item->id}}">
-              <span class="item-name">{{$item->name}}</span>
-            </a>
+  <div class="box">
+    @foreach($transactions as $i => $transaction)
+      <div class="row justify-content-center pt-3 pb-3 border-bottom">
+        <div class="string">
+          <div class="align-middle">
+            ID:<span class="price">{{ $transaction->id }}</span>
           </div>
-          <div class="p-1">
-            ¥{{number_format($item->price)}}円
+          <div class="align-middle">
+            金額：￥<span class="price">{{ $transaction->price }}</span>
           </div>
-          <div class="p-1">
-            <div>在庫数：{{$item->quantity}}個</div>
+          <div class="block subtotalCol align-middle">
+            送料：￥<span class="subtotal">{{ $transaction->postage }}</span>
           </div>
-          <div class="p-1 after_visible_{{$item->id}}">
-            <div class="visible_{{$item->id}}">
-              <select id="quantity_{{$item->id}}" name="quantity">
-                @for($i=1; $i <= $item->quantity; $i++)
-                  <option value="{{$i}}" @if($i == old('quantity')) selected @endif>{{$i}}</option>
-                @endfor
-              </select>
-            </div>
+          <div class="align-middle">
+            ステータス：<span class="price">{{ $transaction->send_status }}</span>
           </div>
-          <div class="p-1">
-            <button id="cart_{{$item->id}}" class="btn bg-primary text-white cart_btn visible_{{$item->id}}">カートに追加</button>
+          <div class="align-middle">
+            <button onclick="location.href='/item/transaction/{{$transaction->id}}'">詳細</button>
           </div>
-          <div class="item-image">
-            <img class="img-fluid" src="{{$item->image_url}}" width="" alt="{{$item->name}}">
-          </div>
+        </div>
       </div>
-    </div>
     @endforeach
-    </div>
-  @endif
+  </div>
 
-  {{$items->links('layouts.common.pagination.bootstrap-4')}}
+  {{$transactions->links('layouts.common.pagination.bootstrap-4')}}
 </div>
 
 @endsection

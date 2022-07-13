@@ -160,6 +160,25 @@ class ItemService
     }
 
     /**
+     * @param $transaction_id
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getTransaction($transaction_id)
+    {
+        return $this->transactionRepository->find($transaction_id);
+    }
+
+    /**
+     * @param $request
+     * @param $paginate
+     * @return mixed
+     */
+    public function getTransactionsByPaginate($request, $paginate)
+    {
+        return $this->transactionRepository->findAllByPaginate($request, 20);
+    }
+
+    /**
      * @param $carts
      * @return float|int
      */

@@ -93,10 +93,10 @@ class BlogController extends Controller
     }
 
     /**
-     * @param $blog_id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param int $blog_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show($blog_id)
+    public function show(int $blog_id)
     {
         $blog = $this->blogService->getBlog($blog_id);
         $preview = $this->blogService->getPreviewBlog($blog_id - 1);

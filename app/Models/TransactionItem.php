@@ -13,4 +13,8 @@ class TransactionItem extends Model
     public function game(){
         return $this->belongsTo('App\Models\Game','game_id','id');
     }
+
+    public function item(){
+        return $this->belongsTo('App\Models\Item','item_id','id');
+    }
 }

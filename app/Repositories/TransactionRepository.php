@@ -41,7 +41,7 @@ class TransactionRepository
 
     public function composeWhereClause($request)
     {
-        $query = Cart::query();
+        $query = Transaction::query();
         if(isset($request->item_id)){
             $query->where('game_id', $request->item_id);
         }
@@ -61,7 +61,7 @@ class TransactionRepository
      */
     public function find($id)
     {
-        return Cart::find($id);
+        return Transaction::find($id);
     }
 
     /**
@@ -75,12 +75,19 @@ class TransactionRepository
     }
 
     /**
-     * @param $id
+     * @param $request
+     * @param $paginate
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function delete($id)
+    public function findAllByPaginate($request, $paginate)
     {
-        Cart::destroy($id);
+        $query = $this->composeWhereClause($request);
+        $query->orderBy('id', 'desc');
+
+        return $query->paginate($paginate);
     }
+
+
 
 
 }

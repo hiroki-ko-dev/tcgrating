@@ -30,6 +30,29 @@ class TransactionController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+    public function index(Request $request)
+    {
+        $request->merge(['user_id' => Auth::id()]);
+        $transactions = $this->itemService->getTransactionsByPaginate($request, 20);
+
+        return view('item.transaction.index', compact('transactions'));
+    }
+
+    /**
+     * @param $transaction_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function show($transaction_id)
+    {
+        $transaction = $this->itemService->getTransaction($transaction_id);
+
+        return view('item.transaction.show', compact('transaction'));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function customer()
     {
         session()->forget('loginAfterRedirectUrl');
