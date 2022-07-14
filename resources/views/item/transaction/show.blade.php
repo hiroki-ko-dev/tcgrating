@@ -7,7 +7,7 @@
 @endsection
 
 @section('addCss')
-  {{--  <link rel="stylesheet" href="{{ mix('/css/cart/index.css') }}">--}}
+  <link rel="stylesheet" href="{{ mix('/css/item/cart/index.css') }}">
 @endsection
 
 @section('content')
@@ -34,7 +34,13 @@
       @endif
     </div>
 
-    <div id="cart_table" class="box">
+
+    <div class="box mb-3">
+      <div class="text-right">合計金額：¥<span id="total_price">{{$transaction->price}}</span></div>
+      <div class="text-right">取引日時：<span id="total_price">{{$transaction->created_at}}</span></div>
+    </div>
+
+    <div id="cart_table" class="box mb-3">
       @foreach($transaction->transactionItems as $i => $item)
         <div class="row justify-content-center pt-3 pb-3 border-bottom">
           <div class="image">
@@ -60,8 +66,13 @@
           </div>
         </div>
       @endforeach
-      <div>
-        <div class="text-right">合計金額：¥<span id="total_price">0</span></div>
+    </div>
+
+    <div class="box">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <button class="btn bg-secondary text-white w-50" onClick="history.back()">戻る</button>
+        </div>
       </div>
     </div>
 

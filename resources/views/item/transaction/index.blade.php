@@ -32,29 +32,24 @@
     @endif
   </div>
 
-  <div class="box">
-    @foreach($transactions as $i => $transaction)
-      <div class="row justify-content-center pt-3 pb-3 border-bottom">
-        <div class="string">
-          <div class="align-middle">
-            ID:<span class="price">{{ $transaction->id }}</span>
-          </div>
-          <div class="align-middle">
-            金額：￥<span class="price">{{ $transaction->price }}</span>
-          </div>
-          <div class="block subtotalCol align-middle">
-            送料：￥<span class="subtotal">{{ $transaction->postage }}</span>
-          </div>
-          <div class="align-middle">
-            ステータス：<span class="price">{{ $transaction->send_status }}</span>
-          </div>
-          <div class="align-middle">
-            <button onclick="location.href='/item/transaction/{{$transaction->id}}'">詳細</button>
-          </div>
+  @foreach($transactions as $i => $transaction)
+    <div class="box" onclick="location.href='/item/transaction/{{$transaction->id}}'">
+      <div class="row pt-3 pl-2 pb-3 border-bottom text-left">
+        <div class="col-sm-3">
+          ID:{{ $transaction->id }}
+        </div>
+        <div class="col-sm-3">
+          金額：￥{{ $transaction->price }}
+        </div>
+        <div class="col-sm-3">
+          送料：￥{{ $transaction->postage }}
+        </div>
+        <div class="col-sm-3">
+          ステータス：{{ $transaction->send_status }}
         </div>
       </div>
-    @endforeach
-  </div>
+    </div>
+  @endforeach
 
   {{$transactions->links('layouts.common.pagination.bootstrap-4')}}
 </div>

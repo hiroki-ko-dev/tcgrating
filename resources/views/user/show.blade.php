@@ -22,13 +22,22 @@
     @include('layouts.user.show.twitter')
   </div>
 
-  
-{{--    <div class="row justify-content-center m-1 mb-3">--}}
-{{--      <div class="col-12 page-header">--}}
-{{--        @include('layouts.user.show.header')--}}
-{{--      </div>--}}
-{{--    </div>--}}
 
+  <div class="box mb-3">
+    <div class="row justify-content-center m-1 mb-3">
+      <div class="col-12">
+        <a href="/item/transaction/">購入履歴</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="box mb-3">
+    <div class="row justify-content-center m-1 mb-3">
+      <div class="col-12">
+        <a href="/item/cart/">カート一覧</a>
+      </div>
+    </div>
+  </div>
 {{--    <div class="row justify-content-center">--}}
 {{--      <div class="col-6 mb-4">--}}
 {{--        @include('layouts.user.show.image')--}}

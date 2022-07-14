@@ -84,13 +84,23 @@
       </div>
     </div>
 
-    <div class="row justify-content-center">
-      <div class="col-md-12">
-        <div class="box">
-          <button class="btn bg-primary text-white w-50" onclick="location.href='/item/transaction/customer'">レジに進む</button>
+    @if($carts->isNotEmpty())
+      <div class="box">
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="box">
+              <button class="btn bg-primary text-white w-50" onclick="location.href='/item/transaction/customer'">レジに進む</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <button class="btn bg-secondary text-white w-50" onClick="history.back()">戻る</button>
+          </div>
         </div>
       </div>
-    </div>
+    @endif
 
   </div>
 @endsection

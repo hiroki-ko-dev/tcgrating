@@ -91,6 +91,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('/item/transaction/register', [App\Http\Controllers\Item\TransactionController::class, 'register']);
     Route::get('/item/transaction/completion', [App\Http\Controllers\Item\TransactionController::class, 'completion']);
     Route::resources([
+        'item/stock'       => Item\StockController::class,
         'item/cart'        => Item\CartController::class,
         'item/transaction' => Item\TransactionController::class,
         'item'             => Item\ItemController::class,
