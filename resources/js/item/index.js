@@ -3,8 +3,6 @@ $('.cart_btn').on('click', function() {
   if(confirm('カートに追加しますか？。')){
     var item_id = $(this).attr('id').split('_')[1];
     var quantity = $('#quantity_' + item_id).val();
-    console.log(item_id);
-    console.log(quantity);
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -19,10 +17,14 @@ $('.cart_btn').on('click', function() {
     })
       // Ajaxリクエストが成功した場合
       .done((cart_number) => {
-        $('.visible_' + item_id).fadeOut();
-        html = '<div class="user-list">✅カートに入れました</div>';
-        $(".after_visible_" + item_id).append(html); //できあがったテンプレートを user-tableクラスの中に追加
-        $('#cart-number').html('<p>' + cart_number + '<p>').hide().fadeIn(1500);
+        if(cart_number['error']){
+          alert(cart_number['error']);
+        }else{
+          $('.visible_' + item_id).fadeOut();
+          html = '<div class="user-list">✅カートに入れました</div>';
+          $(".after_visible_" + item_id).append(html); //できあがったテンプレートを user-tableクラスの中に追加
+          $('#cart-number').html('<p>' + cart_number + '<p>').hide().fadeIn(1500);
+        }
       })
       // Ajaxリクエストが失敗した場合
       .fail((error) => {

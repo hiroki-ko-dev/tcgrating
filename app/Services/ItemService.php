@@ -61,25 +61,17 @@ class ItemService
 
     /**
      * @param $request
-     * @return mixed
+     * @return mixed|string
+     * @throws \Exception
      */
     public function makeCart($request)
     {
-        if(Auth::Check()){
-            $request->merge(['user_id' => Auth::id()]);
-            $carts = $this->getCarts($request);
-            if(in_array($request->item_id, $carts->pluck('item_id')->toArray())){
-                $cart = 'is_put';
-            }else{
-                $cart = $this->cartRepository->create($request);
-            }
+        $request->merge(['user_id' => Auth::id()]);
+        $carts = $this->getCarts($request);
+        if(in_array($request->item_id, $carts->pluck('item_id')->toArray())){
+            $cart = 'is_put';
         }else{
-            $carts = session('carts');
-            $count = count($carts);
-            $carts[$count]['item_id'] = $request->item_id;
-            $carts[$count]['amount'] = $request->amount;
-            session()->put('carts', $carts);
-            $cart = $carts[$count];
+            $cart = $this->cartRepository->create($request);
         }
 
         return $cart;
@@ -91,16 +83,21 @@ class ItemService
      */
     public function saveCart($request)
     {
+        $cart = null;
         if(Auth::Check()){
             $cart = $this->cartRepository->update($request);
         }else{
             $carts = session('carts');
-            $count = count($carts);
-            $carts[$count]['item_id'] = $request->item_id;
-            $carts[$count]['amount'] = $request->amount;
-            session()->put('carts', $carts);
-            $cart = $carts[$count];
+            foreach($carts as $loopCart){
+                if($loopCart->item_id == $request->item_id){
+                    $loopCart->quantity = $request->quantity;
+                    $cart = $loopCart;
+                    break;
+                }
+            }
+            session(['carts' => $carts]);
         }
+        return $cart;
     }
 
     /**
@@ -152,11 +149,21 @@ class ItemService
 
     /**
      * @param $request
-     * @return mixed
+     * @return \App\Models\Cart|mixed
+     * @throws \Exception
      */
     public function getCarts($request)
     {
-        return $this->cartRepository->findAll($request);
+        if(Auth::check()){
+            $carts = $this->cartRepository->findAll($request);
+        }else{
+            $carts = session('carts');
+            if(is_null($carts)){
+                $carts = collect();
+            }
+        }
+
+        return $carts;
     }
 
     /**
@@ -200,6 +207,33 @@ class ItemService
         $this->cartRepository->delete($cart_id);
     }
 
+    /**
+     * @param $request
+     * @return \App\Models\Cart
+     * @throws \Exception
+     */
+    public function sessionMakeCart($request)
+    {
+        // cartすでにあるか
+        $carts = collect(session('carts'));
+        $i = 0 ;
+        if($carts){
+            // 対象のitem_idがすでにあるか検証
+            foreach($carts as $i => $cart){
+                if($cart->item_id == $request->item_id) {
+                    throw new \Exception("その商品は既にカートに入っています");
+                }
+            }
+        }
+        // なければsessionの最後にcartsを追加
+        $cart = new \App\Models\Cart();
+        $cart->id          = 9001 + $i;
+        $cart->item_id = $request->item_id;
+        $cart->quantity = $request->quantity;
+        $carts[] = $cart;
+        session(['carts' => $carts]);
 
+        return $cart;
+    }
 
 }

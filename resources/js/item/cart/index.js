@@ -21,10 +21,6 @@ function subTotalPrice(){
     var price = parseInt($(".price").eq(i).text());
     var quantity = parseInt($(".quantity").eq(i).val());
     $(".subtotal").eq(i).text(quantity * price);
-
-    console.log('price:' + price);
-    console.log('quantity:' + quantity);
-    console.log('subtotal:' + quantity * price);
   }
   totalPrice();
 }
@@ -37,7 +33,7 @@ $('.quantity').on('change', function() {
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    type: 'PUT',
+    type: 'PATCH',
     url: '/item/cart/' + cart_id ,
     dataType: "json",
     data: {

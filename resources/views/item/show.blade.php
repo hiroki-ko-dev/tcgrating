@@ -23,7 +23,17 @@
 
   <div id="cart" class="cart text-center" onclick="location.href='/item/cart'">
     <div id="cart-image">
-      <div id="cart-number" class="text-center">{{Auth::user()->carts->sum('quantity')}}</div>
+      <div id="cart-number" class="text-center">
+        @if(Auth::check())
+          {{ Auth::user()->carts->sum('quantity') }}
+        @else
+          @if(isset(session('carts')['quantity']))
+            {{ array_sum(session('cart_number')) }}
+          @else
+            0
+          @endif
+        @endif
+      </div>
     </div>
   </div>
 
