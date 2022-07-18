@@ -10,9 +10,6 @@ class TransactionRepository
 {
 
     public function composeSaveClause($transaction, $request){
-        if(isset($request->user_id)) {
-            $transaction->user_id = $request->user_id;
-        }
         if(isset($request->send_status)) {
             $transaction->send_status = $request->send_status;
         }

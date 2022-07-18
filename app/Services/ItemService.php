@@ -7,6 +7,7 @@ use App\Repositories\ItemStockRepository;
 use App\Repositories\CartRepository;
 use App\Repositories\TransactionRepository;
 use App\Repositories\TransactionItemRepository;
+use App\Repositories\TransactionUserRepository;
 use Illuminate\Http\Request;
 
 use Auth;
@@ -18,18 +19,21 @@ class ItemService
     protected $cartRepository;
     protected $transactionRepository;
     protected $transactionItemRepository;
+    protected $transactionUserRepository;
 
     public function __construct(ItemRepository $itemRepository,
                                 ItemStockRepository $itemStockRepository,
                                 CartRepository $cartRepository,
                                 TransactionRepository $transactionRepository,
-                                TransactionItemRepository $transactionItemRepository)
+                                TransactionItemRepository $transactionItemRepository,
+                                TransactionUserRepository $transactionUserRepository)
     {
         $this->itemRepository = $itemRepository;
         $this->itemStockRepository = $itemStockRepository;
         $this->cartRepository = $cartRepository;
         $this->transactionRepository = $transactionRepository;
         $this->transactionItemRepository = $transactionItemRepository;
+        $this->transactionUserRepository = $transactionUserRepository;
     }
 
     /**
@@ -81,6 +85,17 @@ class ItemService
      * @param $request
      * @return mixed
      */
+    public function makeTransactionUser($request)
+    {
+        $transactionUser = $this->transactionUserRepository->create($request);
+
+        return $transactionUser;
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
     public function saveCart($request)
     {
         $cart = null;
@@ -100,6 +115,7 @@ class ItemService
         return $cart;
     }
 
+
     /**
      * @param $request
      * @return mixed
@@ -108,14 +124,18 @@ class ItemService
     {
         $carts = $this->getCarts($request);
         // transaction作成のためのクエリ作成
-        $request = new Request();
-        $request->user_id = Auth::id();
-        $request->send_status = \App\Models\Transaction::SEND_STATUS_BEFORE_SENDING;
-        $request->postage = 500;
+        $transactionRequest = new Request();
+        $transactionRequest->send_status = \App\Models\Transaction::SEND_STATUS_BEFORE_SENDING;
+        $transactionRequest->postage = 500;
+        $transactionRequest->price = $this->getCartTotalPrice($carts);
+        $transaction = $this->transactionRepository->create($transactionRequest);
 
-        $request->price = $this->getCartTotalPrice($carts);
-        $transaction = $this->transactionRepository->create($request);
-
+        $request->merge(['transaction_id' => $transaction->id]);
+        if(Auth::check()){
+            $request->merge(['user_id' => Auth::id()]);
+        }else{
+            $carts = session('carts');
+        }
         foreach($carts as $cart){
             $transactionItemRequest = new Request();
             $transactionItemRequest->transaction_id = $transaction->id;
@@ -125,6 +145,8 @@ class ItemService
             $this->transactionItemRepository->create($transactionItemRequest);
             $this->cartRepository->delete($cart->id);
         }
+        $transactionUser = $this->makeTransactionUser($request);
+
         return $transaction;
     }
 
@@ -234,6 +256,10 @@ class ItemService
         session(['carts' => $carts]);
 
         return $cart;
+    }
+
+    public function sendTransactionPurchaseMail($transaction){
+
     }
 
 }

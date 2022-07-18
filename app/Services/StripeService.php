@@ -33,9 +33,9 @@ class StripeService
 
         $stripeCustomer = Customer::create([
             'source' => $stripeToken,
-            'email' => $transaction->user->email,
-            'name' => $transaction->user->name,
-            'description' => 'user_id:' . $transaction->user->id . ' transaction_id:' . $transaction->id,
+            'email' => $transaction->transactionUsers[0]->email,
+            'name' => $transaction->transactionUsers[0]->first_name . ' ' . $transaction->transactionUsers[0]->last_name,
+            'description' => 'user_id:' . $transaction->transactionUsers[0]->id . ' transaction_id:' . $transaction->id,
         ]);
 
         Charge::create([

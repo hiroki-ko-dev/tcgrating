@@ -60,6 +60,9 @@ class UserRepository
         if(isset($request->post_code)) {
             $user->post_code = $request->post_code;
         }
+        if(isset($request->prefecture_id)) {
+            $user->prefecture_id = $request->prefecture_id;
+        }
         if(isset($request->address1)) {
             $user->address1 = $request->address1;
         }

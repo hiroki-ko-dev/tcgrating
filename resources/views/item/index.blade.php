@@ -17,7 +17,13 @@
       @if(Auth::check())
         <div id="cart-number" class="text-center">{{Auth::user()->carts->sum('quantity')}}</div>
       @else
-        <div id="cart-number" class="text-center">0</div>
+        <div id="cart-number" class="text-center">
+          @if(session('carts'))
+            {{session('carts')->sum('quantity')}}
+          @else
+            0
+          @endif
+        </div>
       @endif
     </div>
   </div>

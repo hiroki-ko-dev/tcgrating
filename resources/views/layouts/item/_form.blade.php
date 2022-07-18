@@ -84,12 +84,11 @@
                   <strong>{{ $message }}</strong>
               </span>
         @enderror
+      </div>
     </div>
   </div>
 </div>
 
-
-
 <div class="row justify-content-center  mb-0">
-    <input type="submit" name="save" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4" value="商品を作成" onClick="return requestConfirm();">
+  <input type="submit" name="save" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4" value="商品を作成" onClick="return requestConfirm();">
 </div>

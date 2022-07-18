@@ -117,13 +117,23 @@
     <form method="POST"  id="payment-form" action="/item/transaction">
       @csrf
 
+      {{--ユーザー情報--}}
+      <input type="hidden" name="email" value="{{ $user->email }}">
+      <input type="hidden" name="last_name" value="{{ $user->last_name }}">
+      <input type="hidden" name="first_name" value="{{ $user->first_name }}">
+      <input type="hidden" name="post_code" value="{{ $user->post_code }}">
+      <input type="hidden" name="prefecture_id" value="{{ $user->prefecture_id }}">
+      <input type="hidden" name="address1" value="{{ $user->address1 }}">
+      <input type="hidden" name="address2" value="{{ $user->address2 }}">
+      <input type="hidden" name="address3" value="{{ $user->address3 }}">
+      <input type="hidden" name="tel" value="{{ $user->tel }}">
+
       <div class="box mb-3">
       <div class="row justify-content-center pb-3">
         <div class="col-md-12">
           <button type="submit" id="payment-form" class="btn bg-primary text-white w-50">購入を決定する</button>
         </div>
       </div>
-
 
       <div class="row justify-content-center">
         <div class="col-md-12">
@@ -134,6 +144,7 @@
     </form>
 
   </div>
+
 @endsection
 
 @section('addScript')

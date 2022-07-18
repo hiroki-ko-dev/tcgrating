@@ -81,6 +81,7 @@
                     <li><a href="/event/instant">1vs1対戦</a></li>
                       <li><a href="/blog">記事</a></li>
                     <li><a href="/proxy">プロキシ作成</a></li>
+                    <li><a href="/item">商品購入</a></li>
                   @else
                     <li><a href="/site/how_to_use/normal">使い方</a></li>
                     <li><a href="/event/single">1vs1対戦</a></li>
@@ -92,16 +93,16 @@
                     <li><a href="/event/instant">1vs1対戦</a></li>
                       <li><a href="/blog">記事</a></li>
                     <li><a href="/proxy">プロキシ作成</a></li>
+                    <li><a href="/item">商品購入</a></li>
                     @if(Auth::user()->role == 1)
                       <li><a href="/event/group">グループ対戦</a></li>
                       <li><a href="/event/swiss">スイスドロー対戦</a></li>
-                      <li><a href="/item">商品購入</a></li>
+                      <li><a href="/user/{{Auth::id()}}">マイページ</a></li>
                     @endif
                     <li><a href="/resume/{{Auth::id()}}">ポケカ履歴書</a></li>
                   @else
                     <li><a href="/site/how_to_use/normal">使い方</a></li>
                     <li><a href="/event/single">1vs1対戦</a></li>
-                    <li><a href="/user/{{Auth::id()}}">マイページ</a></li>
                   @endif
 
                   <li><a  href="" onclick="event.preventDefault();

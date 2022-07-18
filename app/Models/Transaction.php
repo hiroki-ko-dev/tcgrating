@@ -34,4 +34,8 @@ class Transaction extends Model
     public function transactionItems(){
         return $this->hasMany('App\Models\TransactionItem','transaction_id','id');
     }
+
+    public function transactionUsers(){
+        return $this->hasMany('App\Models\TransactionUser','transaction_id','id');
+    }
 }
