@@ -215,36 +215,48 @@
     </div>
   </div>
 
-  <div class="row justify-content-center mb-4">
-    <div class="col-12">
-      <div class="box">
 
-        <div class="box-header text-left">{{ __('対戦情報') }}</div>
-        <div class="row justify-content-center">
-          <div class="w-30"><div class="font-weight-bold">対戦場所</div></div>
-          <div class="w-70"><h3 class="font-weight-bold text-danger">レート対戦{{$duel->room_id}}</h3></div>
-        </div>
-        <div class="row justify-content-center mb-4">
-          <div class="w-30"></div>
-          <div class="w-70">※ページ下部Discordのボイスチャンネルです</div>
-        </div>
+  <div class="box mb-4">
 
-        <div class="row justify-content-center mb-4">
-          <div class="w-30"><div class="font-weight-bold">レギュレーション</div></div>
-          <div class="w-70"><h3 class="font-weight-bold">
-              {{\App\Models\Event::REGULATION_TYPE_STR[$duel->eventDuel->event->regulation_type]}}
-          </h3></div>
-        </div>
-
-        <div class="row justify-content-center">
-          <div class="w-30"><div class="font-weight-bold">プロキシ(カラーコピー)</div></div>
-          <div class="w-70"><h3 class="font-weight-bold">
-              {{\App\Models\Event::CARD_TYPE_STR[$duel->eventDuel->event->card_type]}}
-            </h3></div>
-        </div>
-
+    <div class="text-left site-color text-white p-2 mb-3">{{ __('対戦情報') }}</div>
+    <div class="row">
+      <div class="col-sm-3 text-left">
+        <div class="font-weight-bold pl-4 mb-1">対戦場所</div>
+      </div>
+      <div class="col-sm-9">
+        <h3 class="font-weight-bold text-danger">レート対戦{{$duel->room_id}}</h3>
       </div>
     </div>
+    <div class="row justify-content-center mb-4">
+      <div class="col-sm-3 text-left">
+      </div>
+      <div class="col-sm-9">
+        ※Discordボイスチャンネル
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-sm-3 text-left">
+        <div class="font-weight-bold pl-4 mb-1">レギュレーション</div>
+      </div>
+      <div class="col-sm-9">
+        <h3 class="font-weight-bold">
+          {{\App\Models\Event::REGULATION_TYPE_STR[$duel->eventDuel->event->regulation_type]}}
+        </h3>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-sm-3 text-left">
+        <div class="font-weight-bold pl-4 mb-1">プロキシ(カラーコピー)</div>
+      </div>
+      <div class="col-sm-9">
+        <h3 class="font-weight-bold">
+            {{\App\Models\Event::CARD_TYPE_STR[$duel->eventDuel->event->card_type]}}
+        </h3>
+      </div>
+    </div>
+
   </div>
 
   @if($duel->eventDuel->event->status == \App\Models\Event::STATUS_RECRUIT &&
@@ -290,7 +302,7 @@
   <div class="row justify-content-center mb-4">
     <div class="col-12">
       <div class="box">
-        <div class="box-header text-left">{{ __('公式対戦ルール') }}</div>
+        <div class="text-left site-color text-white p-2 mb-3">{{ __('公式対戦ルール') }}</div>
         <div class="text-left">{{ __('対戦回数：両者で回数を決定してください') }}</div>
         <div class="text-left">{{ __('レギュレーション：スタンダード') }}</div>
         <div class="text-left">{{ __('回線不調時は？：回線不調側を敗北としてください。どちらか判断できない時はドローです') }}</div>
