@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use DB;
+use Log;
 use App\Services\DuelService;
 
 use Illuminate\Http\Request;
@@ -39,6 +40,14 @@ class AdminController extends Controller
         $duels = $this->duelService->getDuels($request);
 
         return view('admin.index',compact('duels'));
+    }
+
+    /**
+     *
+     */
+    public function show()
+    {
+        Log::debug('admin/showを実行');
     }
 
 
