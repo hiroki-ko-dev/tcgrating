@@ -17,7 +17,7 @@
   <div class="col-md-12">
     <div class="box w-100">
       <div class="row pb-4">
-        カテゴリ：{{\App\Models\Opinion::TYPES[$key]}}
+        カテゴリ：{{\App\Models\Opinion::TYPES[$opinion->type]}}
       </div>
       <div class="row pb-4">
            {{$opinion->body}}
