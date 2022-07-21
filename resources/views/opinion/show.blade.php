@@ -15,48 +15,33 @@
   </div>
 
   <div class="col-md-12">
-      <div class="box w-100">
-          <form method="POST" action="/opinion">
-              @csrf
-
-
-            <div class="row pb-4">
-              <select id="type" name="type" class="type form-control mb-4">
-                @foreach(\App\Models\Opinion::TYPES as $key => $type)
-                  <option value="{{$key}}">カテゴリ：{{\App\Models\Opinion::TYPES[$key]}}</option>
-                @endforeach
-              </select>
-            </div>
-
-            <div class="row pb-4">
-                 {{$opinion->body}}
-            </div>
-
-            <div class="row pb-4">
-              {{$opinion->line_name}}
-            </div>
-
-            <div class="row pb-4">
-              {{ $opinion->twitter_name}}
-            </div>
-
-            <div class="row pb-4">
-              {{$opinion->discord_name}}
-            </div>
-
-              <div class="row justify-content-center">
-                @if(Auth::check())
-                  <button type="submit" class="btn btn btn-dark rounded-pill pl-5 pr-5">
-                      {{ __('送信する') }}
-                  </button>
-                @else
-                  意見送信にはTwitterログインが必要です
-                @endif
-              </div>
-
-          </form>
-        </div>
+    <div class="box w-100">
+      <div class="row pb-4">
+        カテゴリ：{{\App\Models\Opinion::TYPES[$key]}}
+      </div>
+      <div class="row pb-4">
+           {{$opinion->body}}
+      </div>
+      <div class="row pb-4">
+        {{$opinion->line_name}}
+      </div>
+      <div class="row pb-4">
+        {{ $opinion->twitter_name}}
+      </div>
+      <div class="row pb-4">
+        {{$opinion->discord_name}}
+      </div>
+      <div class="row justify-content-center">
+        @if(Auth::check())
+          <button type="submit" class="btn btn btn-dark rounded-pill pl-5 pr-5">
+              {{ __('送信する') }}
+          </button>
+        @else
+          意見送信にはTwitterログインが必要です
+        @endif
+      </div>
     </div>
+  </div>
 </div>
 
 @endsection
