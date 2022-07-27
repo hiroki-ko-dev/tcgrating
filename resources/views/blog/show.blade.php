@@ -37,7 +37,7 @@
   <article>
     <section>
       <div class="row justify-content-center mb-4">
-        <div class="col-sm-12 ">
+        <div class="col-sm-12">
           <div class="box">
             <h1 class="text-left">{{$blog->title}}</h1>
           </div>
