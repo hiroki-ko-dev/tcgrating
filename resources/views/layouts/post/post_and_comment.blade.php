@@ -6,7 +6,7 @@
       <div class="box text-left">
         <section>
           <div class="pb-2">
-            <div class="d-flex align-items-center">
+            <div class="bg-pink pt-2 pb-2 d-flex align-items-center">
                 <span class="text-nowrap bg-info rounded-pill text-white p-1">
                     {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
                 </span>
