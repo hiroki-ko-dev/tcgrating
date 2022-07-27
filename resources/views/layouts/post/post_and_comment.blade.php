@@ -1,6 +1,5 @@
 
 <article>
-  <h3>{{ __('掲示板') }}</h3>
   <div class="row justify-content-center mb-4">
     <div class="col-12">
       <div class="box text-left">
