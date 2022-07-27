@@ -39,7 +39,7 @@
       <div class="row justify-content-center mb-4">
         <div class="col-sm-12 ">
           <div class="box">
-            <h3 class="text-left">{{$blog->title}}</h3>
+            <h1 class="text-left">{{$blog->title}}</h1>
           </div>
         </div>
       </div>

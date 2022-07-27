@@ -6,13 +6,11 @@
       <div class="box text-left">
         <section>
           <div class="pb-2">
-            <div class="form-group row mb-2">
-              <div class="col-sm-12">
-                <span class="bg-info rounded-pill text-white p-1">
+            <div class="d-flex">
+                <span class="text-nowrap bg-info rounded-pill text-white p-1">
                     {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
                 </span>
-                <h4 class="pl-1">{{$post->title}}</h4>
-              </div>
+                <h1 class="text-wrap pl-1">{{$post->title}}</h1>
             </div>
             <nav>
               <div class="form-group row">
@@ -66,7 +64,7 @@
                 <div class="card-header">{{ __('コメント一覧') }}</div>
                 <div>
                   @if(empty($comments[0]))
-                    <div class="post-text p-2">
+                    <div class="post-text text-secondary p-2">
                       現在コメントはありません
                     </div>
                   @else

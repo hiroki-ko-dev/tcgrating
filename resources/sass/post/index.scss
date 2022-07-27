@@ -9,9 +9,11 @@
   background-color: #82beee;
 }
 
-
-@media screen and (min-width: 600px){
-  .card-text{
-    font-size: 24px;
+h2{
+  color: #007bff;
+  font-size: 24px;
+  @media screen and (max-width: 800px){
+    font-size: 16px;
   }
 }
+

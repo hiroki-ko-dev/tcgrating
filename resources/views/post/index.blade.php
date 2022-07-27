@@ -3,7 +3,7 @@
 @section('title','掲示板')
 
 @section('description')
-  <meta name="description" content="ポケモンカードの掲示板です。雑談・デッキ相談・ルール質問まで幅広い交流を行いましょう。"/>
+  <meta name="description" content="ポケカ(ポケモンカード)の掲示板です。雑談・デッキ相談・ルール質問まで幅広い交流を行いましょう。"/>
 @endsection
 
 @section('addCss')
@@ -15,7 +15,7 @@
   <div class="row justify-content-center m-1 mb-3">
     <div class="col-sm-6 text-center page-header mb-2">
       @if(\App\Models\PostCategory::CATEGORY_FREE == $post_category_id)
-        <h2>{{ __('掲示板') }}</h2>
+        <h1>{{ __('ポケカ掲示板') }}</h1>
       @elseif(\App\Models\PostCategory::CATEGORY_TEAM_WANTED == $post_category_id)
           {{ __('チームメンバー募集掲示板') }}
       @endif
@@ -54,10 +54,10 @@
                 {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
               </span>
             </div>
-            <div class="card-text">
-              {{$post->title}}
-              @if(isset($post->team)){{$post->team->name}}@endif
-            </div>
+              <h2>
+                {{$post->title}}
+                @if(isset($post->team)){{$post->team->name}}@endif
+              </h2>
           </div>
         </div>
       </div>
