@@ -5,25 +5,23 @@
 
     <link rel="stylesheet" href="{{ mix('/css/all.css') }}">
     <link rel="stylesheet" href="{{ mix('/css/scss.css') }}">
-    <script src="{{ mix('/js/all.js') }}"></script>
-    <script src="{{ mix('/js/common/selected_game.js') }}"></script>
 
-    <!-- デフォルト分 -->
-    <!-- Styles -->
-{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-{{--    <!-- Scripts -->--}}
-{{--    <script src="{{ asset('js/app.js') }}" defer></script>--}}
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     {{--datepicerリンク--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="{{ mix('/js/all.js') }}"></script>
+    <script src="{{ mix('/js/common/selected_game.js') }}"></script>
+
 {{--    ajaxでcsrfを使うための行--}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700&amp;display=swap&amp;subset=japanese" >
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+JP:700&amp;display=swap&amp;subset=japanese" >
-    <link rel="manifest" href="images/favicon/manifest.json" crossorigin="use-credentials">
+
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 

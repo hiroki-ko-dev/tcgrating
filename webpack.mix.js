@@ -13,20 +13,11 @@ const mix = require('laravel-mix');
 
 //追加分
 mix.styles([
-    // 'resources/css/index.css',
     'resources/css/bootstrap.min.css'
-    // 'resources/css/common/header.css'
 ], 'public/css/all.css')
     .scripts([
-        'resources/js/bootstrap.js',
+        // 'resources/js/bootstrap.js',
         'resources/js/bootstrap.min.js',
-        // 'resources/js/jquery.home.js',
-        // 'resources/js/jquery.slim.min.js',
-        // 'resources/js/popper.min.js',
-        // 'resources/js/core/approval.js',
-        // 'resources/js/core/runtime.js',
-        // 'resources/js/core/vendor.js',
-        // 'resources/js/pages/index.js',
         'resources/js/common/approval.js',
         'resources/js/common/request.js',
       'resources/js/common/submit.js',
