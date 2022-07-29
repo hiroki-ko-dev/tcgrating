@@ -77,22 +77,40 @@ class TransactionController extends Controller
    */
     public function register(Request $request)
     {
-
         // regex：フィールドが指定された正規表現にマッチすることをバリデートする
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name'  => 'required',
             'post_code' => 'required|regex:/^[0-9]{7}$/',
-            'prefecture' => 'required',
+            'prefecture_id' => 'required',
             'address1' => 'required',
             'address2' => 'required',
             'tel' => 'required|numeric|digits_between:10,20',
-            'email' => 'required|regex:/.+@+./',
-        ]);
+            'email' => 'required|email:rfc,dns',
+            'email_confirmation' => 'required|email:rfc,dns|same:email',
+          ],
+          [
+            'first_name.required' => '苗字を入力してください',
+            'last_name.required' => '名前で入力してください',
+            'post_code.required' => '郵便番号を入力してください',
+            'post_code.regex' => '郵便番号は数字7桁ハイフン無しで入力してください',
+            'prefecture_id.required' => '整数で入力してください',
+            'address1.required' => '整数で入力してください',
+            'address2.required' => '整数で入力してください',
+            'tel.required' => '整数で入力してください',
+            'tel.numeric' => '整数で入力してください',
+            'tel.digits_between' => '郵便番号は数字ハイフン無しで入力してください',
+            'email.required' => 'emailの入力は必須です',
+            'email.email' => '@マークを入れた文字列で入力してください',
+            'email_confirmation.required' => 'emailの入力は必須です',
+            'email_confirmation.email' => '@マークを入れた文字列で入力してください',
+            'email_confirmation.same' => 'メールアドレスと違う文字列が入力されています',
+          ]
+        );
 
         // discordNameがおかしかったらエラーで返す
         if ($validator->fails()){
-          return back()
+          return redirect('/item/transaction/customer')
             ->withErrors($validator)
             ->withInput();
         }

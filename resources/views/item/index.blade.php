@@ -54,6 +54,15 @@
     @endif
   </div>
 
+  <form method="GET" action="/item">
+    <div class="row justify-content-center mb-3">
+      <div class="d-flex w-90">
+        <input type="text" placeholder="商品名で検索" class="form-control" name="search" value="{{ request('search') }}" >
+        <button type="submit" class="w-20 site-color text-white">検索</button>
+      </div>
+    </div>
+  </form>
+
   @if(!empty($items))
     <div class="row">
     @foreach($items as $i => $item)

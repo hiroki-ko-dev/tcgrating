@@ -62,6 +62,9 @@ class ItemRepository
     {
         $query = Item::query();
         $query->where('game_id', $request->game_id);
+        if(isset($request->search)){
+            $query->where('name', 'like', "%$request->search%");
+        }
         return $query;
     }
 
