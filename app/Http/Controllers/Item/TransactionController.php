@@ -168,7 +168,6 @@ class TransactionController extends Controller
         return view('item.transaction.completion');
     }
 
-
     /*単発決済用のコード*/
     public function charge(Request $request)
     {

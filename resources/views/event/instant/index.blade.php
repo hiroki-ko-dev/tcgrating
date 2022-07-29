@@ -13,19 +13,15 @@
 @section('content')
 
 <div class="container">
-  <div class="row justify-content-center m-1 mb-3">
-    <div class="col-12 page-header">
-      <div class="d-flex flex-row mb-3">
-        <div>
+  <div class="row justify-content-center ml-1 mb-3">
+    <div class="col-6 page-header">
           {{ __('1vs1対戦') }}
-        </div>
-        <div class="ml-auto">
-          <btton class="btn site-color text-white rounded-pill btn-outline-secondary text-center"
-                 onclick="location.href='/event/instant/create'">
-            {{ __('新規対戦作成') }}
-          </btton>
-        </div>
-      </div>
+    </div>
+    <div class="col-6">
+      <btton class="btn site-color text-white btn-outline-secondary text-center w-100"
+             onclick="location.href='/event/instant/create'">
+        {{ __('+ 新規対戦作成') }}
+      </btton>
     </div>
   </div>
 
