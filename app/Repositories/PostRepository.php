@@ -59,6 +59,16 @@ class PostRepository
         $query = Post::query();
         $query->where('game_id', $request->game_id);
         $query->where('post_category_id', $request->post_category_id);
+        if(isset($request->sub_category_id) && $request->sub_category_id > 0){
+            $query->where('sub_category_id', $request->sub_category_id);
+        }
+        // 検索ワードでフィルタ
+        if(isset($request->search)){
+            $words = preg_split('/\s|　/', $request->search);
+            foreach ($words as $word){
+                $query->where('title', 'like', "%$word%");
+            }
+        }
         return $query;
     }
 

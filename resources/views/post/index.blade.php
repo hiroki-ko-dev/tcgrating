@@ -42,6 +42,36 @@
     @endif
   </div>
 
+  <form method="GET" action="/post">
+    <input type="hidden" name="post_category_id" value="{{\App\Models\PostCategory::CATEGORY_FREE}}">
+    <div class="row justify-content-center">
+      <fieldset>
+        <input id="sub_category_null" class="radio-inline__input" type="radio" name="sub_category_id" value="0" @if(empty(request('sub_category_id'))) checked="checked" @endif/>
+        <label class="radio-inline__label" for="sub_category_null">
+          全て
+        </label>
+        @foreach(\App\Models\Post::SUB_CATEGORY as $key => $subCategory)
+          <input id="item-{{$key}}" class="radio-inline__input" type="radio" name="sub_category_id" value="{{$key}}" @if($key == request('sub_category_id'))checked="checked"@endif/>
+          <label class="radio-inline__label" for="item-{{$key}}">
+            {{$subCategory}}
+          </label>
+        @endforeach
+      </fieldset>
+    </div>
+
+    <div class="row justify-content-center m-1 mb-2">
+      <div class="col-12">
+        <input type="text" placeholder="検索ワードを入力" class="form-control" name="search" value="{{ request('search') }}" >
+      </div>
+    </div>
+    <div class="row justify-content-end m-1 mb-3">
+      <div class="col-sm-6">
+        <button type="submit" class="w-100 btn btn-primary text-white btn-outline-secondary text-center">検索</button>
+      </div>
+    </div>
+  </form>
+
+
   @if(!empty($posts))
     @foreach($posts as $post)
     <div class="card" onclick="location.href='/post/{{$post->id}}'">
