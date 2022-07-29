@@ -13,17 +13,6 @@
 @section('content')
   <div class="container">
 
-    <div class="row justify-content-center">
-      <!-- フラッシュメッセージ -->
-      @if (session('flash_message'))
-        <div class="col-12">
-          <div class="text-center alert-danger rounded p-3 mb-3">
-            {{ session('flash_message') }}
-          </div>
-        </div>
-      @endif
-    </div>
-
     <div class="row justify-content-center m-1 mb-3">
       <div class="col-12 page-header">
         <div class="d-flex flex-row mb-3">

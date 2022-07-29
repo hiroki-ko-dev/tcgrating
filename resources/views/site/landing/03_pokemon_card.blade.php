@@ -17,15 +17,14 @@
 @section('content')
 
 
-  <div class="container">
-
-    <div class="landing-bg scrollReveal">
-      <img class="img-fluid" src="{{ asset('/images/site/top/003_pokemon_card.jpg') }}" alt="hashimu-icon">
-      <div class="title">
-        <div>リモートポケカの</div><div>レーティング対戦</div>
-      </div>
+  <div class="landing-bg scrollReveal">
+    <img class="img-fluid" src="{{ asset('/images/site/top/003_pokemon_card.jpg') }}" alt="hashimu-icon">
+    <div class="title">
+      <div>リモートポケカの</div><div>レーティング対戦</div>
     </div>
+  </div>
 
+  <div class="container">
     <div class="scrollReveal">
       @include('layouts.common.line')
     </div>

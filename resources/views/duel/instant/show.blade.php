@@ -293,7 +293,6 @@
             </div>
             <div class="col-sm-4"> </div>
           </div>
-          <div class="row"><div class="col-12">対戦URLをオープンチャットに貼り付けて対戦を呼びかけてみましょう!!</div></div>
         </div>
       </div>
     </div>
