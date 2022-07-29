@@ -96,7 +96,9 @@
 
         <div class="row justify-content-center">
           <div class="col-md-12">
-            <button class="btn bg-secondary text-white w-50" onClick="history.back()">戻る</button>
+            <div class="box">
+              <button class="btn bg-secondary text-white w-50" onClick="history.back()">戻る</button>
+            </div>
           </div>
         </div>
       </div>

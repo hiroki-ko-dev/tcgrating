@@ -70,11 +70,11 @@ class TransactionController extends Controller
         return view('item.transaction.customer', compact('user'));
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     * @throws \Exception
-     */
+  /**
+   * @param Request $request
+   * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+   * @throws \Exception
+   */
     public function register(Request $request)
     {
 
@@ -82,18 +82,19 @@ class TransactionController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name'  => 'required',
-            'email' => 'required|regex:/.+@+./',
-            'tel' => 'required|regex:/.+#\d{4}$/|max:255',
-            'post_code' => 'required|regex:/.+#\d{4}$/|max:255',
+            'post_code' => 'required|regex:/^[0-9]{7}$/',
             'prefecture' => 'required',
             'address1' => 'required',
             'address2' => 'required',
+            'tel' => 'required|numeric|digits_between:10,20',
+            'email' => 'required|regex:/.+@+./',
         ]);
 
         // discordNameがおかしかったらエラーで返す
         if ($validator->fails()){
-            $gameUser = $this->userService->getGameUserForApi($request);
-            return $this->apiService->resConversionJson($gameUser);
+          return back()
+            ->withErrors($validator)
+            ->withInput();
         }
 
         if(Auth::check()){
