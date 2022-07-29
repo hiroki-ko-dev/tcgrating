@@ -11,9 +11,9 @@ class Post extends Model
     protected $guarded = [];
 
     //定数の定義
-    const SUB_CATEGORY_FREE = 0;
-    const SUB_CATEGORY_DECK = 1;
-    const SUB_CATEGORY_RULE = 2;
+    const SUB_CATEGORY_FREE = 1;
+    const SUB_CATEGORY_DECK = 2;
+    const SUB_CATEGORY_RULE = 3;
 
     const SUB_CATEGORY = [
         self::SUB_CATEGORY_FREE  => '雑談',
