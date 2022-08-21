@@ -16,6 +16,9 @@ class ItemStockRepository
         if(isset($request->quantity)) {
             $itemStock->quantity = $request->quantity;
         }
+        if(isset($request->cost)) {
+            $itemStock->cost = $request->cost;
+        }
         $itemStock->save();
         return $itemStock;
     }

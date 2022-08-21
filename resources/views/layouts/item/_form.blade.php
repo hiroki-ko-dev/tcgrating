@@ -40,6 +40,7 @@
 <div class="row justify-content-center mb-2">
   <div class="col-12">
     <div class="box">
+      <div class="text-left">売値</div>
       <input type="number" id="price" placeholder="値段を入力" class="form-control w-100 @error('price') is-invalid @enderror" name="price" value="{{ old('price', $item->price) }}" required>
       @error('price')
       <span class="invalid-feedback" role="alert">
@@ -53,6 +54,21 @@
 <div class="row justify-content-center mb-2">
   <div class="col-12">
     <div class="box">
+      <div class="text-left">原価</div>
+      <input type="number" id="cost" placeholder="値段を入力" class="form-control w-100 @error('cost') is-invalid @enderror" name="cost" value="{{ old('cost', 0) }}" required>
+      @error('cost')
+      <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+      </span>
+      @enderror
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center mb-2">
+  <div class="col-12">
+    <div class="box">
+      <div class="text-left">入荷数</div>
       <input type="number" id="quantity" placeholder="在庫数を入力" class="form-control w-100 @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity', $item->quantity) }}" required>
       @error('price')
       <span class="invalid-feedback" role="alert">

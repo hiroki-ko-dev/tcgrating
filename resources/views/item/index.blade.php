@@ -67,14 +67,14 @@
     <div class="row">
     @foreach($items as $i => $item)
       <input type="hidden" id="item_id_{{$item->id}}" name="item_id" value="{{$item->id}}">
-      <div class="col-sm-3 col-6 p-2">
+      <div class="col-sm-3 col-4 p-1">
         <div class="box">
           @if($item->quantity == 0)
             <div class="sold-out">sold out</div>
           @endif
-          <div class="p-1">
+          <div class="name p-1">
             <a href="/item/{{$item->id}}">
-              <span class="item-name">{{$item->name}}</span>
+              <span class="text">{{ Str::limit($item->name, 40, '...') }}</span>
             </a>
           </div>
           <div class="p-1">

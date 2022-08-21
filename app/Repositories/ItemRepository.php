@@ -17,13 +17,16 @@ class ItemRepository
             $item->name = $request->name;
         }
         if(isset($request->body)) {
-            $item->body    = $request->body;
+            $item->body = $request->body;
         }
         if(isset($request->image_url)) {
             $item->image_url = $request->image_url;
         }
         if(isset($request->price)) {
             $item->price = $request->price;
+        }
+        if(isset($request->quantity)) {
+            $item->quantity = $request->quantity;
         }
         if(isset($request->is_released)) {
             $item->is_released = $request->is_released;
@@ -44,9 +47,9 @@ class ItemRepository
      */
     public function update($request)
     {
-        $blog = $this->find($request->id);
+        $item = $this->find($request->item_id);
 
-        return $this->composeSaveClause($blog, $request);
+        return $this->composeSaveClause($item, $request);
     }
 
     /**

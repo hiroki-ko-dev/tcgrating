@@ -76,6 +76,9 @@ class ItemService
             $cart = 'is_put';
         }else{
             $cart = $this->cartRepository->create($request);
+            if($cart->item->quantity < $cart->quantity){
+                throw new \Exception("この商品は在庫切れです");
+            }
         }
 
         return $cart;
@@ -90,6 +93,17 @@ class ItemService
         $transactionUser = $this->transactionUserRepository->create($request);
 
         return $transactionUser;
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    public function saveItem($request)
+    {
+        $item = $this->itemRepository->update($request);
+
+        return $item;
     }
 
     /**
@@ -119,6 +133,7 @@ class ItemService
     /**
      * @param $request
      * @return mixed
+     * @throws \Exception
      */
     public function saveTransactionByCarts($request)
     {
@@ -142,8 +157,16 @@ class ItemService
             $transactionItemRequest->item_id  = $cart->item_id;
             $transactionItemRequest->quantity = $cart->quantity;
             $transactionItemRequest->price = $cart->item->price;
-            $this->transactionItemRepository->create($transactionItemRequest);
+            $transactionItem = $this->transactionItemRepository->create($transactionItemRequest);
             $this->cartRepository->delete($cart->id);
+
+            $itemRequest = new Request();
+            $itemRequest->item_id  = $cart->item_id;
+            if($transactionItem->item->quantity < $transactionItem->quantity){
+                throw new \Exception("商品の在庫切れがあったため取引が完了できませんでした");
+            }
+            $itemRequest->quantity  = $transactionItem->item->quantity - $transactionItem->quantity;
+            $this->saveItem($itemRequest);
         }
         $transactionUser = $this->makeTransactionUser($request);
 
@@ -247,6 +270,12 @@ class ItemService
                 }
             }
         }
+
+        // 在庫切れになっていないか
+        $item = $this->getItem($request->item_id);
+        if($item->quantity < $request->quantity){
+            throw new \Exception("この商品は在庫切れです");
+        }
         // なければsessionの最後にcartsを追加
         $cart = new \App\Models\Cart();
         $cart->id          = 9001 + $i;
@@ -256,10 +285,6 @@ class ItemService
         session(['carts' => $carts]);
 
         return $cart;
-    }
-
-    public function sendTransactionPurchaseMail($transaction){
-
     }
 
 }

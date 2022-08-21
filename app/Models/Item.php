@@ -26,19 +26,19 @@ class Item extends Model
      * @return int
      * 入荷数-購入数を行い、現在の在庫数を出す
      */
-    public function getQuantityAttribute(){
-        if($this->itemStocks){
-            $itemStocks = $this->itemStocks->sum('quantity');
-        }else{
-            $itemStocks = 0;
-        }
-
-        if($this->transactionItems){
-            $transactionItems = $this->transactionItems->sum('quantity');
-        }else{
-            $transactionItems = 0;
-        }
-
-        return $itemStocks - $transactionItems;
-    }
+//    public function getQuantityAttribute(){
+//        if($this->itemStocks){
+//            $itemStocks = $this->itemStocks->sum('quantity');
+//        }else{
+//            $itemStocks = 0;
+//        }
+//
+//        if($this->transactionItems){
+//            $transactionItems = $this->transactionItems->sum('quantity');
+//        }else{
+//            $transactionItems = 0;
+//        }
+//
+//        return $itemStocks - $transactionItems;
+//    }
 }
