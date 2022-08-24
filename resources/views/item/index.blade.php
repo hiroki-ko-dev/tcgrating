@@ -78,9 +78,9 @@
             </a>
           </div>
           <div class="p-1">
-            ¥{{number_format($item->price)}}円
+            ¥{{number_format($item->price)}}円(税込)
           </div>
-          <div class="p-1">
+          <div class="p-1 visible_{{$item->id}}">
             <div>在庫数：{{$item->quantity}}個</div>
           </div>
           <div class="p-1 after_visible_{{$item->id}}">

@@ -73,11 +73,14 @@ class ItemService
         $request->merge(['user_id' => Auth::id()]);
         $carts = $this->getCarts($request);
         if(in_array($request->item_id, $carts->pluck('item_id')->toArray())){
-            $cart = 'is_put';
+            throw new \Exception("この商品はすでにカートに入っています");
         }else{
-            $cart = $this->cartRepository->create($request);
-            if($cart->item->quantity < $cart->quantity){
+            $item = $this->getItem($request->item_id);
+            if($item->quantity < $request->quantity){
                 throw new \Exception("この商品は在庫切れです");
+            }
+            else{
+                $cart = $this->cartRepository->create($request);
             }
         }
 

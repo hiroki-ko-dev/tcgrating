@@ -42,11 +42,14 @@ class TransactionRepository
         if(isset($request->item_id)){
             $query->where('game_id', $request->item_id);
         }
-        if(isset($request->user_id)){
-            $query->where('user_id', $request->user_id);
-        }
         if(isset($request->amount)){
             $query->where('quantity', $request->quantity);
+        }
+        // ユーザーIDで絞る
+        if(isset($request->user_id)){
+            $query->whereHas('transactionUsers', function($q) use($request){
+                return $q->where('user_id',$request->user_id);
+            });
         }
 
         return $query;

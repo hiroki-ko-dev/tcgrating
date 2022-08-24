@@ -66,38 +66,38 @@
         <img class="img-fluid" src="{{ $item->image_url }}" alt="hashimu-icon">
       </div>
       <div class="col-sm-6 p-2">
-        <div class="blog-body">
-          <div type="body" class="text-left">{!! $item->body !!}</div>
+        <div class="row justify-content-center mb-2">
+          <div class="col-4 text-right">値段</div>
+          <div class="col-8">{{number_format($item->price)}}円</div>
+        </div>
+        <div class="row justify-content-center mb-2">
+          <div class="col-4 text-right">在庫</div>
+          <div class="col-8">{{$item->quantity}}個</div>
+        </div>
+        <div class="row justify-content-center mb-2">
+          <div class="col-4 text-right">購入</div>
+          <div class="col-8">
+            <select id="quantity_{{$item->id}}" name="quantity">
+              @for($i=1; $i <= $item->quantity; $i++)
+                <option value="{{$i}}" @if($i == old('quantity',1)) selected @endif>{{$i}}</option>
+              @endfor
+            </select>
+            個
+          </div>
+        </div>
+        <div class="row justify-content-center p-1 mb-2">
+          <div class="text-center">
+            <button type=“submit” id="cart_{{$item->id}}" class="btn cart_btn site-color text-white btn-outline-secondary text-center">カートに追加する</button>
+          </div>
+        </div>
+        <div class="row justify-content-start p-3">
+          <div type="body" class="blog-body text-left">{!! $item->body !!}</div>
         </div>
       </div>
     </div>
 
-    <div class="row justify-content-center mb-4">
-      <div class="col-sm-12">
-        <div class="text-center">{{number_format($item->price)}}円</div>
-      </div>
-    </div>
 
-    <div class="row  text-center mb-4">
-      <div class="col-6">
-          在庫：{{$item->quantity}}個
-      </div>
-      <div class="col-6">
-        購入：
-        <select id="quantity_{{$item->id}}" name="quantity">
-          @for($i=1; $i <= $item->quantity; $i++)
-            <option value="{{$i}}" @if($i == old('quantity',1)) selected @endif>{{$i}}</option>
-          @endfor
-        </select>
-        個
-      </div>
-    </div>
 
-    <div class="row justify-content-center mb-4">
-      <div class="col-sm-12 text-center">
-          <button type=“submit” id="cart_{{$item->id}}" class="btn cart_btn site-color text-white btn-outline-secondary text-center">カートに追加する</button>
-      </div>
-    </div>
   </div>
 
   <div class="box">

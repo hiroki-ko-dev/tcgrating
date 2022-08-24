@@ -48,10 +48,10 @@
                 {{ $cart->item->name }}
               </a>
             </div>
-            <div class="block priceCol align-middle">
-              単価：￥<span class="price">{{ $cart->item->price }}</span>
+            <div class="block priceCol align-middle mb-2">
+              単価：￥<span class="price">{{ $cart->item->price }}</span>(税込)
             </div>
-            <div class="block quantityCol align-middle">
+            <div class="block quantityCol align-middle mb-2">
               個数：
               <select id="quantity_{{$cart->id}}" name="quantity" class="quantity" data-id="{{$cart->id}}">
                 @for($i=1; $i <= $cart->item->quantity; $i++)
@@ -59,17 +59,17 @@
                 @endfor
               </select>
             </div>
-            <div class="block subtotalCol align-middle">
-              小計：￥<span class="subtotal">{{ $cart->item->price * $cart->quantity }}</span>
+            <div class="block subtotalCol align-middle mb-2">
+              小計：￥<span class="subtotal">{{ $cart->item->price * $cart->quantity }}</span>(税込)
             </div>
-            <div class="block deleteCol align-middle">
+            <div class="block deleteCol align-middle mb-2">
               <button class="delete btn bg-secondary text-white" data-id="{{$cart->id}}">削除</button>
             </div>
           </div>
         </div>
       @endforeach
-      <div>
-        <div class="text-right">合計金額：¥<span id="total_price">0</span></div>
+      <div class="p-2">
+        <div class="text-right">合計金額：¥<span id="total_price">0</span>(税込)</div>
       </div>
     </div>
 

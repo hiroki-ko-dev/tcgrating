@@ -62,11 +62,15 @@ class CartController extends Controller
                 $cart = $this->itemService->sessionMakeCart($request);
                 $cart_number = session('carts')->sum('quantity');
             }
-            return $cart_number;
+            $value['type'] = 'success';
+            $value['message'] = '✅カートに入れました';
+            $value['number'] = $cart_number;
         } catch (\Exception $e) {
             report($e);
-            return ['error' => $e->getMessage()];
+            $value['type'] = 'error';
+            $value['message'] = $e->getMessage();
         }
+        return $value;
     }
 
     /**

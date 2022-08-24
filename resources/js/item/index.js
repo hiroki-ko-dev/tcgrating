@@ -16,15 +16,18 @@ $('.cart_btn').on('click', function() {
       },
     })
       // Ajaxリクエストが成功した場合
-      .done((cart_number) => {
-        if(cart_number['error']){
-          alert(cart_number['error']);
-        }else{
-          $('.visible_' + item_id).fadeOut();
-          html = '<div class="user-list">✅カートに入れました</div>';
-          $(".after_visible_" + item_id).append(html); //できあがったテンプレートを user-tableクラスの中に追加
-          $('#cart-number').html('<p>' + cart_number + '<p>').hide().fadeIn(1500);
+      .done((cart) => {
+        let type = cart['type'];
+        let message = cart['message'];
+
+        $('.visible_' + item_id).fadeOut();
+        html = '<div class="user-list">' + message + '</div>';
+        $(".after_visible_" + item_id).append(html); //できあがったテンプレートを user-tableクラスの中に追加
+        if(type === 'success'){
+          let number = cart['number'];
+          $('#cart-number').html('<p>' + number + '<p>').hide().fadeIn(1500);
         }
+
       })
       // Ajaxリクエストが失敗した場合
       .fail((error) => {
