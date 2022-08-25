@@ -1,5 +1,5 @@
 {
-    "/js/app.js": "/js/app.js?id=dd72733a8d9d3b3fc75f",
+    "/js/app.js": "/js/app.js?id=17a5d71197c696eee17c",
     "/js/common/calendar.js": "/js/common/calendar.js?id=498efd8f22dcd03ff204",
     "/js/proxy/proxy.js": "/js/proxy/proxy.js?id=82a6c9748b7dd74c6c48",
     "/js/resume/resume.js": "/js/resume/resume.js?id=666b8f14f9f9c6470bea",
@@ -16,6 +16,7 @@
     "/css/event/index.css": "/css/event/index.css?id=a95888aba475882c0e91",
     "/css/proxy/proxy.css": "/css/proxy/proxy.css?id=fc67c85a01396193245e",
     "/css/site/landing.css": "/css/site/landing.css?id=0cd0f539c96cab541d7f",
+    "/css/item/transaction/index.css": "/css/item/transaction/index.css?id=d59fdc935772949c404d",
     "/css/item/cart/index.css": "/css/item/cart/index.css?id=f4489f46f1aed321466d",
     "/css/item/show.css": "/css/item/show.css?id=6076518ea1bd6fd07a0b",
     "/css/item/index.css": "/css/item/index.css?id=ff24ea89a06d292c7e15",

@@ -70,11 +70,11 @@
           <div class="col-4 text-right">値段</div>
           <div class="col-8">{{number_format($item->price)}}円</div>
         </div>
-        <div class="row justify-content-center mb-2">
+        <div class="row justify-content-center visible_{{$item->id}} mb-2">
           <div class="col-4 text-right">在庫</div>
           <div class="col-8">{{$item->quantity}}個</div>
         </div>
-        <div class="row justify-content-center mb-2">
+        <div class="row justify-content-center visible_{{$item->id}} mb-2">
           <div class="col-4 text-right">購入</div>
           <div class="col-8">
             <select id="quantity_{{$item->id}}" name="quantity">
@@ -85,18 +85,17 @@
             個
           </div>
         </div>
-        <div class="row justify-content-center p-1 mb-2">
+        <div class="row justify-content-center visible_{{$item->id}} p-1 mb-2">
           <div class="text-center">
             <button type=“submit” id="cart_{{$item->id}}" class="btn cart_btn site-color text-white btn-outline-secondary text-center">カートに追加する</button>
           </div>
         </div>
+        <div class="after_visible_{{$item->id}}"></div>
         <div class="row justify-content-start p-3">
           <div type="body" class="blog-body text-left">{!! $item->body !!}</div>
         </div>
       </div>
     </div>
-
-
 
   </div>
 

@@ -17,10 +17,10 @@ class Transaction extends Model
     const SEND_STATUS_AFTER_RETURN = 3;
 
     const SEND_STATUSES = [
-        self::SEND_STATUS_BEFORE_SENDING  => '送付前',
-        self::SEND_STATUS_AFTER_SENDING   => '送付後',
-        self::SEND_STATUS_BEFORE_RETURN   => '返送前',
-        self::SEND_STATUS_AFTER_RETURN    => '返送後',
+        self::SEND_STATUS_BEFORE_SENDING  => '商品送付準備中',
+        self::SEND_STATUS_AFTER_SENDING   => '商品送付済',
+        self::SEND_STATUS_BEFORE_RETURN   => '商品返送前',
+        self::SEND_STATUS_AFTER_RETURN    => '商品返送後',
     ];
 
     public function game(){

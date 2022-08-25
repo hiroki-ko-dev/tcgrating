@@ -63,7 +63,7 @@ class CartController extends Controller
                 $cart_number = session('carts')->sum('quantity');
             }
             $value['type'] = 'success';
-            $value['message'] = '✅カートに入れました';
+            $value['message'] = '✅カートに追加しました';
             $value['number'] = $cart_number;
         } catch (\Exception $e) {
             report($e);

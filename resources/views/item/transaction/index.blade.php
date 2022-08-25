@@ -7,7 +7,7 @@
 @endsection
 
 @section('addCss')
-  <link rel="stylesheet" href="{{ mix('/css/item/index.css') }}">
+  <link rel="stylesheet" href="{{ mix('/css/item/transaction/index.css') }}">
 @endsection
 
 @section('content')
@@ -33,25 +33,41 @@
   </div>
 
   @foreach($transactions as $i => $transaction)
-    <div class="box" onclick="location.href='/item/transaction/{{$transaction->id}}'">
-      <div class="row pt-3 pl-2 pb-3 border-bottom text-left">
-        <div class="col-sm-3">
+    <div class="box mb-5">
+      <div class="row head pl-2 pb-3 text-left">
+        <div class="col-sm-2">
           ID:{{ $transaction->id }}
         </div>
-        <div class="col-sm-3">
-          金額：￥{{ $transaction->price }}
+        <div class="col-sm-4">
+          注文日時：{{ $transaction->created_at }}
         </div>
-        <div class="col-sm-3">
-          送料：￥{{ $transaction->postage }}
+        <div class="col-sm-6">
+          {{ \App\Models\Transaction::SEND_STATUSES[$transaction->send_status] }}
         </div>
-        <div class="col-sm-3">
-          ステータス：{{ $transaction->send_status }}
+      </div>
+      <div class="row content p-3 pl-2  text-left">
+        <div class="col-sm-2">
+          商品金額：￥{{ number_format($transaction->price) }}
+        </div>
+        <div class="col-sm-2">
+          送料：￥{{ number_format($transaction->postage) }}
+        </div>
+        <div class="col-sm-2">
+          合計額：￥{{ number_format($transaction->price + $transaction->postage) }}
+        </div>
+        <div class="col-sm-6">
+          <a href="/item/transaction/{{$transaction->id}}">詳細を見る</a>
         </div>
       </div>
     </div>
   @endforeach
 
   {{$transactions->links('layouts.common.pagination.bootstrap-4')}}
+
+  <div class="row justify-content-center">
+    <button class="btn bg-secondary text-white w-50" onClick="history.back()">戻る</button>
+  </div>
+
 </div>
 
 @endsection
