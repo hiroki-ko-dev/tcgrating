@@ -70,7 +70,11 @@
       <div class="col-sm-3 col-4 p-1">
         <div class="box">
           @if($item->quantity == 0)
-            <div class="sold-out">sold out</div>
+            @if(Auth::user()->role == \App\Models\User::ROLE_ADMIN)
+              <div class="sold-out" onclick="location.href='/item/{{$item->id}}'">sold out</div>
+            @else
+              <div class="sold-out">sold out</div>
+            @endif
           @endif
           <div class="name p-1">
             <a href="/item/{{$item->id}}">

@@ -113,6 +113,21 @@ class ItemService
      * @param $request
      * @return mixed
      */
+    public function saveItemQuantity($request)
+    {
+        $quantity = $this->checkItemQuantity($request);
+
+        $itemRequest = new \stdClass();
+        $itemRequest->item_id = $request->item_id;
+        $itemRequest->quantity = $request->quantity;
+        $item = $this->saveItem($request);
+        return $item;
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
     public function saveCart($request)
     {
         $cart = null;
@@ -253,6 +268,29 @@ class ItemService
     public function destroyCart($cart_id)
     {
         $this->cartRepository->delete($cart_id);
+    }
+
+    /**
+     * @param $request
+     * @return int
+     */
+    public function checkItemQuantity($request)
+    {
+        $item = $this->getItem($request->item_id);
+
+        if($item->itemStocks){
+            $itemStocks = $item->itemStocks->sum('quantity');
+        }else{
+            $itemStocks = 0;
+        }
+
+        if($item->transactionItems){
+            $transactionItems = $item->transactionItems->sum('quantity');
+        }else{
+            $transactionItems = 0;
+        }
+
+        return $itemStocks - $transactionItems;
     }
 
     /**

@@ -18,8 +18,6 @@ class StockController extends Controller
         $this->itemService = $itemService;
     }
 
-
-
     /**
      * @param Request $request
      * @return mixed
@@ -33,7 +31,10 @@ class StockController extends Controller
 
         try {
             $itemStock = DB::transaction(function () use ($request) {
-                return $this->itemService->makeItemStock($request);
+                $itemStock = $this->itemService->makeItemStock($request);
+                $item = $this->itemService->saveItemQuantity($request);
+
+                return $itemStock;
             });
 
             return redirect('/item/' . $itemStock->item->id)->with('flash_message', '在庫を追加しました');
