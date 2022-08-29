@@ -131,7 +131,7 @@
       <div class="box mb-3">
       <div class="row justify-content-center pb-3">
         <div class="col-md-12">
-          <button type="submit" id="payment-form" class="btn bg-primary text-white w-50">購入を決定する</button>
+          <button type="submit" id="payment-form" class="btn bg-primary text-white w-50" onClick="return requestConfirm();">購入を決定する</button>
         </div>
       </div>
 

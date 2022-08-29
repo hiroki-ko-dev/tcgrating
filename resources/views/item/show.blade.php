@@ -106,21 +106,18 @@
       </div>
     </div>
     @if(Auth::check() && Auth::user()->role == \App\Models\User::ROLE_ADMIN)
-      <form method="POST"  id="payment-form" action="/item/stock">
-        @csrf
-          <input type="hidden" name="item_id" value="{{$item->id}}">
+      <div class="row justify-content-center pb-3">
+        <div class="col-md-12">
+          <button type="submit" class="btn bg-primary text-white w-50" onclick="location.href='/item/{{$item->id}}/stock/create'">在庫追加する</button>
+        </div>
+      </div>
 
-          <div class="row justify-content-center pb-3">
-            <div class="col-6">
-              <input type="number" name="quantity" class="form-control">
-            </div>
-          </div>
-          <div class="row justify-content-center pb-3">
-            <div class="col-md-12">
-              <button type="submit" class="btn bg-primary text-white w-50">在庫を追加する</button>
-            </div>
-          </div>
-      </form>
+      <div class="row justify-content-center pb-3">
+        <div class="col-md-12">
+          <button type="submit" class="btn bg-primary text-white w-50" onclick="location.href='/item/{{$item->id}}/edit'">編集する</button>
+        </div>
+      </div>
+
     @endif
   </div>
 

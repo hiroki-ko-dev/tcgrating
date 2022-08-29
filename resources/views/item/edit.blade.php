@@ -27,13 +27,14 @@
 
   <div class="col-md-12">
       <div class="box w-100">
-          <form method="POST" action="/item">
-              @csrf
+          <form method="POST" action="/item/{{$item->id}}">
+            @csrf
+            @method('PUT')
 
-            @include('layouts.item._form', ['item' => new \App\Models\Item()])
+            @include('layouts.item._form')
 
             <div class="row justify-content-center  mb-0">
-              <input type="submit" name="save" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4" value="商品を作成" onClick="return requestConfirm();">
+              <input type="submit" name="save" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4" value="商品を更新" onClick="return requestConfirm();">
             </div>
           </form>
         </div>

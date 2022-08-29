@@ -51,33 +51,35 @@
   </div>
 </div>
 
-<div class="row justify-content-center mb-2">
-  <div class="col-12">
-    <div class="box">
-      <div class="text-left">原価</div>
-      <input type="number" id="cost" placeholder="値段を入力" class="form-control w-100 @error('cost') is-invalid @enderror" name="cost" value="{{ old('cost', 0) }}" required>
-      @error('cost')
-      <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-      </span>
-      @enderror
+@if(empty($item->id))
+  <div class="row justify-content-center mb-2">
+    <div class="col-12">
+      <div class="box">
+        <div class="text-left">原価</div>
+        <input type="number" id="cost" placeholder="値段を入力" class="form-control w-100 @error('cost') is-invalid @enderror" name="cost" value="{{ old('cost', 0) }}" required>
+        @error('cost')
+        <span class="invalid-feedback" role="alert">
+          <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row justify-content-center mb-2">
-  <div class="col-12">
-    <div class="box">
-      <div class="text-left">入荷数</div>
-      <input type="number" id="quantity" placeholder="在庫数を入力" class="form-control w-100 @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity', $item->quantity) }}" required>
-      @error('price')
-      <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-      </span>
-      @enderror
+  <div class="row justify-content-center mb-2">
+    <div class="col-12">
+      <div class="box">
+        <div class="text-left">入荷数</div>
+        <input type="number" id="quantity" placeholder="在庫数を入力" class="form-control w-100 @error('quantity') is-invalid @enderror" name="quantity" value="{{ old('quantity', $item->quantity) }}" required>
+        @error('price')
+        <span class="invalid-feedback" role="alert">
+          <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+      </div>
     </div>
   </div>
-</div>
+@endif
 
 <div class="row justify-content-center mb-2">
   <div class="col-12">
@@ -105,6 +107,3 @@
   </div>
 </div>
 
-<div class="row justify-content-center  mb-0">
-  <input type="submit" name="save" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4" value="商品を作成" onClick="return requestConfirm();">
-</div>

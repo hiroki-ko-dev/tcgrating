@@ -19,10 +19,21 @@ class StockController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return mixed
+     * @param $item_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function store(Request $request)
+    public function create($item_id)
+    {
+        $item = $this->itemService->getItem($item_id);
+        return view('item.stock.create',compact('item'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $item_id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function store(Request $request, $item_id)
     {
         // 選択しているゲームでフィルタ
         if(!Auth::check() || Auth::user()->role <> \App\Models\User::ROLE_ADMIN) {
@@ -30,14 +41,15 @@ class StockController extends Controller
         }
 
         try {
-            $itemStock = DB::transaction(function () use ($request) {
+            $itemStock = DB::transaction(function () use ($request, $item_id) {
+                $request->merge(['item_id' => $item_id]);
                 $itemStock = $this->itemService->makeItemStock($request);
                 $item = $this->itemService->saveItemQuantity($request);
 
                 return $itemStock;
             });
 
-            return redirect('/item/' . $itemStock->item->id)->with('flash_message', '在庫を追加しました');
+            return redirect('/item/' . $item_id)->with('flash_message', '在庫を追加しました');
 
         } catch (\Exception $e) {
             report($e);

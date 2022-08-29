@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use DB;
+use Ramsey\Uuid\Type\Integer;
 
 class ItemController extends Controller
 {
@@ -86,6 +87,29 @@ class ItemController extends Controller
         return view('item.show', compact('item'));
     }
 
+    /**
+     * @param int $item_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function edit($item_id)
+    {
+        $item = $this->itemService->getItem($item_id);
+
+        return view('item.edit', compact('item'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $item_id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request, $item_id)
+    {
+        $request->merge(['item_id' => $item_id]);
+        $item = $this->itemService->saveItem($request);
+
+        return redirect('/item/' . $item->id)->with('flash_message', '商品を更新しました');
+    }
 
     /*単発決済用のコード*/
     public function charge(Request $request)

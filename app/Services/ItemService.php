@@ -119,8 +119,8 @@ class ItemService
 
         $itemRequest = new \stdClass();
         $itemRequest->item_id = $request->item_id;
-        $itemRequest->quantity = $request->quantity;
-        $item = $this->saveItem($request);
+        $itemRequest->quantity = $quantity;
+        $item = $this->saveItem($itemRequest);
         return $item;
     }
 
