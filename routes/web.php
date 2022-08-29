@@ -141,6 +141,7 @@ use Illuminate\Support\Facades\Route;
         'admin' => AdminController::class,
     ]);
     Route::get('/admin_post', 'AdminController@postRequest');
+    Route::get('/admin/item/transaction', 'AdminController@itemTransaction');
 
     //アプリヘルプ
     Route::get('/app/help', function () {return view('app.help');});

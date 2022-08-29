@@ -54,6 +54,19 @@ class TransactionController extends Controller
 
     /**
      * @param Request $request
+     * @param $transaction_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $transaction_id)
+    {
+        $request->merge(['transaction_id' => $transaction_id]);
+        $transaction = $this->itemService->saveTransaction($request);
+
+        return back()->with('flash_message', '更新しました');
+    }
+
+    /**
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function customer()

@@ -147,6 +147,16 @@ class ItemService
         return $cart;
     }
 
+    /**
+     * @param $request
+     * @return mixed|null
+     */
+    public function saveTransaction($request)
+    {
+        $transaction = $this->transactionRepository->update($request);
+        return $transaction;
+    }
+
 
     /**
      * @param $request

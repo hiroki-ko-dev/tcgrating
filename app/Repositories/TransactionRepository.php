@@ -31,8 +31,8 @@ class TransactionRepository
 
     public function update($request)
     {
-        $cart = $this->find($request->cart_id);
-        return $this->composeSaveClause($cart, $request);
+        $transaction = $this->find($request->transaction_id);
+        return $this->composeSaveClause($transaction, $request);
     }
 
 

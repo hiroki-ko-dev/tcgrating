@@ -19,6 +19,10 @@
     @endif
   </div>
 
+  <div class="row justify-content-center pt-3 pb-3">
+    <button type="submit" class="btn bg-primary text-white w-50" onclick="location.href='admin/item/transaction'">商品取引一覧</button>
+  </div>
+
   <div class="row justify-content-center">
     <div class="col-md-12">
       <div class="box">

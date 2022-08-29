@@ -105,7 +105,6 @@ class ItemController extends Controller
      */
     public function update(Request $request, $item_id)
     {
-        $request->merge(['item_id' => $item_id]);
         $item = $this->itemService->saveItem($request);
 
         return redirect('/item/' . $item->id)->with('flash_message', '商品を更新しました');
