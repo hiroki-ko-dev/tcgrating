@@ -451,8 +451,6 @@ class TwitterService
               PHP_EOL .
               'https://hashimu.com/blog/' . $blog->id . PHP_EOL .
               PHP_EOL .
-              $hashTag . PHP_EOL .
-              PHP_EOL .
               $blog->body;
             $discord = Str::limit($content, 140, '...');
 
