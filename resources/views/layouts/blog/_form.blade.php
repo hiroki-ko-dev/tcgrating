@@ -78,6 +78,37 @@
   </div>
 </div>
 
+<div class="row justify-content-center mb-4">
+  <div class="col-12">
+    <div class="box">
+      <div class="form-group row">
+        <div class="col-md-12">
+          <input type="radio" name="is_affiliate" value="0" @if(!old("is_affiliate")) checked @endif>通常記事
+          <input type="radio" name="is_affiliate" value="1" @if(old("is_affiliate")) checked @endif>商品紹介
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center mb-4">
+  <div class="col-12">
+    <div class="box">
+      <div class="box-header text-left">{{ __('アフェリエイトURL') }}</div>
+      <div class="form-group row">
+        <div class="col-md-12">
+          <input type="text" class="form-control w-100 @error('affiliate_url') is-invalid @enderror" name="affiliate_url" value="{{ old('affiliate_url',$blog->affiliate) }}">
+          @error('affiliate_url')
+          <span class="invalid-feedback" role="alert">
+              <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row justify-content-center  mb-0">
   @if(Auth::check())
     <button type="submit" class="btn site-color text-white rounded-pill btn-outline-secondary text-center pl-4 pr-4">

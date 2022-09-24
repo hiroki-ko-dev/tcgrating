@@ -50,6 +50,10 @@
         <div class="col-sm-12">
           <div class="box">
             <div class="blog-body">
+              @if($blog->affiliate_url)
+                <div><a href="{{$blog->affiliate_url}}">商品購入ページはこちら</a></div>
+                <br>
+              @endif
               <div type="body" class="text-left">{!! $blog->body !!}</div>
             </div>
           </div>

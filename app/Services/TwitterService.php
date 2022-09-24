@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use App\Repositories\TwitterRepository;
+use Illuminate\Support\Str;
 
 class TwitterService
 {
@@ -408,6 +409,47 @@ class TwitterService
                     '【ポケカ記事】' . $blog->title . PHP_EOL .
                     PHP_EOL .
                     $link;
+
+            $this->discordPost($discord, $webHook);
+        }
+    }
+
+    /**
+     * @param $blog
+     */
+    public function tweetByAffiliate($blog)
+    {
+        if(config('assets.common.appEnv') == 'production'){
+
+            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
+
+            // 対戦マッチング  によるメール文
+            $content =
+              $blog->title . PHP_EOL .
+              PHP_EOL .
+              $blog->affiliate_url . PHP_EOL .
+              PHP_EOL .
+              $blog->body . PHP_EOL .
+              PHP_EOL .
+              $hashTag;
+            $tweet = Str::limit($content, 135, '...');
+
+            $apiKeys = config('assets.twitter.pokemon');
+            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $apiKeys = config('assets.twitter.pokeka_info');
+            $this->twitterRepository->tweet($apiKeys, $tweet);
+
+            $webHook = config('assets.discord.web_hook.blog');
+            // 対戦マッチング  によるメール文
+            $content =
+              $blog->title . PHP_EOL .
+              PHP_EOL .
+              'https://hashimu.com/blog/' . $blog->id . PHP_EOL .
+              PHP_EOL .
+              $blog->body . PHP_EOL .
+              PHP_EOL .
+              $hashTag;
+            $discord = Str::limit($content, 140, '...');
 
             $this->discordPost($discord, $webHook);
         }
