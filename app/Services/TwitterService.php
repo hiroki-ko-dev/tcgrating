@@ -423,30 +423,32 @@ class TwitterService
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
 
-            // 対戦マッチング  によるメール文
+            // Twitter投稿
             $content =
               $blog->title . PHP_EOL .
               PHP_EOL .
               $blog->affiliate_url . PHP_EOL .
               PHP_EOL .
-              $blog->body . PHP_EOL .
+              htmlentities($blog->body) . PHP_EOL .
               PHP_EOL .
               $hashTag;
             $tweet = Str::limit($content, 135, '...');
 
+            // remotoPokeka
             $apiKeys = config('assets.twitter.pokemon');
             $this->twitterRepository->tweet($apiKeys, $tweet);
+            // pokekaInfo
             $apiKeys = config('assets.twitter.pokeka_info');
             $this->twitterRepository->tweet($apiKeys, $tweet);
 
+            // discord投稿
             $webHook = config('assets.discord.web_hook.blog');
-            // 対戦マッチング  によるメール文
             $content =
               $blog->title . PHP_EOL .
               PHP_EOL .
               'https://hashimu.com/blog/' . $blog->id . PHP_EOL .
               PHP_EOL .
-              $blog->body . PHP_EOL .
+              htmlentities($blog->body) . PHP_EOL .
               PHP_EOL .
               $hashTag;
             $discord = Str::limit($content, 140, '...');
