@@ -40,7 +40,7 @@
       <div class="box-header text-left">{{ __('アフェリエイトURL') }}</div>
       <div class="form-group row">
         <div class="col-md-12">
-          <input type="text" class="form-control w-100 @error('affiliate_url') is-invalid @enderror" name="affiliate_url" value="{{ old('affiliate_url',$blog->affiliate) }}">
+          <input type="text" class="form-control w-100 @error('affiliate_url') is-invalid @enderror" name="affiliate_url" value="{{ old('affiliate_url',$blog->affiliate_url) }}">
           @error('affiliate_url')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>
