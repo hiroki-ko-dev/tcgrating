@@ -452,7 +452,7 @@ class TwitterService
               'https://hashimu.com/blog/' . $blog->id . PHP_EOL .
               PHP_EOL .
               $blog->body;
-            $discord = Str::limit($content, 140, '...');
+            $discord = Str::limit($content, 500, '...');
 
             $this->discordPost($discord, $webHook);
         }
