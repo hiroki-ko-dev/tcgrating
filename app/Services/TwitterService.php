@@ -445,7 +445,7 @@ class TwitterService
             $this->twitterRepository->tweet($apiKeys, $tweet);
 
             // discord投稿
-            $webHook = config('assets.discord.web_hook.blog');
+            $webHook = config('assets.discord.web_hook.affiliate');
             $content =
               $blog->title . PHP_EOL .
               PHP_EOL .
