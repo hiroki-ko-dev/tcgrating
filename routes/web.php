@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/site/how_to_use/instant', function () {return view('site.how_to_use.instant');}); //動画ページを表示
     Route::post('/site/update_selected_game', [App\Http\Controllers\SiteController::class, 'update_selected_game']); //管理人を表示
     Route::get('/site/test', [App\Http\Controllers\SiteController::class, 'test']); //管理人を表示
+    //プライバシーポリシー
+    Route::get('/site/privacy', function () {return view('site.privacy');});
 
     // ランディングページ系
     Route::get('/site/landing/pokemon_card', function () {return view('site.landing.03_pokemon_card');});

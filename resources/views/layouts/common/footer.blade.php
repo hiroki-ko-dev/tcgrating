@@ -6,6 +6,7 @@
             <ul>
                 <li><a href="/site/administrator">管理人について</a></li>
                 <li><a href="/site/inquiry">お問い合わせ</a></li>
+              <li><a href="/site/privacy">プライバシーポリシー</a></li>
             </ul>
             <div class="footer-copyright">Copyright (C) 2021 Hashimu All Rights Reserved.</div>
         </div>
