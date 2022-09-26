@@ -144,7 +144,13 @@ class BlogController extends Controller
         DB::transaction(function () use($request){
             $blog = $this->blogService->saveBlog($request);
             if(!empty($request->is_tweeted)){
-                $this->twitterService->tweetByBlog($blog);
+                if(empty($request->is_affiliate)){
+                    // 通常記事の場合
+                    $this->twitterService->tweetByBlog($blog);
+                }else{
+                    // アフェリエイトだった場合
+                    $this->twitterService->tweetByAffiliate($blog);
+                }
             }
         });
 
