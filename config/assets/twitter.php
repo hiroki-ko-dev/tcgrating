@@ -21,4 +21,11 @@ return [
         'API_ACCESS_TOKEN_SECRET' => env('POKEKA_INFO_API_ACCESS_TOKEN_SECRET'),
     ],
 
+    'best_sale_book' => [
+        'API_KEY'                 => 'ZDnyRSOKoitFmw1ocXvZ72WVv',
+        'API_SECRET'              => 'jmjnoHrt0casvnMh7rFtMKTjM1sJ1GaKployMV02e7DFN5GtkN',
+        'API_ACCESS_TOKEN'        => '1575033361382268928-nvDOXBpd69GRxLu9B73Uh0VU0RikRS',
+        'API_ACCESS_TOKEN_SECRET' => 'Va6VCKaZXSj4rN1tLP1iuDIxbsBftgjuTS8GReUmJs8vb',
+    ],
+
 ];

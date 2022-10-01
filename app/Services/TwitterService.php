@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Repositories\UserRepository;
 use App\Repositories\TwitterRepository;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class TwitterService
@@ -494,6 +495,37 @@ class TwitterService
             }
 
         }
+    }
+
+    /**
+     *
+     */
+    public function tweetBookPromotion()
+    {
+        Log::debug('1');
+
+//        if(config('assets.common.appEnv') == 'production'){
+            $apiKeys = config('assets.twitter.best_sale_book');
+
+            $hashTag = '#本';
+
+            $randKey  =  array_rand(config('assets.tweet.book.promotion'));
+            $tweet  =  config('assets.tweet.book.promotion')[$randKey];
+
+        Log::debug('2');
+
+            // 対戦マッチング  によるメール文
+            $tweet =
+              $tweet .
+              PHP_EOL .
+              $hashTag . PHP_EOL
+            ;
+
+
+        $this->twitterRepository->tweet($apiKeys, $tweet);
+        Log::debug('3');
+
+//        }
     }
 
     /**
