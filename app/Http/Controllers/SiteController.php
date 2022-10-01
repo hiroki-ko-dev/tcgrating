@@ -6,26 +6,31 @@ use Auth;
 use DB;
 
 use App\Services\UserService;
+use App\Services\GoogleService;
+
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
 
-    protected $user_service;
+    protected $userService;
+    protected $googleService;
 
     /**
-     * UserController constructor.
-     * @param UserService $user_service
+     * SiteController constructor.
+     * @param UserService $userService
+     * @param GoogleService $googleService
      */
-    public function __construct(UserService $user_service)
+    public function __construct(UserService $userService,
+                                GoogleService $googleService)
     {
-        $this->user_service  = $user_service;
+        $this->userService = $userService;
+        $this->googleService = $googleService;
     }
 
 
     public function administrator()
     {
-
         return view('site.administrator');
     }
 
@@ -35,7 +40,7 @@ class SiteController extends Controller
         if(Auth::check() == true){
             DB::transaction(function () use($request){
                 $request->merge(['id'=> Auth::id()]);
-                $this->user_service->updateSelectedGameId($request);
+                $this->userService->updateSelectedGameId($request);
             });
         }
 
@@ -59,6 +64,8 @@ class SiteController extends Controller
 
     public function test()
     {
+        $this->googleService->getValue();
+
         $data = array(
             "to"  => "ExponentPushToken[KhlJf8PvNsZ5b9wqDQoIPB]",
             "sound" => 'default',

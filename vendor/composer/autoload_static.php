@@ -859,6 +859,7 @@ class ComposerStaticInitbeaf35961655b9344fa12aa33ef78b8e
         'App\\Services\\BlogService' => __DIR__ . '/../..' . '/app/Services/BlogService.php',
         'App\\Services\\DuelService' => __DIR__ . '/../..' . '/app/Services/DuelService.php',
         'App\\Services\\EventService' => __DIR__ . '/../..' . '/app/Services/EventService.php',
+        'App\\Services\\GoogleService' => __DIR__ . '/../..' . '/app/Services/GoogleService.php',
         'App\\Services\\ItemService' => __DIR__ . '/../..' . '/app/Services/ItemService.php',
         'App\\Services\\OpinionService' => __DIR__ . '/../..' . '/app/Services/OpinionService.php',
         'App\\Services\\PostService' => __DIR__ . '/../..' . '/app/Services/PostService.php',

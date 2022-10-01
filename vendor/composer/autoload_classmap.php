@@ -138,6 +138,7 @@ return array(
     'App\\Services\\BlogService' => $baseDir . '/app/Services/BlogService.php',
     'App\\Services\\DuelService' => $baseDir . '/app/Services/DuelService.php',
     'App\\Services\\EventService' => $baseDir . '/app/Services/EventService.php',
+    'App\\Services\\GoogleService' => $baseDir . '/app/Services/GoogleService.php',
     'App\\Services\\ItemService' => $baseDir . '/app/Services/ItemService.php',
     'App\\Services\\OpinionService' => $baseDir . '/app/Services/OpinionService.php',
     'App\\Services\\PostService' => $baseDir . '/app/Services/PostService.php',

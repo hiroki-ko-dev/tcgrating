@@ -32,12 +32,11 @@ class GoogleService
         // spread sheetに接続することを宣言
         $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
 
-        $sheet_id = config('assets.google.spread_sheet.best_sale_bot');
-        $range = 'A1:H1';
+        $sheet_id = config('assets.google.spread_sheet.best_sale_bot.sheet_id');
+        $range = 'A1:H1000';
         $sheet = new \Google_Service_Sheets($client);
         $response = $sheet->spreadsheets_values->get($sheet_id, $range);
         $values = $response->getValues();
-        dd($values);
 
         return new \Google_Service_Sheets($client);
 
