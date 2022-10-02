@@ -498,21 +498,26 @@ class TwitterService
     }
 
     /**
-     *
+     * @param $spreadSheet
      */
-    public function tweetBookPromotion()
+    public function tweetSpreadSheet($spreadSheet)
     {
-        Log::debug('1');
 
 //        if(config('assets.common.appEnv') == 'production'){
             $apiKeys = config('assets.twitter.best_sale_book');
 
             $hashTag = '#本';
 
-            $randKey  =  array_rand(config('assets.tweet.book.promotion'));
-            $tweet  =  config('assets.tweet.book.promotion')[$randKey];
+            $randKey  =  array_rand($spreadSheet);
 
-        Log::debug('2');
+            $title = $spreadSheet[$randKey][0];
+            $url = $spreadSheet[$randKey][1];
+            $content = $spreadSheet[$randKey][2];
+            $no = $spreadSheet[$randKey][3];
+
+            dd([$title,$url,$content,$no]);
+
+            $tweet  =  $spreadSheet[$randKey];
 
             // 対戦マッチング  によるメール文
             $tweet =
@@ -521,9 +526,7 @@ class TwitterService
               $hashTag . PHP_EOL
             ;
 
-
         $this->twitterRepository->tweet($apiKeys, $tweet);
-        Log::debug('3');
 
 //        }
     }

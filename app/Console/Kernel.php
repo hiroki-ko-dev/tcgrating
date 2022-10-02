@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\TweetPromotion::class,
-        Commands\TweetBookPromotion::class,
+        Commands\TweetSpreadSheet::class,
     ];
 
     /**

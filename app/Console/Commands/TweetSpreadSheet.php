@@ -2,17 +2,18 @@
 
 namespace App\Console\Commands;
 
+use App\Services\GoogleService;
 use App\Services\TwitterService;
 use Illuminate\Console\Command;
 
-class TweetBookPromotion extends Command
+class TweetSpreadSheet extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:tweetBookPromotion';
+    protected $signature = 'command:tweetSpreadSheet';
 
     /**
      * The console command description.
@@ -21,27 +22,30 @@ class TweetBookPromotion extends Command
      */
     protected $description = '本について宣伝ツイートをするバッチ機能';
 
+    protected $googleService;
     protected $twitterService;
 
+
     /**
-     * Create a new command instance.
-     *
+     * TweetSpreadSheet constructor.
+     * @param GoogleService $googleService
      * @param TwitterService $twitterService
      */
-    public function __construct(TwitterService $twitterService)
+    public function __construct(GoogleService $googleService,TwitterService $twitterService)
     {
         parent::__construct();
+        $this->googleService = $googleService;
         $this->twitterService = $twitterService;
     }
 
     /**
-     * Execute the console command.
-     *
      * @return int
+     * @throws \Google\Exception
      */
     public function handle()
     {
-        $this->twitterService->tweetBookPromotion();
+        $spreadSheet = $this->googleService->getValue();
+        $this->twitterService->tweetSpreadSheet($spreadSheet);
         return 0;
     }
 }

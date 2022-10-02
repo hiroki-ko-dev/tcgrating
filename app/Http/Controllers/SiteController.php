@@ -7,6 +7,7 @@ use DB;
 
 use App\Services\UserService;
 use App\Services\GoogleService;
+use App\Services\TwitterService;
 
 use Illuminate\Http\Request;
 
@@ -15,17 +16,21 @@ class SiteController extends Controller
 
     protected $userService;
     protected $googleService;
+    protected $twitterService;
 
     /**
      * SiteController constructor.
      * @param UserService $userService
      * @param GoogleService $googleService
+     * @param TwitterService $twitterService
      */
     public function __construct(UserService $userService,
-                                GoogleService $googleService)
+                                GoogleService $googleService,
+                                TwitterService $twitterService)
     {
         $this->userService = $userService;
         $this->googleService = $googleService;
+        $this->twitterService = $twitterService;
     }
 
 
@@ -64,6 +69,7 @@ class SiteController extends Controller
 
     public function test()
     {
+        $google = $this->googleService->getValue();
         $this->googleService->getValue();
 
         $data = array(

@@ -20,7 +20,10 @@ class GoogleService
         $this->twitterRepository = $twitterRepository;
     }
 
-
+    /**
+     * @return array[]
+     * @throws \Google\Exception
+     */
     public static function getValue() {
 
         // google spread sheetと接続するためのkey
@@ -32,13 +35,15 @@ class GoogleService
         // spread sheetに接続することを宣言
         $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
 
+        // スプレッドシートのIDをセット
         $sheet_id = config('assets.google.spread_sheet.best_sale_bot.sheet_id');
-        $range = 'A1:H1000';
+        // スプレッドシート名とレンジをセット
+        $range = config('assets.google.spread_sheet.sheet_name.yugioh') . '!B3:H100';
         $sheet = new \Google_Service_Sheets($client);
+        // スプレッドシートの値を取得
         $response = $sheet->spreadsheets_values->get($sheet_id, $range);
-        $values = $response->getValues();
 
-        return new \Google_Service_Sheets($client);
+        return $response->getValues();
 
     }
 
