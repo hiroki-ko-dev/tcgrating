@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // 本紹介 & 遊戯王アフェリエイトの宣伝ツイート
+        $schedule->command('command:tweetSpreadSheet')->dailyAt('08:00');
         $schedule->command('command:tweetSpreadSheet')->dailyAt('12:00');
         $schedule->command('command:tweetSpreadSheet')->dailyAt('20:00');
 
