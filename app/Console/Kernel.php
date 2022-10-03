@@ -29,7 +29,9 @@ class Kernel extends ConsoleKernel
         // 本紹介 & 遊戯王アフェリエイトの宣伝ツイート
         $schedule->command('command:tweetSpreadSheet')->dailyAt('08:00');
         $schedule->command('command:tweetSpreadSheet')->dailyAt('12:00');
+        $schedule->command('command:tweetSpreadSheet')->dailyAt('18:00');
         $schedule->command('command:tweetSpreadSheet')->dailyAt('20:00');
+        $schedule->command('command:tweetSpreadSheet')->dailyAt('23:00');
 
         // リモートポケカアカウントの宣伝ツイート
         $schedule->command('command:tweetPromotion')->dailyAt('19:00');

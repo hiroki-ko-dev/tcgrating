@@ -9,5 +9,6 @@ return [
     'sheet_name' => [
         'book' => '書籍',
         'yugioh' => '遊戯王',
+        'pokeka' => 'ポケカ',
     ],
 ];
