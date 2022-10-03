@@ -516,15 +516,15 @@ class TwitterService
 
             // 対戦マッチング  によるメール文
             $tweet =
-              $url . PHP_EOL .
               $title . PHP_EOL .
               PHP_EOL .
               $hashTag . PHP_EOL .
+              $url . PHP_EOL .
               PHP_EOL .
               $content
             ;
 
-            $tweet = Str::limit($tweet, 135, '...');
+            $tweet = Str::limit($tweet, 250, '...');
             $this->twitterRepository->tweet($apiKeys, $tweet);
 
 //        }
