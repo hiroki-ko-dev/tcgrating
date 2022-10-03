@@ -504,7 +504,7 @@ class TwitterService
     public function tweetSpreadSheet($spreadSheet, $apiKeys)
     {
 
-//        if(config('assets.common.appEnv') == 'production'){
+        if(config('assets.common.appEnv') == 'production'){
 
             $randKey  =  array_rand($spreadSheet);
 
@@ -527,7 +527,7 @@ class TwitterService
             $tweet = Str::limit($tweet, 250, '...');
             $this->twitterRepository->tweet($apiKeys, $tweet);
 
-//        }
+        }
     }
 
     /**
