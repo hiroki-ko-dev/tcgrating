@@ -26,6 +26,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        // 本紹介 & 遊戯王アフェリエイトの宣伝ツイート
+        $schedule->command('command:tweetSpreadSheet')->dailyAt('12:00');
+        $schedule->command('command:tweetSpreadSheet')->dailyAt('20:00');
+
+        // リモートポケカアカウントの宣伝ツイート
         $schedule->command('command:tweetPromotion')->dailyAt('19:00');
     }
 

@@ -499,14 +499,13 @@ class TwitterService
 
     /**
      * @param $spreadSheet
+     * @param $apiKeys
+     * @param $hashTag
      */
-    public function tweetSpreadSheet($spreadSheet)
+    public function tweetSpreadSheet($spreadSheet, $apiKeys, $hashTag)
     {
 
 //        if(config('assets.common.appEnv') == 'production'){
-            $apiKeys = config('assets.twitter.best_sale_book');
-
-            $hashTag = '#本';
 
             $randKey  =  array_rand($spreadSheet);
 
@@ -515,18 +514,18 @@ class TwitterService
             $content = $spreadSheet[$randKey][2];
             $no = $spreadSheet[$randKey][3];
 
-            dd([$title,$url,$content,$no]);
-
-            $tweet  =  $spreadSheet[$randKey];
-
             // 対戦マッチング  によるメール文
             $tweet =
-              $tweet .
+              $url . PHP_EOL .
+              $title . PHP_EOL .
               PHP_EOL .
-              $hashTag . PHP_EOL
+              $hashTag . PHP_EOL .
+              PHP_EOL .
+              $content
             ;
 
-        $this->twitterRepository->tweet($apiKeys, $tweet);
+            $tweet = Str::limit($tweet, 135, '...');
+            $this->twitterRepository->tweet($apiKeys, $tweet);
 
 //        }
     }

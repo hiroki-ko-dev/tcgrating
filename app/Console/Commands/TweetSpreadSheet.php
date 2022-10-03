@@ -20,7 +20,7 @@ class TweetSpreadSheet extends Command
      *
      * @var string
      */
-    protected $description = '本について宣伝ツイートをするバッチ機能';
+    protected $description = 'スプレッドシートから読み込んだ内容をツイートをするバッチ機能';
 
     protected $googleService;
     protected $twitterService;
@@ -44,8 +44,18 @@ class TweetSpreadSheet extends Command
      */
     public function handle()
     {
-        $spreadSheet = $this->googleService->getValue();
-        $this->twitterService->tweetSpreadSheet($spreadSheet);
+        $sheetName = config('assets.google.spread_sheet.sheet_name.yugioh');
+        $spreadSheet = $this->googleService->getValue($sheetName);
+        $hashTag = '#遊戯王OCG';
+        $apiKeys = config('assets.twitter.yugioh');
+        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys, $hashTag);
+
+        $sheetName = config('assets.google.spread_sheet.sheet_name.book');
+        $spreadSheet = $this->googleService->getValue($sheetName);
+        $hashTag = '#おすすめ本';
+        $apiKeys = config('assets.twitter.best_sale_book');
+        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys, $hashTag);
+
         return 0;
     }
 }

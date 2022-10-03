@@ -21,10 +21,11 @@ class GoogleService
     }
 
     /**
+     * @param $sheetName
      * @return array[]
      * @throws \Google\Exception
      */
-    public static function getValue() {
+    public static function getValue($sheetName) {
 
         // google spread sheetと接続するためのkey
         $credentials_path = storage_path('app/json/credentials.json');
@@ -38,7 +39,7 @@ class GoogleService
         // スプレッドシートのIDをセット
         $sheet_id = config('assets.google.spread_sheet.best_sale_bot.sheet_id');
         // スプレッドシート名とレンジをセット
-        $range = config('assets.google.spread_sheet.sheet_name.yugioh') . '!B3:H100';
+        $range = $sheetName . '!B3:H100';
         $sheet = new \Google_Service_Sheets($client);
         // スプレッドシートの値を取得
         $response = $sheet->spreadsheets_values->get($sheet_id, $range);
