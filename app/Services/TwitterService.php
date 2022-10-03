@@ -500,9 +500,8 @@ class TwitterService
     /**
      * @param $spreadSheet
      * @param $apiKeys
-     * @param $hashTag
      */
-    public function tweetSpreadSheet($spreadSheet, $apiKeys, $hashTag)
+    public function tweetSpreadSheet($spreadSheet, $apiKeys)
     {
 
 //        if(config('assets.common.appEnv') == 'production'){
@@ -513,6 +512,7 @@ class TwitterService
             $url = $spreadSheet[$randKey][1];
             $content = $spreadSheet[$randKey][2];
             $no = $spreadSheet[$randKey][3];
+            $hashTag = $spreadSheet[$randKey][3];
 
             // 対戦マッチング  によるメール文
             $tweet =

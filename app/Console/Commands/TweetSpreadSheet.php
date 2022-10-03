@@ -46,15 +46,13 @@ class TweetSpreadSheet extends Command
     {
         $sheetName = config('assets.google.spread_sheet.sheet_name.yugioh');
         $spreadSheet = $this->googleService->getValue($sheetName);
-        $hashTag = '#遊戯王OCG';
         $apiKeys = config('assets.twitter.yugioh');
-        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys, $hashTag);
+        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys);
 
         $sheetName = config('assets.google.spread_sheet.sheet_name.book');
         $spreadSheet = $this->googleService->getValue($sheetName);
-        $hashTag = '#おすすめ本';
         $apiKeys = config('assets.twitter.best_sale_book');
-        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys, $hashTag);
+        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys);
 
         return 0;
     }

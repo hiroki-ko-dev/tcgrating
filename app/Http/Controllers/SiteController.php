@@ -69,8 +69,6 @@ class SiteController extends Controller
 
     public function test()
     {
-        $google = $this->googleService->getValue();
-        $this->googleService->getValue();
 
         $data = array(
             "to"  => "ExponentPushToken[KhlJf8PvNsZ5b9wqDQoIPB]",
