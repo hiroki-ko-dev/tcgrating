@@ -13,7 +13,7 @@ class TweetSpreadSheet extends Command
      *
      * @var string
      */
-    protected $signature = 'command:tweetSpreadSheet';
+    protected $signature = 'command:tweetSpreadSheet {type}';
 
     /**
      * The console command description.
@@ -44,20 +44,37 @@ class TweetSpreadSheet extends Command
      */
     public function handle()
     {
-        $sheetName = config('assets.google.spread_sheet.sheet_name.yugioh');
-        $spreadSheet = $this->googleService->getValue($sheetName);
-        $apiKeys = config('assets.twitter.yugioh');
-        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys);
+        $type = $this->argument("type");
 
-        $sheetName = config('assets.google.spread_sheet.sheet_name.book');
-        $spreadSheet = $this->googleService->getValue($sheetName);
-        $apiKeys = config('assets.twitter.best_sale_book');
-        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys);
+        //アフェリエイトツイート
+        if($type == 'affiliate'){
+            $sheetName = config('assets.google.spread_sheet.sheet_name.yugioh');
+            $spreadSheet = $this->googleService->getValue($sheetName);
+            $apiKeys = config('assets.twitter.yugioh');
+            $this->twitterService->tweetSpreadAffiliate($spreadSheet, $apiKeys);
 
-//        $sheetName = config('assets.google.spread_sheet.sheet_name.pokeka');
-//        $spreadSheet = $this->googleService->getValue($sheetName);
-//        $apiKeys = config('assets.twitter.pokeka_sales');
-//        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys);
+            $sheetName = config('assets.google.spread_sheet.sheet_name.book');
+            $spreadSheet = $this->googleService->getValue($sheetName);
+            $apiKeys = config('assets.twitter.best_sale_book');
+            $this->twitterService->tweetSpreadAffiliate($spreadSheet, $apiKeys);
+
+            //        $sheetName = config('assets.google.spread_sheet.sheet_name.pokeka');
+            //        $spreadSheet = $this->googleService->getValue($sheetName);
+            //        $apiKeys = config('assets.twitter.pokeka_sales');
+            //        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys);
+
+        //通常ツイート
+        }elseif ($type == 'normal'){
+            $sheetName = config('assets.google.spread_sheet.sheet_name.yugioh') . '_通常';
+            $spreadSheet = $this->googleService->getValue($sheetName);
+            $apiKeys = config('assets.twitter.yugioh');
+            $this->twitterService->tweetSpreadNormal($spreadSheet, $apiKeys);
+
+//            $sheetName = config('assets.google.spread_sheet.sheet_name.book') . '_通常';
+//            $spreadSheet = $this->googleService->getValue($sheetName);
+//            $apiKeys = config('assets.twitter.best_sale_book');
+//            $this->twitterService->tweetSpreadNormal($spreadSheet, $apiKeys);
+        }
 
         return 0;
     }

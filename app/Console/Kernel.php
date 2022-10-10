@@ -27,11 +27,14 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // 本紹介 & 遊戯王アフェリエイトの宣伝ツイート
-        $schedule->command('command:tweetSpreadSheet')->dailyAt('08:00');
-        $schedule->command('command:tweetSpreadSheet')->dailyAt('12:00');
-        $schedule->command('command:tweetSpreadSheet')->dailyAt('18:00');
-        $schedule->command('command:tweetSpreadSheet')->dailyAt('20:00');
-        $schedule->command('command:tweetSpreadSheet')->dailyAt('23:00');
+        $schedule->command('command:tweetSpreadSheet affiliate')->dailyAt('08:00');
+        $schedule->command('command:tweetSpreadSheet affiliate')->dailyAt('12:00');
+        $schedule->command('command:tweetSpreadSheet affiliate')->dailyAt('18:00');
+        $schedule->command('command:tweetSpreadSheet affiliate')->dailyAt('20:00');
+        $schedule->command('command:tweetSpreadSheet affiliate')->dailyAt('23:00');
+
+        // 通常ツイート
+        $schedule->command('command:tweetSpreadNormal normal')->dailyAt('19:00');
 
         // リモートポケカアカウントの宣伝ツイート
         $schedule->command('command:tweetPromotion')->dailyAt('19:00');
