@@ -70,10 +70,10 @@ class TweetSpreadSheet extends Command
             $apiKeys = config('assets.twitter.yugioh');
             $this->twitterService->tweetSpreadNormal($spreadSheet, $apiKeys);
 
-//            $sheetName = config('assets.google.spread_sheet.sheet_name.book') . '_通常';
-//            $spreadSheet = $this->googleService->getValue($sheetName);
-//            $apiKeys = config('assets.twitter.best_sale_book');
-//            $this->twitterService->tweetSpreadNormal($spreadSheet, $apiKeys);
+            $sheetName = config('assets.google.spread_sheet.sheet_name.book') . '_通常';
+            $spreadSheet = $this->googleService->getValue($sheetName);
+            $apiKeys = config('assets.twitter.best_sale_book');
+            $this->twitterService->tweetSpreadNormal($spreadSheet, $apiKeys);
         }
 
         return 0;
