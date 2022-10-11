@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:tweetSpreadSheet affiliate')->dailyAt('23:00');
 
         // 通常ツイート
-        $schedule->command('command:tweetSpreadNormal normal')->dailyAt('19:00');
+        $schedule->command('command:tweetSpreadSheet normal')->dailyAt('19:00');
 
         // リモートポケカアカウントの宣伝ツイート
         $schedule->command('command:tweetPromotion')->dailyAt('19:00');
