@@ -542,7 +542,6 @@ class TwitterService
 
             $content = $spreadSheet[$randKey][0];
             $no = $spreadSheet[$randKey][1];
-            $hashTag = $spreadSheet[$randKey][2];
 
             // 対戦マッチング  によるメール文
             $tweet = $content;
