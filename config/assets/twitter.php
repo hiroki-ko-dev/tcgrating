@@ -28,11 +28,11 @@ return [
         'API_ACCESS_TOKEN_SECRET' => 'Va6VCKaZXSj4rN1tLP1iuDIxbsBftgjuTS8GReUmJs8vb',
     ],
 
-    'pokeka_sales' => [
-        'API_KEY'                 => 'CeiPtKz5hovkradE79mz1w9Jb',
-        'API_SECRET'              => 'Wjfdh03dfilN9EtMRek8yDMRxieVaffKmXOo1ZeuUVDz4sxCjs',
-        'API_ACCESS_TOKEN'        => '1575010027093434368-exrzrMRQTzLDPzE4RJY0j9JGeh1yrs',
-        'API_ACCESS_TOKEN_SECRET' => 'BbGO7pw8IfcIY8IuYOOLxPgHI0Bc7eaiWT6hqVNmFYVxb',
+    'gravure' => [
+        'API_KEY'                 => '0YkezJ1ZCKmU6xpe7KxkO1Omn',
+        'API_SECRET'              => 'XX1sDXWMEy9wl3MqjtoVcwgleNOpvRcCDPu87BtHQqnXksF3VI',
+        'API_ACCESS_TOKEN'        => '1575010027093434368-DZ7tlsBrhfgZAVKdgg7Tu9cHV39SjS',
+        'API_ACCESS_TOKEN_SECRET' => 'ua5vBfHaeE13tR1AKi6yOMKUI2DElcVz2qvdmsNT5X2mr',
     ],
 
 ];

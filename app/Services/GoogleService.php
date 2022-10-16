@@ -25,7 +25,8 @@ class GoogleService
      * @return array[]
      * @throws \Google\Exception
      */
-    public static function getValue($sheetName) {
+    public static function getValue($sheetName)
+    {
 
         // google spread sheetと接続するためのkey
         $credentials_path = storage_path('app/json/credentials.json');

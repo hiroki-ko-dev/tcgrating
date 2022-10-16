@@ -503,7 +503,7 @@ class TwitterService
      */
     public function tweetSpreadAffiliate($spreadSheet, $apiKeys)
     {
-//        if(config('assets.common.appEnv') == 'production'){
+        if(config('assets.common.appEnv') == 'production'){
 
             $randKey  =  array_rand($spreadSheet);
 
@@ -513,7 +513,7 @@ class TwitterService
             $no = $spreadSheet[$randKey][3];
             $hashTag = $spreadSheet[$randKey][4];
 
-            // 対戦マッチング  によるメール文
+            // メール文
             $tweet =
               $title . PHP_EOL .
               PHP_EOL .
@@ -526,7 +526,7 @@ class TwitterService
             $tweet = Str::limit($tweet, 250, '...');
             $this->twitterRepository->tweet($apiKeys, $tweet);
 
-//        }
+        }
     }
 
     /**
@@ -543,7 +543,6 @@ class TwitterService
             $content = $spreadSheet[$randKey][0];
             $no = $spreadSheet[$randKey][1];
 
-            // 対戦マッチング  によるメール文
             $tweet = $content;
 
             $tweet = Str::limit($tweet, 250, '...');

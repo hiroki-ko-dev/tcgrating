@@ -58,10 +58,10 @@ class TweetSpreadSheet extends Command
             $apiKeys = config('assets.twitter.best_sale_book');
             $this->twitterService->tweetSpreadAffiliate($spreadSheet, $apiKeys);
 
-            //        $sheetName = config('assets.google.spread_sheet.sheet_name.pokeka');
-            //        $spreadSheet = $this->googleService->getValue($sheetName);
-            //        $apiKeys = config('assets.twitter.pokeka_sales');
-            //        $this->twitterService->tweetSpreadSheet($spreadSheet, $apiKeys);
+            $sheetName = config('assets.google.spread_sheet.sheet_name.gravure');
+            $spreadSheet = $this->googleService->getValue($sheetName);
+            $apiKeys = config('assets.twitter.gravure');
+            $this->twitterService->tweetSpreadAffiliate($spreadSheet, $apiKeys);
 
         //通常ツイート
         }elseif ($type == 'normal'){
@@ -73,6 +73,11 @@ class TweetSpreadSheet extends Command
             $sheetName = config('assets.google.spread_sheet.sheet_name.book') . '_通常';
             $spreadSheet = $this->googleService->getValue($sheetName);
             $apiKeys = config('assets.twitter.best_sale_book');
+            $this->twitterService->tweetSpreadNormal($spreadSheet, $apiKeys);
+
+            $sheetName = config('assets.google.spread_sheet.sheet_name.gravure') . '_通常';
+            $spreadSheet = $this->googleService->getValue($sheetName);
+            $apiKeys = config('assets.twitter.gravure');
             $this->twitterService->tweetSpreadNormal($spreadSheet, $apiKeys);
         }
 
