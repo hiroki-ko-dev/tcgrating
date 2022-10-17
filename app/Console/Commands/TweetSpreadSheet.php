@@ -24,7 +24,6 @@ class TweetSpreadSheet extends Command
 
     protected $googleService;
     protected $twitterService;
-    //test aa bb
 
     /**
      * TweetSpreadSheet constructor.
