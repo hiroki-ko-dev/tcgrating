@@ -104,42 +104,29 @@
               {{--対戦者同士の場合--}}
               <div class="row justify-content-center mb-4">
                 <div class="col-md-12">
-                  <div class="box">
-                    <div class="card-body">
-                      <div class="form-group row">
-                        <div class="col-md-12 font-weight-bold">
-                          {{ __('discord指定チャンネルで対戦開始') }}
-                        </div>
+                  <div class="card-body">
+                    <div class="form-group row">
+                      <div class="col-md-12 font-weight-bold">
+                        {{ __('discord指定チャンネルで対戦開始') }}
                       </div>
-                      <div class="form-group row">
-                        <div class="col-md-12">
-                          <form method="POST" action="/duel/instant" onClick="return requestConfirm();">
-                            @csrf
-                            <input type="hidden" name="duel_id" value="{{$duel->id}}">
-                            <div class="d-flex flex-row justify-content-center">
-                              <input type="submit" class="btn result-button btn-primary m-1" name="win" value="　勝利　">
-                              <input type="submit" class="btn result-button btn-secondary m-1" name="draw" value="　ドロー">
-                            </div>
-                            <div class="col-md-12 mt-3">
-                              <span class="font-weight-bold text-danger">{{ __('1試合ごと') }}</span>
-                              <span>{{ __('に') }}</span>
-                              <span class="font-weight-bold text-danger">{{ __('勝者') }}</span>
-                              <span>{{ __('が「勝利」ボタンを押してください') }}</span>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                              {{ __('※ドロー時はどちらが押しても良い') }}
-                            </div>
-                            <span class="justify-content-center pl-0 pr-0">
-                              <input type="submit" class="btn site-color text-center finish-button" name="finish" value="対戦完了">
-                            </span>
-                            <div class="col-md-12 mt-3">
-                              <span class="font-weight-bold text-danger">{{ __('最終試合') }}</span>
-                              <span>{{ __('の') }}</span>
-                              <span class="font-weight-bold text-danger">{{ __('勝者') }}</span>
-                              <span>{{ __('が「対戦完了」を押してください') }}</span>
-                            </div>
-                          </form>
-                        </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <form method="POST" action="/duel/instant" onClick="return requestConfirm();">
+                          @csrf
+                          <input type="hidden" name="duel_id" value="{{$duel->id}}">
+                          <div class="d-flex flex-row justify-content-center">
+                            <input type="submit" class="btn result-button btn-primary m-1" name="win" value="　勝利　">
+                            <input type="submit" class="btn result-button btn-secondary m-1" name="draw" value="　ドロー">
+                          </div>
+                          <div class="col-md-12 mt-3">
+                            <span class="font-weight-bold text-danger">{{ __('勝者') }}</span>
+                            <span>{{ __('が「勝利」ボタンを押してください') }}</span>
+                          </div>
+                          <div class="col-md-12 mb-3">
+                            {{ __('※ドロー時は対戦作成側が押す') }}
+                          </div>
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -165,9 +152,7 @@
           @else
             <div class="row justify-content-center mb-4">
               <div class="col-md-12">
-                <div class="box">
-                  {{ __('対戦が終了しました') }}
-                </div>
+                {{ __('対戦が終了しました') }}
               </div>
             </div>
           @endif

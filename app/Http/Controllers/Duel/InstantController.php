@@ -68,17 +68,13 @@ class InstantController extends Controller
                 $request->merge(['duel'=> $duel]);
                 $request->merge(['event_id'=> $duel->eventDuel->event->id]);
 
-                // 対戦が完了したらステータスを更新
-                if($request->has('finish')){
-                    $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::STATUS_FINISH);
-                    $this->duelService->updateDuelStatus($duel->id, \App\Models\Duel::STATUS_FINISH);
-                    $this->twitterService->tweetByInstantDuelFinish($duel);
-                    $message = '試合が完了しました';
-                }else {
-                    // 対戦完了ボタンでなければレートを更新
-                    $this->duelService->createInstantResult($request);
-                    $message = '連続で試合ができます。対戦完了の場合はボタンを押してください';
-                }
+                // レートを更新
+                $this->duelService->createInstantResult($request);
+                // 対戦完了ステータスを更新
+                $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::STATUS_FINISH);
+                $this->duelService->updateDuelStatus($duel->id, \App\Models\Duel::STATUS_FINISH);
+                $this->twitterService->tweetByInstantDuelFinish($duel);
+                $message = '試合が完了しました';
 
                 return $message;
             });
