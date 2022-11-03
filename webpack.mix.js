@@ -61,6 +61,4 @@ mix.js('resources/js/sample.js', 'public/js/sample').react()
     "jquery": ['$', 'window.jQuery'],
   });
 
-
-
-
+mix.ts('resources/ts/app.tsx', 'public/js/tsx').react();
