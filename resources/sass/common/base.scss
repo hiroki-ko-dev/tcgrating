@@ -29,9 +29,8 @@
 }
 
 .page-header {
-  font-size: 2rem;
+  font-size: 1rem;
   color: black;
-  border-bottom: solid 5px black;
   font-weight: bold;
 }
 
@@ -40,6 +39,8 @@
   background-color: white;
   height: 100%;
   padding: 1rem;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .3);
 }
 
 .box-header{
