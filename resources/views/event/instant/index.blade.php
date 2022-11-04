@@ -59,17 +59,17 @@
             </div>
       </div>
       <div class="row justify-content-center pb-2 align-items-center">
-        <div class="col-sm-5 mobile-left">
+        <div class="col-sm-5 col-12 mobile-left">
           <img src="{{$event->eventUsers[0]->user->twitter_simple_image_url}}"
                class="rounded-circle"
                onerror="this.src='{{ asset('/images/icon/default-account.png') }}'"
           >
           {{$event->eventUsers[0]->user->name }}
         </div>
-        <div class="col-sm-2">
-          <img class='vs pt-2 pb-2' src="/images/duel/vs.jpg">
+        <div class="col-sm-2 col-12 vs">
+          vs
         </div>
-        <div class="col-sm-5 mobile-right">
+        <div class="col-sm-5 col-12 mobile-right">
           @isset($event->eventUsers[1])
             {{$event->eventUsers[1]->user->name }}
             <img src="{{$event->eventUsers[1]->user->twitter_simple_image_url}}"
