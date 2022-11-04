@@ -5,7 +5,7 @@
 <div class="box mb-4">
   <div class="row">
     <div class="col-12 text-left">
-      以下Discordを利用しての対戦になります。未参加の方は参加ボタンを押してください。
+      以下Discordで対戦です。未参加の方は参加してください。
     </div>
   </div>
   <div class="row">
