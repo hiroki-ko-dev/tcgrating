@@ -1,7 +1,7 @@
-<div class="row justify-content-center mb-4">
+<div class="text-left p-1 font-weight-bold">{{ __('Twitterログイン') }}</div>
+<div class="row justify-content-center mb-3">
   <div class="col-12">
     <div class="box">
-      <div class="box-header text-left">{{ __('Twitterログイン') }}</div>
       @if(Auth::check())
         <div class="font-weight-bold text-left">{{ __('Twitterログイン済です。') }}</div>
       @else

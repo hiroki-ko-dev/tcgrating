@@ -1,7 +1,7 @@
-<div class="row justify-content-center mb-4">
+<div class="text-left p-1 font-weight-bold">{{ __('大会日時') }}</div>
+<div class="row justify-content-center mb-3">
   <div class="col-12">
     <div class="box">
-      <div class="box-header text-left">{{ __('イベント日時') }}</div>
       <div class="form-group row">
         <div class="col-sm-4">
           <div class="d-flex flex-row mb-3 align-items-center">
