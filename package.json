@@ -33,6 +33,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "@fullcalendar/daygrid": "^5.11.3",
     "html2canvas": "^1.4.1",
     "vue": "^2.5.16",
     "vue-loader": "^15.2.2",
