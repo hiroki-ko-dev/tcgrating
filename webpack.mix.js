@@ -50,7 +50,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.js('resources/js/proxy/proxy.js', 'public/js/proxy/proxy.js').react();
 mix.js('resources/js/resume/resume.js', 'public/js/resume/resume.js').react();
-mix.js('resources/js/event/calendar.js', 'public/js/event/calendar.js').react();
+// mix.js('resources/js/event/calendar.js', 'public/js/event/calendar.js').react();
 
 mix.js('resources/js/sample.js', 'public/js/sample').react()
   .js('resources/js/common/selected_game.js', 'public/js/common/selected_game.js')
