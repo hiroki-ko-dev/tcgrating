@@ -135,18 +135,14 @@
             @else
               <div class="row justify-content-center mb-4">
                 <div class="col-md-12">
-                  <div class="box">
-                    {{ __('すでに対戦マッチング済です') }}
-                  </div>
+                  {{ __('すでに対戦マッチング済です') }}
                 </div>
               </div>
             @endif
           @elseif($duel->eventDuel->event->status == \App\Models\Event::STATUS_CANCEL)
             <div class="row justify-content-center mb-4">
               <div class="col-md-12">
-                <div class="box">
-                  {{ __('対戦がキャンセルされました') }}
-                </div>
+                {{ __('対戦がキャンセルされました') }}
               </div>
             </div>
           @else

@@ -1,11 +1,10 @@
 @extends('layouts.common.common')
 
+@include('layouts.common.header')
+@include('layouts.common.google')
+
 @section('addCss')
   <link rel="stylesheet" href="{{ mix('/css/resume/resume.css') }}">
-@endsection
-
-@section('addJs')
-  <script src="{{mix('/js/resume/resume.js')}}" defer></script>
 @endsection
 
 @section('content')
@@ -39,6 +38,8 @@
 
 @endsection
 
-@include('layouts.common.header')
-@include('layouts.common.google')
+@section('addJs')
+  <script src="{{mix('/js/resume/resume.js')}}" defer></script>
+@endsection
+
 @include('layouts.common.footer')
