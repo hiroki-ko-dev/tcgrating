@@ -1,10 +1,8 @@
 {
-    "/js/app.js": "/js/app.js?id=98ff5f1530bc899ce0b0",
-    "/js/common/calendar.js": "/js/common/calendar.js?id=498efd8f22dcd03ff204",
-    "/js/proxy/proxy.js": "/js/proxy/proxy.js?id=82a6c9748b7dd74c6c48",
+    "/js/proxy/proxy.js": "/js/proxy/proxy.js?id=6982869235f69ba72f7c",
     "/js/resume/resume.js": "/js/resume/resume.js?id=666b8f14f9f9c6470bea",
+    "/js/event/full-calendar.js": "/js/event/full-calendar.js?id=8465ff73d523d5c41868",
     "/js/sample/sample.js": "/js/sample/sample.js?id=11c396fa1f0cb7fa85f3",
-    "/js/common/selected_game.js": "/js/common/selected_game.js?id=9a707ed8a3bcdc7a8080",
     "/js/duel/duel.js": "/js/duel/duel.js?id=d41d8cd98f00b204e980",
     "/js/item/index.js": "/js/item/index.js?id=6296d8f6b08543d18915",
     "/js/item/cart/index.js": "/js/item/cart/index.js?id=2195743a6faf5deb41d5",
@@ -25,6 +23,6 @@
     "/css/post/index.css": "/css/post/index.css?id=fae237fc06c252561d1f",
     "/css/post/show.css": "/css/post/show.css?id=c7f2f6516eefce2ba32b",
     "/css/all.css": "/css/all.css?id=a15c2ac3234aa8f6064e",
-    "/js/all.js": "/js/all.js?id=36ad21a954ba2b4c320d",
+    "/js/app.js": "/js/app.js?id=c4366c053478e14108d0",
     "/css/sample/sample.css": "/css/sample/sample.css?id=778cdfeeb853c992ae1f"
 }

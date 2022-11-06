@@ -112,15 +112,38 @@ class EventRepository
                     ->find($id);
     }
 
-    public function findAll($request)
+    /**
+     * @param $request
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function composeWhereClause($request)
     {
         $query = Event::query();
-        $query->where('status',$request->status);
-        $query->wherehas('eventUsers', function ($q) use ($request) {
-            $q->where('user_id', $request->user_id);
-        });
+        if(isset($request->status)){
+            $query->where('status',$request->status);
+        }
+        if(isset($request->user_id)) {
+            $query->wherehas('eventUsers', function ($q) use ($request) {
+                $q->where('user_id', $request->user_id);
+            });
+        }
+        if(isset($request->start_date)){
+            $query->where('date','>=',$request->start_date);
+        }
+        if(isset($request->end_date)){
+            $query->where('date','<=',$request->end_date);
+        }
 
-        return $query->get();
+        return $query;
+    }
+
+    /**
+     * @param $request
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function findAll($request)
+    {
+        return $this->composeWhereClause($request)->get();
     }
 
     /**

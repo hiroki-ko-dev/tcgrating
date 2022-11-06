@@ -158,6 +158,33 @@ class EventService
         return $this->eventRepository->findWithUserAndDuel($event_id);
     }
 
+    public function getEventsJsonsForFullCalendar($request)
+    {
+        $events = $this->getEvents($request);
+
+        $json_events = '[';
+        foreach($events as $i => $event){
+            if($i > 0){
+                $json_events = $json_events . ',';
+            }
+
+            // jsonの本体部分を追加
+            $json_events = $json_events .
+              '{' .
+              '"url":"/supplier/bookings/' . $event->id . '/edit",' .
+              '"id":"' . $event->id . '",' .
+              '"title":"' .'大会ID：' . $event->id . '",' .
+              '"date":"' . $event->date . '"' .
+//              '"day":"' . date('d', strtotime($event->date)) . '"' .
+//              '"start":"'.$event->starts_at->format('Y-m-d').'T'.$event->starts_at->format('H:i:s').'",' .
+//              '"end":"'.$event->ends_at->format('Y-m-d').'T'.$event->ends_at->format('H:i:s').'"'.
+              '}';
+        }
+        $json_events = $json_events . ']';
+
+        return $json_events;
+    }
+
     /**
      * イベントカテゴリIDによって一覧を取得
      * @param $request

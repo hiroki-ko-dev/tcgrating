@@ -1,10 +1,6 @@
-
-
-$(function () {
-    //submitのボタン連打防止
-    $('form').on('submit', function () {
-        $(this).css('pointer-events','none');
-    });
+$(document).ready( function() {
+  //submitのボタン連打防止
+  $('form').on('submit', function () {
+    $('button').prop('disabled', true);
+  });
 });
-
-

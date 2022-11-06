@@ -13,8 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <script src="{{ mix('/js/all.js') }}"></script>
-    <script src="{{ mix('/js/common/selected_game.js') }}"></script>
+{{--    <script src="{{ mix('/js/common/_selected_game.js') }}"></script>--}}
 
 {{--    ajaxでcsrfを使うための行--}}
     <meta name="csrf-token" content="{{ csrf_token() }}">

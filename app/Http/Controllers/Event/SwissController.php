@@ -69,7 +69,32 @@ class SwissController extends Controller
 
         $event = new \App\Models\Event();
 
-        return view('event.swiss.create', compact('event'));
+        //大会概要文
+        $event->body =
+          'リモートポケカでスイスドロー大会を開催したいと思います。' . PHP_EOL .
+          '■参加方法' . PHP_EOL .
+          '・参加希望者は下の申し込みボタンから参加申し込みをお願いします。' . PHP_EOL .
+          '・参加者の最終決定は○月○日 ○時ごろDiscordの「大会連絡用」チャンネルに通知予定です' . PHP_EOL .
+          PHP_EOL .
+          '■運営方法' . PHP_EOL .
+          '・参加確定者は本サイト専用Discordの「大会連絡用」チャンネルにてご連絡させていただきます。' . PHP_EOL .
+          PHP_EOL .
+          '■スケジュール' . PHP_EOL .
+          '・○月○日 ○時　参加申し込み締め切り　※Discord大会連絡用チャンネルで詳細連絡' . PHP_EOL .
+          '・○月○日（当日）' . PHP_EOL .
+          '　- 19:00〜19:05 1回線組合せ発表' . PHP_EOL .
+          '　- 19:05〜19:35 1回線' . PHP_EOL .
+          '　- 19:40〜19:45 2回線組合せ発表' . PHP_EOL .
+          '　- 19:45〜20:15 2回線' . PHP_EOL .
+          '　- 20:20〜20:25 3回線組合せ発表' . PHP_EOL .
+          '　- 20:25〜20:55 3回線' . PHP_EOL .
+
+        $request = new Request();
+        $request->merge(['start_date' => Carbon::now()->startOfMonth()->toDateString()]);
+        $request->merge(['end_date' => Carbon::now()->endOfMonth()->toDateString()]);
+        $eventsJson = $this->eventService->getEventsJsonsForFullCalendar($request);
+
+        return view('event.swiss.create', compact('event','eventsJson'));
     }
 
     /**

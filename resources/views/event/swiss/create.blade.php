@@ -36,8 +36,8 @@
 @endsection
 
 @section('addJs')
-  <script src="{{mix('/js/common/calendar.js')}}" defer></script>
-  <script src="{{mix('/js/duel/duel.js')}}" defer></script>
+  <script src="{{mix('/js/event/full-calendar.js')}}" defer></script>
+{{--  <script src="{{mix('/js/duel/duel.js')}}" defer></script>--}}
 @endsection
 
 @include('layouts.common.footer')

@@ -13,15 +13,16 @@ const mix = require('laravel-mix');
 
 //追加分
 mix.styles([
-    'resources/css/bootstrap.min.css'
-], 'public/css/all.css')
+      'resources/css/bootstrap.min.css'
+    ], 'public/css/all.css')
     .scripts([
         // 'resources/js/bootstrap.js',
-        'resources/js/bootstrap.min.js',
-        'resources/js/common/approval.js',
-        'resources/js/common/request.js',
+      'resources/js/bootstrap.min.js',
+      'resources/js/common/approval.js',
+      'resources/js/common/request.js',
       'resources/js/common/submit.js',
-    ],'public/js/all.js')
+      'resources/js/common/textarea.js',
+    ],'public/js/app.js')
     .sourceMaps()
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/common/header.scss', 'public/css/scss.css')
@@ -45,15 +46,13 @@ mix.styles([
 ;
 
 //デフォルト
-mix.js('resources/js/app.js', 'public/js')
-  .js('resources/js/common/calendar.js', 'public/js/common');
 
 mix.js('resources/js/proxy/proxy.js', 'public/js/proxy/proxy.js').react();
 mix.js('resources/js/resume/resume.js', 'public/js/resume/resume.js').react();
-// mix.js('resources/js/event/calendar.js', 'public/js/event/calendar.js').react();
+mix.js('resources/js/event/full-calendar.js', 'public/js/event/full-calendar.js').react();
 
 mix.js('resources/js/sample.js', 'public/js/sample').react()
-  .js('resources/js/common/selected_game.js', 'public/js/common/selected_game.js')
+  // .js('resources/js/common/_selected_game.js', 'public/js/common/selected_game.js')
   .js('resources/js/duel/duel.js', 'public/js/duel/duel.js')
   .js('resources/js/item/index.js', 'public/js/item/index.js')
   .js('resources/js/item/cart/index.js', 'public/js/item/cart/index.js')

@@ -18,21 +18,6 @@
 {{--<script src="{{ asset('js/jquery.home.js')}}"></script>--}}
 {{--<script type="text/javascript" src="{{ asset('js/assets/pages/index.js')}}"></script>--}}
 
-{{--//submitのボタン連打防止--}}
-<script>
-  //カレンダー機能の実装
-  $("#datepicker").datepicker({
-    dateFormat: 'yy/mm/dd',
-  });
-
-$(document).ready( function() {
-  //submitのボタン連打防止
-  $('form').on('submit', function () {
-    $('button').prop('disabled', true);
-  });
-});
-
-
-</script>
+<script src="{{ mix('/js/app.js') }}"></script>
 
 @endsection
