@@ -189,6 +189,7 @@ class SingleController extends Controller
                     }
                     // 対戦完了ボタンでなければレートを更新
                     $event = $this->eventService->updateEventStatus($request->event_id, $request->status);
+                    $duel = $this->duelService->updateDuelStatus($event->eventDuels[0]->duel_id, $request->status);
 
                     if($request->status == \APP\Models\Event::STATUS_READY){
 
