@@ -87,7 +87,7 @@ class SwissController extends Controller
           '　- 19:40〜19:45 2回線組合せ発表' . PHP_EOL .
           '　- 19:45〜20:15 2回線' . PHP_EOL .
           '　- 20:20〜20:25 3回線組合せ発表' . PHP_EOL .
-          '　- 20:25〜20:55 3回線' . PHP_EOL .
+          '　- 20:25〜20:55 3回線';
 
         $request = new Request();
         $request->merge(['start_date' => Carbon::now()->startOfMonth()->toDateString()]);
