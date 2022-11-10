@@ -34,25 +34,39 @@
                   </button>
               </form>
             @else
-              @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REQUEST)
-                すでに申込済です
-                <form method="POST" action="/event/user/{{$event->id}}">
-                  @csrf
-                  @method('PUT')
-                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
-                    <input type="submit" name="reject" class="btn btn-secondary rounded-pill pl-4 pr-4" value="参加をキャンセルする" onClick="return requestConfirm();">
-                </form>
-              @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_APPROVAL)
-                参加確定しました
-              @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REJECT)
+              @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REJECT)
                 キャンセル済です
-              @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_MASTER)
-                主催者モード
+              @else
+                @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REQUEST)
+                  すでに申込済です
+                @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_APPROVAL)
+                  参加確定しました
+                @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_MASTER)
+                  主催者モード
+                @endif
+                  <form method="POST" action="/event/user/{{$event->id}}">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                    <input type="submit" name="reject" class="btn btn-secondary rounded-pill pl-4 pr-4" value="ドロップする" onClick="return requestConfirm();">
+                  </form>
               @endif
             @endif
           {{--参加募集していない場合--}}
           @else
-            参加を締め切っています
+            @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REJECT)
+              キャンセル済です
+            @else
+              既に参加を締め切っています。
+              @if(Auth::check() && $event->eventUsers->where('user_id',Auth::id())->isNotEmpty()))
+                <form method="POST" action="/event/user/{{$event->id}}">
+                  @csrf
+                  @method('PUT')
+                  <input type="hidden" name="user_id" value="{{Auth::id()}}">
+                  <input type="submit" name="reject" class="btn btn-secondary pl-4 pr-4" value="ドロップする" onClick="return requestConfirm();">
+                </form>
+              @endif
+            @endif
           @endif
         </div>
       </div>

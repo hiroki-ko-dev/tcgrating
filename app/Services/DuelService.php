@@ -228,18 +228,19 @@ class DuelService
 
             $otherDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_LOSE ;
             $otherDuelUserResult->ranking = 2 ;
+            $otherDuelUserResult->rating = 0;
 
             // シングルならマイナスにならない救済処置
-            if($request->duel->eventDuel->event->event_category_id == \App\Models\EventCategory::CATEGORY_SINGLE) {
-                // ユーザーのレートが元々0ならマイナスにはしない
-                if ($gameUser->rate <= 0) {
-                    $otherDuelUserResult->rating = 0;
-                } else {
-                    $otherDuelUserResult->rating = -1000;
-                }
-            }else{
-                $otherDuelUserResult->rating = -1000;
-            }
+//            if($request->duel->eventDuel->event->event_category_id == \App\Models\EventCategory::CATEGORY_SINGLE) {
+//                // ユーザーのレートが元々0ならマイナスにはしない
+//                if ($gameUser->rate <= 0) {
+//                    $otherDuelUserResult->rating = 0;
+//                } else {
+//                    $otherDuelUserResult->rating = -1000;
+//                }
+//            }else{
+//                $otherDuelUserResult->rating = -1000;
+//            }
 
         }elseif($request->has('draw')) {
             $myDuelUserResult->result = \App\Models\DuelUserResult::RESULT_DRAW;
@@ -292,7 +293,7 @@ class DuelService
         $room_id = 1;
         // ユーザー取り出しに利用する変数
         $i = 0;
-        while($i+2 <= count($eventUsers)) {
+        while($i + 1 <= count($eventUsers)) {
 
             $duelRequest = new \stdClass();
             $duelRequest->game_id          = $event->game_id;
@@ -306,6 +307,11 @@ class DuelService
             $duelRequest->tool_id          = \App\Models\Duel::TOOL_TCG_DISCORD;
             $duelRequest->tool_code        = config('assets.duel.discordPokemonCardServerUrl');
 
+            //不戦勝の処理
+            if($i + 1 == count($eventUsers)) {
+                $duelRequest->status           = \App\Models\Duel::STATUS_FINISH;
+            }
+
             // duelテーブルの作成
             $duel = $this->duelRepository->create($duelRequest);
             $duelRequest->duel_id = $duel->id;
@@ -317,14 +323,27 @@ class DuelService
             // 対戦一人目の作成
             $duelRequest->user_id = $eventUsers[$i]->user_id;
             $duelRequest->status = \App\Models\DuelUser::STATUS_APPROVAL;
-            $this->duelUserRepository->create($duelRequest);
+            $duelUser = $this->duelUserRepository->create($duelRequest);
+
+            //不戦勝の処理
+            if($i + 1 == count($eventUsers)) {
+                $duelUserResult = new \stdClass();
+                $duelUserResult->duel_user_id = $duelUser->id ;
+                $duelUserResult->games_number = $request->now_match_number;
+                $duelUserResult->result  = \App\Models\DuelUserResult::RESULT_WIN ;
+                $duelUserResult->ranking = 1 ;
+                $duelUserResult->rating  = 1000 ;
+                $this->duelUserResultRepository->create($duelUserResult);
 
             // 対戦二人目の作成
-            $duelRequest->user_id = $eventUsers[$i+1]->user_id;
-            $this->duelUserRepository->create($duelRequest);
+            }else{
+                $duelRequest->user_id = $eventUsers[$i+1]->user_id;
+                $this->duelUserRepository->create($duelRequest);
 
-            $duels[] = $duel;
-            $room_id = $room_id + 1;
+                $duels[] = $duel;
+                $room_id = $room_id + 1;
+            }
+
             $i = $i + 2;
         }
 
@@ -472,33 +491,6 @@ class DuelService
     public function getDuels($request)
     {
         return $this->duelRepository->findAll($request);
-    }
-
-    /**
-     * @param $duels
-     * @return mixed
-     */
-    public function getDuelPassUser($duels)
-    {
-        $userIds = [];
-        foreach($duels as $duel){
-            $userIds = array_merge($userIds, $duel->duelUsers->pluck('user_id')->toArray());
-        }
-
-        $request = new \stdClass();
-        $request->event_id = $duels[0]->eventDuel->event_id;
-        $request->not_user_ids = $userIds;
-        $request->status = \App\Models\EventUser::STATUS_APPROVAL;
-
-        $passEventUser = $this->eventUserRepository->findAll($request);
-
-        if($passEventUser->isEmpty()){
-            $passUser = null;
-        }else{
-            $passUser = $passEventUser[0]->user;
-        }
-
-        return $passUser;
     }
 
     /**

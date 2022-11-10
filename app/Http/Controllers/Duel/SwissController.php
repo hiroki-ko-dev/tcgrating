@@ -62,13 +62,9 @@ class SwissController extends Controller
     public function show(Request $request,$event_id)
     {
         $request->merge(['event_id' => $event_id]);
-
         $duels = $this->duelService->getDuels($request);
 
-        //一回休みの人
-        $passUser = $this->duelService->getDuelPassUser($duels);
-
-        return view('duel.swiss.show',compact('duels','passUser'));
+        return view('duel.swiss.show',compact('duels'));
     }
 
     /**
@@ -94,7 +90,6 @@ class SwissController extends Controller
             report($e);
             return back()->with('flash_message', $e->getMessage());
         }
-
 
         return view('duel.swiss.show',compact('duels'));
     }

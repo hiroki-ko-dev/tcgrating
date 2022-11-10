@@ -4,7 +4,11 @@
     <div class="box">
       <div class="form-group row">
         <div class="col-md-12">
-          <input type="number" id="max_member" class="form-control w-100 @error('max_member') is-invalid @enderror" name="max_member" value="{{ old('max_member', $event->max_member) }}" required autocomplete="max_member" autofocus>
+          <input type="number" id="max_member" class="form-control w-100
+            @error('max_member') is-invalid @enderror" name="max_member"
+                 value="{{ old('max_member', $event->max_member) }}"
+                 required autocomplete="max_member" placeholder="最大40名"
+                 autofocus>
           @error('body')
           <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>

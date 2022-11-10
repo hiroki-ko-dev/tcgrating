@@ -328,6 +328,58 @@ class TwitterService
     }
 
     /**
+     * @param $event
+     * @param $phase
+     */
+    public function tweetBySwissEvent($event, $phase)
+    {
+        $apiKeys = config('assets.twitter.pokemon');
+        $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
+        $webHook = config('assets.discord.web_hook.tournament');
+
+        // 大会が開催された時の告知
+        if($phase == 'create'){
+            $content = 'https://hashimu.com/event/swiss/' . $event->id . PHP_EOL;
+            $content = $content . PHP_EOL .
+              'スイスドロー3戦の大会が開催されます。' . PHP_EOL .
+              'URLから参加申し込みをしましょう！' . PHP_EOL .
+               PHP_EOL .
+              '対戦日時' . date('Y/m/d H:i', strtotime($event->date . ' ' . $event->start_time . ' ~ ' . $event->end_time));
+        }else if($phase == 'attendance'){
+            $content = 'https://hashimu.com/event/swiss/' . $event->id . PHP_EOL;
+            $content = $content . PHP_EOL .
+              '大会の出欠をとります。' . PHP_EOL .
+              '参加者はURLより出席ボタンを押してください。' . PHP_EOL .
+              '開始までに出席ボタンを幼かった場合、参加できませんので注意してください。';
+
+        }else if($phase == 'duel'){
+            $content = 'https://hashimu.com/event/swiss/' . $event->id . '?match_number=1' . PHP_EOL;
+            $content = $content . PHP_EOL .
+              '1回線の組み合わせが決まりました' . PHP_EOL .
+              'URLから1回線の対戦場所を確認し、対戦を始めましょう！' . PHP_EOL .
+              '・対戦相手がそろったら開始' . PHP_EOL .
+              '・5分以内に相手が来なければ不戦勝' . PHP_EOL .
+              '・試合が終わったら勝利者が「勝利」ボタンを押す';
+        }else if($phase == 'finish'){
+            $content = 'https://hashimu.com/event/swiss/' . $event->id . PHP_EOL;
+            $content = $content . PHP_EOL .
+              '大会が終了いたしました。' . PHP_EOL .
+              '結果はURLをご確認ください。' . PHP_EOL .
+              'お疲れ様でした！';
+        }
+
+
+
+
+        if(config('assets.common.appEnv') == 'production'){
+            $this->discordPost($content, $webHook);
+            $content = $content . PHP_EOL . $hashTag;
+            $this->twitterRepository->tweet($apiKeys, $content);
+        }
+    }
+
+
+    /**
      * @param $post
      */
     public function tweetByStorePost($post)

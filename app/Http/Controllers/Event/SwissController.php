@@ -83,11 +83,11 @@ class SwissController extends Controller
           '・○月○日 ○時　参加申し込み締め切り　※Discord大会連絡用チャンネルで詳細連絡' . PHP_EOL .
           '・○月○日（当日）' . PHP_EOL .
           '　- 19:00〜19:05 1回線組合せ発表' . PHP_EOL .
-          '　- 19:05〜19:35 1回線' . PHP_EOL .
-          '　- 19:40〜19:45 2回線組合せ発表' . PHP_EOL .
-          '　- 19:45〜20:15 2回線' . PHP_EOL .
-          '　- 20:20〜20:25 3回線組合せ発表' . PHP_EOL .
-          '　- 20:25〜20:55 3回線';
+          '　- 19:05〜19:45 1回線' . PHP_EOL .
+          '　- 19:45〜19:50 2回線組合せ発表' . PHP_EOL .
+          '　- 19:50〜20:30 2回線' . PHP_EOL .
+          '　- 20:30〜20:35 3回線組合せ発表' . PHP_EOL .
+          '　- 20:35〜21:15 3回線';
 
         $request = new Request();
         $request->merge(['start_date' => Carbon::now()->startOfMonth()->toDateString()]);
@@ -130,6 +130,9 @@ class SwissController extends Controller
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
             $this->userService->makeGameUser($request);
 
+            //twitterに投稿
+            $this->twitterService->tweetBySwissEvent($event, 'create');
+
             return $event;
         });
 
@@ -149,7 +152,12 @@ class SwissController extends Controller
             return redirect('/');
         }
 
-        return view('event.swiss.edit', compact('event'));
+        $request = new Request();
+        $request->merge(['start_date' => Carbon::now()->startOfMonth()->toDateString()]);
+        $request->merge(['end_date' => Carbon::now()->endOfMonth()->toDateString()]);
+        $eventsJson = $this->eventService->getEventsJsonsForFullCalendar($request);
+
+        return view('event.swiss.edit', compact('event', 'eventsJson'));
     }
 
     /**
@@ -171,19 +179,26 @@ class SwissController extends Controller
             }elseif($request->has('ready')) {
                 // 参加締め切りする場合
                 $event = $this->eventService->updateEventStatus($request->event_id, \App\Models\Event::STATUS_READY);
+
             }elseif($request->has('cancel')){
                 // イベントがキャンセルさせる場合
                 $event = $this->eventService->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
+
             }elseif($request->has('finish')) {
                 // イベント完了時
                 $event = $this->eventService->updateSwissEventByFinish($request->event_id);
+                $this->twitterService->tweetBySwissEvent($event, 'finish');
+
             }elseif($request->has('event_add_user')) {
                 // 参加者からの参加申し込み
                 $this->eventService->updateEventUserByUserIdAndGameId($request);
+
             }elseif($request->has('start_attendance')) {
                 // 出席取り開始
                 $request->merge(['attendance' => \App\Models\EventUser::ATTENDANCE_READY]);
                 $eventUsers = $this->eventService->updateSwissEventUsersAttendance($request);
+                $this->twitterService->tweetBySwissEvent($eventUsers[0]->event, 'attendance');
+
             }elseif($request->has('end_attendance')) {
                 // 出席取り終了
                 $request->merge(['attendance' => \App\Models\EventUser::ATTENDANCE_ABSENT]);
