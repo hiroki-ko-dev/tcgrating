@@ -9,8 +9,11 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
-    <div class="col-12 page-header">
+    <div class="col-6">
       {{ __('大会(スイスドロー)') }}
+    </div>
+    <div class="col-6 w-100">
+      <button type="button" class="btn site-color text-white btn-outline-secondary text-center w-100" onclick="location.href='/event/swiss/{{$event->id}}/edit'">編集する</button>
     </div>
   </div>
 
@@ -32,9 +35,9 @@
   @include('layouts.event.show._body')
   @include('layouts.event.show._status')
   @include('layouts.common._twitter_auth')
-  @include('layouts.event.show._join_request')
-  @include('event.swiss.show._duels')
   @include('layouts.event.show._organizer')
+  @include('event.swiss.show._duels')
+  @include('layouts.event.show._join_request')
   @include('layouts.event.show._join_list')
 </div>
 

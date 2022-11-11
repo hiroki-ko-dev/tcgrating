@@ -14,7 +14,7 @@
 
 <div class="container">
   <div class="row justify-content-center ml-1 mb-3">
-    <div class="col-6 page-header">
+    <div class="col-6">
           {{ __('1vs1対戦') }}
     </div>
     <div class="col-6">

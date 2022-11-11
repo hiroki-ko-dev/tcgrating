@@ -33,8 +33,8 @@
                   @can('eventRole',$event->id)
                     <td>
                         <input type="hidden" name="user_id" value="{{$eventUser->user_id}}">
-                        <input type="submit" name="approval" class="btn btn-primary pl-4" value="承認">
-                        <input type="submit" name="reject" class="btn btn-secondary pl-4" value="却下">
+                        <input type="submit" name="approval" class="btn btn-primary m-1" value="承認">
+                        <input type="submit" name="reject" class="btn btn-secondary m-1" value="却下">
                     </td>
                   @endcan
                   <td>

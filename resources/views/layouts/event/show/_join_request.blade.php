@@ -4,10 +4,10 @@
       <div class="form-group row">
         <div class="col-md-12">
          {{--まだ参加募集している場合--}}
-          @if($event->status == \App\Models\Event::STATUS_RECRUIT)
-            @if(!(Auth::check()))
-              参加にはログインが必要です
-            @elseif($event->eventUsers->where('user_id',Auth::id())->isEmpty())
+          @if(!(Auth::check()))
+            参加にはログインが必要です
+          @elseif($event->status == \App\Models\Event::STATUS_RECRUIT)
+            @if($event->eventUsers->where('user_id',Auth::id())->isEmpty())
               <form method="POST" action="/event/user">
                 @csrf
                   <input type="hidden" name="event_id" value="{{$event->id}}">

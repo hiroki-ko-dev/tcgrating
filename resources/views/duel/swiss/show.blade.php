@@ -21,8 +21,14 @@
   </div>
 
   <div class="row justify-content-center mb-3">
-    <div class="col-12 page-header">
+    <div class="col-6">
       第{{$duels[0]->match_number}}試合
+    </div>
+    <div class="col-6">
+      <btton class="btn text-white btn-secondary text-center w-100"
+             onclick="location.href='/event/swiss/{{$duels[0]->eventDuel->event_id}}'">
+        {{ __('大会ページへ戻る') }}
+      </btton>
     </div>
   </div>
 

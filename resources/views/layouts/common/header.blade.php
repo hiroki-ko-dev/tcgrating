@@ -93,7 +93,7 @@
 {{--                    <li><a href="/item">商品購入</a></li>--}}
                     @if(Auth::user()->role == 1)
                       <li><a href="/event/group">グループ対戦</a></li>
-                      <li><a href="/event/swiss">スイスドロー対戦</a></li>
+                      <li><a href="/event/swiss">大会</a></li>
                       <li><a href="/user/{{Auth::id()}}">マイページ</a></li>
                       <li><a href="/item">商品購入</a></li>
                     @endif
