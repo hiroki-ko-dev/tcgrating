@@ -89,6 +89,10 @@ class DuelService
         // 部屋予約中のの対戦があるならそこを避ける
         if($duels->isNotEmpty()){
             $room_ids = $duels->pluck('room_id')->toArray();
+            // room_idがセットされない場合があるので、暫定の例外処理
+            if(empty($room_ids)){
+                $request->merge(['room_id' => 1]); 
+            }
             for($i=1;$i<count($room_ids)+1;$i++){
                 if(in_array($i,$room_ids)){
                     continue;
