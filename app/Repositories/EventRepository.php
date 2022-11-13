@@ -119,8 +119,14 @@ class EventRepository
     public function composeWhereClause($request)
     {
         $query = Event::query();
+        if(isset($request->event_category_id)){
+            $query->where('event_category_id',$request->event_category_id);
+        }
         if(isset($request->status)){
             $query->where('status',$request->status);
+        }
+        if(isset($request->statuses)){
+            $query->whereIn('status',$request->statuses);
         }
         if(isset($request->user_id)) {
             $query->wherehas('eventUsers', function ($q) use ($request) {

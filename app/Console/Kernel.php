@@ -33,6 +33,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:tweetSpreadSheet affiliate')->dailyAt('20:00');
         $schedule->command('command:tweetSpreadSheet affiliate')->dailyAt('23:00');
 
+        // イベントステータスを自動で正常にする
+        $schedule->command('command:eventFinish')->dailyAt('04:00');
+
         // 通常ツイート
         $schedule->command('command:tweetSpreadSheet normal')->dailyAt('19:00');
 

@@ -364,13 +364,13 @@ class DuelService
 
     /**
      * シングル決闘の際のduelステータス系操作
-     * @param $duel_id
-     * @param $next_status
+     * @param $duelId
+     * @param $nextStatus
      * @return \App\Models\Duel
      */
-    public function updateDuelStatus($duel_id, $next_status)
+    public function updateDuelStatus($duelId, $nextStatus)
     {
-        $duel = $this->duelRepository->updateStatus($duel_id, $next_status);
+        $duel = $this->duelRepository->updateStatus($duelId, $nextStatus);
         return $duel;
     }
 

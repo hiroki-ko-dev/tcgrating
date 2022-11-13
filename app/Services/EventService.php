@@ -59,7 +59,7 @@ class EventService
      * イベントステータスの更新
      * @param $event_id
      * @param $status
-     * @return bool
+     * @return mixed
      */
     public function updateEventStatus($event_id, $status)
     {
@@ -69,7 +69,7 @@ class EventService
     /**
      * イベントステータスの更新
      * @param $event_id
-     * @return bool
+     * @return mixed
      */
     public function updateSwissEventByFinish($event_id)
     {
@@ -150,6 +150,12 @@ class EventService
         return $this->eventRepository->find($event_id);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $request
+     * @return array Event
+     */
     public function getEvents($request){
         return $this->eventRepository->findAll($request);
     }
