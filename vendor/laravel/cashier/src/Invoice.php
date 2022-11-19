@@ -116,7 +116,7 @@ class Invoice implements Arrayable, Jsonable, JsonSerializable
     }
 
     /**
-     * Get the total amount that was paid (or will be paid).
+     * Get the total amount minus the starting balance that was paid (or will be paid).
      *
      * @return string
      */
@@ -126,13 +126,33 @@ class Invoice implements Arrayable, Jsonable, JsonSerializable
     }
 
     /**
-     * Get the raw total amount that was paid (or will be paid).
+     * Get the raw total amount minus the starting balance that was paid (or will be paid).
      *
      * @return int
      */
     public function rawTotal()
     {
         return $this->invoice->total + $this->rawStartingBalance();
+    }
+
+    /**
+     * Get the total amount that was paid (or will be paid).
+     *
+     * @return string
+     */
+    public function realTotal()
+    {
+        return $this->formatAmount($this->rawRealTotal());
+    }
+
+    /**
+     * Get the raw total amount that was paid (or will be paid).
+     *
+     * @return int
+     */
+    public function rawRealTotal()
+    {
+        return $this->invoice->total;
     }
 
     /**
@@ -143,6 +163,26 @@ class Invoice implements Arrayable, Jsonable, JsonSerializable
     public function subtotal()
     {
         return $this->formatAmount($this->invoice->subtotal);
+    }
+
+    /**
+     * Get the amount due for the invoice.
+     *
+     * @return string
+     */
+    public function amountDue()
+    {
+        return $this->formatAmount($this->rawAmountDue());
+    }
+
+    /**
+     * Get the raw amount due for the invoice.
+     *
+     * @return int
+     */
+    public function rawAmountDue()
+    {
+        return $this->invoice->amount_due ?? 0;
     }
 
     /**
@@ -173,6 +213,60 @@ class Invoice implements Arrayable, Jsonable, JsonSerializable
     public function rawStartingBalance()
     {
         return $this->invoice->starting_balance ?? 0;
+    }
+
+    /**
+     * Determine if the account had an ending balance.
+     *
+     * @return bool
+     */
+    public function hasEndingBalance()
+    {
+        return ! is_null($this->invoice->ending_balance);
+    }
+
+    /**
+     * Get the ending balance for the invoice.
+     *
+     * @return string
+     */
+    public function endingBalance()
+    {
+        return $this->formatAmount($this->rawEndingBalance());
+    }
+
+    /**
+     * Get the raw ending balance for the invoice.
+     *
+     * @return int
+     */
+    public function rawEndingBalance()
+    {
+        return $this->invoice->ending_balance ?? 0;
+    }
+
+    /**
+     * Get the applied balance for the invoice.
+     *
+     * @return string
+     */
+    public function appliedBalance()
+    {
+        return $this->formatAmount($this->rawAppliedBalance());
+    }
+
+    /**
+     * Get the raw ending balance for the invoice.
+     *
+     * @return int
+     */
+    public function rawAppliedBalance()
+    {
+        if (! $this->hasEndingBalance()) {
+            return 0;
+        }
+
+        return $this->rawStartingBalance() - $this->rawEndingBalance();
     }
 
     /**
@@ -341,6 +435,26 @@ class Invoice implements Arrayable, Jsonable, JsonSerializable
     }
 
     /**
+     * Determine if the invoice will be charged automatically.
+     *
+     * @return bool
+     */
+    public function chargesAutomatically()
+    {
+        return $this->invoice->collection_method === StripeInvoice::COLLECTION_METHOD_CHARGE_AUTOMATICALLY;
+    }
+
+    /**
+     * Determine if the invoice will be be sent by email.
+     *
+     * @return bool
+     */
+    public function sendsInvoice()
+    {
+        return $this->invoice->collection_method === StripeInvoice::COLLECTION_METHOD_SEND_INVOICE;
+    }
+
+    /**
      * Get all of the "invoice item" line items.
      *
      * @return \Laravel\Cashier\InvoiceLineItem[]
@@ -384,6 +498,52 @@ class Invoice implements Arrayable, Jsonable, JsonSerializable
     }
 
     /**
+     * Add an invoice item to this invoice.
+     *
+     * @param  string  $description
+     * @param  int  $amount
+     * @param  array  $options
+     * @return \Stripe\InvoiceItem
+     */
+    public function tab($description, $amount, array $options = [])
+    {
+        $item = $this->owner()->tab($description, $amount, array_merge($options, ['invoice' => $this->invoice->id]));
+
+        $this->refresh();
+
+        return $item;
+    }
+
+    /**
+     * Add an invoice item for a specific Price ID to this invoice.
+     *
+     * @param  string  $price
+     * @param  int  $quantity
+     * @param  array  $options
+     * @return \Stripe\InvoiceItem
+     */
+    public function tabPrice($price, $quantity = 1, array $options = [])
+    {
+        $item = $this->owner()->tabPrice($price, $quantity, array_merge($options, ['invoice' => $this->invoice->id]));
+
+        $this->refresh();
+
+        return $item;
+    }
+
+    /**
+     * Refresh the invoice.
+     *
+     * @return $this
+     */
+    public function refresh()
+    {
+        $this->invoice = $this->invoice->refresh();
+
+        return $this;
+    }
+
+    /**
      * Refresh the invoice with expanded objects.
      *
      * @return void
@@ -403,12 +563,12 @@ class Invoice implements Arrayable, Jsonable, JsonSerializable
         ];
 
         if ($this->invoice->id) {
-            $this->invoice = Cashier::stripe()->invoices->retrieve($this->invoice->id, [
+            $this->invoice = $this->owner->stripe()->invoices->retrieve($this->invoice->id, [
                 'expand' => $expand,
             ]);
         } else {
             // If no invoice ID is present then assume this is the customer's upcoming invoice...
-            $this->invoice = Cashier::stripe()->invoices->upcoming(array_merge($this->refreshData, [
+            $this->invoice = $this->owner->stripe()->invoices->upcoming(array_merge($this->refreshData, [
                 'customer' => $this->owner->stripe_id,
                 'expand' => $expand,
             ]));

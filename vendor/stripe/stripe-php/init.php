@@ -2,6 +2,8 @@
 
 // File generated from our OpenAPI spec
 
+require __DIR__ . '/lib/Util/ApiVersion.php';
+
 // Stripe singleton
 require __DIR__ . '/lib/Stripe.php';
 
@@ -55,6 +57,7 @@ require __DIR__ . '/lib/ApiOperations/NestedResource.php';
 require __DIR__ . '/lib/ApiOperations/Request.php';
 require __DIR__ . '/lib/ApiOperations/Retrieve.php';
 require __DIR__ . '/lib/ApiOperations/Search.php';
+require __DIR__ . '/lib/ApiOperations/SingletonRetrieve.php';
 require __DIR__ . '/lib/ApiOperations/Update.php';
 
 // Plumbing
@@ -77,7 +80,6 @@ require __DIR__ . '/lib/StripeClient.php';
 // Stripe API Resources
 require __DIR__ . '/lib/Account.php';
 require __DIR__ . '/lib/AccountLink.php';
-require __DIR__ . '/lib/AlipayAccount.php';
 require __DIR__ . '/lib/ApplePayDomain.php';
 require __DIR__ . '/lib/ApplicationFee.php';
 require __DIR__ . '/lib/ApplicationFeeRefund.php';
@@ -87,8 +89,6 @@ require __DIR__ . '/lib/BalanceTransaction.php';
 require __DIR__ . '/lib/BankAccount.php';
 require __DIR__ . '/lib/BillingPortal/Configuration.php';
 require __DIR__ . '/lib/BillingPortal/Session.php';
-require __DIR__ . '/lib/BitcoinReceiver.php';
-require __DIR__ . '/lib/BitcoinTransaction.php';
 require __DIR__ . '/lib/Capability.php';
 require __DIR__ . '/lib/Card.php';
 require __DIR__ . '/lib/CashBalance.php';
@@ -101,6 +101,7 @@ require __DIR__ . '/lib/CreditNote.php';
 require __DIR__ . '/lib/CreditNoteLineItem.php';
 require __DIR__ . '/lib/Customer.php';
 require __DIR__ . '/lib/CustomerBalanceTransaction.php';
+require __DIR__ . '/lib/CustomerCashBalanceTransaction.php';
 require __DIR__ . '/lib/Discount.php';
 require __DIR__ . '/lib/Dispute.php';
 require __DIR__ . '/lib/EphemeralKey.php';
@@ -142,8 +143,6 @@ require __DIR__ . '/lib/Quote.php';
 require __DIR__ . '/lib/Radar/EarlyFraudWarning.php';
 require __DIR__ . '/lib/Radar/ValueList.php';
 require __DIR__ . '/lib/Radar/ValueListItem.php';
-require __DIR__ . '/lib/Recipient.php';
-require __DIR__ . '/lib/RecipientTransfer.php';
 require __DIR__ . '/lib/Refund.php';
 require __DIR__ . '/lib/Reporting/ReportRun.php';
 require __DIR__ . '/lib/Reporting/ReportType.php';
@@ -167,7 +166,6 @@ require __DIR__ . '/lib/Terminal/ConnectionToken.php';
 require __DIR__ . '/lib/Terminal/Location.php';
 require __DIR__ . '/lib/Terminal/Reader.php';
 require __DIR__ . '/lib/TestHelpers/TestClock.php';
-require __DIR__ . '/lib/ThreeDSecure.php';
 require __DIR__ . '/lib/Token.php';
 require __DIR__ . '/lib/Topup.php';
 require __DIR__ . '/lib/Transfer.php';
@@ -254,6 +252,7 @@ require __DIR__ . '/lib/Service/Terminal/ConnectionTokenService.php';
 require __DIR__ . '/lib/Service/Terminal/LocationService.php';
 require __DIR__ . '/lib/Service/Terminal/ReaderService.php';
 require __DIR__ . '/lib/Service/TestHelpers/CustomerService.php';
+require __DIR__ . '/lib/Service/TestHelpers/Issuing/CardService.php';
 require __DIR__ . '/lib/Service/TestHelpers/RefundService.php';
 require __DIR__ . '/lib/Service/TestHelpers/Terminal/ReaderService.php';
 require __DIR__ . '/lib/Service/TestHelpers/TestClockService.php';
@@ -289,6 +288,7 @@ require __DIR__ . '/lib/Service/Radar/RadarServiceFactory.php';
 require __DIR__ . '/lib/Service/Reporting/ReportingServiceFactory.php';
 require __DIR__ . '/lib/Service/Sigma/SigmaServiceFactory.php';
 require __DIR__ . '/lib/Service/Terminal/TerminalServiceFactory.php';
+require __DIR__ . '/lib/Service/TestHelpers/Issuing/IssuingServiceFactory.php';
 require __DIR__ . '/lib/Service/TestHelpers/Terminal/TerminalServiceFactory.php';
 require __DIR__ . '/lib/Service/TestHelpers/TestHelpersServiceFactory.php';
 require __DIR__ . '/lib/Service/TestHelpers/Treasury/TreasuryServiceFactory.php';

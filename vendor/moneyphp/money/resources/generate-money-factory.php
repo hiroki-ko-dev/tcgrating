@@ -3,24 +3,16 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use Money\Currencies;
-use Money\Currency;
 
-(static function (): void {
-    $buffer = <<<'PHP'
+$buffer = <<<PHP
 <?php
 
-declare(strict_types=1);
-
 namespace Money;
-
-use InvalidArgumentException;
 
 /**
  * This is a generated file. Do not edit it manually!
  *
 PHPDOC
- *
- * @psalm-immutable
  */
 trait MoneyFactory
 {
@@ -28,40 +20,42 @@ trait MoneyFactory
      * Convenience factory method for a Money object.
      *
      * <code>
-     * $fiveDollar = Money::USD(500);
+     * \$fiveDollar = Money::USD(500);
      * </code>
      *
-     * @param string $method
-     * @param array  $arguments
-     * @psalm-param empty $arguments
+     * @param string \$method
+     * @param array  \$arguments
      *
-     * @throws InvalidArgumentException If amount is not integer(ish).
+     * @return Money
      *
-     * @psalm-pure
+     * @throws \InvalidArgumentException If amount is not integer(ish)
      */
-    public static function __callStatic(string $method, array $arguments): Money
+    public static function __callStatic(\$method, \$arguments)
     {
-        return new Money($arguments[0], new Currency($method));
+        return new Money(\$arguments[0], new Currency(\$method));
     }
 }
 
 PHP;
 
-    $methodBuffer = '';
+$methodBuffer = '';
 
-    $currencies = iterator_to_array(new Currencies\AggregateCurrencies([
-        new Currencies\ISOCurrencies(),
-        new Currencies\BitcoinCurrencies(),
-    ]));
+$currencies = new Currencies\AggregateCurrencies([
+    new Currencies\ISOCurrencies(),
+    new Currencies\BitcoinCurrencies(),
+]);
 
-    usort($currencies, static fn (Currency $a, Currency $b): int => strcmp($a->getCode(), $b->getCode()));
+$currencies = iterator_to_array($currencies);
 
-    /** @var Currency[] $currencies */
-    foreach ($currencies as $currency) {
-        $methodBuffer .= sprintf(" * @method static Money %s(numeric-string|int \$amount)\n", $currency->getCode());
-    }
+usort($currencies, function (\Money\Currency $a, \Money\Currency $b) {
+    return strcmp($a->getCode(), $b->getCode());
+});
 
-    $buffer = str_replace('PHPDOC', rtrim($methodBuffer), $buffer);
+/** @var \Money\Currency[] $currencies */
+foreach ($currencies as $currency) {
+    $methodBuffer .= sprintf(" * @method static Money %s(string|int \$amount)\n", $currency->getCode());
+}
 
-    file_put_contents(__DIR__.'/../src/MoneyFactory.php', $buffer);
-})();
+$buffer = str_replace('PHPDOC', rtrim($methodBuffer), $buffer);
+
+file_put_contents(__DIR__.'/../src/MoneyFactory.php', $buffer);

@@ -9,6 +9,11 @@ namespace Stripe;
  * been created but not yet refunded. Funds will be refunded to the credit or debit
  * card that was originally charged.
  *
+ * Stripe Tax users with recurring payments and invoices can create <a
+ * href="https://stripe.com/docs/api/credit_notes">Credit Notes</a>, which reduce
+ * overall tax liability because tax is correctly recalculated and apportioned to
+ * the related invoice.
+ *
  * Related guide: <a href="https://stripe.com/docs/refunds">Refunds</a>.
  *
  * @property string $id Unique identifier for the object.
@@ -52,12 +57,8 @@ class Refund extends ApiResource
     const STATUS_CANCELED = 'canceled';
     const STATUS_FAILED = 'failed';
     const STATUS_PENDING = 'pending';
+    const STATUS_REQUIRES_ACTION = 'requires_action';
     const STATUS_SUCCEEDED = 'succeeded';
-
-    /**
-     * @deprecated use FAILURE_REASON_EXPIRED_OR_CANCELED_CARD instead
-     */
-    const FAILURE_REASON = 'expired_or_canceled_card';
 
     /**
      * @param null|array $params
