@@ -11,13 +11,11 @@
 
 namespace Symfony\Component\HttpClient\Response;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\Chunk\DataChunk;
 use Symfony\Component\HttpClient\Chunk\ErrorChunk;
 use Symfony\Component\HttpClient\Chunk\FirstChunk;
 use Symfony\Component\HttpClient\Chunk\LastChunk;
 use Symfony\Component\HttpClient\Exception\TransportException;
-use Symfony\Component\HttpClient\Internal\Canary;
 use Symfony\Component\HttpClient\Internal\ClientState;
 
 /**
@@ -29,7 +27,7 @@ use Symfony\Component\HttpClient\Internal\ClientState;
  */
 trait TransportResponseTrait
 {
-    private Canary $canary;
+    private $canary;
     private array $headers = [];
     private array $info = [
         'response_headers' => [],
@@ -42,9 +40,9 @@ trait TransportResponseTrait
     private $handle;
     private int|string $id;
     private ?float $timeout = 0;
-    private \InflateContext|bool|null $inflate = null;
+    private $inflate = null;
     private ?array $finalInfo = null;
-    private ?LoggerInterface $logger = null;
+    private $logger = null;
 
     /**
      * {@inheritdoc}
@@ -131,7 +129,7 @@ trait TransportResponseTrait
     /**
      * Ensures the request is always sent and that the response code was checked.
      */
-    private function doDestruct(): void
+    private function doDestruct()
     {
         $this->shouldBuffer = true;
 
@@ -191,7 +189,7 @@ trait TransportResponseTrait
                         continue;
                     } elseif ($elapsedTimeout >= $timeoutMax) {
                         $multi->handlesActivity[$j] = [new ErrorChunk($response->offset, sprintf('Idle timeout reached for "%s".', $response->getInfo('url')))];
-                        $multi->lastTimeout ??= $lastActivity;
+                        $multi->lastTimeout ?? $multi->lastTimeout = $lastActivity;
                     } else {
                         continue;
                     }

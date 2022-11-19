@@ -25,9 +25,9 @@ class StreamWrapper
     /** @var resource|null */
     public $context;
 
-    private HttpClientInterface|ResponseInterface $client;
+    private $client;
 
-    private ResponseInterface $response;
+    private $response;
 
     /** @var resource|string|null */
     private $content;
@@ -116,7 +116,7 @@ class StreamWrapper
         return false;
     }
 
-    public function stream_read(int $count): string|false
+    public function stream_read(int $count)
     {
         if (\is_resource($this->content)) {
             // Empty the internal activity list

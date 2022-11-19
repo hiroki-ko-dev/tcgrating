@@ -39,9 +39,9 @@ class MockResponse implements ResponseInterface, StreamableInterface
     private static int $idSequence = 0;
 
     /**
-     * @param string|iterable<string|\Throwable> $body The response body as a string or an iterable of strings,
-     *                                                 yielding an empty string simulates an idle timeout,
-     *                                                 throwing or yielding an exception yields an ErrorChunk
+     * @param string|string[]|iterable $body The response body as a string or an iterable of strings,
+     *                                       yielding an empty string simulates an idle timeout,
+     *                                       throwing an exception yields an ErrorChunk
      *
      * @see ResponseInterface::getInfo() for possible info, e.g. "response_headers"
      */
@@ -142,7 +142,6 @@ class MockResponse implements ResponseInterface, StreamableInterface
         $response->info['user_data'] = $options['user_data'] ?? null;
         $response->info['max_duration'] = $options['max_duration'] ?? null;
         $response->info['url'] = $url;
-        $response->info['original_url'] = $url;
 
         if ($mock instanceof self) {
             $mock->requestOptions = $response->requestOptions;
@@ -231,7 +230,7 @@ class MockResponse implements ResponseInterface, StreamableInterface
     /**
      * Simulates sending the request.
      */
-    private static function writeRequest(self $response, array $options, ResponseInterface $mock): void
+    private static function writeRequest(self $response, array $options, ResponseInterface $mock)
     {
         $onProgress = $options['on_progress'] ?? static function () {};
         $response->info += $mock->getInfo() ?: [];
@@ -274,7 +273,7 @@ class MockResponse implements ResponseInterface, StreamableInterface
     /**
      * Simulates reading the response.
      */
-    private static function readResponse(self $response, array $options, ResponseInterface $mock, int &$offset): void
+    private static function readResponse(self $response, array $options, ResponseInterface $mock, int &$offset)
     {
         $onProgress = $options['on_progress'] ?? static function () {};
 
@@ -308,10 +307,6 @@ class MockResponse implements ResponseInterface, StreamableInterface
         if (!\is_string($body)) {
             try {
                 foreach ($body as $chunk) {
-                    if ($chunk instanceof \Throwable) {
-                        throw $chunk;
-                    }
-
                     if ('' === $chunk = (string) $chunk) {
                         // simulate an idle timeout
                         $response->body[] = new ErrorChunk($offset, sprintf('Idle timeout reached for "%s".', $response->info['url']));
