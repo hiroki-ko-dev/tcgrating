@@ -40,9 +40,6 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform-check": false,
-        "platform": {
-            "php": "8.0.2"
-        }
     },
     "extra": {
         "laravel": {
