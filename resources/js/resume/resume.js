@@ -56,11 +56,12 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
         </div>
         <div className="ml-auto">
           <button
+            id="download"
             className="btn site-color text-white rounded-pill btn-outline-secondary text-center"
             onClick={() => onClickExport()}>
             ダウンロード
           </button>
-          <button className="btn site-color text-white rounded-pill btn-outline-secondary text-center"
+          <button id="edit" className="btn site-color text-white rounded-pill btn-outline-secondary text-center"
                   onClick={() => {location.href='/resume/' + gameUserJson.user.id + '/edit'}}>
             編集する
           </button>
