@@ -55,6 +55,7 @@ return array(
     'Spatie\\Backtrace\\' => array($vendorDir . '/spatie/backtrace/src'),
     'SocialiteProviders\\Twitter\\' => array($vendorDir . '/socialiteproviders/twitter'),
     'SocialiteProviders\\Manager\\' => array($vendorDir . '/socialiteproviders/manager/src'),
+    'SocialiteProviders\\Discord\\' => array($vendorDir . '/socialiteproviders/discord'),
     'SocialiteProviders\\Apple\\' => array($vendorDir . '/socialiteproviders/apple'),
     'Sabberworm\\CSS\\' => array($vendorDir . '/sabberworm/php-css-parser/src'),
     'Ramsey\\Uuid\\' => array($vendorDir . '/ramsey/uuid/src'),

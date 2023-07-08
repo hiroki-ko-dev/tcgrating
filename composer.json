@@ -24,6 +24,7 @@
         "laravelcollective/html": "^6.3",
         "pusher/pusher-php-server": "^7.0",
         "socialiteproviders/apple": "^5.0",
+        "socialiteproviders/discord": "^4.1",
         "socialiteproviders/twitter": "^4.1",
         "weidner/goutte": "^2.2"
     },
