@@ -30,7 +30,7 @@ use Google\Service\CloudRun\GoogleLongrunningOperation;
  * Typical usage is:
  *  <code>
  *   $runService = new Google\Service\CloudRun(...);
- *   $services = $runService->services;
+ *   $services = $runService->projects_locations_services;
  *  </code>
  */
 class ProjectsLocationsServices extends \Google\Service\Resource
@@ -131,9 +131,9 @@ class ProjectsLocationsServices extends \Google\Service\Resource
    * Lists Services. (services.listProjectsLocationsServices)
    *
    * @param string $parent Required. The location and project to list resources
-   * on. Location must be a valid GCP region, and cannot be the "-" wildcard.
-   * Format: projects/{project}/locations/{location}, where {project} can be
-   * project id or number.
+   * on. Location must be a valid Google Cloud region, and cannot be the "-"
+   * wildcard. Format: projects/{project}/locations/{location}, where {project}
+   * can be project id or number.
    * @param array $optParams Optional parameters.
    *
    * @opt_param int pageSize Maximum number of Services to return in this call.
@@ -160,8 +160,8 @@ class ProjectsLocationsServices extends \Google\Service\Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param bool allowMissing If set to true, and if the Service does not
-   * exist, it will create a new one. Caller must have both create and update
-   * permissions for this call if this is set to true.
+   * exist, it will create a new one. The caller must have 'run.services.create'
+   * permissions if this is set to true and the Service does not exist.
    * @opt_param bool validateOnly Indicates that the request should be validated
    * and default values populated, without persisting the request or updating any
    * resources.

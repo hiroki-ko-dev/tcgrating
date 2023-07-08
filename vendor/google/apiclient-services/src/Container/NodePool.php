@@ -22,10 +22,16 @@ class NodePool extends \Google\Collection
   protected $collection_key = 'locations';
   protected $autoscalingType = NodePoolAutoscaling::class;
   protected $autoscalingDataType = '';
+  protected $bestEffortProvisioningType = BestEffortProvisioning::class;
+  protected $bestEffortProvisioningDataType = '';
   protected $conditionsType = StatusCondition::class;
   protected $conditionsDataType = 'array';
   protected $configType = NodeConfig::class;
   protected $configDataType = '';
+  /**
+   * @var string
+   */
+  public $etag;
   /**
    * @var int
    */
@@ -90,6 +96,20 @@ class NodePool extends \Google\Collection
     return $this->autoscaling;
   }
   /**
+   * @param BestEffortProvisioning
+   */
+  public function setBestEffortProvisioning(BestEffortProvisioning $bestEffortProvisioning)
+  {
+    $this->bestEffortProvisioning = $bestEffortProvisioning;
+  }
+  /**
+   * @return BestEffortProvisioning
+   */
+  public function getBestEffortProvisioning()
+  {
+    return $this->bestEffortProvisioning;
+  }
+  /**
    * @param StatusCondition[]
    */
   public function setConditions($conditions)
@@ -116,6 +136,20 @@ class NodePool extends \Google\Collection
   public function getConfig()
   {
     return $this->config;
+  }
+  /**
+   * @param string
+   */
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  /**
+   * @return string
+   */
+  public function getEtag()
+  {
+    return $this->etag;
   }
   /**
    * @param int

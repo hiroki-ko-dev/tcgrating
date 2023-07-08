@@ -58,6 +58,10 @@ class AssistantApiLoggingOnlyData extends \Google\Model
    */
   public $initialAppVersion;
   /**
+   * @var bool
+   */
+  public $isPrimaryUser;
+  /**
    * @var string
    */
   public $mdnsDisplayName;
@@ -209,6 +213,20 @@ class AssistantApiLoggingOnlyData extends \Google\Model
   public function getInitialAppVersion()
   {
     return $this->initialAppVersion;
+  }
+  /**
+   * @param bool
+   */
+  public function setIsPrimaryUser($isPrimaryUser)
+  {
+    $this->isPrimaryUser = $isPrimaryUser;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsPrimaryUser()
+  {
+    return $this->isPrimaryUser;
   }
   /**
    * @param string

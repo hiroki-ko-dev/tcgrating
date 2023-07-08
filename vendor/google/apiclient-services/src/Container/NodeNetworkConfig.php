@@ -29,10 +29,13 @@ class NodeNetworkConfig extends \Google\Model
   public $enablePrivateNodes;
   protected $networkPerformanceConfigType = NetworkPerformanceConfig::class;
   protected $networkPerformanceConfigDataType = '';
+  protected $podCidrOverprovisionConfigType = PodCIDROverprovisionConfig::class;
+  protected $podCidrOverprovisionConfigDataType = '';
   /**
    * @var string
    */
   public $podIpv4CidrBlock;
+  public $podIpv4RangeUtilization;
   /**
    * @var string
    */
@@ -81,6 +84,20 @@ class NodeNetworkConfig extends \Google\Model
     return $this->networkPerformanceConfig;
   }
   /**
+   * @param PodCIDROverprovisionConfig
+   */
+  public function setPodCidrOverprovisionConfig(PodCIDROverprovisionConfig $podCidrOverprovisionConfig)
+  {
+    $this->podCidrOverprovisionConfig = $podCidrOverprovisionConfig;
+  }
+  /**
+   * @return PodCIDROverprovisionConfig
+   */
+  public function getPodCidrOverprovisionConfig()
+  {
+    return $this->podCidrOverprovisionConfig;
+  }
+  /**
    * @param string
    */
   public function setPodIpv4CidrBlock($podIpv4CidrBlock)
@@ -93,6 +110,14 @@ class NodeNetworkConfig extends \Google\Model
   public function getPodIpv4CidrBlock()
   {
     return $this->podIpv4CidrBlock;
+  }
+  public function setPodIpv4RangeUtilization($podIpv4RangeUtilization)
+  {
+    $this->podIpv4RangeUtilization = $podIpv4RangeUtilization;
+  }
+  public function getPodIpv4RangeUtilization()
+  {
+    return $this->podIpv4RangeUtilization;
   }
   /**
    * @param string

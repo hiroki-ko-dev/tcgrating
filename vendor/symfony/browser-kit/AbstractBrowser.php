@@ -12,6 +12,9 @@
 namespace Symfony\Component\BrowserKit;
 
 use Symfony\Component\BrowserKit\Exception\BadMethodCallException;
+use Symfony\Component\BrowserKit\Exception\InvalidArgumentException;
+use Symfony\Component\BrowserKit\Exception\LogicException;
+use Symfony\Component\BrowserKit\Exception\RuntimeException;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\Form;
 use Symfony\Component\DomCrawler\Link;
@@ -37,6 +40,7 @@ abstract class AbstractBrowser
     protected $internalResponse;
     protected $response;
     protected $crawler;
+    protected bool $useHtml5Parser = true;
     protected $insulated = false;
     protected $redirect;
     protected $followRedirects = true;
@@ -59,6 +63,8 @@ abstract class AbstractBrowser
 
     /**
      * Sets whether to automatically follow redirects or not.
+     *
+     * @return void
      */
     public function followRedirects(bool $followRedirects = true)
     {
@@ -67,6 +73,8 @@ abstract class AbstractBrowser
 
     /**
      * Sets whether to automatically follow meta refresh redirects or not.
+     *
+     * @return void
      */
     public function followMetaRefresh(bool $followMetaRefresh = true)
     {
@@ -83,11 +91,13 @@ abstract class AbstractBrowser
 
     /**
      * Sets the maximum number of redirects that crawler can follow.
+     *
+     * @return void
      */
     public function setMaxRedirects(int $maxRedirects)
     {
         $this->maxRedirects = $maxRedirects < 0 ? -1 : $maxRedirects;
-        $this->followRedirects = -1 != $this->maxRedirects;
+        $this->followRedirects = -1 !== $this->maxRedirects;
     }
 
     /**
@@ -101,12 +111,14 @@ abstract class AbstractBrowser
     /**
      * Sets the insulated flag.
      *
-     * @throws \RuntimeException When Symfony Process Component is not installed
+     * @return void
+     *
+     * @throws LogicException When Symfony Process Component is not installed
      */
     public function insulate(bool $insulated = true)
     {
         if ($insulated && !class_exists(\Symfony\Component\Process\Process::class)) {
-            throw new \LogicException('Unable to isolate requests as the Symfony Process Component is not installed.');
+            throw new LogicException('Unable to isolate requests as the Symfony Process Component is not installed. Try running "composer require symfony/process".');
         }
 
         $this->insulated = $insulated;
@@ -114,6 +126,8 @@ abstract class AbstractBrowser
 
     /**
      * Sets server parameters.
+     *
+     * @return void
      */
     public function setServerParameters(array $server)
     {
@@ -124,6 +138,8 @@ abstract class AbstractBrowser
 
     /**
      * Sets single server parameter.
+     *
+     * @return void
      */
     public function setServerParameter(string $key, string $value)
     {
@@ -193,6 +209,18 @@ abstract class AbstractBrowser
         }
 
         return $this->crawler;
+    }
+
+    /**
+     * Sets whether parsing should be done using "masterminds/html5".
+     *
+     * @return $this
+     */
+    public function useHtml5Parser(bool $useHtml5Parser): static
+    {
+        $this->useHtml5Parser = $useHtml5Parser;
+
+        return $this;
     }
 
     /**
@@ -308,6 +336,11 @@ abstract class AbstractBrowser
         }
 
         $buttonNode = $this->crawler->selectButton($button);
+
+        if (0 === $buttonNode->count()) {
+            throw new InvalidArgumentException(sprintf('There is no button with "%s" as its content, id, value or name.', $button));
+        }
+
         $form = $buttonNode->form($fieldValues, $method);
 
         return $this->submit($form, [], $serverParameters);
@@ -354,7 +387,7 @@ abstract class AbstractBrowser
             $server['HTTP_HOST'] = $this->extractHost($uri);
         }
 
-        $server['HTTPS'] = 'https' == parse_url($uri, \PHP_URL_SCHEME);
+        $server['HTTPS'] = 'https' === parse_url($uri, \PHP_URL_SCHEME);
 
         $this->internalRequest = new Request($uri, $method, $parameters, $files, $this->cookieJar->allValues($uri), $server, $content);
 
@@ -429,7 +462,7 @@ abstract class AbstractBrowser
         }
 
         if (!$process->isSuccessful() || !preg_match('/^O\:\d+\:/', $process->getOutput())) {
-            throw new \RuntimeException(sprintf('OUTPUT: %s ERROR OUTPUT: %s.', $process->getOutput(), $process->getErrorOutput()));
+            throw new RuntimeException(sprintf('OUTPUT: %s ERROR OUTPUT: %s.', $process->getOutput(), $process->getErrorOutput()));
         }
 
         return unserialize($process->getOutput());
@@ -447,11 +480,13 @@ abstract class AbstractBrowser
      *
      * @param object $request An origin request instance
      *
-     * @throws \LogicException When this abstract class is not implemented
+     * @return string
+     *
+     * @throws LogicException When this abstract class is not implemented
      */
     protected function getScript(object $request)
     {
-        throw new \LogicException('To insulate requests, you need to override the getScript() method.');
+        throw new LogicException('To insulate requests, you need to override the getScript() method.');
     }
 
     /**
@@ -485,7 +520,7 @@ abstract class AbstractBrowser
             return null;
         }
 
-        $crawler = new Crawler(null, $uri);
+        $crawler = new Crawler(null, $uri, null, $this->useHtml5Parser);
         $crawler->addContent($content, $type);
 
         return $crawler;
@@ -526,18 +561,18 @@ abstract class AbstractBrowser
     /**
      * Follow redirects?
      *
-     * @throws \LogicException If request was not a redirect
+     * @throws LogicException If request was not a redirect
      */
     public function followRedirect(): Crawler
     {
         if (empty($this->redirect)) {
-            throw new \LogicException('The request was not redirected.');
+            throw new LogicException('The request was not redirected.');
         }
 
         if (-1 !== $this->maxRedirects) {
             if ($this->redirectCount > $this->maxRedirects) {
                 $this->redirectCount = 0;
-                throw new \LogicException(sprintf('The maximum number (%d) of redirections was reached.', $this->maxRedirects));
+                throw new LogicException(sprintf('The maximum number (%d) of redirections was reached.', $this->maxRedirects));
             }
         }
 
@@ -591,6 +626,8 @@ abstract class AbstractBrowser
      * Restarts the client.
      *
      * It flushes history and all cookies.
+     *
+     * @return void
      */
     public function restart()
     {
@@ -604,7 +641,7 @@ abstract class AbstractBrowser
     protected function getAbsoluteUri(string $uri): string
     {
         // already absolute?
-        if (0 === strpos($uri, 'http://') || 0 === strpos($uri, 'https://')) {
+        if (str_starts_with($uri, 'http://') || str_starts_with($uri, 'https://')) {
             return $uri;
         }
 
@@ -623,14 +660,14 @@ abstract class AbstractBrowser
         }
 
         // anchor or query string parameters?
-        if (!$uri || '#' == $uri[0] || '?' == $uri[0]) {
+        if (!$uri || '#' === $uri[0] || '?' === $uri[0]) {
             return preg_replace('/[#?].*?$/', '', $currentUri).$uri;
         }
 
         if ('/' !== $uri[0]) {
             $path = parse_url($currentUri, \PHP_URL_PATH);
 
-            if ('/' !== substr($path, -1)) {
+            if (!str_ends_with($path, '/')) {
                 $path = substr($path, 0, strrpos($path, '/') + 1);
             }
 
@@ -654,7 +691,7 @@ abstract class AbstractBrowser
     {
         $server['HTTP_HOST'] = $this->extractHost($uri);
         $scheme = parse_url($uri, \PHP_URL_SCHEME);
-        $server['HTTPS'] = null === $scheme ? $server['HTTPS'] : 'https' == $scheme;
+        $server['HTTPS'] = null === $scheme ? $server['HTTPS'] : 'https' === $scheme;
         unset($server['HTTP_IF_NONE_MATCH'], $server['HTTP_IF_MODIFIED_SINCE']);
 
         return $server;

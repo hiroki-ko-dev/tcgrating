@@ -30,6 +30,10 @@ class NetworkConfig extends \Google\Model
   /**
    * @var bool
    */
+  public $enableFqdnNetworkPolicy;
+  /**
+   * @var bool
+   */
   public $enableIntraNodeVisibility;
   /**
    * @var bool
@@ -41,6 +45,8 @@ class NetworkConfig extends \Google\Model
    * @var string
    */
   public $network;
+  protected $networkPerformanceConfigType = ClusterNetworkPerformanceConfig::class;
+  protected $networkPerformanceConfigDataType = '';
   /**
    * @var string
    */
@@ -97,6 +103,20 @@ class NetworkConfig extends \Google\Model
   /**
    * @param bool
    */
+  public function setEnableFqdnNetworkPolicy($enableFqdnNetworkPolicy)
+  {
+    $this->enableFqdnNetworkPolicy = $enableFqdnNetworkPolicy;
+  }
+  /**
+   * @return bool
+   */
+  public function getEnableFqdnNetworkPolicy()
+  {
+    return $this->enableFqdnNetworkPolicy;
+  }
+  /**
+   * @param bool
+   */
   public function setEnableIntraNodeVisibility($enableIntraNodeVisibility)
   {
     $this->enableIntraNodeVisibility = $enableIntraNodeVisibility;
@@ -149,6 +169,20 @@ class NetworkConfig extends \Google\Model
   public function getNetwork()
   {
     return $this->network;
+  }
+  /**
+   * @param ClusterNetworkPerformanceConfig
+   */
+  public function setNetworkPerformanceConfig(ClusterNetworkPerformanceConfig $networkPerformanceConfig)
+  {
+    $this->networkPerformanceConfig = $networkPerformanceConfig;
+  }
+  /**
+   * @return ClusterNetworkPerformanceConfig
+   */
+  public function getNetworkPerformanceConfig()
+  {
+    return $this->networkPerformanceConfig;
   }
   /**
    * @param string

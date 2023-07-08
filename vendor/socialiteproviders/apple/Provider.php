@@ -11,20 +11,17 @@ use Illuminate\Support\Str;
 use Laravel\Socialite\Two\InvalidStateException;
 use Lcobucci\Clock\SystemClock;
 use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Validation\Constraint\IssuedBy;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
+use Psr\Http\Message\ResponseInterface;
 use SocialiteProviders\Manager\OAuth2\AbstractProvider;
 use SocialiteProviders\Manager\OAuth2\User;
 
 class Provider extends AbstractProvider
 {
-    /**
-     * Unique Provider Identifier.
-     */
     public const IDENTIFIER = 'APPLE';
 
     private const URL = 'https://appleid.apple.com';
@@ -102,22 +99,29 @@ class Provider extends AbstractProvider
     /**
      * {@inheritdoc}
      */
-    protected function getTokenFields($code)
-    {
-        return array_merge(parent::getTokenFields($code), [
-            'grant_type' => 'authorization_code',
-        ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function getUserByToken($token)
     {
         static::verify($token);
         $claims = explode('.', $token)[1];
 
         return json_decode(base64_decode($claims), true);
+    }
+
+    /**
+     * Return the user given the identity token provided on the client
+     * side by Apple.
+     *
+     * @param string $token
+     *
+     * @throws InvalidStateException when token can't be parsed
+     *
+     * @return User $user
+     */
+    public function userByIdentityToken(string $token): User
+    {
+        $array = $this->getUserByToken($token);
+
+        return $this->mapUserToObject($array);
     }
 
     /**
@@ -131,7 +135,10 @@ class Provider extends AbstractProvider
      */
     public static function verify($jwt)
     {
-        $jwtContainer = Configuration::forUnsecuredSigner();
+        $jwtContainer = Configuration::forSymmetricSigner(
+            new AppleSignerNone(),
+            AppleSignerInMemory::plainText('')
+        );
         $token = $jwtContainer->parser()->parse($jwt);
 
         $data = Cache::remember('socialite:Apple-JWKSet', 5 * 60, function () {
@@ -146,7 +153,7 @@ class Provider extends AbstractProvider
         if (isset($publicKeys[$kid])) {
             $publicKey = openssl_pkey_get_details($publicKeys[$kid]->getKeyMaterial());
             $constraints = [
-                new SignedWith(new Sha256(), InMemory::plainText($publicKey['key'])),
+                new SignedWith(new Sha256(), AppleSignerInMemory::plainText($publicKey['key'])),
                 new IssuedBy(self::URL),
                 new LooseValidAt(SystemClock::fromSystemTimezone()),
             ];
@@ -247,7 +254,7 @@ class Provider extends AbstractProvider
      */
     protected function getRevokeUrl(): string
     {
-        return self::URL.'auth/revoke';
+        return self::URL.'/auth/revoke';
     }
 
     /**
@@ -266,6 +273,31 @@ class Provider extends AbstractProvider
                 'client_secret'   => $this->clientSecret,
                 'token'           => $token,
                 'token_type_hint' => $hint,
+            ],
+        ]);
+    }
+
+    /**
+     * Acquire a new access token using the refresh token.
+     *
+     * Refer to the documentation for the response structure (the `refresh_token` will be missing from the new response).
+     *
+     * @see https://developer.apple.com/documentation/sign_in_with_apple/tokenresponse
+     *
+     * @param string $refreshToken
+     *
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return ResponseInterface
+     */
+    public function refreshToken(string $refreshToken): ResponseInterface
+    {
+        return $this->getHttpClient()->post($this->getTokenUrl(), [
+            RequestOptions::FORM_PARAMS => [
+                'client_id'       => $this->clientId,
+                'client_secret'   => $this->clientSecret,
+                'grant_type'      => 'refresh_token',
+                'refresh_token'   => $refreshToken,
             ],
         ]);
     }

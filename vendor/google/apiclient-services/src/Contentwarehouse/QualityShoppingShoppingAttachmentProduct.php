@@ -34,6 +34,8 @@ class QualityShoppingShoppingAttachmentProduct extends \Google\Collection
    * @var string
    */
   public $globalProductClusterId;
+  protected $imagesType = ShoppingWebentityShoppingAnnotationProductImage::class;
+  protected $imagesDataType = 'array';
   protected $localeType = QualityShoppingShoppingAttachmentLocale::class;
   protected $localeDataType = '';
   protected $mokaFacetType = QualityShoppingShoppingAttachmentMokaFacetValue::class;
@@ -55,12 +57,20 @@ class QualityShoppingShoppingAttachmentProduct extends \Google\Collection
   protected $pblockType = QualityShoppingShoppingAttachmentPBlock::class;
   protected $pblockDataType = '';
   /**
+   * @var int[]
+   */
+  public $productBrowseonomyIds;
+  /**
    * @var string
    */
   public $productClusterMid;
   public $productPopularity;
   protected $relevanceEmbeddingType = QualityRankembedMustangMustangRankEmbedInfo::class;
   protected $relevanceEmbeddingDataType = 'array';
+  /**
+   * @var string
+   */
+  public $weakGlobalProductClusterId;
 
   /**
    * @param ShoppingWebentityShoppingAnnotationProductRating
@@ -117,6 +127,20 @@ class QualityShoppingShoppingAttachmentProduct extends \Google\Collection
   public function getGlobalProductClusterId()
   {
     return $this->globalProductClusterId;
+  }
+  /**
+   * @param ShoppingWebentityShoppingAnnotationProductImage[]
+   */
+  public function setImages($images)
+  {
+    $this->images = $images;
+  }
+  /**
+   * @return ShoppingWebentityShoppingAnnotationProductImage[]
+   */
+  public function getImages()
+  {
+    return $this->images;
   }
   /**
    * @param QualityShoppingShoppingAttachmentLocale
@@ -217,6 +241,20 @@ class QualityShoppingShoppingAttachmentProduct extends \Google\Collection
     return $this->pblock;
   }
   /**
+   * @param int[]
+   */
+  public function setProductBrowseonomyIds($productBrowseonomyIds)
+  {
+    $this->productBrowseonomyIds = $productBrowseonomyIds;
+  }
+  /**
+   * @return int[]
+   */
+  public function getProductBrowseonomyIds()
+  {
+    return $this->productBrowseonomyIds;
+  }
+  /**
    * @param string
    */
   public function setProductClusterMid($productClusterMid)
@@ -251,6 +289,20 @@ class QualityShoppingShoppingAttachmentProduct extends \Google\Collection
   public function getRelevanceEmbedding()
   {
     return $this->relevanceEmbedding;
+  }
+  /**
+   * @param string
+   */
+  public function setWeakGlobalProductClusterId($weakGlobalProductClusterId)
+  {
+    $this->weakGlobalProductClusterId = $weakGlobalProductClusterId;
+  }
+  /**
+   * @return string
+   */
+  public function getWeakGlobalProductClusterId()
+  {
+    return $this->weakGlobalProductClusterId;
   }
 }
 

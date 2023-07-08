@@ -1,5 +1,63 @@
 # Changelog
 
+## [6.8.0](https://github.com/firebase/php-jwt/compare/v6.7.0...v6.8.0) (2023-06-14)
+
+
+### Features
+
+* add support for P-384 curve ([#515](https://github.com/firebase/php-jwt/issues/515)) ([5de4323](https://github.com/firebase/php-jwt/commit/5de4323f4baf4d70bca8663bd87682a69c656c3d))
+
+
+### Bug Fixes
+
+* handle invalid http responses ([#508](https://github.com/firebase/php-jwt/issues/508)) ([91c39c7](https://github.com/firebase/php-jwt/commit/91c39c72b22fc3e1191e574089552c1f2041c718))
+
+## [6.7.0](https://github.com/firebase/php-jwt/compare/v6.6.0...v6.7.0) (2023-06-14)
+
+
+### Features
+
+* add ed25519 support to JWK (public keys) ([#452](https://github.com/firebase/php-jwt/issues/452)) ([e53979a](https://github.com/firebase/php-jwt/commit/e53979abae927de916a75b9d239cfda8ce32be2a))
+
+## [6.6.0](https://github.com/firebase/php-jwt/compare/v6.5.0...v6.6.0) (2023-06-13)
+
+
+### Features
+
+* allow get headers when decoding token ([#442](https://github.com/firebase/php-jwt/issues/442)) ([fb85f47](https://github.com/firebase/php-jwt/commit/fb85f47cfaeffdd94faf8defdf07164abcdad6c3))
+
+
+### Bug Fixes
+
+* only check iat if nbf is not used ([#493](https://github.com/firebase/php-jwt/issues/493)) ([398ccd2](https://github.com/firebase/php-jwt/commit/398ccd25ea12fa84b9e4f1085d5ff448c21ec797))
+
+## [6.5.0](https://github.com/firebase/php-jwt/compare/v6.4.0...v6.5.0) (2023-05-12)
+
+
+### Bug Fixes
+
+* allow KID of '0' ([#505](https://github.com/firebase/php-jwt/issues/505)) ([9dc46a9](https://github.com/firebase/php-jwt/commit/9dc46a9c3e5801294249cfd2554c5363c9f9326a))
+
+
+### Miscellaneous Chores
+
+* drop support for PHP 7.3 ([#495](https://github.com/firebase/php-jwt/issues/495))
+
+## [6.4.0](https://github.com/firebase/php-jwt/compare/v6.3.2...v6.4.0) (2023-02-08)
+
+
+### Features
+
+* add support for W3C ES256K ([#462](https://github.com/firebase/php-jwt/issues/462)) ([213924f](https://github.com/firebase/php-jwt/commit/213924f51936291fbbca99158b11bd4ae56c2c95))
+* improve caching by only decoding jwks when necessary ([#486](https://github.com/firebase/php-jwt/issues/486)) ([78d3ed1](https://github.com/firebase/php-jwt/commit/78d3ed1073553f7d0bbffa6c2010009a0d483d5c))
+
+## [6.3.2](https://github.com/firebase/php-jwt/compare/v6.3.1...v6.3.2) (2022-11-01)
+
+
+### Bug Fixes
+
+* check kid before using as array index ([bad1b04](https://github.com/firebase/php-jwt/commit/bad1b040d0c736bbf86814c6b5ae614f517cf7bd))
+
 ## [6.3.1](https://github.com/firebase/php-jwt/compare/v6.3.0...v6.3.1) (2022-11-01)
 
 
@@ -88,5 +146,3 @@ between signing and verifying entities. Thanks to [@lcabral](https://github.com/
   asymmetric keys are used together.
 - Update signature for `JWT::decode(...)` to require an array of supported
   algorithms to use when verifying token signatures.
-
-

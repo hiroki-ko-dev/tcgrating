@@ -19,7 +19,7 @@ namespace Google\Service\Contentwarehouse;
 
 class StorageGraphBfgPolicyMetadata extends \Google\Collection
 {
-  protected $collection_key = 'legalRemovalRegions';
+  protected $collection_key = 'policyDataScopeKeys';
   /**
    * @var string
    */
@@ -32,34 +32,18 @@ class StorageGraphBfgPolicyMetadata extends \Google\Collection
   protected $legalAllowedRegionsDataType = 'array';
   protected $legalRemovalRegionsType = KeGovernanceTypedRegions::class;
   protected $legalRemovalRegionsDataType = 'array';
+  protected $lmsPolicyMetadataType = StorageGraphBfgLmsPolicyMetadata::class;
+  protected $lmsPolicyMetadataDataType = '';
   /**
-   * @var bool
+   * @var int[]
    */
-  public $lmsIsEditorial;
-  protected $lmsRegionsAllowedType = KeGovernanceTypedRegions::class;
-  protected $lmsRegionsAllowedDataType = '';
-  protected $lmsRegionsDisallowedType = KeGovernanceTypedRegions::class;
-  protected $lmsRegionsDisallowedDataType = '';
-  /**
-   * @var bool
-   */
-  public $lmsRequiresAttribution;
-  /**
-   * @var bool
-   */
-  public $lmsRequiresFirstPartyOnly;
-  /**
-   * @var bool
-   */
-  public $lmsRequiresLink;
-  /**
-   * @var bool
-   */
-  public $lmsRequiresShareAlike;
+  public $policyDataScopeKeys;
   /**
    * @var string
    */
   public $policySourceType;
+  protected $umpPolicyMetadataType = StorageGraphBfgUmpPolicyMetadata::class;
+  protected $umpPolicyMetadataDataType = '';
 
   /**
    * @param string
@@ -118,102 +102,32 @@ class StorageGraphBfgPolicyMetadata extends \Google\Collection
     return $this->legalRemovalRegions;
   }
   /**
-   * @param bool
+   * @param StorageGraphBfgLmsPolicyMetadata
    */
-  public function setLmsIsEditorial($lmsIsEditorial)
+  public function setLmsPolicyMetadata(StorageGraphBfgLmsPolicyMetadata $lmsPolicyMetadata)
   {
-    $this->lmsIsEditorial = $lmsIsEditorial;
+    $this->lmsPolicyMetadata = $lmsPolicyMetadata;
   }
   /**
-   * @return bool
+   * @return StorageGraphBfgLmsPolicyMetadata
    */
-  public function getLmsIsEditorial()
+  public function getLmsPolicyMetadata()
   {
-    return $this->lmsIsEditorial;
+    return $this->lmsPolicyMetadata;
   }
   /**
-   * @param KeGovernanceTypedRegions
+   * @param int[]
    */
-  public function setLmsRegionsAllowed(KeGovernanceTypedRegions $lmsRegionsAllowed)
+  public function setPolicyDataScopeKeys($policyDataScopeKeys)
   {
-    $this->lmsRegionsAllowed = $lmsRegionsAllowed;
+    $this->policyDataScopeKeys = $policyDataScopeKeys;
   }
   /**
-   * @return KeGovernanceTypedRegions
+   * @return int[]
    */
-  public function getLmsRegionsAllowed()
+  public function getPolicyDataScopeKeys()
   {
-    return $this->lmsRegionsAllowed;
-  }
-  /**
-   * @param KeGovernanceTypedRegions
-   */
-  public function setLmsRegionsDisallowed(KeGovernanceTypedRegions $lmsRegionsDisallowed)
-  {
-    $this->lmsRegionsDisallowed = $lmsRegionsDisallowed;
-  }
-  /**
-   * @return KeGovernanceTypedRegions
-   */
-  public function getLmsRegionsDisallowed()
-  {
-    return $this->lmsRegionsDisallowed;
-  }
-  /**
-   * @param bool
-   */
-  public function setLmsRequiresAttribution($lmsRequiresAttribution)
-  {
-    $this->lmsRequiresAttribution = $lmsRequiresAttribution;
-  }
-  /**
-   * @return bool
-   */
-  public function getLmsRequiresAttribution()
-  {
-    return $this->lmsRequiresAttribution;
-  }
-  /**
-   * @param bool
-   */
-  public function setLmsRequiresFirstPartyOnly($lmsRequiresFirstPartyOnly)
-  {
-    $this->lmsRequiresFirstPartyOnly = $lmsRequiresFirstPartyOnly;
-  }
-  /**
-   * @return bool
-   */
-  public function getLmsRequiresFirstPartyOnly()
-  {
-    return $this->lmsRequiresFirstPartyOnly;
-  }
-  /**
-   * @param bool
-   */
-  public function setLmsRequiresLink($lmsRequiresLink)
-  {
-    $this->lmsRequiresLink = $lmsRequiresLink;
-  }
-  /**
-   * @return bool
-   */
-  public function getLmsRequiresLink()
-  {
-    return $this->lmsRequiresLink;
-  }
-  /**
-   * @param bool
-   */
-  public function setLmsRequiresShareAlike($lmsRequiresShareAlike)
-  {
-    $this->lmsRequiresShareAlike = $lmsRequiresShareAlike;
-  }
-  /**
-   * @return bool
-   */
-  public function getLmsRequiresShareAlike()
-  {
-    return $this->lmsRequiresShareAlike;
+    return $this->policyDataScopeKeys;
   }
   /**
    * @param string
@@ -228,6 +142,20 @@ class StorageGraphBfgPolicyMetadata extends \Google\Collection
   public function getPolicySourceType()
   {
     return $this->policySourceType;
+  }
+  /**
+   * @param StorageGraphBfgUmpPolicyMetadata
+   */
+  public function setUmpPolicyMetadata(StorageGraphBfgUmpPolicyMetadata $umpPolicyMetadata)
+  {
+    $this->umpPolicyMetadata = $umpPolicyMetadata;
+  }
+  /**
+   * @return StorageGraphBfgUmpPolicyMetadata
+   */
+  public function getUmpPolicyMetadata()
+  {
+    return $this->umpPolicyMetadata;
   }
 }
 

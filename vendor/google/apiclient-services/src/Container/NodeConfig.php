@@ -38,6 +38,10 @@ class NodeConfig extends \Google\Collection
    * @var string
    */
   public $diskType;
+  protected $ephemeralStorageLocalSsdConfigType = EphemeralStorageLocalSsdConfig::class;
+  protected $ephemeralStorageLocalSsdConfigDataType = '';
+  protected $fastSocketType = FastSocket::class;
+  protected $fastSocketDataType = '';
   protected $gcfsConfigType = GcfsConfig::class;
   protected $gcfsConfigDataType = '';
   protected $gvnicType = VirtualNIC::class;
@@ -54,6 +58,8 @@ class NodeConfig extends \Google\Collection
   public $labels;
   protected $linuxNodeConfigType = LinuxNodeConfig::class;
   protected $linuxNodeConfigDataType = '';
+  protected $localNvmeSsdBlockConfigType = LocalNvmeSsdBlockConfig::class;
+  protected $localNvmeSsdBlockConfigDataType = '';
   /**
    * @var int
    */
@@ -98,6 +104,8 @@ class NodeConfig extends \Google\Collection
   public $serviceAccount;
   protected $shieldedInstanceConfigType = ShieldedInstanceConfig::class;
   protected $shieldedInstanceConfigDataType = '';
+  protected $soleTenantConfigType = SoleTenantConfig::class;
+  protected $soleTenantConfigDataType = '';
   /**
    * @var bool
    */
@@ -108,6 +116,8 @@ class NodeConfig extends \Google\Collection
   public $tags;
   protected $taintsType = NodeTaint::class;
   protected $taintsDataType = 'array';
+  protected $windowsNodeConfigType = WindowsNodeConfig::class;
+  protected $windowsNodeConfigDataType = '';
   protected $workloadMetadataConfigType = WorkloadMetadataConfig::class;
   protected $workloadMetadataConfigDataType = '';
 
@@ -196,6 +206,34 @@ class NodeConfig extends \Google\Collection
     return $this->diskType;
   }
   /**
+   * @param EphemeralStorageLocalSsdConfig
+   */
+  public function setEphemeralStorageLocalSsdConfig(EphemeralStorageLocalSsdConfig $ephemeralStorageLocalSsdConfig)
+  {
+    $this->ephemeralStorageLocalSsdConfig = $ephemeralStorageLocalSsdConfig;
+  }
+  /**
+   * @return EphemeralStorageLocalSsdConfig
+   */
+  public function getEphemeralStorageLocalSsdConfig()
+  {
+    return $this->ephemeralStorageLocalSsdConfig;
+  }
+  /**
+   * @param FastSocket
+   */
+  public function setFastSocket(FastSocket $fastSocket)
+  {
+    $this->fastSocket = $fastSocket;
+  }
+  /**
+   * @return FastSocket
+   */
+  public function getFastSocket()
+  {
+    return $this->fastSocket;
+  }
+  /**
    * @param GcfsConfig
    */
   public function setGcfsConfig(GcfsConfig $gcfsConfig)
@@ -278,6 +316,20 @@ class NodeConfig extends \Google\Collection
   public function getLinuxNodeConfig()
   {
     return $this->linuxNodeConfig;
+  }
+  /**
+   * @param LocalNvmeSsdBlockConfig
+   */
+  public function setLocalNvmeSsdBlockConfig(LocalNvmeSsdBlockConfig $localNvmeSsdBlockConfig)
+  {
+    $this->localNvmeSsdBlockConfig = $localNvmeSsdBlockConfig;
+  }
+  /**
+   * @return LocalNvmeSsdBlockConfig
+   */
+  public function getLocalNvmeSsdBlockConfig()
+  {
+    return $this->localNvmeSsdBlockConfig;
   }
   /**
    * @param int
@@ -462,6 +514,20 @@ class NodeConfig extends \Google\Collection
     return $this->shieldedInstanceConfig;
   }
   /**
+   * @param SoleTenantConfig
+   */
+  public function setSoleTenantConfig(SoleTenantConfig $soleTenantConfig)
+  {
+    $this->soleTenantConfig = $soleTenantConfig;
+  }
+  /**
+   * @return SoleTenantConfig
+   */
+  public function getSoleTenantConfig()
+  {
+    return $this->soleTenantConfig;
+  }
+  /**
    * @param bool
    */
   public function setSpot($spot)
@@ -502,6 +568,20 @@ class NodeConfig extends \Google\Collection
   public function getTaints()
   {
     return $this->taints;
+  }
+  /**
+   * @param WindowsNodeConfig
+   */
+  public function setWindowsNodeConfig(WindowsNodeConfig $windowsNodeConfig)
+  {
+    $this->windowsNodeConfig = $windowsNodeConfig;
+  }
+  /**
+   * @return WindowsNodeConfig
+   */
+  public function getWindowsNodeConfig()
+  {
+    return $this->windowsNodeConfig;
   }
   /**
    * @param WorkloadMetadataConfig

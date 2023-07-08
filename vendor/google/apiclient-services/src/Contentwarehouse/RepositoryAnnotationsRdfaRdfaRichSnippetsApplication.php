@@ -78,6 +78,8 @@ class RepositoryAnnotationsRdfaRdfaRichSnippetsApplication extends \Google\Colle
    * @var string
    */
   public $iconUrlThumbnail;
+  protected $imageDataType = QualityCalypsoAppsUniversalImageData::class;
+  protected $imageDataDataType = '';
   /**
    * @var bool
    */
@@ -96,6 +98,8 @@ class RepositoryAnnotationsRdfaRdfaRichSnippetsApplication extends \Google\Colle
   public $lastUpdated;
   protected $liveOpDetailsType = QualityCalypsoAppsUniversalAuLiveOpsDetailInfo::class;
   protected $liveOpDetailsDataType = '';
+  protected $localizedTrustedGenomeType = RepositoryAnnotationsRdfaRdfaRichSnippetsApplicationLocalizedTrustedGenome::class;
+  protected $localizedTrustedGenomeDataType = '';
   /**
    * @var string
    */
@@ -434,6 +438,20 @@ class RepositoryAnnotationsRdfaRdfaRichSnippetsApplication extends \Google\Colle
     return $this->iconUrlThumbnail;
   }
   /**
+   * @param QualityCalypsoAppsUniversalImageData
+   */
+  public function setImageData(QualityCalypsoAppsUniversalImageData $imageData)
+  {
+    $this->imageData = $imageData;
+  }
+  /**
+   * @return QualityCalypsoAppsUniversalImageData
+   */
+  public function getImageData()
+  {
+    return $this->imageData;
+  }
+  /**
    * @param bool
    */
   public function setInAppPurchase($inAppPurchase)
@@ -502,6 +520,20 @@ class RepositoryAnnotationsRdfaRdfaRichSnippetsApplication extends \Google\Colle
   public function getLiveOpDetails()
   {
     return $this->liveOpDetails;
+  }
+  /**
+   * @param RepositoryAnnotationsRdfaRdfaRichSnippetsApplicationLocalizedTrustedGenome
+   */
+  public function setLocalizedTrustedGenome(RepositoryAnnotationsRdfaRdfaRichSnippetsApplicationLocalizedTrustedGenome $localizedTrustedGenome)
+  {
+    $this->localizedTrustedGenome = $localizedTrustedGenome;
+  }
+  /**
+   * @return RepositoryAnnotationsRdfaRdfaRichSnippetsApplicationLocalizedTrustedGenome
+   */
+  public function getLocalizedTrustedGenome()
+  {
+    return $this->localizedTrustedGenome;
   }
   /**
    * @param string
