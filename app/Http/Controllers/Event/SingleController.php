@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\PostService;
-use App\Services\UserService;
+use App\Services\User\UserService;
 use App\Services\TwitterService;
 
 //use App\Mail\AdminNoticeCreateEventSingleMail;

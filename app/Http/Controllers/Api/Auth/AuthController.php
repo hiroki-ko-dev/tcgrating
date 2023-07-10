@@ -4,17 +4,11 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use Auth;
-use DB;
-use Illuminate\Support\Facades\Log;
 use Validator;
-use App\Services\UserService;
+use App\Services\User\UserService;
 use App\Services\ApiService;
-
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class AuthController extends Controller
 {

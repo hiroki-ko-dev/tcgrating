@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Carbon\Carbon;
 use DB;
-use App\Services\UserService;
+use App\Services\User\UserService;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\ApiService;

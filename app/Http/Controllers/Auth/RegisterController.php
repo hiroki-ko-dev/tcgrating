@@ -8,11 +8,10 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
 use DB;
 use Illuminate\Http\Request;
 
-use App\Services\UserService;
+use App\Services\User\UserService;
 
 class RegisterController extends Controller
 {
@@ -72,7 +71,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $request = new Request();
-        $request->game_id  = session('selected_game_id');
+        $request->selected_game_id  = session('selected_game_id');
         $request->name     = $data['name'];
         $request->email    = $data['email'];
         $request->password = Hash::make($data['password']);

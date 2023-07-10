@@ -8,7 +8,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Auth;
 use Hash;
 use DB;
-use App\Services\UserService;
+use App\Services\User\UserService;
 
 class AppleController extends Controller
 {
@@ -88,7 +88,7 @@ class AppleController extends Controller
                     if(session('selected_game_id')){
                         $game_id = session('selected_game_id');
                     }
-                    $request->game_id    = $game_id;
+                    $request->selected_game_id    = $game_id;
                     $request->name       = 'ユーザー';
                     $request->email      = json_decode($tokenPayload)->email;
                     $request->password   = Hash::make($sub.'hash_pass');

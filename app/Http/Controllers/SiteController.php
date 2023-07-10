@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use DB;
 
-use App\Services\UserService;
+use App\Services\User\UserService;
 use App\Services\GoogleService;
 use App\Services\TwitterService;
 

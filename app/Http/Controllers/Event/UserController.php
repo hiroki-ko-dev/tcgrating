@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Services\EventService;
 use App\Services\DuelService;
-use App\Services\UserService;
+use App\Services\User\UserService;
 use App\Services\TwitterService;
 use App\Services\ApiService;
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Rank;
 use App\Http\Controllers\Controller;
 use Auth;
 use DB;
-use App\Services\UserService;
+use App\Services\User\UserService;
 use App\Services\ApiService;
 
 use Illuminate\Http\Request;

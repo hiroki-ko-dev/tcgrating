@@ -6,7 +6,7 @@ use App\Mail\TransactionPurchaseMail;
 use App\Services\ItemService;
 use App\Services\StripeService;
 
-use App\Services\UserService;
+use App\Services\User\UserService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 

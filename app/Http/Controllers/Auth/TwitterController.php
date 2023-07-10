@@ -9,7 +9,7 @@ use Auth;
 use Hash;
 use DB;
 
-use App\Services\UserService;
+use App\Services\User\UserService;
 
 class TwitterController extends Controller
 {
@@ -35,8 +35,8 @@ class TwitterController extends Controller
     }
 
     // Twitterコールバック
-    public function handleProviderCallback() {
-
+    public function handleProviderCallback()
+    {
         try {
             // ユーザー詳細情報の取得
             $twitterUser = Socialite::driver('twitter')->user();
@@ -66,7 +66,7 @@ class TwitterController extends Controller
                     if (session('selected_game_id')) {
                         $game_id = session('selected_game_id');
                     }
-                    $request->game_id    = $game_id;
+                    $request->selected_game_id    = $game_id;
                     $request->name       = $twitterUser->name;
                     $request->email      = $twitterUser->email;
                     $request->password   = Hash::make($twitterUser->id . 'hash_pass');
