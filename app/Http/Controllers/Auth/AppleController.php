@@ -77,9 +77,8 @@ class AppleController extends Controller
                 // すでにログイン中なら、ログインアカウントにTwitter情報を追加
                 if(Auth::check()){
                     // ログインユーザーにTwitter情報をアップデート
-                    $user = DB::transaction(function () use($request) {
-                        $request->id = Auth::id();
-                        return $this->userService->updateUser($request);
+                    $user = DB::transaction(function () use ($request) {
+                        return $this->userService->updateUser(Auth::id(), $request->all());
                     });
                     Auth::login($user, true);
 

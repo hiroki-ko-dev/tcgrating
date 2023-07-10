@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 use App\Models\GameUserCheck;
 use App\Repositories\UserRepository;
 use App\Repositories\GameUserRepository;
@@ -63,9 +64,9 @@ class UserService
         return $this->gameUserRepository->update($request);
     }
 
-    public function updateUser($request)
+    public function updateUser(int $id, array $data): User
     {
-        return $this->userRepository->update($request);
+        return $this->userRepository->update($id, $data);
     }
 
     public function updateSelectedGameId($request)
@@ -207,8 +208,11 @@ class UserService
     //         $user = $this->createUser($userData);
     //         $user = $this->discordUserRepository->create($userData);
     //     } else {
-    //         if ($user->userDiscord) {
-    //             $this->updateUser($userData);
+    //         if ($user->userDiscord)
+    //         {
+    //             $this->updateUser($user->id, $userData);
+    //         } else {
+
     //         }
     //                 // TwitterIDが存在しない場合の処理
     //                 if(is_null($user)){
@@ -266,5 +270,6 @@ class UserService
     //                 return redirect('/login')->with('flash_message', 'エラーが発生しました');
     //             }
     //         }
+    //     }
     // }
 }

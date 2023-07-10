@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-
 use Auth;
 use Hash;
 use DB;
@@ -14,7 +13,6 @@ use App\Services\UserService;
 
 class TwitterController extends Controller
 {
-
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -45,7 +43,7 @@ class TwitterController extends Controller
             $user = $this->userService->getUserByTwitterId($twitterUser->id);
 
             // TwitterIDが存在しない場合の処理
-            if(is_null($user)){
+            if (is_null($user)) {
                 // Twitter情報からユーザーアカウントを作成
                 $request             = new Request();
                 $request->twitter_id = $twitterUser->id;
@@ -55,24 +53,23 @@ class TwitterController extends Controller
 
 
                 // すでにログイン中なら、ログインアカウントにTwitter情報を追加
-                if(Auth::check()){
+                if (Auth::check()) {
                     // ログインユーザーにTwitter情報をアップデート
-                    $user = DB::transaction(function () use($request) {
-                        $request->user_id = Auth::id();
-                        return $this->userService->updateUser($request);
+                    $user = DB::transaction(function () use ($request) {
+                        return $this->userService->updateUser(Auth::id(), $request->all());
                     });
                     Auth::login($user, true);
 
                 // ログインしていないなら、新規アカウントを作成
-                }else{
+                } else {
                     $game_id = config('assets.site.game_ids.pokemon_card');
-                    if(session('selected_game_id')){
+                    if (session('selected_game_id')) {
                         $game_id = session('selected_game_id');
                     }
                     $request->game_id    = $game_id;
                     $request->name       = $twitterUser->name;
                     $request->email      = $twitterUser->email;
-                    $request->password   = Hash::make($twitterUser->id.'hash_pass');
+                    $request->password   = Hash::make($twitterUser->id . 'hash_pass');
                     $request->body       = $twitterUser->user['description'];
 
                     // 新規ユーザー作成
@@ -81,8 +78,7 @@ class TwitterController extends Controller
                     });
                     Auth::login($user, true);
                 }
-
-            }else{
+            } else {
                 $user->twitter_nickname  = $twitterUser->nickname;
                 $user->twitter_image_url = $twitterUser->avatar_original;
                 $user->twitter_simple_image_url = $twitterUser->user['profile_image_url_https'];
@@ -90,28 +86,27 @@ class TwitterController extends Controller
 
                 Auth::login($user, true);
             }
-
         } catch (\Exception $e) {
 
-            if(session('api')){
+            if (session('api')) {
                 session()->forget('api');
                 $loginId = 0;
-                return view('auth.api_logined',compact('loginId'));
+                return view('auth.api_logined', compact('loginId'));
             }
             return redirect('/login')->with('flash_message', 'エラーが発生しました');
         }
 
         // duelページなどからTwitterログインしてきた場合に元のページに戻す
-        if(session('loginAfterRedirectUrl')){
+        if (session('loginAfterRedirectUrl')) {
             $redirectUrl = session('loginAfterRedirectUrl');
             session()->forget('loginAfterRedirectUrl');
             return redirect($redirectUrl);
         }
 
-        if(session('api')){
+        if (session('api')) {
             session()->forget('api');
             $loginId = Auth::id();
-            return view('auth.api_logined',compact('loginId'));
+            return view('auth.api_logined', compact('loginId'));
         }
         return redirect('/resume/' . Auth::user()->id);
     }

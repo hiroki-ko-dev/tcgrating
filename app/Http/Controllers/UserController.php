@@ -106,13 +106,13 @@ class UserController extends Controller
     {
         //アカウント認証しているユーザーのみ新規作成可能
         $this->middleware('auth');
-        if(Auth::id() <> $request->id){
+        if(Auth::id() <> $request->id) {
             return back()->with('flash_message', 'アカウントエラーです');
         }
 
-        DB::transaction(function () use($request){
-            $this->userService->updateUser($request);
-            $gameUser = $this->userService->getGameUserByGameIdAndUserId(Auth::user()->selected_game_id,$request->id);
+        DB::transaction(function () use ($request) {
+            $this->userService->updateUser(Auth::id(), $request->all());
+            $gameUser = $this->userService->getGameUserByGameIdAndUserId(Auth::user()->selected_game_id, $request->id);
             $request->merge(['user_id' => $request->id]);
             $request->id = $gameUser->id;
             $gameUser = $this->userService->updateGameUser($request);

@@ -119,15 +119,11 @@ class AuthController extends Controller
             $gameUser = $this->userService->getGameUser($request->id);
 
             // 名前が空ならここから作成
-            if(empty($gameUser->user->name)){
-                $name = explode( '#', $request->discord_name);
-
+            if (empty($gameUser->user->name)) {
                 // 選択しているゲームでフィルタ
-                $userRequest = new Request();
-                $userRequest->merge(['id' => $gameUser->user_id]);
-                $userRequest->merge(['name' => $name[0]]);
+                $userData['name'] = explode( '#', $request->discord_name)[0];
 
-                $this->userService->updateUser($userRequest);
+                $this->userService->updateUser($gameUser->user_id, $userData);
             }
 
             $gameUser = $this->userService->updateGameUser($request);

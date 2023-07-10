@@ -122,18 +122,17 @@ class TransactionController extends Controller
         );
 
         // discordNameがおかしかったらエラーで返す
-        if ($validator->fails()){
+        if ($validator->fails()) {
           return redirect('/item/transaction/customer')
             ->withErrors($validator)
             ->withInput();
         }
 
-        if(Auth::check()){
-            $request->merge(['id' => Auth::id()]);
+        if (Auth::check()) {
             $user = DB::transaction(function () use ($request) {
-                return $this->userService->updateUser($request);
+                return $this->userService->updateUser(Auth::id(), $request->all());
             });
-        }else{
+        } else {
             $user = new \App\Models\User();
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
