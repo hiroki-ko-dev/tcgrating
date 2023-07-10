@@ -13,137 +13,147 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-    //サイトの情報ページ
-    Route::get('/sample', function () {return view('sample');});     //直接TOPページを表示
-    Route::get('/', function () {return view('site.index');});     //直接TOPページを表示
-    Route::get('/site/administrator', function () {return view('site.administrator');}); //管理人を表示
-    Route::get('/site/inquiry', function () {return view('site.inquiry');}); //お問い合わせ用の動画を表示
-    Route::get('/site/how_to_use/normal', function () {return view('site.how_to_use.normal');}); //動画ページを表示
-    Route::get('/site/how_to_use/instant', function () {return view('site.how_to_use.instant');}); //動画ページを表示
-    Route::post('/site/update_selected_game', [App\Http\Controllers\SiteController::class, 'update_selected_game']); //管理人を表示
-    Route::get('/site/test', [App\Http\Controllers\SiteController::class, 'test']); //管理人を表示
-    //プライバシーポリシー
-    Route::get('/site/privacy', function () {return view('site.privacy');});
+//サイトの情報ページ
+Route::get('/sample', function () {return view('sample');});     //直接TOPページを表示
+Route::get('/', function () {return view('site.index');});     //直接TOPページを表示
+Route::get('/site/administrator', function () {return view('site.administrator');}); //管理人を表示
+Route::get('/site/inquiry', function () {return view('site.inquiry');}); //お問い合わせ用の動画を表示
+Route::get('/site/how_to_use/normal', function () {return view('site.how_to_use.normal');}); //動画ページを表示
+Route::get('/site/how_to_use/instant', function () {return view('site.how_to_use.instant');}); //動画ページを表示
+Route::post('/site/update_selected_game', [App\Http\Controllers\SiteController::class, 'update_selected_game']); //管理人を表示
+Route::get('/site/test', [App\Http\Controllers\SiteController::class, 'test']); //管理人を表示
+//プライバシーポリシー
+Route::get('/site/privacy', function () {return view('site.privacy');});
 
-    // ランディングページ系
-    Route::get('/site/landing/pokemon_card', function () {return view('site.landing.03_pokemon_card');});
-    Route::get('/site/landing/resume', [App\Http\Controllers\SiteController::class, 'resume']);
+// ランディングページ系
+Route::get('/site/landing/pokemon_card', function () {return view('site.landing.03_pokemon_card');});
+Route::get('/site/landing/resume', [App\Http\Controllers\SiteController::class, 'resume']);
 
-    // プロキシページ系
-    Route::get('/proxy', function () {return view('proxy.show');}); //管理人を表示
-    Route::post('/proxy/pdf', [App\Http\Controllers\ProxyController::class, 'pdf']); //管理人を表示
+// プロキシページ系
+Route::get('/proxy', function () {return view('proxy.show');}); //管理人を表示
+Route::post('/proxy/pdf', [App\Http\Controllers\ProxyController::class, 'pdf']); //管理人を表示
 
-    //ページ更新処理
-    Route::get('/reload', function () {return back();});
+//ページ更新処理
+Route::get('/reload', function () {return back();});
 
-    //権限関係
-    Auth::routes();
+//権限関係
+Auth::routes();
 
-    // twitterログイン
-    Route::prefix('auth')->group(function () {
-        Route::prefix('twitter')->group(function () {
-            // TwitterログインURL
-            Route::get('/login', 'Auth\TwitterController@redirectToProvider');
-            // API用TwitterログインURL
-            Route::get('/api/login', 'Auth\TwitterController@redirectToProviderForApi');
-            // TwitterコールバックURL
-            Route::get('/callback', 'Auth\TwitterController@handleProviderCallback');
-            // TwitterログアウトURL
-            Route::get('/logout', 'Auth\TwitterController@logout');
-        });
-        Route::prefix('apple')->group(function () {
-            // TwitterログインURL
-            Route::get('/login', 'Auth\AppleController@redirectToProvider');
-            // API用TwitterログインURL
-            Route::get('/api/login', 'Auth\AppleController@redirectToProviderForApi');
-            // TwitterログアウトURL
-            Route::get('/logout', 'Auth\AppleController@logout');
-        });
+// twitterログイン
+Route::prefix('auth')->group(function () {
+    Route::prefix('twitter')->group(function () {
+        // TwitterログインURL
+        Route::get('/login', 'Auth\TwitterController@redirectToProvider');
+        // API用TwitterログインURL
+        Route::get('/api/login', 'Auth\TwitterController@redirectToProviderForApi');
+        // TwitterコールバックURL
+        Route::get('/callback', 'Auth\TwitterController@handleProviderCallback');
+        // TwitterログアウトURL
+        Route::get('/logout', 'Auth\TwitterController@logout');
     });
+    Route::prefix('discord')->group(function () {
+        // TwitterログインURL
+        Route::get('/login', 'Auth\DiscordController@redirectToProvider');
+        // API用TwitterログインURL
+        Route::get('/api/login', 'Auth\DiscordController@redirectToProviderForApi');
+        // TwitterコールバックURL
+        Route::get('/callback', 'Auth\DiscordController@handleProviderCallback');
+        // TwitterログアウトURL
+        Route::get('/logout', 'Auth\DiscordController@logout');
+  });
+    Route::prefix('apple')->group(function () {
+        // TwitterログインURL
+        Route::get('/login', 'Auth\AppleController@redirectToProvider');
+        // API用TwitterログインURL
+        Route::get('/api/login', 'Auth\AppleController@redirectToProviderForApi');
+        // TwitterログアウトURL
+        Route::get('/logout', 'Auth\AppleController@logout');
+    });
+});
 
 //    Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
 
-    //ユーザー系スレッド
-    Route::resources([
-        'user' => UserController::class,
-    ]);
+//ユーザー系スレッド
+Route::resources([
+    'user' => UserController::class,
+]);
 
-    //ユーザー系スレッド
-    Route::resources([
-        'resume' => ResumeController::class,
-    ]);
+//ユーザー系スレッド
+Route::resources([
+    'resume' => ResumeController::class,
+]);
 
-    //チーム系スレッド
-    Route::resources([
-        'team'      => Team\TeamController::class,
-    //チームユーザー系スレッド
-        'team/user' => Team\TeamUserController::class,
-    ]);
+//チーム系スレッド
+Route::resources([
+    'team'      => Team\TeamController::class,
+//チームユーザー系スレッド
+    'team/user' => Team\TeamUserController::class,
+]);
 
-    //掲示板スレッド
-    Route::resources([
-        'post'         => Post\PostController::class,
+//掲示板スレッド
+Route::resources([
+    'post'         => Post\PostController::class,
+//掲示板コメント
+    'post/comment' => Post\CommentController::class,
+]);
+
+// 商品
+Route::post('/item/charge', [App\Http\Controllers\Item\ItemController::class, 'charge']);
+Route::get('/item/transaction/customer', [App\Http\Controllers\Item\TransactionController::class, 'customer']);
+Route::post('/item/transaction/register', [App\Http\Controllers\Item\TransactionController::class, 'register']);
+Route::get('/item/transaction/completion', [App\Http\Controllers\Item\TransactionController::class, 'completion']);
+Route::resources([
+    'item/{item_id}/stock' => Item\StockController::class,
+    'item/cart'        => Item\CartController::class,
+    'item/transaction' => Item\TransactionController::class,
+    'item'             => Item\ItemController::class,
+]);
+
+
+//記事
+Route::resources([
+    'blog'         => Blog\BlogController::class,
     //掲示板コメント
-        'post/comment' => Post\CommentController::class,
-    ]);
+    'blog/comment' => Blog\CommentController::class,
+]);
 
-    // 商品
-    Route::post('/item/charge', [App\Http\Controllers\Item\ItemController::class, 'charge']);
-    Route::get('/item/transaction/customer', [App\Http\Controllers\Item\TransactionController::class, 'customer']);
-    Route::post('/item/transaction/register', [App\Http\Controllers\Item\TransactionController::class, 'register']);
-    Route::get('/item/transaction/completion', [App\Http\Controllers\Item\TransactionController::class, 'completion']);
-    Route::resources([
-        'item/{item_id}/stock' => Item\StockController::class,
-        'item/cart'        => Item\CartController::class,
-        'item/transaction' => Item\TransactionController::class,
-        'item'             => Item\ItemController::class,
-    ]);
+//イベント系スレッド
+Route::resources([
+    'event/single'  => Event\SingleController::class,
+    'event/instant' => Event\InstantController::class,
+    'event/group'   => Event\GroupController::class,
+    'event/swiss'   => Event\SwissController::class,
+]);
+//イベントユーザー系スレッド
+Route::resources([
+    'event/user' => Event\UserController::class,
+]);
+Route::post('/event/instant/user', [App\Http\Controllers\Event\UserController::class,'instant']);
+Route::post('/event/user/join/request', [App\Http\Controllers\Event\UserController::class,'joinRequest']);
 
+//デュエル系スレッド
+Route::resources([
+    'duel/single' => Duel\SingleController::class,
+    'duel/instant' => Duel\InstantController::class,
+    'duel/swiss'   => Duel\SwissController::class,
+]);
 
-    //記事
-    Route::resources([
-        'blog'         => Blog\BlogController::class,
-        //掲示板コメント
-        'blog/comment' => Blog\CommentController::class,
-    ]);
+//ランキング系スレッド
+Route::resources([
+    'rank' => RankController::class,
+]);
 
-    //イベント系スレッド
-    Route::resources([
-        'event/single'  => Event\SingleController::class,
-        'event/instant' => Event\InstantController::class,
-        'event/group'   => Event\GroupController::class,
-        'event/swiss'   => Event\SwissController::class,
-    ]);
-    //イベントユーザー系スレッド
-    Route::resources([
-        'event/user' => Event\UserController::class,
-    ]);
-    Route::post('/event/instant/user', [App\Http\Controllers\Event\UserController::class,'instant']);
-    Route::post('/event/user/join/request', [App\Http\Controllers\Event\UserController::class,'joinRequest']);
+//ランキング系スレッド
+Route::resources([
+    'opinion' => OpinionController::class,
+]);
 
-    //デュエル系スレッド
-    Route::resources([
-        'duel/single' => Duel\SingleController::class,
-        'duel/instant' => Duel\InstantController::class,
-        'duel/swiss'   => Duel\SwissController::class,
-    ]);
+//管理者専用
+Route::resources([
+    'admin' => AdminController::class,
+]);
+Route::get('/admin_post', 'AdminController@postRequest');
+Route::get('/admin/item/transaction', 'AdminController@itemTransaction');
 
-    //ランキング系スレッド
-    Route::resources([
-        'rank' => RankController::class,
-    ]);
-
-    //ランキング系スレッド
-    Route::resources([
-        'opinion' => OpinionController::class,
-    ]);
-
-    //管理者専用
-    Route::resources([
-        'admin' => AdminController::class,
-    ]);
-    Route::get('/admin_post', 'AdminController@postRequest');
-    Route::get('/admin/item/transaction', 'AdminController@itemTransaction');
-
-    //アプリヘルプ
-    Route::get('/app/help', function () {return view('app.help');});
+//アプリヘルプ
+Route::get('/app/help', function () {return view('app.help');});

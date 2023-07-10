@@ -8,7 +8,16 @@ use App\Models\UserDiscord;
 
 final class UserDiscordRepository
 {
-    public function find($id) {
+    public function create(array $data): UserDiscord
+    {
+        $userDiscord = new UserDiscord();
+        $userDiscord->user_id = $data->user_id;
+        
+        return UserDiscord::find($id);
+    }
+
+    public function find($id)
+    {
         return UserDiscord::find($id);
     }
 }

@@ -76,8 +76,8 @@ class TwitterController extends Controller
                     $request->body       = $twitterUser->user['description'];
 
                     // 新規ユーザー作成
-                    $user = DB::transaction(function () use($request) {
-                        return $this->userService->makeUser($request);
+                    $user = DB::transaction(function () use ($request) {
+                        return $this->userService->createUser($request->all());
                     });
                     Auth::login($user, true);
                 }

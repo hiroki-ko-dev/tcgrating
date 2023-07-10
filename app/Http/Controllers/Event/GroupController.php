@@ -99,7 +99,7 @@ class GroupController extends Controller
             $event = $this->event_service->createEvent($request);
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
-            $this->user_service->makeGameUser($request);
+            $this->user_service->createGameUser($request->all());
 
             return $event;
         });

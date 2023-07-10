@@ -1,152 +1,152 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
+
 use App\Models\User;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-
-class UserRepository
+final class UserRepository
 {
-
-    public function create($request)
+    public function create(array $data)
     {
-        $user                   = new User();
-        if(isset($request->twitter_id)){
-            $user->twitter_id = $request->twitter_id;
+        $user = new User();
+        if (isset($data['twitter_id'])) {
+            $user->twitter_id = $data['twitter_id'];
         }
-        if(isset($request->apple_code)){
-            $user->apple_code = $request->apple_code;
+        if (isset($data['apple_code'])) {
+            $user->apple_code = $data['apple_code'];
         }
-        $user->selected_game_id = $request->game_id;
-        $user->name             = $request->name;
-        $user->email            = $request->email;
-        $user->password         = $request->password;
-        if(isset($request->body)){
-            $user->body         = $request->body;
+        $user->selected_game_id = $data['game_id'];
+        $user->name             = $data['name'];
+        $user->email            = $data['email'];
+        $user->password         = $data['password'];
+        if (isset($data['body'])) {
+            $user->body         = $data['body'];
         }
-        if(isset($request->twitter_nickname)){
-            $user->twitter_nickname = $request->twitter_nickname;
+        if (isset($data['twitter_nickname'])) {
+            $user->twitter_nickname = $data['twitter_nickname'];
         }
-        if(isset($request->twitter_image_url)){
-            $user->twitter_image_url = $request->twitter_image_url;
+        if (isset($data['twitter_image_url'])) {
+            $user->twitter_image_url = $data['twitter_image_url'];
         }
-        if(isset($request->twitter_simple_image_url)){
-            $user->twitter_simple_image_url = $request->twitter_simple_image_url;
+        if (isset($data['twitter_simple_image_url'])) {
+            $user->twitter_simple_image_url = $data['twitter_simple_image_url'];
+        }
+        $user->save();
+    
+        return $user;
+    }
+
+    public function update($data)
+    {
+        $user = User::find($data->id);
+        if (isset($data->name)) {
+            $user->name = $data->name;
+        }
+        if (isset($data->first_name)) {
+            $user->first_name = $data->first_name;
+        }
+        if (isset($data->last_name)) {
+            $user->last_name = $data->last_name;
+        }
+        if (isset($data->email)) {
+            $user->email = $data->email;
+        }
+        if (isset($data->tel)) {
+            $user->tel = $data->tel;
+        }
+        if (isset($data->post_code)) {
+            $user->post_code = $data->post_code;
+        }
+        if (isset($data->prefecture_id)) {
+            $user->prefecture_id = $data->prefecture_id;
+        }
+        if (isset($data->address1)) {
+            $user->address1 = $data->address1;
+        }
+        if (isset($data->address2)) {
+            $user->address2 = $data->address2;
+        }
+        if (isset($data->address3)) {
+            $user->address3 = $data->address3;
+        }
+        if (isset($data->body)) {
+            $user->body = $data->body;
+        }
+        if (isset($data->gender)) {
+            $user->gender = $data->gender;
+        }
+        if (isset($data->twitter_id)) {
+            $user->twitter_id = $data->twitter_id;
+        }
+        if (isset($data->twitter_nickname)) {
+            $user->twitter_nickname = $data->twitter_nickname;
+        }
+        if (isset($data->twitter_image_url)) {
+            $user->twitter_image_url = $data->twitter_image_url;
+        }
+        if (isset($data->apple_code)) {
+            $user->apple_code = $data->apple_code;
+        }
+        if (isset($data->twitter_simple_image_url)) {
+            $user->twitter_simple_image_url = $data->twitter_simple_image_url;
+        }
+        if (isset($data->stripe_id)) {
+            $user->stripe_id = $data->stripe_id;
         }
         $user->save();
 
         return $user;
     }
 
-    public function update($request)
+    public function updateSelectedGameId($data)
     {
-        $user = User::find($request->id);
-        if(isset($request->name)) {
-            $user->name = $request->name;
-        }
-        if(isset($request->first_name)) {
-            $user->first_name = $request->first_name;
-        }
-        if(isset($request->last_name)) {
-            $user->last_name = $request->last_name;
-        }
-        if(isset($request->email)) {
-            $user->email = $request->email;
-        }
-        if(isset($request->tel)) {
-            $user->tel = $request->tel;
-        }
-        if(isset($request->post_code)) {
-            $user->post_code = $request->post_code;
-        }
-        if(isset($request->prefecture_id)) {
-            $user->prefecture_id = $request->prefecture_id;
-        }
-        if(isset($request->address1)) {
-            $user->address1 = $request->address1;
-        }
-        if(isset($request->address2)) {
-            $user->address2 = $request->address2;
-        }
-        if(isset($request->address3)) {
-            $user->address3 = $request->address3;
-        }
-        if(isset($request->body)) {
-            $user->body = $request->body;
-        }
-        if(isset($request->gender)) {
-            $user->gender = $request->gender;
-        }
-        if(isset($request->twitter_id)){
-            $user->twitter_id = $request->twitter_id;
-        }
-        if(isset($request->twitter_nickname)){
-            $user->twitter_nickname = $request->twitter_nickname;
-        }
-        if(isset($request->twitter_image_url)){
-            $user->twitter_image_url = $request->twitter_image_url;
-        }
-        if(isset($request->apple_code)){
-            $user->apple_code = $request->apple_code;
-        }
-        if(isset($request->twitter_simple_image_url)){
-            $user->twitter_simple_image_url = $request->twitter_simple_image_url;
-        }
-        if(isset($request->stripe_id)){
-            $user->stripe_id = $request->stripe_id;
-        }
+        $user = User::find($data->id);
+        $user->selected_game_id = $data->selected_game_id;
         $user->save();
 
         return $user;
     }
 
-    public function updateSelectedGameId($request)
-    {
-        $user = User::find($request->id);
-        $user->selected_game_id = $request->selected_game_id;
-        $user->save();
-
-        return $user;
-    }
-
-    public function find($id){
+    public function find($id) {
         return User::find($id);
     }
 
-    public function findAll($request){
+    public function findAll($data) {
         $query = User::query();
-        if(isset($request->not_null_twitter_id)){
+        if (isset($data->not_null_twitter_id)) {
             $query->whereNotNull('twitter_id');
         }
         return $query->get();
     }
 
-    public function findByTwitterId($id){
-        return User::where('twitter_id',$id)->first();
+    public function findByTwitterId($id)
+    {
+        return User::where('twitter_id', $id)->first();
     }
 
-    public function findByAppleCode($code){
-        return User::where('apple_code',$code)->first();
+    public function findByAppleCode($code) {
+        return User::where('apple_code', $code)->first();
     }
 
-    public function composeWhereClause($request)
+    public function composeWhereClause($data)
     {
         $query = User::query();
         return $query;
     }
 
-    public function findAllBySendMail($request){
-        $query = $this->composeWhereClause($request);
+    public function findAllBySendMail($data) {
+        $query = $this->composeWhereClause($data);
 
-        return $query->whereNotIn('id',[$request->user_id])
-                    ->whereHas('gameUsers',  function($query) use($request){
-                        $query->where('game_id', $request->game_id);
-                        $query->where('is_mail_send', true);
-                    })
-                    ->where('email', 'not like', '%test@test.jp%')
-                    ->whereNotNull('email')
-                    ->get();
+        return $query->whereNotIn('id', [$data->user_id])
+                  ->whereHas('gameUsers', function ($query) use ($data) {
+                      $query->where('game_id', $data->game_id);
+                      $query->where('is_mail_send', true);
+                  })
+                  ->where('email', 'not like', '%test@test.jp%')
+                  ->whereNotNull('email')
+                  ->get();
 
     }
 

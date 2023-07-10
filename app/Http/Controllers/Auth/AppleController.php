@@ -5,16 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-
 use Auth;
 use Hash;
 use DB;
-
 use App\Services\UserService;
 
 class AppleController extends Controller
 {
-
     protected $userService;
 
     public function __construct(UserService $userService)
@@ -101,8 +98,8 @@ class AppleController extends Controller
                     $request->twitter_image_url = '/images/icon/default-icon-mypage.jpg';
                     $request->twitter_simple_image_url = '/images/icon/default-account.png';
                         // 新規ユーザー作成
-                    $user = DB::transaction(function () use($request) {
-                        return $this->userService->makeUser($request);
+                    $user = DB::transaction(function () use ($request) {
+                        return $this->userService->createUser($request->all());
                     });
                     Auth::login($user, true);
                 }
@@ -120,11 +117,10 @@ class AppleController extends Controller
             }
             return redirect('/login')->with('flash_message', 'エラーが発生しました');
         }
-
 //        if(session('api')){
             session()->forget('api');
             $loginId = Auth::id();
-            return view('auth.api_logined',compact('loginId'));
+            return view('auth.api_logined', compact('loginId'));
 //        }
 //        return redirect('/user/' . Auth::user()->id);
     }

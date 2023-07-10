@@ -92,7 +92,7 @@ class UserController extends Controller
                 $request->merge(['game_id'  => $event->game_id]);
 
                 // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
-                $gameUser = $this->userService->makeGameUser($request);
+                $gameUser = $this->userService->createGameUser($request->all());
                 if($gameUser->discord_name <> $request->discord_name){
                     $gameUser->discord_name = $request->discord_name;
                     // discord_nameを更新
@@ -188,7 +188,7 @@ class UserController extends Controller
             if(is_null($gameUser)){
                 $request->merge(['game_id'  => $event->game_id]);
                 $request->merge(['discord_name' => $request->discord_name]);
-                $gameUser = $this->userService->makeGameUser($request);
+                $gameUser = $this->userService->createGameUser($request->all());
             }elseif(isset($gameUser->discord_name) || $gameUser->discord_name <> $request->discord_name){
                 // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
                 $gameUser->discord_name = $request->discord_name;

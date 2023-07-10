@@ -128,7 +128,7 @@ class SwissController extends Controller
             $event = $this->eventService->createEvent($request);
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
-            $this->userService->makeGameUser($request);
+            $this->userService->createGameUser($request->all());
 
             //twitterに投稿
             $this->twitterService->tweetBySwissEvent($event, 'create');

@@ -118,7 +118,7 @@ class InstantController extends Controller
             $request = $this->duelService->createInstant($request);
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
-            $gameUser = $this->userService->makeGameUser($request);
+            $gameUser = $this->userService->createGameUser($request->all());
             if($gameUser->discord_name <> $request->discord_name){
                 $gameUser->discord_name = $request->discord_name;
                 // discord_nameを更新

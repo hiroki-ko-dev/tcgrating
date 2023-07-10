@@ -80,8 +80,8 @@ class RegisterController extends Controller
         $request->twitter_image_url = '/images/icon/default-icon-mypage.jpg';
         $request->twitter_simple_image_url = '/images/icon/default-account.png';
 
-        $user = DB::transaction(function () use ($request){
-            return $this->userService->makeUser($request);
+        $user = DB::transaction(function () use ($request) {
+            return $this->userService->createUser($request->all());
         });
 
         return $user;

@@ -1,70 +1,51 @@
 <?php
 
 namespace App\Services;
+
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 use App\Models\GameUserCheck;
 use App\Repositories\UserRepository;
 use App\Repositories\GameUserRepository;
 use App\Repositories\GameUserCheckRepository;
-
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
-
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Storage;
+use App\Repositories\UserDiscordRepository;
+use App\Dto\Auth\DiscordAuthResponseDto;
+use Hash;
 
 class UserService
 {
-    protected $userRepository;
-    protected $gameUserRepository;
-    protected $gameUserCheckRepository;
-
-    public function __construct(UserRepository $userRepository,
-                                GameUserRepository $gameUserRepository,
-                                GameUserCheckRepository $gameUserCheckRepository)
-    {
-        $this->userRepository = $userRepository;
-        $this->gameUserRepository = $gameUserRepository;
-        $this->gameUserCheckRepository = $gameUserCheckRepository;
+    public function __construct(
+        private readonly UserRepository $userRepository,
+        private readonly GameUserRepository $gameUserRepository,
+        private readonly GameUserCheckRepository $gameUserCheckRepository,
+        private readonly UserDiscordRepository $userDiscordRepository,
+    ) {
     }
 
-    /**
-     * 新規ユーザーの作成処理
-     * @param $request
-     * @return mixed
-     */
-    public function makeUser($request)
+    public function createUser(array $data)
     {
-        $user = $this->userRepository->create($request);
-        $request->merge(['user_id' => $user->id]);
-        $gameUser = $this->gameUserRepository->create($request);
-
+        $user = $this->userRepository->create($data);
+        $data['user_id'] = $user->id;
+        $this->gameUserRepository->create($data);
         return $user;
     }
 
-    /**
-     * イベント作成時にgameUserがなかったら作成する
-     * @param $request
-     * @return mixed
-     */
-    public function makeGameUser($request)
+    public function createGameUser(array $data)
     {
-        $gameUser = $this->gameUserRepository->findByGameIdAndUserId($request->game_id, $request->user_id);
-        if(is_null($gameUser)){
-            $gameUser = $this->gameUserRepository->create($request);
+        $gameUser = $this->gameUserRepository->findByGameIdAndUserId($data['game_id'], $data['user_id']);
+        if (is_null($gameUser)) {
+            $gameUser = $this->gameUserRepository->create($data);
         }
 
         return $gameUser;
     }
 
-    /**
-     * イベント作成時にgameUserChecksがなかったら作成する
-     * @param $request
-     * @return mixed
-     */
     public function makeGameUserCheck($request)
     {
         $gameUserCheck = $this->gameUserCheckRepository->findAll($request);
-        if($gameUserCheck->count() == 0){
+        if ($gameUserCheck->count() == 0) {
             $gameUserCheck = $this->gameUserCheckRepository->create($request);
         }
         return $gameUserCheck;
@@ -157,7 +138,7 @@ class UserService
 
     public function saveTwitterImage($user)
     {
-        try{
+        try {
             //画像のURL
             $url = $user->twitter_image_url;
             //URLからファイル名を取得 ここはお好きな方法でファイル名を決めてください。
@@ -174,7 +155,7 @@ class UserService
             Storage::putFileAs('/public/images/temp', new File($tmp_path), $file_name);
             //一時ファイル削除
             fclose($tmp);
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             //URLからファイル名を取得 ここはお好きな方法でファイル名を決めてください。
             $file_name = 'twitter_game_3_user_' . $user->id . '.jpg';
             //URLからファイル取得
@@ -203,16 +184,87 @@ class UserService
 
         $gameUsers = $this->gameUserRepository->findAll($gameUserRequest);
         $rank['parameter'] = $gameUsers->count();
-        if(isset($gameUsers->where('user_id',$request->user_id)->first()->rate)){
-            $rate = $gameUsers->where('user_id',$request->user_id)->first()->rate;
-        }else{
+        if (isset($gameUsers->where('user_id', $request->user_id)->first()->rate)) {
+            $rate = $gameUsers->where('user_id', $request->user_id)->first()->rate;
+        } else {
             $rate = 0;
         }
-        $rank['ranking'] = $gameUsers->where('rate','>',$rate)->count() + 1;
+        $rank['ranking'] = $gameUsers->where('rate', '>', $rate)->count() + 1;
 
         $rankJson = json_encode($rank);
 
         return $rankJson;
     }
 
+    // public function discordLogin(DiscordAuthResponseDto $discordAuthInfoDto)
+    // {
+    //     $userData['selected_game_id'] = config('assets.site.game_ids.pokemon_card');
+    //     $userData['name'] = $discordAuthInfoDto->name;
+    //     $userData['email'] = $discordAuthInfoDto->email;
+    //     $user = $this->userDiscordRepository->find($discordAuthInfoDto->id);
+    //     if (is_null($user)) {
+    //         $userData['password'] = Hash::make($discordAuthInfoDto->id . 'hash_pass');
+    //         $user = $this->createUser($userData);
+    //         $user = $this->discordUserRepository->create($userData);
+    //     } else {
+    //         if ($user->userDiscord) {
+    //             $this->updateUser($userData);
+    //         }
+    //                 // TwitterIDが存在しない場合の処理
+    //                 if(is_null($user)){
+    //                     // Twitter情報からユーザーアカウントを作成
+    //                     $request             = new Request();
+    //                     $request->twitter_id = $twitterUser->id;
+    //                     $request->twitter_nickname  = $twitterUser->nickname;
+    //                     $request->twitter_image_url = $twitterUser->avatar_original;
+    //                     $request->twitter_simple_image_url = $twitterUser->user['profile_image_url_https'];
+    
+    //                     // すでにログイン中なら、ログインアカウントにTwitter情報を追加
+    //                     if(Auth::check()){
+    //                         // ログインユーザーにTwitter情報をアップデート
+    //                         $user = DB::transaction(function () use($request) {
+    //                             $request->user_id = Auth::id();
+    //                             return $this->userService->updateUser($request);
+    //                         });
+    //                         Auth::login($user, true);
+        
+    //                     // ログインしていないなら、新規アカウントを作成
+    //                     }else{
+    //                         $game_id = config('assets.site.game_ids.pokemon_card');
+    //                         if(session('selected_game_id')){
+    //                             $game_id = session('selected_game_id');
+    //                         }
+    //                         $request->game_id    = $game_id;
+    //                         $request->name       = $twitterUser->name;
+    //                         $request->email      = $twitterUser->email;
+    //                         $request->password   = Hash::make($twitterUser->id.'hash_pass');
+    //                         $request->body       = $twitterUser->user['description'];
+        
+    //                         // 新規ユーザー作成
+    //                         $user = DB::transaction(function () use($request) {
+    //                             return $this->userService->makeUser($request);
+    //                         });
+    //                         Auth::login($user, true);
+    //                     }
+        
+    //                 }else{
+    //                     $user->twitter_nickname  = $twitterUser->nickname;
+    //                     $user->twitter_image_url = $twitterUser->avatar_original;
+    //                     $user->twitter_simple_image_url = $twitterUser->user['profile_image_url_https'];
+    //                     $user->save();
+        
+    //                     Auth::login($user, true);
+    //                 }
+        
+    //             } catch (\Exception $e) {
+        
+    //                 if(session('api')){
+    //                     session()->forget('api');
+    //                     $loginId = 0;
+    //                     return view('auth.api_logined',compact('loginId'));
+    //                 }
+    //                 return redirect('/login')->with('flash_message', 'エラーが発生しました');
+    //             }
+    //         }
+    // }
 }
