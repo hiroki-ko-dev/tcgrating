@@ -6,11 +6,11 @@ use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\GameUser;
-use App\Models\UserDiscord;
+use App\Models\UserInfoDiscord;
 use App\Repositories\UserRepository;
 use App\Repositories\GameUserRepository;
 use App\Repositories\GameUserCheckRepository;
-use App\Repositories\UserDiscordRepository;
+use App\Repositories\UserInfoDiscordRepository;
 use DB;
 
 class UserService
@@ -19,7 +19,7 @@ class UserService
         private readonly UserRepository $userRepository,
         private readonly GameUserRepository $gameUserRepository,
         private readonly GameUserCheckRepository $gameUserCheckRepository,
-        private readonly UserDiscordRepository $userDiscordRepository,
+        private readonly UserInfoDiscordRepository $userDiscordRepository,
     ) {
     }
 
@@ -44,10 +44,10 @@ class UserService
         });
     }
 
-    public function createUserDiscord(array $attrs): UserDiscord
+    public function createUserInfoDiscord(array $attrs): UserInfoDiscord
     {
         return DB::transaction(function () use ($attrs) {
-            return $this->userDiscordRepository->create($attrs);
+            return $this->userInfoDiscordRepository->create($attrs);
         });
     }
 
@@ -96,7 +96,6 @@ class UserService
         return $this->gameUserRepository->findAllByPaginateOrderByRank($request, $pagination);
     }
 
-
     public function getGameUsersByRankForApi($request, $paginate)
     {
         return $this->gameUserRepository->findAllByRankForApi($request, $paginate);
@@ -115,9 +114,9 @@ class UserService
         return $gameUserJson;
     }
 
-    public function findUserDiscord(int $id): ?UserDiscord
+    public function findUserDiscord(int $id): ?UserInfoDiscord
     {
-        return $this->userRepository->find($id);
+        return $this->userInfoDiscordRepository->find($id);
     }
 
     /**
@@ -130,9 +129,11 @@ class UserService
         return $this->userRepository->findAllBySendMail($request);
     }
 
-    public function updateGameUser($request)
+    public function updateGameUser($id, array $attrs): GameUser
     {
-        return $this->gameUserRepository->update($request);
+        return DB::transaction(function () use ($id, $attrs) {
+            return $this->gameUserRepository->update($id, $attrs);
+        });
     }
 
     public function updateUser(int $id, array $attrs): User
@@ -147,10 +148,10 @@ class UserService
         return $this->userRepository->updateSelectedGameId($request);
     }
 
-    public function updateUserDiscord(int $id, array $attrs): UserDiscord
+    public function updateUserInfoDiscord(int $id, array $attrs): UserInfoDiscord
     {
         return DB::transaction(function () use ($id, $attrs) {
-            return $this->userDiscordRepository->update($id, $attrs);
+            return $this->userInfoDiscordRepository->update($id, $attrs);
         });
     }
 

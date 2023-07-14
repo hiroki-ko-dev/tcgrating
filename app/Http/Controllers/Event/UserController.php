@@ -96,7 +96,7 @@ class UserController extends Controller
                 if($gameUser->discord_name <> $request->discord_name){
                     $gameUser->discord_name = $request->discord_name;
                     // discord_nameを更新
-                    $gameUser = $this->userService->updateGameUser($gameUser);
+                    $gameUser = $this->userService->updateGameUser($event->game_id, $gameUser->toArray());
                 }
 
                 $request->merge(['status'  => \App\Models\EventUser::STATUS_REQUEST]);
@@ -193,7 +193,7 @@ class UserController extends Controller
                 // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
                 $gameUser->discord_name = $request->discord_name;
                 // discord_nameを更新
-                $gameUser = $this->userService->updateGameUser($gameUser);
+                $gameUser = $this->userService->updateGameUser($event->game_id, $gameUser->toArray());
             }
 
             // 対戦作成者にtwitterアカウントがあれば通知

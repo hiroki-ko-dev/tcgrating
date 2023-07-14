@@ -39,3 +39,6 @@ Route::resources(['post/comment' => Api\Post\CommentController::class]);
 
 Route::resources(['rank' => Api\Rank\RankController::class]);
 Route::resources(['video' => Api\Video\VideoController::class]);
+
+Route::post('auth/mobile/login', [Auth\MobileController::class, 'login']);
+Route::post('auth/mobile/logout', [Auth\MobileController::class, 'logout']);

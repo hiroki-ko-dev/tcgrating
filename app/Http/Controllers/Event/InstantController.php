@@ -122,7 +122,7 @@ class InstantController extends Controller
             if($gameUser->discord_name <> $request->discord_name){
                 $gameUser->discord_name = $request->discord_name;
                 // discord_nameを更新
-                $gameUser = $this->userService->updateGameUser($gameUser);
+                $gameUser = $this->userService->updateGameUser($gameUser->id, $gameUser->toArray());
             }
 
             //twitterに投稿

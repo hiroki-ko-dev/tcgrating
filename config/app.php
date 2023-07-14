@@ -178,6 +178,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // Twitter
         Laravel\Socialite\SocialiteServiceProvider::class,
+        // Discord
+        SocialiteProviders\Manager\ServiceProvider::class,
         // Appleログインで使おうとしたが、結果使わなかった
 //        SocialiteProviders\Manager\ServiceProvider::class,
         // スクレイピング用に追加

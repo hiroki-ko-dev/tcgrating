@@ -8,117 +8,123 @@ use App\Models\User;
 
 final class UserRepository
 {
-    public function create(array $data)
+    public function create(array $attrs)
     {
         $user = new User();
-        if (isset($data['twitter_id'])) {
-            $user->twitter_id = $data['twitter_id'];
+        if (isset($attrs['twitter_id'])) {
+            $user->twitter_id = $attrs['twitter_id'];
         }
-        if (isset($data['apple_code'])) {
-            $user->apple_code = $data['apple_code'];
+        if (isset($attrs['apple_code'])) {
+            $user->apple_code = $attrs['apple_code'];
         }
-        $user->selected_game_id = $data['game_id'];
-        $user->name             = $data['name'];
-        $user->email            = $data['email'];
-        $user->password         = $data['password'];
-        if (isset($data['body'])) {
-            $user->body         = $data['body'];
+        $user->selected_game_id = $attrs['selected_game_id'];
+        $user->name             = $attrs['name'];
+        $user->email            = $attrs['email'];
+        $user->password         = $attrs['password'];
+        if (isset($attrs['body'])) {
+            $user->body         = $attrs['body'];
         }
-        if (isset($data['twitter_nickname'])) {
-            $user->twitter_nickname = $data['twitter_nickname'];
+        if (isset($attrs['twitter_nickname'])) {
+            $user->twitter_nickname = $attrs['twitter_nickname'];
         }
-        if (isset($data['twitter_image_url'])) {
-            $user->twitter_image_url = $data['twitter_image_url'];
+        if (isset($attrs['twitter_image_url'])) {
+            $user->twitter_image_url = $attrs['twitter_image_url'];
         }
-        if (isset($data['twitter_simple_image_url'])) {
-            $user->twitter_simple_image_url = $data['twitter_simple_image_url'];
+        if (isset($attrs['twitter_simple_image_url'])) {
+            $user->twitter_simple_image_url = $attrs['twitter_simple_image_url'];
         }
         $user->save();
 
         return $user;
     }
 
-    public function update(int $id, array $data): User
+    public function update(int $id, array $attrs): User
     {
         $user = User::find($id);
-        if (isset($data['name'])) {
-            $user->name = $data['name'];
+        if (isset($attrs['name'])) {
+            $user->name = $attrs['name'];
         }
-        if (isset($data['first_name'])) {
-            $user->first_name = $data['first_name'];
+        if (isset($attrs['first_name'])) {
+            $user->first_name = $attrs['first_name'];
         }
-        if (isset($data['last_name'])) {
-            $user->last_name = $data['last_name'];
+        if (isset($attrs['last_name'])) {
+            $user->last_name = $attrs['last_name'];
         }
-        if (isset($data['email'])) {
-            $user->email = $data['email'];
+        if (isset($attrs['email'])) {
+            $user->email = $attrs['email'];
         }
-        if (isset($data['tel'])) {
-            $user->tel = $data['tel'];
+        if (isset($attrs['tel'])) {
+            $user->tel = $attrs['tel'];
         }
-        if (isset($data['post_code'])) {
-            $user->post_code = $data['post_code'];
+        if (isset($attrs['post_code'])) {
+            $user->post_code = $attrs['post_code'];
         }
-        if (isset($data['prefecture_id'])) {
-            $user->prefecture_id = $data['prefecture_id'];
+        if (isset($attrs['prefecture_id'])) {
+            $user->prefecture_id = $attrs['prefecture_id'];
         }
-        if (isset($data['address1'])) {
-            $user->address1 = $data['address1'];
+        if (isset($attrs['address1'])) {
+            $user->address1 = $attrs['address1'];
         }
-        if (isset($data['address2'])) {
-            $user->address2 = $data['address2'];
+        if (isset($attrs['address2'])) {
+            $user->address2 = $attrs['address2'];
         }
-        if (isset($data['address3'])) {
-            $user->address3 = $data['address3'];
+        if (isset($attrs['address3'])) {
+            $user->address3 = $attrs['address3'];
         }
-        if (isset($data['body'])) {
-            $user->body = $data['body'];
+        if (isset($attrs['body'])) {
+            $user->body = $attrs['body'];
         }
-        if (isset($data['gender'])) {
-            $user->gender = $data['gender'];
+        if (isset($attrs['gender'])) {
+            $user->gender = $attrs['gender'];
         }
-        if (isset($data['twitter_id'])) {
-            $user->twitter_id = $data['twitter_id'];
+        if (isset($attrs['twitter_id'])) {
+            $user->twitter_id = $attrs['twitter_id'];
         }
-        if (isset($data['twitter_nickname'])) {
-            $user->twitter_nickname = $data['twitter_nickname'];
+        if (isset($attrs['twitter_nickname'])) {
+            $user->twitter_nickname = $attrs['twitter_nickname'];
         }
-        if (isset($data['twitter_image_url'])) {
-            $user->twitter_image_url = $data['twitter_image_url'];
+        if (isset($attrs['twitter_image_url'])) {
+            $user->twitter_image_url = $attrs['twitter_image_url'];
         }
-        if (isset($data['apple_code'])) {
-            $user->apple_code = $data['apple_code'];
+        if (isset($attrs['apple_code'])) {
+            $user->apple_code = $attrs['apple_code'];
         }
-        if (isset($data['twitter_simple_image_url'])) {
-            $user->twitter_simple_image_url = $data['twitter_simple_image_url'];
+        if (isset($attrs['twitter_simple_image_url'])) {
+            $user->twitter_simple_image_url = $attrs['twitter_simple_image_url'];
         }
-        if (isset($data['stripe_id'])) {
-            $user->stripe_id = $data['stripe_id'];
+        if (isset($attrs['stripe_id'])) {
+            $user->stripe_id = $attrs['stripe_id'];
         }
         $user->save();
 
         return $user;
     }
 
-    public function updateSelectedGameId($data)
+    public function updateSelectedGameId($attrs)
     {
-        $user = User::find($data->id);
-        $user->selected_game_id = $data->selected_game_id;
+        $user = User::find($attrs->id);
+        $user->selected_game_id = $attrs->selected_game_id;
         $user->save();
 
         return $user;
     }
 
-    public function find($id) {
+    public function find(int $id): ?User
+    {
         return User::find($id);
     }
 
-    public function findAll($data) {
+    public function findAll($attrs) {
         $query = User::query();
-        if (isset($data->not_null_twitter_id)) {
+        if (isset($attrs->not_null_twitter_id)) {
             $query->whereNotNull('twitter_id');
         }
         return $query->get();
+    }
+
+    public function findBy(string $column, int | string $value)
+    {
+        return User::where($column, $value)->first();
     }
 
     public function findByTwitterId($id)
@@ -130,18 +136,18 @@ final class UserRepository
         return User::where('apple_code', $code)->first();
     }
 
-    public function composeWhereClause($data)
+    public function composeWhereClause($attrs)
     {
         $query = User::query();
         return $query;
     }
 
-    public function findAllBySendMail($data) {
-        $query = $this->composeWhereClause($data);
+    public function findAllBySendMail($attrs) {
+        $query = $this->composeWhereClause($attrs);
 
-        return $query->whereNotIn('id', [$data->user_id])
-                  ->whereHas('gameUsers', function ($query) use ($data) {
-                      $query->where('game_id', $data->game_id);
+        return $query->whereNotIn('id', [$attrs->user_id])
+                  ->whereHas('gameUsers', function ($query) use ($attrs) {
+                      $query->where('game_id', $attrs->game_id);
                       $query->where('is_mail_send', true);
                   })
                   ->where('email', 'not like', '%test@test.jp%')

@@ -115,7 +115,7 @@ class ResumeController extends Controller
             $gameUser = $this->userService->getGameUserByGameIdAndUserId(Auth::user()->selected_game_id, $request->id);
             $request->merge(['user_id' => $request->id]);
             $request->id = $gameUser->id;
-            $gameUser = $this->userService->updateGameUser($request);
+            $gameUser = $this->userService->updateGameUser($gameUser->id, $request->all());
             $request->merge(['game_user_id' => $gameUser->id]);
 
             $item_ids = array_merge( \App\Models\GameUserCheck::ITEM_ID_REGULATIONS,\App\Models\GameUserCheck::ITEM_ID_PLAY_STYLES);

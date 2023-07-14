@@ -2,18 +2,17 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
 use App\Models\GameUser;
 
 class GameUserRepository
 {
-    public function create(array $data)
+    public function create(array $attrs)
     {
         $gameUser = new GameUser();
-        $gameUser->game_id = $data['game_id'];
-        $gameUser->user_id = $data['user_id'];
-        if (isset($data['discord_name'])) {
-            $gameUser->discord_name = $data['discord_name'];
+        $gameUser->game_id = $attrs['game_id'];
+        $gameUser->user_id = $attrs['user_id'];
+        if (isset($attrs['discord_name'])) {
+            $gameUser->discord_name = $attrs['discord_name'];
         }
         $gameUser->is_mail_send = true;
         $gameUser->rate = 0;
@@ -22,35 +21,35 @@ class GameUserRepository
         return $gameUser;
     }
 
-    public function update($data)
+    public function update(int $id, array $attrs): GameUser
     {
-        $gameUser = $this->find($data->id);
-        if (isset($data->game_id)) {
-            $gameUser->game_id = $data->game_id;
+        $gameUser = $this->find($id);
+        if (isset($attrs['game_id'])) {
+            $gameUser->game_id = $attrs['game_id'];
         }
-        if (isset($data->user_id)) {
-            $gameUser->user_id = $data->user_id;
+        if (isset($attrs['user_id'])) {
+            $gameUser->user_id = $attrs['user_id'];
         }
-        if (isset($data->expo_push_token)) {
-            $gameUser->expo_push_token = $data->expo_push_token;
+        if (isset($attrs['expo_push_token'])) {
+            $gameUser->expo_push_token = $attrs['expo_push_token'];
         }
-        if (isset($data->discord_name)) {
-            $gameUser->discord_name = $data->discord_name;
+        if (isset($attrs['discord_name'])) {
+            $gameUser->discord_name = $attrs['discord_name'];
         }
-        if (isset($data->is_mail_send)) {
-            $gameUser->is_mail_send = $data->is_mail_send;
+        if (isset($attrs['is_mail_send'])) {
+            $gameUser->is_mail_send = $attrs['is_mail_send'];
         }
-        if (isset($data->rate)) {
-            $gameUser->rate = $data->rate;
+        if (isset($attrs['rate'])) {
+            $gameUser->rate = $attrs['rate'];
         }
-        if (isset($data->experience)) {
-            $gameUser->experience = $data->experience;
+        if (isset($attrs['experience'])) {
+            $gameUser->experience = $attrs['experience'];
         }
-        if (isset($data->area)) {
-            $gameUser->area = $data->area;
+        if (isset($attrs['area'])) {
+            $gameUser->area = $attrs['area'];
         }
-        if (isset($data->preference)) {
-            $gameUser->preference = $data->preference;
+        if (isset($attrs['preference'])) {
+            $gameUser->preference = $attrs['preference'];
         }
         $gameUser->save();
 
@@ -86,34 +85,34 @@ class GameUserRepository
                         ->first();
     }
 
-    public function composeWhereClause($data)
+    public function composeWhereClause($attrs)
     {
         $query = GameUser::query();
-        $query->where('game_id', $data->game_id);
-        if (isset($data->user_id)) {
-            $query->where('user_id', $data->user_id);
+        $query->where('game_id', $attrs->game_id);
+        if (isset($attrs->user_id)) {
+            $query->where('user_id', $attrs->user_id);
         }
 
         return $query;
     }
 
     /**
-     * @param $data
+     * @param $attrs
      * @param $pagination
      * @return mixed
      */
-    public function findAll($data) {
-        $query = $this->composeWhereClause($data);
+    public function findAll($attrs) {
+        $query = $this->composeWhereClause($attrs);
         return $query->get();
     }
 
     /**
-     * @param $data
+     * @param $attrs
      * @param $pagination
      * @return mixed
      */
-    public function findAllByPaginateOrderByRank($data, $pagination) {
-        $query = $this->composeWhereClause($data);
+    public function findAllByPaginateOrderByRank($attrs, $pagination) {
+        $query = $this->composeWhereClause($attrs);
         $query->orderBy('rate','desc');
         $query->orderBy('user_id','asc');
 
@@ -122,34 +121,17 @@ class GameUserRepository
     }
 
     /**
-     * @param $data
+     * @param $attrs
      * @param $paginate
      * @return mixed
      */
-    public function findAllByRankForApi($data, $paginate) {
+    public function findAllByRankForApi($attrs, $paginate) {
 
         return GameUser::select('id', 'game_id', 'user_id', 'discord_name', 'rate', 'created_at')
-            ->where('game_id', $data->game_id)
+            ->where('game_id', $attrs->game_id)
             ->with('user:id,name,twitter_simple_image_url')
             ->orderBy('rate','desc')
             ->orderBy('user_id','asc')
             ->paginate($paginate);
     }
-
-    /**
-     * @param $data
-     * @return mixed
-     */
-    public function findByUserIdAndGameIdForApi($data)
-    {
-        return GameUser::select(
-            'id', 'game_id', 'user_id', 'discord_name', 'rate', 'experience', 'area', 'preference', 'created_at'
-        )
-            ->where('user_id', $data->user_id)
-            ->where('game_id', $data->game_id)
-            ->with('user:id,name,gender,twitter_image_url,twitter_simple_image_url,body')
-            ->with('gameUserChecks:id,game_user_id,item_id')
-            ->first();
-    }
-
 }

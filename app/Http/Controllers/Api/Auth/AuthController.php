@@ -12,7 +12,6 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
-
     protected $userService;
     protected $apiService;
 
@@ -30,9 +29,9 @@ class AuthController extends Controller
 
     public function login()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect('/user/' . Auth::user()->id);
-        }else{
+        } else {
             return Socialite::driver('twitter')->redirect();
         }
     }
@@ -55,8 +54,7 @@ class AuthController extends Controller
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
 
             $rates = $this->userService->getGameUserForApi($request);
-
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $events = [
                 'result' => false,
                 'error' => [
@@ -75,10 +73,9 @@ class AuthController extends Controller
 
             // 選択しているゲームでフィルタ
             $gameUserRequest = new Request();
-            $gameUserRequest->merge(['id' => $gameUser->id]);
             $gameUserRequest->merge(['expo_push_token' => $request->expo_push_token]);
 
-            $this->userService->updateGameUser($gameUserRequest);
+            $this->userService->updateGameUser($gameUser->id, $gameUserRequest->all());
             $gameUser = $this->userService->getGameUserForApi($request);
 
         } catch(\Exception $e){
@@ -120,7 +117,7 @@ class AuthController extends Controller
                 $this->userService->updateUser($gameUser->user_id, $userData);
             }
 
-            $gameUser = $this->userService->updateGameUser($request);
+            $gameUser = $this->userService->updateGameUser($request->id, $request->all());
         } catch(\Exception $e){
             $gameUser = [
                 'result' => false,

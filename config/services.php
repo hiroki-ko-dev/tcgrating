@@ -34,6 +34,11 @@ return [
         'client_secret' => env('TWITTER_API_SECRET'),
         'redirect' => env('TWITTER_CALLBACK_URL'),
     ],
+    'discord' => [
+        'client_id' => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
+        'redirect' => env('DISCORD_REDIRECT_URI'),
+    ],
     'apple' => [
         'client_id' => env('APPLE_CLIENT_ID'),
         'client_secret' => env('APPLE_CLIENT_SECRET'),
