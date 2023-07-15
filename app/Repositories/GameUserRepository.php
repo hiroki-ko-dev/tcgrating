@@ -3,10 +3,13 @@
 namespace App\Repositories;
 
 use App\Models\GameUser;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class GameUserRepository
 {
-    public function create(array $attrs)
+    public function create(array $attrs): GameUser
     {
         $gameUser = new GameUser();
         $gameUser->game_id = $attrs['game_id'];
@@ -56,82 +59,62 @@ class GameUserRepository
         return $gameUser;
     }
 
-
-    /**
-     * @param $id
-     * @param $user_id
-     * @param $add_rate
-     * @return mixed
-     */
-    public function updateRate($id, $add_rate)
+    public function updateRate(int $id, int $addRate): ?GameUser
     {
-        // rateレコードがすでに存在するなら抽出
         $gameUser = $this->find($id);
-        $gameUser->rate = $gameUser->rate + $add_rate ;
+        $gameUser->rate = $gameUser->rate + $addRate ;
         $gameUser->save();
 
         return $gameUser ;
     }
 
-    public function find($id)
+    public function find(int $id): ?GameUser
     {
         return GameUser::find($id);
     }
 
-    public function findByGameIdAndUserId($game_id, $user_id)
+    public function findByGameIdAndUserId(int $game_id, int $user_id): ?GameUser
     {
         return GameUser::where('game_id', $game_id)
                         ->where('user_id', $user_id)
                         ->first();
     }
 
-    public function composeWhereClause($attrs)
+    public function composeWhereClause(array $attrs): Builder
     {
         $query = GameUser::query();
-        $query->where('game_id', $attrs->game_id);
-        if (isset($attrs->user_id)) {
-            $query->where('user_id', $attrs->user_id);
+        if (isset($attrs['user_id'])) {
+            $query->where('user_id', $attrs['user_id']);
+        }
+        if (isset($attrs['user_id'])) {
+            $query->where('user_id', $attrs['user_id']);
         }
 
         return $query;
     }
 
-    /**
-     * @param $attrs
-     * @param $pagination
-     * @return mixed
-     */
-    public function findAll($attrs) {
+    public function findAll(array $attrs): Collection
+    {
         $query = $this->composeWhereClause($attrs);
         return $query->get();
     }
 
-    /**
-     * @param $attrs
-     * @param $pagination
-     * @return mixed
-     */
-    public function findAllByPaginateOrderByRank($attrs, $pagination) {
+    public function findAllByPaginateOrderByRank(array $attrs, $pagination)
+    {
         $query = $this->composeWhereClause($attrs);
-        $query->orderBy('rate','desc');
-        $query->orderBy('user_id','asc');
-
+        $query->orderBy('rate', 'desc');
+        $query->orderBy('user_id', 'asc');
 
         return $query->paginate($pagination);
     }
 
-    /**
-     * @param $attrs
-     * @param $paginate
-     * @return mixed
-     */
-    public function findAllByRankForApi($attrs, $paginate) {
-
+    public function findAllByRankForApi($attrs, int $row): LengthAwarePaginator
+    {
         return GameUser::select('id', 'game_id', 'user_id', 'discord_name', 'rate', 'created_at')
             ->where('game_id', $attrs->game_id)
             ->with('user:id,name,twitter_simple_image_url')
-            ->orderBy('rate','desc')
-            ->orderBy('user_id','asc')
-            ->paginate($paginate);
+            ->orderBy('rate', 'desc')
+            ->orderBy('user_id', 'asc')
+            ->paginate($row);
     }
 }

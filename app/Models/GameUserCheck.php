@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use Auth;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class GameUserCheck extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     const ITEM_TYPES = [
@@ -49,11 +49,11 @@ class GameUserCheck extends Model
 
     public function gameUser()
     {
-        return $this->belongsTo('App\Models\Game','game_id');
+        return $this->belongsTo('App\Models\Game', 'game_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User','user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 }

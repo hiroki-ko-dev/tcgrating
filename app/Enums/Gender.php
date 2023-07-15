@@ -18,4 +18,13 @@ enum Gender: int
             Gender::Female => '女',
         };
     }
+
+    public function alternativeDescription(): string
+    {
+        return match ($this) {
+            Gender::Undefined => '',
+            Gender::Male => '♂',   // ここを別の表現に変更
+            Gender::Female => '♀', // ここを別の表現に変更
+        };
+    }
 }

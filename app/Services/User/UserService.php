@@ -10,6 +10,7 @@ use App\Repositories\GameUserRepository;
 use App\Repositories\GameUserCheckRepository;
 use App\Repositories\UserInfoDiscordRepository;
 use DB;
+use Auth;
 
 class UserService
 {
@@ -83,11 +84,10 @@ class UserService
         return $this->gameUserRepository->find($id);
     }
 
-    public function getGameUserByGameIdAndUserId($game_id, $user_id)
+    public function getGameUserByGameIdAndUserId(int $game_id, int $user_id): ?GameUser
     {
         return $this->gameUserRepository->findByGameIdAndUserId($game_id, $user_id);
     }
-
 
     public function getRatesWithPaginateOrderByRank($request, $pagination)
     {
@@ -102,6 +102,11 @@ class UserService
     public function getGameUserForApi($request)
     {
         return $this->gameUserRepository->findByUserIdAndGameIdForApi($request);
+    }
+
+    public function fetchGameUserRank(GameUser $gameUser)
+    {
+        return $this->gameUserRepository->fetchRank($gameUser);
     }
 
     public function getGameUserJson($request)
@@ -125,6 +130,16 @@ class UserService
     public function findAllUserBySendMail($request)
     {
         return $this->userRepository->findAllBySendMail($request);
+    }
+
+    public function fetchSelectedGameId()
+    {
+        if (Auth::check()) {
+            $selectedGameId = Auth::user()->selected_game_id;
+        } else {
+            $selectedGameId = session('selected_game_id');
+        }
+        return $selectedGameId;
     }
 
     public function updateGameUser($id, array $attrs): GameUser
@@ -158,28 +173,5 @@ class UserService
         $this->gameUserCheckRepository->delete($request);
 
         return true;
-    }
-
-    /**
-     * @param $request
-     * @return mixed
-     */
-    public function getGameUserRank($request)
-    {
-        $gameUserRequest = new \stdClass();
-        $gameUserRequest->game_id = $request->game_id;
-
-        $gameUsers = $this->gameUserRepository->findAll($gameUserRequest);
-        $rank['parameter'] = $gameUsers->count();
-        if (isset($gameUsers->where('user_id', $request->user_id)->first()->rate)) {
-            $rate = $gameUsers->where('user_id', $request->user_id)->first()->rate;
-        } else {
-            $rate = 0;
-        }
-        $rank['ranking'] = $gameUsers->where('rate', '>', $rate)->count() + 1;
-
-        $rankJson = json_encode($rank);
-
-        return $rankJson;
     }
 }

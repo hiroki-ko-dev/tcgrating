@@ -29,8 +29,7 @@
   </div>
 
   <div class="row justify-content-center">
-    <input type="hidden" id="gameUserJson" name="userJson" value="{{$gameUserJson}}">
-    <input type="hidden" id="rankJson" name="rankJson" value="{{$rankJson}}">
+    <input type="hidden" id="resumeJson" name="resumeJson" value="{{$resumeJson}}">
     <div id='target-component' >ポケカ履歴書</div>
   </div>
 

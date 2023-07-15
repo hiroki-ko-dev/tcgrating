@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services\User;
 
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 final class UserInfoTwitterService extends UserService
 {
-    public function saveTwitterImage($user)
+    public function saveTwitterImage(User $user): void
     {
         try {
             //画像のURL

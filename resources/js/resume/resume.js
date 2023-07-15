@@ -6,16 +6,14 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
 
 (() => {
 
-  let gameUserJson = JSON.parse(document.getElementById('gameUserJson').value);
-  let rankJson = JSON.parse(document.getElementById('rankJson').value);
+  let resumeJson = JSON.parse(document.getElementById('resumeJson').value);
 
   const gameUserChecks = () => {
-
-    let checks = [];
-    gameUserJson.game_user_checks.forEach((gameUserCheck, index) => {
-      checks[gameUserCheck.item_id] = true;
+    let checks = {};
+    Object.keys(resumeJson.user.gameUser.gameUserChecks).forEach((key, index) => {
+      checks[key] = true;
     });
-
+  
     return checks;
   }
 
@@ -62,7 +60,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
             ダウンロード
           </button>
           <button id="edit" className="btn site-color text-white rounded-pill btn-outline-secondary text-center"
-                  onClick={() => {location.href='/resume/' + gameUserJson.user.id + '/edit'}}>
+                  onClick={() => {location.href='/resume/' + resumeJson.user.id + '/edit'}}>
             編集する
           </button>
         </div>
@@ -84,7 +82,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
             <div className="col-5">
               <img
                 className="profileImage"
-                src={"/storage/images/temp/twitter_game_3_user_" + gameUserJson.user.id + ".jpg"}
+                src={"/storage/images/temp/twitter_game_3_user_" + resumeJson.user.id + ".jpg"}
               />
             </div>
             <div className="col-7">
@@ -92,7 +90,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
                 <div className="name col-12">
                   <div className="title">名前</div>
                   <div className="body">
-                    {gameUserJson.user.name}
+                    {resumeJson.user.name}
                   </div>
                 </div>
               </div>
@@ -101,7 +99,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
                 <div className="rate col-8">
                   <div className="title">ランキング</div>
                   <div className="body">
-                    <span className="number">{rankJson.ranking}</span>
+                    <span className="number">{resumeJson.user.gameUser.rank}</span>
                     <span className="staring">位</span>
 
                   </div>
@@ -109,9 +107,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
                 <div className="gender col-4">
                   <div className="title">性別</div>
                   <div className="body">
-                    {gameUserJson.user.gender === 1 ? '♂'
-                      : gameUserJson.user.gender === 2 ? '♀' : ''
-                    }
+                    {resumeJson.user.gender}
                   </div>
                 </div>
               </div>
@@ -123,7 +119,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
               <div className="experience">
                 <div className="title">ポケカ歴</div>
                 <div className="body">
-                  {gameUserJson.experience}
+                  {resumeJson.user.gameUser.experience}
                 </div>
               </div>
             </div>
@@ -131,7 +127,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
               <div className="area">
                 <div className="title">活動地域</div>
                 <div className="body">
-                  {gameUserJson.area}
+                  {resumeJson.user.gameUser.area}
                 </div>
               </div>
             </div>
@@ -143,7 +139,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
               <div className="pokemon">
                 <div className="title">好きなポケモン</div>
                 <div className="body">
-                  {gameUserJson.preference}
+                  {resumeJson.user.gameUser.preference}
                 </div>
               </div>
             </div>
@@ -222,7 +218,7 @@ import defaultIcon from '../../../public/images/icon/default-icon-mypage.png';
           <div className="freeSpace row">
             <div className="title">フリースペース</div>
             <div className="body">
-              {gameUserJson.user.body}
+              {resumeJson.user.body}
             </div>
           </div>
 

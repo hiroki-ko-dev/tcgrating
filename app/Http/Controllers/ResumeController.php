@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
 use Auth;
 use DB;
 use App\Services\User\UserService;
 use App\Services\User\UserInfoTwitterService;
+use App\Services\User\UserResumeService;
 use App\Services\EventService;
+use App\Presenters\Resume\ResumePresenter;
 use Illuminate\Http\Request;
 
 class ResumeController extends Controller
@@ -15,65 +16,47 @@ class ResumeController extends Controller
     public function __construct(
         private readonly UserService $userService,
         private readonly UserInfoTwitterService $userInfoTwitterService,
-        private readonly EventService $eventService
+        private readonly UserResumeService $userResumeService,
+        private readonly EventService $eventService,
+        private readonly ResumePresenter $resumePresenter,
     ) {
     }
 
-    /**
-     * @param Request $request
-     * @param $user_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function index(Request $request)
+    public function index()
     {
-        return redirect('/resume/'.Auth::id());
+        return redirect('/resume/' . Auth::id());
     }
 
-    /**
-     * @param Request $request
-     * @param $user_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function show(Request $request, $user_id)
+    public function show(Request $request, $userId)
     {
-        $user   = $this->userService->findUser($user_id);
+        try {
+            $gameUser = $this->userResumeService->show($userId);
+            $resumeJson = json_encode(
+                $this->resumePresenter->resume($gameUser)
+            );
+            $events = $this->eventService->findAllEventByUserId($userId);
+            $user = $gameUser->user;
+            $this->userInfoTwitterService->saveTwitterImage($user);
 
-        $gameUserRequest = new \stdClass();
-        $gameUserRequest->user_id = $user_id;
 
-        // 選択しているゲームでフィルタ
-        if (Auth::check()) {
-            $gameUserRequest->game_id = Auth::user()->selected_game_id;
-        } else {
-            $gameUserRequest->game_id = session('selected_game_id');
+            return view('resume.show', compact('user', 'resumeJson', 'events'));
+        } catch (Exception $e) {
+            return view('resume.show', compact('user', 'resumeJson', 'events'));
         }
-        $gameUserJson = $this->userService->getGameUserJson($gameUserRequest);
-
-        $this->userInfoTwitterService->saveTwitterImage($user);
-        $rankJson = $this->userService->getGameUserRank($gameUserRequest);
-
-        $events = $this->eventService->findAllEventByUserId($user_id);
-
-        return view('resume.show', compact('user', 'gameUserJson', 'rankJson', 'events'));
     }
 
-    /**
-     * @param Request $request
-     * @param $user_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function edit(Request $request,$user_id)
+    public function edit(Request $request, $user_id)
     {
         //アカウント認証しているユーザーのみ新規作成可能
         $this->middleware('auth');
-        if(Auth::id() <> $user_id){
+        if (Auth::id() <> $user_id) {
             return back();
         }
 
         $user = $this->userService->findUser($user_id);
-        $gameUser = $user->gameUsers->where('game_id',$user->selected_game_id)->first();
+        $gameUser = $user->gameUsers->where('game_id', $user->selected_game_id)->first();
 
-        return view('resume.edit',compact('user','gameUser'));
+        return view('resume.edit', compact('user', 'gameUser'));
     }
 
 //    /**
@@ -97,7 +80,7 @@ class ResumeController extends Controller
     {
         //アカウント認証しているユーザーのみ新規作成可能
         $this->middleware('auth');
-        if(Auth::id() <> $request->id){
+        if (Auth::id() <> $request->id) {
             return back()->with('flash_message', 'アカウントエラーです');
         }
 
@@ -109,23 +92,22 @@ class ResumeController extends Controller
             $gameUser = $this->userService->updateGameUser($gameUser->id, $request->all());
             $request->merge(['game_user_id' => $gameUser->id]);
 
-            $item_ids = array_merge( \App\Models\GameUserCheck::ITEM_ID_REGULATIONS,\App\Models\GameUserCheck::ITEM_ID_PLAY_STYLES);
+            $item_ids = array_merge(\App\Models\GameUserCheck::ITEM_ID_REGULATIONS, \App\Models\GameUserCheck::ITEM_ID_PLAY_STYLES);
 
-            if(isset($request->item_ids)){
-                foreach ($item_ids as $item_id){
+            if (isset($request->item_ids)) {
+                foreach ($item_ids as $item_id) {
                     $request->merge(['item_id' => $item_id]);
-                    if(in_array($item_id,$request->item_ids)) {
+                    if (in_array($item_id, $request->item_ids)) {
                         $this->userService->makeGameUserCheck($request);
-                    }else{
+                    } else {
                         $this->userService->dropGameUserCheck($request);
                     }
                 }
-            }else{
+            } else {
                 $this->userService->dropGameUserCheck($request);
             }
-
         });
 
-        return redirect('/resume/'.$request->input('id'))->with('flash_message', '保存しました');
+        return redirect('/resume/' . $request->input('id'))->with('flash_message', '保存しました');
     }
 }
