@@ -6,26 +6,17 @@ namespace App\Http\Controllers;
 use Auth;
 use DB;
 use App\Services\User\UserService;
+use App\Services\User\UserInfoTwitterService;
 use App\Services\EventService;
-
 use Illuminate\Http\Request;
 
 class ResumeController extends Controller
 {
-
-    protected $userService;
-    protected $eventService;
-
-    /**
-     * UserController constructor.
-     * @param UserService $userService
-     * @param EventService $eventService
-     */
-    public function __construct(UserService $userService,
-                                EventService $eventService)
-    {
-        $this->userService  = $userService;
-        $this->eventService = $eventService;
+    public function __construct(
+        private readonly UserService $userService,
+        private readonly UserInfoTwitterService $userInfoTwitterService,
+        private readonly EventService $eventService
+    ) {
     }
 
     /**
@@ -43,7 +34,7 @@ class ResumeController extends Controller
      * @param $user_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Request $request,$user_id)
+    public function show(Request $request, $user_id)
     {
         $user   = $this->userService->findUser($user_id);
 
@@ -51,19 +42,19 @@ class ResumeController extends Controller
         $gameUserRequest->user_id = $user_id;
 
         // 選択しているゲームでフィルタ
-        if(Auth::check()) {
+        if (Auth::check()) {
             $gameUserRequest->game_id = Auth::user()->selected_game_id;
-        }else{
+        } else {
             $gameUserRequest->game_id = session('selected_game_id');
         }
         $gameUserJson = $this->userService->getGameUserJson($gameUserRequest);
 
-        $this->userService->saveTwitterImage($user);
+        $this->userInfoTwitterService->saveTwitterImage($user);
         $rankJson = $this->userService->getGameUserRank($gameUserRequest);
 
         $events = $this->eventService->findAllEventByUserId($user_id);
 
-        return view('resume.show',compact('user','gameUserJson', 'rankJson', 'events'));
+        return view('resume.show', compact('user', 'gameUserJson', 'rankJson', 'events'));
     }
 
     /**

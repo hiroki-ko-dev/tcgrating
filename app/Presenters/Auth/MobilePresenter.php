@@ -2,6 +2,7 @@
 
 namespace App\Presenters\Auth;
 
+use App\Models\User;
 use App\Enums\Gender;
 
 final class MobilePresenter

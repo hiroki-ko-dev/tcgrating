@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Services;
+
 use App\Repositories\EventRepository;
 use App\Repositories\EventUserRepository;
 use App\Repositories\GameUserRepository;
-use Illuminate\Http\Request;
 
 class EventService
 {

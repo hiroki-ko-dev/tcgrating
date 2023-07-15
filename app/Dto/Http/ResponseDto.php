@@ -2,7 +2,7 @@
 
 namespace App\Dto\Http;
 
-class DiscordAuthResponseDto
+class ResponseDto
 {
     public function __construct(
         public readonly array $data,

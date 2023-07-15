@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Services\User\UserService;
+use App\Presenters\Auth\MobilePresenter;
 use App\Dto\Http\ResponseDto;
 use Illuminate\Http\Request;
 use Auth;
@@ -19,6 +20,7 @@ class MobileController extends Controller
     public function login(Request $request)
     {
         try {
+            \Log::debug();
             $gameUser = $this->userService->getGameUserByGameIdAndUserId($request->game_id, $request->user_id);
             // 選択しているゲームでフィルタ
             $gameUserAttrs['expo_push_token'] = $request->expo_push_token;
@@ -35,7 +37,7 @@ class MobileController extends Controller
             return response()->json(
                 new ResponseDto(
                     data: [],
-                    code: $e->statusCode(),
+                    code: $e->getCode(),
                     message: $e->getMessage(),
                 )
             );
@@ -57,7 +59,7 @@ class MobileController extends Controller
             return response()->json(
                 new ResponseDto(
                     data: [],
-                    code: $e->statusCode(),
+                    code: $e->getCode(),
                     message: $e->getMessage(),
                 )
             );
@@ -82,7 +84,7 @@ class MobileController extends Controller
             return response()->json(
                 new ResponseDto(
                     data: [],
-                    code: $e->statusCode(),
+                    code: $e->getCode(),
                     message: $e->getMessage(),
                 )
             );

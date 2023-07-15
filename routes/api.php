@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -40,5 +40,6 @@ Route::resources(['post/comment' => Api\Post\CommentController::class]);
 Route::resources(['rank' => Api\Rank\RankController::class]);
 Route::resources(['video' => Api\Video\VideoController::class]);
 
-Route::post('auth/mobile/login', [Auth\MobileController::class, 'login']);
-Route::post('auth/mobile/logout', [Auth\MobileController::class, 'logout']);
+// Route::post('auth/mobile/login', 'Auth\MobileController@login');
+Route::post('/auth/mobile/login', [Auth\MobileController::class, 'login']);
+Route::post('/auth/mobile/logout', [Auth\MobileController::class, 'logout']);

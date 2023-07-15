@@ -2,30 +2,21 @@
 
 namespace App\Http\Controllers;
 
-
 use Auth;
 use DB;
 use App\Services\User\UserService;
+use App\Services\User\UserInfoTwitterService;
 use App\Services\EventService;
-
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
-
-    protected $userService;
-    protected $eventService;
-
-    /**
-     * UserController constructor.
-     * @param UserService $userService
-     * @param EventService $eventService
-     */
-    public function __construct(UserService $userService,
-                                EventService $eventService)
-    {
-        $this->userService  = $userService;
-        $this->eventService = $eventService;
+    public function __construct(
+        private readonly UserService $userService,
+        private readonly UserInfoTwitterService $userInfoTwitterService,
+        private readonly EventService $eventService,
+    ) {
     }
 
     /**
@@ -35,7 +26,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        return redirect('/user/'.Auth::id());
+        return redirect('/user/' . Auth::id());
     }
 
     /**
@@ -43,27 +34,25 @@ class UserController extends Controller
      * @param $user_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Request $request,$user_id)
+    public function show(Request $request, int $user_id): View
     {
-        $user   = $this->userService->findUser($user_id);
+        $user = $this->userService->findUser($user_id);
 
         $gameUserRequest = new \stdClass();
         $gameUserRequest->user_id = $user_id;
 
         // 選択しているゲームでフィルタ
-        if(Auth::check()) {
+        if (Auth::check()) {
             $gameUserRequest->game_id = Auth::user()->selected_game_id;
-        }else{
+        } else {
             $gameUserRequest->game_id = session('selected_game_id');
         }
-        $gameUserJson = $this->userService->getGameUserJson($gameUserRequest);
-
-        $this->userService->saveTwitterImage($user);
+        $this->userInfoTwitterService->saveTwitterImage($user);
         $rankJson = $this->userService->getGameUserRank($gameUserRequest);
 
         $events = $this->eventService->findAllEventByUserId($user_id);
 
-        return view('user.show',compact('user','gameUserJson', 'rankJson', 'events'));
+        return view('user.show', compact('user', 'rankJson', 'events'));
     }
 
     /**
@@ -71,7 +60,7 @@ class UserController extends Controller
      * @param $user_id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(Request $request,$user_id)
+    public function edit(Request $request, $user_id)
     {
         //アカウント認証しているユーザーのみ新規作成可能
         $this->middleware('auth');
