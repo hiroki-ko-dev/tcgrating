@@ -6,8 +6,9 @@ use Auth;
 use DB;
 use App\Services\User\UserService;
 use App\Services\User\UserInfoTwitterService;
-use App\Services\User\GameUserService;
+use App\Services\User\UserResumeService;
 use App\Services\EventService;
+use App\Presenters\Resume\ResumePresenter;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -17,8 +18,9 @@ class UserController extends Controller
     public function __construct(
         private readonly UserService $userService,
         private readonly UserInfoTwitterService $userInfoTwitterService,
-        private readonly GameUserService $gameUserService,
+        private readonly UserResumeService $userResumeService,
         private readonly EventService $eventService,
+        private readonly ResumePresenter $resumePresenter,
     ) {
     }
 
@@ -27,25 +29,13 @@ class UserController extends Controller
         return redirect('/user/' . Auth::id());
     }
 
-    public function show(Request $request, int $user_id): View
+    public function show(Request $request, int $userId): View
     {
-        $user = $this->userService->findUser($user_id);
-
-        $gameUserRequest = new \stdClass();
-        $gameUserRequest->user_id = $user_id;
-
-        // 選択しているゲームでフィルタ
-        if (Auth::check()) {
-            $gameUserRequest->game_id = Auth::user()->selected_game_id;
-        } else {
-            $gameUserRequest->game_id = session('selected_game_id');
-        }
+        $user = $this->userService->findUser($userId);
+        $events = $this->eventService->findAllEventByUserId($userId);
         $this->userInfoTwitterService->saveTwitterImage($user);
-        $rankJson = $this->gameUserService->getGameUserRanks($gameUserRequest);
 
-        $events = $this->eventService->findAllEventByUserId($user_id);
-
-        return view('user.show', compact('user', 'rankJson', 'events'));
+        return view('user.show', compact('user', 'events'));
     }
 
     public function edit(Request $request, int $user_id): View | RedirectResponse

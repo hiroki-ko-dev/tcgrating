@@ -20,7 +20,6 @@ class MobileController extends Controller
     public function login(Request $request)
     {
         try {
-            \Log::debug();
             $gameUser = $this->userService->getGameUserByGameIdAndUserId($request->game_id, $request->user_id);
             // 選択しているゲームでフィルタ
             $gameUserAttrs['expo_push_token'] = $request->expo_push_token;
@@ -28,7 +27,7 @@ class MobileController extends Controller
             $gameUser = $this->userService->updateGameUser($gameUser->id, $gameUserAttrs);
             return response()->json(
                 new ResponseDto(
-                    data: $this->mobilePresenter->login($gameUser->user),
+                    data: $this->mobilePresenter->login($gameUser),
                     code: 200,
                     message: '',
                 )

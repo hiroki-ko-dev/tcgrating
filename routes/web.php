@@ -60,7 +60,7 @@ Route::prefix('auth')->group(function () {
         Route::get('/callback', 'Auth\DiscordController@handleProviderCallback');
         // TwitterログアウトURL
         Route::get('/logout', 'Auth\DiscordController@logout');
-  });
+    });
     Route::prefix('apple')->group(function () {
         // TwitterログインURL
         Route::get('/login', 'Auth\AppleController@redirectToProvider');

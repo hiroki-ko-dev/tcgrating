@@ -2,21 +2,22 @@
 
 namespace App\Presenters\Auth;
 
-use App\Models\User;
+use App\Models\GameUser;
 use App\Enums\Gender;
 
 final class MobilePresenter
 {
-    public function login(User $user): array
+    public function login(GameUser $gameUser): array
     {
         return [
             'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'body' => $user->birthday,
-                'profileImagePath' => $user->profile_image_path,
-                'birthday' => $user->birthday,
-                'gender' => $this->getGenderName($user->gender),
+                'id' => $gameUser->user->id,
+                'name' => $gameUser->user->name,
+                'body' => $gameUser->user->birthday,
+                'profileImagePath' => $gameUser->user->profile_image_path,
+                'birthday' => $gameUser->user->birthday,
+                'gender' => $this->getGenderName($gameUser->user->gender),
+                'rate' => $gameUser->rate,
             ]
         ];
     }
