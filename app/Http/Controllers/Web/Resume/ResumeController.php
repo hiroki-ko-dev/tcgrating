@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web\Resume;
 
 use Auth;
 use DB;
@@ -8,7 +8,7 @@ use App\Services\User\UserService;
 use App\Services\User\UserInfoTwitterService;
 use App\Services\User\UserResumeService;
 use App\Services\EventService;
-use App\Presenters\Resume\ResumePresenter;
+use App\Presenters\Web\Resume\ResumePresenter;
 use Illuminate\Http\Request;
 
 class ResumeController extends Controller

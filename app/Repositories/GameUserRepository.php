@@ -108,13 +108,15 @@ class GameUserRepository
         return $query->paginate($pagination);
     }
 
-    public function findAllByRankForApi($attrs, int $row): LengthAwarePaginator
+    public function paginate(array $filters, int $row): LengthAwarePaginator
     {
-        return GameUser::select('id', 'game_id', 'user_id', 'discord_name', 'rate', 'created_at')
-            ->where('game_id', $attrs->game_id)
-            ->with('user:id,name,twitter_simple_image_url')
-            ->orderBy('rate', 'desc')
-            ->orderBy('user_id', 'asc')
-            ->paginate($row);
+        $query = GameUser::query();
+        if (isset($filters['game_id'])) {
+            $query->preference = $filters['game_id'];
+        }
+        $query->orderBy('rate', 'desc');
+        $query->orderBy('user_id', 'asc');
+
+        return $query->paginate($row);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\User;
 use App\Models\GameUser;
 use App\Models\UserInfoDiscord;
@@ -94,19 +95,14 @@ class UserService
         return $this->gameUserRepository->findAllByPaginateOrderByRank($request, $pagination);
     }
 
-    public function getGameUsersByRankForApi($request, $paginate)
+    public function paginateGameUser(array $filters, int $row): LengthAwarePaginator
     {
-        return $this->gameUserRepository->findAllByRankForApi($request, $paginate);
+        return $this->gameUserRepository->paginate($filters, $row);
     }
 
     public function getGameUserForApi($request)
     {
         return $this->gameUserRepository->findByUserIdAndGameIdForApi($request);
-    }
-
-    public function fetchGameUserRank(GameUser $gameUser)
-    {
-        return $this->gameUserRepository->fetchRank($gameUser);
     }
 
     public function getGameUserJson($request)

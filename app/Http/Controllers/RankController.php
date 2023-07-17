@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Auth;
 use DB;
 use App\Services\User\UserService;
-
 use Illuminate\Http\Request;
 
 class RankController extends Controller
 {
-
     protected $user_service;
 
     /**

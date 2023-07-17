@@ -114,7 +114,8 @@ final class UserRepository
         return User::find($id);
     }
 
-    public function findAll($attrs) {
+    public function findAll($attrs)
+    {
         $query = User::query();
         if (isset($attrs->not_null_twitter_id)) {
             $query->whereNotNull('twitter_id');
@@ -132,7 +133,8 @@ final class UserRepository
         return User::where('twitter_id', $id)->first();
     }
 
-    public function findByAppleCode($code) {
+    public function findByAppleCode($code)
+    {
         return User::where('apple_code', $code)->first();
     }
 
@@ -153,7 +155,5 @@ final class UserRepository
                   ->where('email', 'not like', '%test@test.jp%')
                   ->whereNotNull('email')
                   ->get();
-
     }
-
 }

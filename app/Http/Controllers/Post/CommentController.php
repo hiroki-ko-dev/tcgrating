@@ -58,7 +58,7 @@ class CommentController extends Controller
 
         if($request->has('post_id')){
 
-            $post = $this->postService->getPost($request->post_id);
+            $post = $this->postService->findPost($request->post_id);
             $postComment = new \stdClass();
             $postComment->post = $post;
             $postComment->id = 0;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenters\Resume;
+namespace App\Presenters\Web\Resume;
 
 use App\Models\GameUser;
 use App\Enums\Gender;

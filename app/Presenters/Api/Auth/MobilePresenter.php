@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenters\Auth;
+namespace App\Presenters\Api\Auth;
 
 use App\Models\GameUser;
 use App\Enums\Gender;

@@ -80,7 +80,7 @@ Route::resources([
 
 //ユーザー系スレッド
 Route::resources([
-    'resume' => ResumeController::class,
+    'resume' => Web\Resume\ResumeController::class,
 ]);
 
 //チーム系スレッド

@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth;
+use App\Http\Controllers\Api\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,28 +18,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::prefix('auth')->group(function () {
+    Route::post('/login', [Auth\AuthController::class, 'login']);
+    Route::post('/logout', [Auth\AuthController::class, 'logout']);
+});
 
 // AppleコールバックURL
 Route::post('/auth/apple/redirect', 'Auth\AppleController@handleProviderCallback');
-
 Route::get('/user/{user_id}', 'Api\Auth\AuthController@index');
-Route::post('/auth/expo/token/update', 'Api\Auth\AuthController@expoTokenUpdate');
-Route::get('/auth/logout', 'Api\Auth\AuthController@logout');
-Route::post('/auth/discord_name/update', 'Api\Auth\AuthController@discordName');
-
 Route::get('/single/test', 'Api\Event\SingleController@test');
-
 Route::resources(['event/single' => Api\Event\SingleController::class]);
 Route::get('/event/badge', 'Api\Event\SingleController@badge');
-
 Route::post('/event/join', 'Api\Event\SingleController@join');
-
 Route::resources(['post' => Api\Post\PostController::class]);
-Route::resources(['post/comment' => Api\Post\CommentController::class]);
-
+Route::resources(['post_comment' => Api\Post\PostCommentController::class]);
 Route::resources(['rank' => Api\Rank\RankController::class]);
 Route::resources(['video' => Api\Video\VideoController::class]);
-
-// Route::post('auth/mobile/login', 'Auth\MobileController@login');
-Route::post('/auth/mobile/login', [Auth\MobileController::class, 'login']);
-Route::post('/auth/mobile/logout', [Auth\MobileController::class, 'logout']);

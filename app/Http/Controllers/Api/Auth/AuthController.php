@@ -3,46 +3,66 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use Auth;
-use Validator;
 use App\Services\User\UserService;
-use App\Services\ApiService;
+use App\Presenters\Api\Auth\MobilePresenter;
+use App\Dto\Http\ResponseDto;
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite;
+use Auth;
 
 class AuthController extends Controller
 {
-    protected $userService;
-    protected $apiService;
-
-    /**
-     * SingleController constructor.
-     * @param UserService $userService
-     * @param ApiService $apiService
-     */
-    public function __construct(UserService $userService,
-                                ApiService $apiService)
-    {
-        $this->userService = $userService;
-        $this->apiService = $apiService;
+    public function __construct(
+        private readonly UserService $userService,
+        private readonly MobilePresenter $mobilePresenter,
+    ) {
     }
 
-    public function login()
+    public function login(Request $request)
     {
-        if (Auth::check()) {
-            return redirect('/user/' . Auth::user()->id);
-        } else {
-            return Socialite::driver('twitter')->redirect();
+        try {
+            $gameUser = $this->userService->getGameUserByGameIdAndUserId($request->game_id, $request->user_id);
+            // 選択しているゲームでフィルタ
+            $gameUserAttrs['expo_push_token'] = $request->expo_push_token;
+            $gameUserAttrs['game_id'] = config('assets.site.game_ids.pokemon_card');
+            $gameUser = $this->userService->updateGameUser($gameUser->id, $gameUserAttrs);
+            return response()->json(
+                new ResponseDto(
+                    data: $this->mobilePresenter->login($gameUser),
+                    code: 200,
+                    message: '',
+                )
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                new ResponseDto(
+                    data: [],
+                    code: $e->getCode(),
+                    message: $e->getMessage(),
+                )
+            );
         }
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        Auth::guard()->logout();
-        $json = [
-            'result' => 'logout',
-        ];
-        return $this->apiService->resConversionJson($json);
+        try {
+            Auth::guard()->logout();
+            return response()->json(
+                new ResponseDto(
+                    data: [],
+                    code: 200,
+                    message: '',
+                )
+            );
+        } catch (\Exception $e) {
+            return response()->json(
+                new ResponseDto(
+                    data: [],
+                    code: $e->getCode(),
+                    message: $e->getMessage(),
+                )
+            );
+        }
     }
 
     public function index($user_id)
@@ -52,82 +72,21 @@ class AuthController extends Controller
             $request = new Request();
             $request->merge(['user_id' => $user_id]);
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
-
-            $rates = $this->userService->getGameUserForApi($request);
+            return response()->json(
+                new ResponseDto(
+                    data: $this->userService->getGameUserForApi($request),
+                    code: 200,
+                    message: '',
+                )
+            );
         } catch (\Exception $e) {
-            $events = [
-                'result' => false,
-                'error' => [
-                    'messages' => [$e->getMessage()]
-                ],
-            ];
-            return $this->apiService->resConversionJson($events, $e->getCode());
+            return response()->json(
+                new ResponseDto(
+                    data: [],
+                    code: $e->getCode(),
+                    message: $e->getMessage(),
+                )
+            );
         }
-        return $this->apiService->resConversionJson($rates);
-    }
-
-    public function expoTokenUpdate(Request $request)
-    {
-        try {
-            $gameUser = $this->userService->getGameUserByGameIdAndUserId($request->game_id, $request->user_id);
-
-            // 選択しているゲームでフィルタ
-            $gameUserRequest = new Request();
-            $gameUserRequest->merge(['expo_push_token' => $request->expo_push_token]);
-
-            $this->userService->updateGameUser($gameUser->id, $gameUserRequest->all());
-            $gameUser = $this->userService->getGameUserForApi($request);
-
-        } catch(\Exception $e){
-            $gameUser = [
-                'result' => false,
-                'error' => [
-                    'messages' => [$e->getMessage()]
-                ],
-            ];
-            return $this->apiService->resConversionJson($gameUser, $e->getCode());
-        }
-
-        return $this->apiService->resConversionJson($gameUser);
-    }
-
-    public function discordName(Request $request)
-    {
-        try {
-
-            // discord名にバリデーションをかける
-            $validator = Validator::make($request->all(), [
-                'discord_name' => 'required|regex:/.+#\d{4}$/|max:255',
-                'discord_name.regex' => 'ディスコードの名前は「〇〇#数字4桁」の形式にしてください',
-            ]);
-
-            // discordNameがおかしかったらエラーで返す
-            if ($validator->fails()){
-                $gameUser = $this->userService->getGameUserForApi($request);
-                return $this->apiService->resConversionJson($gameUser);
-            }
-
-            $gameUser = $this->userService->getGameUser($request->id);
-
-            // 名前が空ならここから作成
-            if (empty($gameUser->user->name)) {
-                // 選択しているゲームでフィルタ
-                $userData['name'] = explode( '#', $request->discord_name)[0];
-
-                $this->userService->updateUser($gameUser->user_id, $userData);
-            }
-
-            $gameUser = $this->userService->updateGameUser($request->id, $request->all());
-        } catch(\Exception $e){
-            $gameUser = [
-                'result' => false,
-                'error' => [
-                    'messages' => [$e->getMessage()]
-                ],
-            ];
-            return $this->apiService->resConversionJson($gameUser, $e->getCode());
-        }
-
-        return $this->apiService->resConversionJson($gameUser);
     }
 }
