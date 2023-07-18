@@ -85,12 +85,12 @@ class CommentController extends Controller
         }
 
         // ユーザーIDをアドミンでは選べるようにする
-        if(empty($request->user_id)){
+        if (empty($request->user_id)) {
             $request->merge(['user_id' => Auth::guard()->user()->id]);
         }
 
-        $postComment = DB::transaction(function () use($request) {
-            $postComment = $this->postService->createComment($request);
+        $postComment = DB::transaction(function () use ($request) {
+            $postComment = $this->postService->createComment($request->all());
 
             $post = $this->postService->savePostForUpdated($request->post_id);
             $post = $this->postService->findPostWithUser($request->post_id);

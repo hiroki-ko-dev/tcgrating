@@ -3,33 +3,30 @@
 namespace App\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use ModelNotFoundException;
 use App\Models\PostComment;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class PostCommentRepository
 {
-    public function create($request)
+    public function create(array $attrs): PostComment
     {
-        $comment = new PostComment();
-        if (isset($request->referral_id)) {
-            $comment->referral_id = $request->referral_id;
-        }
-        $comment->post_id = $request->post_id;
-        $comment->number  = $request->number;
+        $postComment = new PostComment();
 
-        $comment->user_id = $request->user_id;
-        $comment->body    = $request->body;
-        if (isset($request->image_url)) {
-            $comment->image_url = $request->image_url;
+        if (isset($attrs['referral_id'])) {
+            $postComment->referral_id = $attrs['referral_id'];
         }
-        $comment->save();
+        $postComment->post_id = $attrs['post_id'];
+        $postComment->number  = $attrs['number'];
+        $postComment->user_id = $attrs['user_id'];
+        $postComment->body    = $attrs['body'];
+        if (isset($attrs['image_url'])) {
+            $postComment->image_url = $attrs['image_url'];
+        }
+        $postComment->save();
 
-        return $comment;
+        return $postComment;
     }
 
-    public function find($id)
+    public function find($id): ?PostComment
     {
         return PostComment::find($id);
     }

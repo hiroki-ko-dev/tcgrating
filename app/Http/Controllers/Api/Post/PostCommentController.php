@@ -45,16 +45,26 @@ class PostCommentController extends Controller
     public function store(Request $request)
     {
         try {
-            $comment =  $this->postService->createComment($request);
+            $postComment = $this->postService->createComment($request->all());
+            return response()->json(
+                new ResponseDto(
+                    data: [
+                        'postComment' => [
+                            'id' => $postComment->id
+                        ]
+                    ],
+                    code: 200,
+                    message: '',
+                )
+            );
         } catch (\Exception $e) {
-            $comment = [
-                'result' => false,
-                'error' => [
-                    'messages' => [$e->getMessage()]
-                ],
-            ];
-            return $this->apiService->resConversionJson($comment, $e->getCode());
+            return response()->json(
+                new ResponseDto(
+                    data: [],
+                    code: $e->getCode(),
+                    message: $e->getMessage(),
+                )
+            );
         }
-        return $this->apiService->resConversionJson($comment);
     }
 }

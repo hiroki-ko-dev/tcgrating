@@ -4,35 +4,22 @@ namespace App\Http\Controllers;
 
 use Auth;
 use DB;
-
 use App\Services\User\UserService;
 use App\Services\GoogleService;
 use App\Services\TwitterService;
-
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-
-    protected $userService;
-    protected $googleService;
-    protected $twitterService;
-
-    /**
-     * SiteController constructor.
-     * @param UserService $userService
-     * @param GoogleService $googleService
-     * @param TwitterService $twitterService
-     */
-    public function __construct(UserService $userService,
-                                GoogleService $googleService,
-                                TwitterService $twitterService)
-    {
+    public function __construct(
+        private readonly UserService $userService,
+        private readonly GoogleService $googleService,
+        private readonly TwitterService $twitterService
+    ) {
         $this->userService = $userService;
         $this->googleService = $googleService;
         $this->twitterService = $twitterService;
     }
-
 
     public function administrator()
     {
@@ -42,8 +29,8 @@ class SiteController extends Controller
     public function update_selected_game(Request $request)
     {
         //ログインしている場合はuserテーブルのselected_game_idも更新
-        if(Auth::check() == true){
-            DB::transaction(function () use($request){
+        if (Auth::check() == true) {
+            DB::transaction(function () use ($request) {
                 $request->merge(['id'=> Auth::id()]);
                 $this->userService->updateSelectedGameId($request);
             });
@@ -57,11 +44,11 @@ class SiteController extends Controller
     public function resume(Request $request)
     {
         //ログインしている場合はuserテーブルのselected_game_idも更新
-        if(Auth::check() == true){
+        if (Auth::check() == true) {
             return redirect('/resume/' . Auth::user()->id);
         }
 
-        session(['loginAfterRedirectUrl' => env('APP_URL').'/resume']);
+        session(['loginAfterRedirectUrl' => env('APP_URL') . '/resume']);
         session(['selected_game_id' => $request->input('selected_game_id')]);
 
         return view('site.landing.resume');

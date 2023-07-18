@@ -20,17 +20,19 @@ class PostService
         return $this->postRepository->create($request);
     }
 
-    public function createComment($request)
+    public function createComment($attrs)
     {
-        $post = $this->findPost($request->post_id);
-        if (isset($post->postComments)) {
-            $number = $post->postComments->count() + 2;
-        } else {
-            $number = 2;
-        }
-        $request->merge(['number' => $number]);
+        return DB::transaction(function () use ($attrs) {
+            $post = $this->findOrFailPost($attrs['post_id']);
+            if (isset($post->postComments)) {
+                $number = $post->postComments->count() + 2;
+            } else {
+                $number = 2;
+            }
+            $attrs['number'] = $number;
 
-        return $this->postCommentRepository->create($request);
+            return $this->postCommentRepository->create($attrs);
+        });
     }
 
     public function savePostForUpdated($post_id)

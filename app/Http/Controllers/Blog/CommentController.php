@@ -76,8 +76,8 @@ class CommentController extends Controller
         //追加
         $request->merge(['user_id' => Auth::guard()->user()->id]);
 
-        DB::transaction(function () use($request) {
-            $comment = $this->post_service->createComment($request);
+        DB::transaction(function () use ($request) {
+            $comment = $this->post_service->createComment($request->all());
 
             $post = $this->post_service->findPostWithUser($request->post_id);
 

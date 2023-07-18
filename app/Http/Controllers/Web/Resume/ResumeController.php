@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web\Resume;
 
+use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use App\Services\User\UserService;
