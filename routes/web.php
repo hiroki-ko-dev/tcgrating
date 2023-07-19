@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+require __DIR__ . '/auth.php';
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,9 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-require __DIR__ . '/auth.php';
-
 
 //サイトの情報ページ
 Route::get('/sample', function () {return view('sample');});     //直接TOPページを表示

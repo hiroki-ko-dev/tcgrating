@@ -23,13 +23,13 @@ class AppleController extends Controller
     public function redirectToProvider()
     {
         $url = 'https://appleid.apple.com/auth/authorize?';
-        $url = $url . 'client_id=' . config('services.apple.client_id');
-        $url = $url . '&scope=name email';
-        $url = $url . '&redirect_uri=' . config('services.apple.redirect');
-        $url = $url . '&response_type=code id_token ';
-        $url = $url . '&state=aaa';
-        $url = $url . '&nonce=bbb';
-        $url = $url . '&response_mode=form_post';
+        $url += 'client_id=' . config('services.apple.client_id');
+        $url += '&scope=name email';
+        $url += '&redirect_uri=' . config('services.apple.redirect');
+        $url += '&response_type=code id_token ';
+        $url += '&state=aaa';
+        $url += '&nonce=bbb';
+        $url += '&response_mode=form_post';
 
         return redirect($url);
     }
@@ -39,20 +39,19 @@ class AppleController extends Controller
     {
         session(['api' => true]);
         $url = 'https://appleid.apple.com/auth/authorize?';
-        $url = $url . 'client_id=' . config('services.apple.client_id');
-        $url = $url . '&scope=name email';
-        $url = $url . '&redirect_uri=' . config('services.apple.redirect');
-        $url = $url . '&response_type=code id_token ';
-        $url = $url . '&state=aaa';
-        $url = $url . '&nonce=bbb';
-        $url = $url . '&response_mode=form_post';
+        $url += 'client_id=' . config('services.apple.client_id');
+        $url += '&scope=name email';
+        $url += '&redirect_uri=' . config('services.apple.redirect');
+        $url += '&response_type=code id_token ';
+        $url += '&state=aaa';
+        $url += '&nonce=bbb';
+        $url += '&response_mode=form_post';
         return redirect($url);
     }
 
     // Twitterコールバック
     public function handleProviderCallback(Request $request)
     {
-
         try {
             // ユーザー詳細情報の取得
             $id_token = $request->id_token;
@@ -64,18 +63,18 @@ class AppleController extends Controller
             $sub = json_decode($tokenPayload)->sub;
 
             $user = null;
-            if($sub){
+            if ($sub) {
                 $user = $this->userService->getUserByAppleCode($sub);
             }
 
             // TwitterIDが存在しない場合の処理
-            if(is_null($user)){
+            if (is_null($user)) {
                 // Twitter情報からユーザーアカウントを作成
                 $request             = new Request();
                 $request->apple_code = $sub;
 
                 // すでにログイン中なら、ログインアカウントにTwitter情報を追加
-                if(Auth::check()){
+                if (Auth::check()) {
                     // ログインユーザーにTwitter情報をアップデート
                     $user = DB::transaction(function () use ($request) {
                         return $this->userService->updateUser(Auth::id(), $request->all());
@@ -83,15 +82,15 @@ class AppleController extends Controller
                     Auth::login($user, true);
 
                 // ログインしていないなら、新規アカウントを作成
-                }else{
+                } else {
                     $game_id = config('assets.site.game_ids.pokemon_card');
-                    if(session('selected_game_id')){
+                    if (session('selected_game_id')) {
                         $game_id = session('selected_game_id');
                     }
                     $request->selected_game_id    = $game_id;
                     $request->name       = 'ユーザー';
                     $request->email      = json_decode($tokenPayload)->email;
-                    $request->password   = Hash::make($sub.'hash_pass');
+                    $request->password   = Hash::make($sub . 'hash_pass');
                     $request->body       = '';
                     $request->twitter_nickname = 'ユーザー';
                     $request->twitter_image_url = '/images/icon/default-icon-mypage.jpg';
@@ -103,7 +102,7 @@ class AppleController extends Controller
                     Auth::login($user, true);
                 }
 
-            }else{
+            } else {
                 Auth::login($user, true);
             }
 

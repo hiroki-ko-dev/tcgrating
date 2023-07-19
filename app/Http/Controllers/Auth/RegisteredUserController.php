@@ -12,9 +12,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Services\User\UserService;
 
 class RegisteredUserController extends Controller
 {
+    public function __construct(
+        private readonly UserService $userService
+    ) {
+        $this->middleware('guest');
+    }
+
     /**
      * Display the registration view.
      */
@@ -32,15 +39,19 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $userAttrs = $request->all();
+
+        $userAttrs['selected_game_id'] = session('selected_game_id');
+        $userAttrs['game_id'] = session('selected_game_id');
+        $userAttrs['password'] = Hash::make($request->password);
+        $userAttrs['twitter_image_url'] = '/images/icon/default-icon-mypage.jpg';
+        $userAttrs['twitter_simple_image_url'] = '/images/icon/default-account.png';
+
+        $user = $this->userService->createUser($userAttrs);
 
         event(new Registered($user));
 
