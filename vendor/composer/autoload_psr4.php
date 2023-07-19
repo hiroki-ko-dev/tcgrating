@@ -84,7 +84,7 @@ return array(
     'NunoMaduro\\Collision\\' => array($vendorDir . '/nunomaduro/collision/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Money\\' => array($vendorDir . '/moneyphp/money/src'),
-    'Mockery\\' => array($vendorDir . '/mockery/mockery/library/Mockery'),
+    'Mockery\\' => array($vendorDir . '/mockery/mockery/src/Mockery'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
     'League\\OAuth1\\Client\\' => array($vendorDir . '/league/oauth1-client/src'),
     'League\\MimeTypeDetection\\' => array($vendorDir . '/league/mime-type-detection/src'),

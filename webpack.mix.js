@@ -61,4 +61,10 @@ mix.js('resources/js/sample.js', 'public/js/sample').react()
     "jquery": ['$', 'window.jQuery'],
   });
 
+mix.webpackConfig({
+stats: {
+    children: true,
+},
+});
+
 mix.ts('resources/ts/app.tsx', 'public/js/tsx').react();
