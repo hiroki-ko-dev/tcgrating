@@ -90,9 +90,9 @@ class UserService
         return $this->gameUserRepository->findByGameIdAndUserId($game_id, $user_id);
     }
 
-    public function getRatesWithPaginateOrderByRank($request, $pagination)
+    public function getRatesWithPaginateOrderByRank(array $filters, $row): LengthAwarePaginator
     {
-        return $this->gameUserRepository->findAllByPaginateOrderByRank($request, $pagination);
+        return $this->gameUserRepository->findAllByPaginateOrderByRank($filters, $row);
     }
 
     public function paginateGameUser(array $filters, int $row): LengthAwarePaginator

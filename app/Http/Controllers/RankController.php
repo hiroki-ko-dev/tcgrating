@@ -32,7 +32,7 @@ class RankController extends Controller
         }else{
             $request->merge(['game_id' => session('selected_game_id')]);
         }
-        $rates = $this->user_service->getRatesWithPaginateOrderByRank($request, 50);
+        $rates = $this->user_service->getRatesWithPaginateOrderByRank($request->all(), 50);
 
         return view('rank.index',compact('rates'));
     }

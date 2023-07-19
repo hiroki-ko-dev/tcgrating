@@ -99,13 +99,13 @@ class GameUserRepository
         return $query->get();
     }
 
-    public function findAllByPaginateOrderByRank(array $attrs, $pagination)
+    public function findAllByPaginateOrderByRank(array $attrs, $row): LengthAwarePaginator
     {
         $query = $this->composeWhereClause($attrs);
         $query->orderBy('rate', 'desc');
         $query->orderBy('user_id', 'asc');
 
-        return $query->paginate($pagination);
+        return $query->paginate($row);
     }
 
     public function paginate(array $filters, int $row): LengthAwarePaginator
