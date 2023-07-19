@@ -8,7 +8,6 @@ use Laravel\Socialite\Facades\Socialite;
 use Auth;
 use Hash;
 use DB;
-
 use App\Services\User\UserService;
 
 class TwitterController extends Controller
