@@ -1,107 +1,47 @@
-@extends('layouts.common.common')
+<x-guest-layout>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-@section('content')
-<div class="container">
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
 
-  <div class="row justify-content-center m-1 mb-3">
-    <div class="col-8 page-header">
-      {{ __('Login') }}
-    </div>
-  </div>
+        <!-- Email Address -->
+        <div>
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
 
-  <div class="row justify-content-center mb-4">
-    <div class="col-md-8">
-      <div class="box">
-        <div class="box-header">{{ __('twitter') }}</div>
-        <a href="/auth/twitter/login"><img class="img-fluid" src="{{ asset('/images/site/twitter/login.png') }}" alt="hashimu-icon"></a>
-      </div>
-    </div>
-  </div>
+        <!-- Password -->
+        <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
 
-  <div class="row justify-content-center">
-      <div class="col-md-8">
-          <div class="box">
-              <div class="box-header">{{ __('email') }}</div>
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
 
-              <div class="card-body">
-                  <form method="POST" action="{{ route('login') }}">
-                      @csrf
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
 
-                      <div class="form-group row">
-                          <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+        <!-- Remember Me -->
+        <div class="block mt-4">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
+                <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+            </label>
+        </div>
 
-                          <div class="col-md-6">
-                              <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+        <div class="flex items-center justify-end mt-4">
+            @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                    {{ __('Forgot your password?') }}
+                </a>
+            @endif
 
-                              @error('email')
-                                  <span class="invalid-feedback" role="alert">
-                                      <strong>{{ $message }}</strong>
-                                  </span>
-                              @enderror
-                          </div>
-                      </div>
-
-                      <div class="form-group row">
-                          <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                          <div class="col-md-6">
-                              <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                              @error('password')
-                                  <span class="invalid-feedback" role="alert">
-                                      <strong>{{ $message }}</strong>
-                                  </span>
-                              @enderror
-                          </div>
-                      </div>
-
-                      <div class="form-group row">
-                          <div class="col-md-6 offset-md-4">
-                              <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                  <label class="form-check-label" for="remember">
-                                      {{ __('パスワードを記憶する') }}
-                                  </label>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="form-group row mb-2">
-                          <div class="col-md-8 offset-md-4">
-                              <button type="submit" class="btn btn-primary">
-                                  {{ __('Login') }}
-                              </button>
-
-                              @if (Route::has('password.request'))
-                                  <a class="btn btn-link" href="{{ route('password.request') }}">
-                                      {{ __('パスワードを忘れた方はこちら') }}
-                                  </a>
-                              @endif
-                          </div>
-                      </div>
-
-                    <div class="form-group row mb-0">
-                      <div class="col-md-12">
-                        {{ __('※アカウント新規作成はTwitterログインによっておこなってください') }}
-                      </div>
-                    </div>
-
-{{--                      <div class="form-group row mb-0">--}}
-{{--                          <div class="col-md-8 offset-md-4">--}}
-{{--                              <a class="btn btn-link" href="{{ route('register')}}">--}}
-{{--                                  {{ __('アカウント新規作成') }}--}}
-{{--                              </a>--}}
-{{--                          </div>--}}
-{{--                      </div>--}}
-                  </form>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
-@endsection
-
-@include('layouts.common.header')
-@include('layouts.common.google')
-@include('layouts.common.footer')
+            <x-primary-button class="ml-3">
+                {{ __('Log in') }}
+            </x-primary-button>
+        </div>
+    </form>
+</x-guest-layout>
