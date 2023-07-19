@@ -60,11 +60,19 @@ mix.js('resources/js/sample.js', 'public/js/sample').react()
   .autoload({
     "jquery": ['$', 'window.jQuery'],
   });
+  
+mix.ts('resources/ts/app.tsx', 'public/js/tsx').react();
 
 mix.webpackConfig({
-stats: {
-    children: true,
-},
-});
-
-mix.ts('resources/ts/app.tsx', 'public/js/tsx').react();
+    stats: {
+      children: true,
+    },
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/, // TypeScriptとTypeScript JSXファイルを対象に指定します
+          exclude: [/node_modules|vendor/, /vendor\/laravel\/breeze/],
+        },
+      ],
+    },
+  });
