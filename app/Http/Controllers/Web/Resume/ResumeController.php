@@ -39,7 +39,6 @@ class ResumeController extends Controller
             $user = $gameUser->user;
             $this->userInfoTwitterService->saveTwitterImage($user);
 
-
             return view('resume.show', compact('user', 'resumeJson', 'events'));
         } catch (Exception $e) {
             return view('resume.show', compact('user', 'resumeJson', 'events'));

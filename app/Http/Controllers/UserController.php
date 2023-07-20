@@ -6,7 +6,6 @@ use Auth;
 use DB;
 use App\Services\User\UserService;
 use App\Services\User\UserInfoTwitterService;
-use App\Services\User\UserResumeService;
 use App\Services\EventService;
 use App\Presenters\Web\Resume\ResumePresenter;
 use Illuminate\Http\Request;
@@ -18,7 +17,6 @@ class UserController extends Controller
     public function __construct(
         private readonly UserService $userService,
         private readonly UserInfoTwitterService $userInfoTwitterService,
-        private readonly UserResumeService $userResumeService,
         private readonly EventService $eventService,
         private readonly ResumePresenter $resumePresenter,
     ) {

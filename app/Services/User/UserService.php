@@ -128,7 +128,7 @@ class UserService
         return $this->userRepository->findAllBySendMail($request);
     }
 
-    public function fetchSelectedGameId()
+    public function fetchSelectedGameId(): int
     {
         if (Auth::check()) {
             $selectedGameId = Auth::user()->selected_game_id;
