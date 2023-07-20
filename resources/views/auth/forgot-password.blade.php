@@ -10,26 +10,34 @@
 
                 <div class="card-body">
 
-                    
-                    <x-auth-session-status class="mb-4" :status="session('status')" />
+                    @if (session('status'))
+                        <div class="mb-4">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <!-- Email Address -->
-                                <x-input-label for="email" :value="__('Email')" />
-                                <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus />
-                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                <label for="email">{{ __('Email') }}</label>
+                                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus />
+
+                                @if ($errors->has('email'))
+                                    <span class="mt-2 text-danger">
+                                        {{ $errors->first('email') }}
+                                    </span>
+                                @endif
                             </div>
                         </div>
+                    
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <div class="flex items-center justify-end mt-4">
-                                    <x-primary-button>
+                                    <button class="btn btn-primary">
                                         {{ __('Email Password Reset Link') }}
-                                    </x-primary-button>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -39,6 +47,7 @@
         </div>
     </div>
 </div>
+
 @endsection
 
 @include('layouts.common.header')
