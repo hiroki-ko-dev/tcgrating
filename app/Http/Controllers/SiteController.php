@@ -16,9 +16,6 @@ class SiteController extends Controller
         private readonly GoogleService $googleService,
         private readonly TwitterService $twitterService
     ) {
-        $this->userService = $userService;
-        $this->googleService = $googleService;
-        $this->twitterService = $twitterService;
     }
 
     public function administrator()
@@ -26,7 +23,7 @@ class SiteController extends Controller
         return view('site.administrator');
     }
 
-    public function update_selected_game(Request $request)
+    public function updateSelectedGame(Request $request)
     {
         //ログインしている場合はuserテーブルのselected_game_idも更新
         if (Auth::check() == true) {
@@ -38,7 +35,7 @@ class SiteController extends Controller
 
         session(['selected_game_id' => $request->input('selected_game_id')]);
 
-        return back()->with('flash_message', '選択しているゲームを変更しました');;
+        return back()->with('flash_message', '選択しているゲームを変更しました');
     }
 
     public function resume(Request $request)

@@ -37,7 +37,7 @@ Route::get('/site/administrator', function () {return view('site.administrator')
 Route::get('/site/inquiry', function () {return view('site.inquiry');}); //お問い合わせ用の動画を表示
 Route::get('/site/how_to_use/normal', function () {return view('site.how_to_use.normal');}); //動画ページを表示
 Route::get('/site/how_to_use/instant', function () {return view('site.how_to_use.instant');}); //動画ページを表示
-Route::post('/site/update_selected_game', [App\Http\Controllers\SiteController::class, 'update_selected_game']); //管理人を表示
+Route::post('/site/update_selected_game', [App\Http\Controllers\SiteController::class, 'updateSelectedGame']); //管理人を表示
 Route::get('/site/test', [App\Http\Controllers\SiteController::class, 'test']); //管理人を表示
 //プライバシーポリシー
 Route::get('/site/privacy', function () {return view('site.privacy');});
