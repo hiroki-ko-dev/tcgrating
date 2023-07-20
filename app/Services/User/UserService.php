@@ -131,9 +131,14 @@ class UserService
     public function fetchSelectedGameId(): int
     {
         if (Auth::check()) {
-            $selectedGameId = Auth::user()->selected_game_id;
+            $selectedGameId = (int)Auth::user()->selected_game_id;
         } else {
-            $selectedGameId = session('selected_game_id');
+            if (session('selected_game_id')) {
+                $selectedGameId = (int)session('selected_game_id');
+            } else {
+                $selectedGameId = config('assets.site.game_ids.pokemon_card');
+            }
+
         }
         return $selectedGameId;
     }
