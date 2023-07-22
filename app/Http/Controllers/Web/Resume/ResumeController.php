@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Web\Resume;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Auth;
 use DB;
 use App\Services\User\UserService;
@@ -10,7 +12,6 @@ use App\Services\User\UserInfoTwitterService;
 use App\Services\User\UserResumeService;
 use App\Services\EventService;
 use App\Presenters\Web\Resume\ResumePresenter;
-use Illuminate\Http\Request;
 
 class ResumeController extends Controller
 {
@@ -28,7 +29,7 @@ class ResumeController extends Controller
         return redirect('/resume/' . Auth::id());
     }
 
-    public function show(Request $request, $userId)
+    public function show(Request $request, int $userId): View
     {
         try {
             $gameUser = $this->userResumeService->show($userId);
@@ -41,7 +42,7 @@ class ResumeController extends Controller
 
             return view('resume.show', compact('user', 'resumeJson', 'events'));
         } catch (Exception $e) {
-            return view('resume.show', compact('user', 'resumeJson', 'events'));
+            return false;
         }
     }
 

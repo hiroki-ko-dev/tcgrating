@@ -85,9 +85,9 @@ class UserService
         return $this->gameUserRepository->find($id);
     }
 
-    public function getGameUserByGameIdAndUserId(int $game_id, int $user_id): ?GameUser
+    public function getGameUserByGameIdAndUserId(int $gameId, int $userId): ?GameUser
     {
-        return $this->gameUserRepository->findByGameIdAndUserId($game_id, $user_id);
+        return $this->gameUserRepository->findByGameIdAndUserId($gameId, $userId);
     }
 
     public function getRatesWithPaginateOrderByRank(array $filters, $row): LengthAwarePaginator
