@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\EventStatus;
+use App\Enums\DuelStatus;
 use App\Repositories\DuelRepository;
 use App\Repositories\DuelUserRepository;
 use App\Repositories\DuelUserResultRepository;
@@ -15,32 +16,16 @@ use Illuminate\Http\Request;
 
 class DuelService
 {
-    protected $duelRepository;
-    protected $duelUserRepository;
-    protected $duelUserResultRepository;
-    protected $eventDuelRepository;
-    protected $eventRepository;
-    protected $eventUserRepository;
-    protected $userRepository;
-    protected $gameUserRepository;
-
-    public function __construct(DuelRepository $duelRepository,
-                                DuelUserRepository $duelUserRepository,
-                                DuelUserResultRepository $duelUserResultRepository,
-                                EventDuelRepository $eventDuelRepository,
-                                EventRepository $eventRepository,
-                                EventUserRepository $eventUserRepository,
-                                UserRepository $userRepository,
-                                GameUserRepository $gameUserRepository)
-    {
-        $this->duelRepository            = $duelRepository;
-        $this->duelUserRepository        = $duelUserRepository;
-        $this->duelUserResultRepository  = $duelUserResultRepository;
-        $this->eventDuelRepository       = $eventDuelRepository;
-        $this->eventRepository           = $eventRepository;
-        $this->eventUserRepository       = $eventUserRepository;
-        $this->userRepository            = $userRepository;
-        $this->gameUserRepository        = $gameUserRepository;
+    public function __construct(
+        private readonly DuelRepository $duelRepository,
+        private readonly DuelUserRepository $duelUserRepository,
+        private readonly DuelUserResultRepository $duelUserResultRepository,
+        private readonly EventDuelRepository $eventDuelRepository,
+        private readonly EventRepository $eventRepository,
+        private readonly EventUserRepository $eventUserRepository,
+        private readonly UserRepository $userRepository,
+        private readonly GameUserRepository $gameUserRepository
+    ) {
     }
 
     /**
@@ -82,26 +67,26 @@ class DuelService
     {
         // ルームIDを決める処理
         $duelRequest = new \stdClass();
-        $duelRequest->statuses = [\App\Models\Duel::STATUS_READY,\App\Models\Duel::STATUS_RECRUIT];
+        $duelRequest->statuses = [DuelStatus::READY->value, DuelStatus::RECRUIT->value];
         $duelRequest->event_category_id = [\App\Models\EventCategory::CATEGORY_SINGLE];
-        if(isset($request->rate_type)){
+        if (isset($request->rate_type)) {
             $duelRequest->rate_type = $request->rate_type;
         }
         $duels = $this->getDuels($duelRequest);
         // 部屋予約中のの対戦があるならそこを避ける
-        if($duels->isNotEmpty()){
+        if ($duels->isNotEmpty()) {
             $room_ids = $duels->pluck('room_id')->toArray();
             // room_idがセットされない場合があるので、暫定の例外処理
-            for($i=1;$i<=count($room_ids)+1;$i++){
-                if(in_array($i,$room_ids)){
+            for ($i = 1; $i <= count($room_ids) + 1; $i++) {
+                if (in_array($i, $room_ids)) {
                     continue;
-                }else{
+                } else {
                     $request->merge(['room_id' => $i]);
                     break;
                 }
             }
         // なければ部屋1
-        }else{
+        } else {
             $request->merge(['room_id' => 1]);
         }
 
@@ -142,7 +127,7 @@ class DuelService
             $otherDuelUserResult = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResults;
 
             //すでに試合が終了した後の報告をエラーとする
-            if($myDuelUserResult->count() == $otherDuelUserResult->count() && $request->duel->status <> \App\Models\Duel::STATUS_READY){
+            if($myDuelUserResult->count() == $otherDuelUserResult->count() && $request->duel->status <> DuelStatus::READY->value) {
                 throw new \Exception("終了した試合です");
             }
 
@@ -302,7 +287,7 @@ class DuelService
             $duelRequest->game_id          = $event->game_id;
             $duelRequest->duel_category_id = \App\Models\DuelCategory::CATEGORY_SINGLE;
             $duelRequest->user_id          = $event->user_id;
-            $duelRequest->status           = \App\Models\Duel::STATUS_READY;
+            $duelRequest->status           = DuelStatus::READY->value;
             $duelRequest->match_number     = $event->now_match_number;
             $duelRequest->number_of_games  = 1;
             $duelRequest->max_member       = 2;
@@ -312,7 +297,7 @@ class DuelService
 
             //不戦勝の処理
             if($i + 1 == count($eventUsers)) {
-                $duelRequest->status           = \App\Models\Duel::STATUS_FINISH;
+                $duelRequest->status           = DuelStatus::FINISH->value;
             }
 
             // duelテーブルの作成
@@ -411,7 +396,7 @@ class DuelService
             if($my_result == \App\Models\DuelUserResult::RESULT_INVALID || $other_result == \App\Models\DuelUserResult::RESULT_INVALID){
                 $request->merge(['message' => '無効試合が選択されたので試合が無効になりました']);
 
-                $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::STATUS_INVALID) ;
+                $duel = $this->duelRepository->updateStatus($request->duel->id, DuelStatus::INVALID->value) ;
                 $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, EventStatus::INVALID->value) ;
 
                 return $request ;
@@ -425,7 +410,7 @@ class DuelService
                 ($my_result <> \App\Models\DuelUserResult::RESULT_DRAW && $other_result == \App\Models\DuelUserResult::RESULT_DRAW)
             ){
                 $request->merge(['message' => 'お互いの勝敗報告が矛盾したので試合が無効になりました']);
-                $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::STATUS_INVALID) ;
+                $duel = $this->duelRepository->updateStatus($request->duel->id, DuelStatus::INVALID->value) ;
                 $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, EventStatus::INVALID->value) ;
 
                 return $request ;
@@ -437,7 +422,7 @@ class DuelService
             $otherDuelUserResult->where('games_number', $request->duel->number_of_games)->isNotEmpty()
         ) {
             // 試合終了に伴うステータスの更新
-            $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::STATUS_FINISH) ;
+            $duel = $this->duelRepository->updateStatus($request->duel->id, DuelStatus::FINISH->value);
             $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, EventStatus::FINISH->value);
 
             // 試合終了に伴うユーザーレートの更新

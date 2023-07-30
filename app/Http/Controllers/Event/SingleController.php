@@ -5,39 +5,26 @@ namespace App\Http\Controllers\Event;
 use DB;
 use Auth;
 use Mail;
-
 use App\Http\Controllers\Controller;
+use App\Enums\DuelStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\PostService;
 use App\Services\User\UserService;
 use App\Services\TwitterService;
-
 //use App\Mail\AdminNoticeCreateEventSingleMail;
 use App\Mail\EventSingleCreateMail;
-
 use Illuminate\Http\Request;
 
 class SingleController extends Controller
 {
-
-    protected $event_service;
-    protected $duel_service;
-    protected $post_service;
-    protected $user_service;
-    protected $twitterService;
-
-    public function __construct(EventService $event_service,
-                                DuelService $duel_service,
-                                PostService $post_service,
-                                UserService $user_service,
-                                TwitterService $twitterService)
-    {
-        $this->event_service = $event_service ;
-        $this->duel_service  = $duel_service ;
-        $this->post_service  = $post_service ;
-        $this->user_service  = $user_service ;
-        $this->twitterService = $twitterService;
+    public function __construct(
+        private readonly EventService $event_service,
+        private readonly DuelService $duel_service,
+        private readonly PostService $post_service,
+        private readonly UserService $user_service,
+        private readonly TwitterService $twitterService
+    ) {
     }
 
     /**
@@ -47,16 +34,16 @@ class SingleController extends Controller
     public function index(Request $request)
     {
         // 選択しているゲームでフィルタ
-        if(\Illuminate\Support\Facades\Auth::check()) {
+        if (\Illuminate\Support\Facades\Auth::check()) {
             $request->merge(['game_id' => Auth::user()->selected_game_id]);
-        }else{
+        } else {
             $request->merge(['game_id' => session('selected_game_id')]);
         }
         $request->merge(['not_body' => 'LINEからの対戦作成']);
         $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
         $events = $this->event_service->findAllEventByEventCategoryId($request, 50);
 
-        return view('event.single.index',compact('events'));
+        return view('event.single.index', compact('events'));
     }
 
     /**
@@ -67,11 +54,11 @@ class SingleController extends Controller
     public function create()
     {
         //アカウント認証しているユーザーのみ新規作成可能
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
         }
 
-        if(Auth::user()->selected_game_id == config('assets.site.game_ids.pokemon_card')) {
+        if (Auth::user()->selected_game_id == config('assets.site.game_ids.pokemon_card')) {
             return redirect('/event/instant/create');
         }
 
@@ -87,11 +74,11 @@ class SingleController extends Controller
     public function store(Request $request)
     {
         //アカウント認証しているユーザーのみ新規作成可能
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
         }
 
-        if(Auth::user()->selected_game_id == config('assets.site.game_ids.pokemon_card')) {
+        if (Auth::user()->selected_game_id == config('assets.site.game_ids.pokemon_card')) {
             return redirect('/event/instant/create');
         }
 
@@ -113,7 +100,7 @@ class SingleController extends Controller
 
         $request->merge(['match_number'      => 1]);
 
-        $event_id = DB::transaction(function () use($request) {
+        $event_id = DB::transaction(function () use ($request) {
 
             $event = $this->event_service->createEvent($request);
             //event用のpostを作成
@@ -123,7 +110,7 @@ class SingleController extends Controller
             $this->post_service->createPost($request);
             $event_id = $request->event_id;
 
-            $request->merge(['status' => \App\Models\Duel::STATUS_READY]);
+            $request->merge(['status' => DuelStatus::READY->value]);
             $request = $this->duel_service->createSingle($request);
             //duel用のpostを作成
             $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_DUEL]);
@@ -143,7 +130,7 @@ class SingleController extends Controller
             return $event_id;
         });
 
-        return redirect('/event/single/'.$event_id)->with('flash_message', '新規1vs1対戦を作成しました');
+        return redirect('/event/single/' . $event_id)->with('flash_message', '新規1vs1対戦を作成しました');
     }
 
     /**
@@ -157,14 +144,14 @@ class SingleController extends Controller
         $event = $this->event_service->findEventWithUserAndDuel($event_id);
 
         //アカウント認証しているユーザーのみ新規作成可能
-        if($event->game_id == config('assets.site.game_ids.pokemon_card')) {
-            return redirect('/duel/instant/'.$event->eventDuels[0]->duel_id);
+        if ($event->game_id == config('assets.site.game_ids.pokemon_card')) {
+            return redirect('/duel/instant/' . $event->eventDuels[0]->duel_id);
         }
 
         $post     = $this->post_service->findPostWithUserByEventId($event_id);
-        $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id,100);
+        $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post->id, 100);
 
-        return view('event.single.show',compact('event','post','comments'));
+        return view('event.single.show', compact('event', 'post', 'comments'));
     }
 
     /**
@@ -177,7 +164,7 @@ class SingleController extends Controller
     {
         $event = $this->event_service->findEventWithUserAndDuel($event_id);
 
-        return view('event.single.edit',compact('event'));
+        return view('event.single.edit', compact('event'));
     }
 
     /**
@@ -196,24 +183,13 @@ class SingleController extends Controller
             //イベントがキャンセルさせる場合
             if ($request->has('event_cancel')) {
                 $event = $this->event_service->updateEventStatus($request->event_id, EventStatus::CANCEL->value);
-                $this->duel_service->updateDuelStatus($event->eventDuels[0]->duel_id, \App\Models\Duel::STATUS_CANCEL);
+                $this->duel_service->updateDuelStatus($event->eventDuels[0]->duel_id, DuelStatus::CANCEL->value);
             //配信URLを更新する場合
             } elseif ($request->has('event_add_user')) {
                 $this->event_service->updateEventUserByUserIdAndGameId($request);
             }
         });
 
-        return redirect('/event/single/'.$event_id)->with('flash_message', '保存しました');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect('/event/single/' . $event_id)->with('flash_message', '保存しました');
     }
 }

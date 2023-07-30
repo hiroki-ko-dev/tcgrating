@@ -6,17 +6,15 @@ use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use Mail;
-
 use Illuminate\Http\Request;
 use App\Enums\EventStatus;
+use App\Enums\DuelStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\User\UserService;
 use App\Services\TwitterService;
 use App\Services\ApiService;
-
 use App\Mail\EventSingleJoinRequestMail;
-
 
 class UserController extends Controller
 {
@@ -165,7 +163,7 @@ class UserController extends Controller
 
             if ($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE) {
                 $this->eventService->updateEventStatus($request->event_id, EventStatus::READY->value);
-                $this->duelService->updateDuelStatus($event->eventDuels[0]->duel_id, \APP\Models\Duel::STATUS_READY);
+                $this->duelService->updateDuelStatus($event->eventDuels[0]->duel_id, DuelStatus::READY);
             }
 
             $gameUser = $this->userService->getGameUserByGameIdAndUserId($event->game_id, Auth::id());

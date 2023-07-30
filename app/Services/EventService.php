@@ -139,7 +139,8 @@ class EventService
         return $afterEventUsers;
     }
 
-    public function getEvent($event_id) {
+    public function getEvent($event_id)
+    {
         return $this->eventRepository->find($event_id);
     }
 

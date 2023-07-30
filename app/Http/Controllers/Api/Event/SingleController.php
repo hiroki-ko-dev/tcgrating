@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use DB;
 use App\Enums\EventStatus;
+use App\Enums\DuelStatus;
 use App\Services\User\UserService;
 use App\Services\EventService;
 use App\Services\DuelService;
@@ -98,7 +99,7 @@ class SingleController extends Controller
                 //event用のpostを作成
                 $request->merge(['event_id' => $event->id]);
 
-                $request->merge(['status' => \App\Models\Duel::STATUS_RECRUIT]);
+                $request->merge(['status' => DuelStatus::RECRUIT->value]);
                 $this->duelService->createInstant($request);
                 //twitterに投稿
                 $this->twitterService->tweetByMakeInstantEvent($event);

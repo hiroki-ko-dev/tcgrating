@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Enums\EventStatus;
+use App\Enums\DuelStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
 use Carbon\Carbon;
@@ -41,10 +42,10 @@ final class EventFinishCommand extends Command
             foreach ($events as $event) {
                 if ($event->status == EventStatus::RECRUIT->value) {
                     $eventNextStatus = EventStatus::CANCEL->value;
-                    $duelNextStatus = \App\Models\Duel::STATUS_CANCEL;
+                    $duelNextStatus = DuelStatus::CANCEL->value;
                 } elseif ($event->status == EventStatus::READY->value) {
                     $eventNextStatus = EventStatus::FINISH->value;
-                    $duelNextStatus = \App\Models\Duel::STATUS_FINISH;
+                    $duelNextStatus = DuelStatus::FINISH->value;
                 } else {
                     throw new \Exception("想定外のステータス");
                 }

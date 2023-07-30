@@ -25,10 +25,10 @@
       第{{$duels[0]->match_number}}試合
     </div>
     <div class="col-6">
-      <btton class="btn text-white btn-secondary text-center w-100"
+      <button class="btn text-white btn-secondary text-center w-100"
              onclick="location.href='/event/swiss/{{$duels[0]->eventDuel->event_id}}'">
         {{ __('大会ページへ戻る') }}
-      </btton>
+      </button>
     </div>
   </div>
 
@@ -36,9 +36,9 @@
     <div class="row justify-content-center row-eq-height">
       <div class="col-12">
         <div class="site-color text-white text-center p-2">対戦卓：　大会対戦{{$duel->room_id}}（
-          @if($duel->status == \App\Models\Duel::STATUS_READY)
+          @if($duel->status == \App\Enums\DuelStatus::STATUS_READY->value)
             対戦中
-          @elseif($duel->status == \App\Models\Duel::STATUS_FINISH)
+          @elseif($duel->status == \App\Enums\DuelStatus::FINISH->value)
             対戦完了
           @else
             キャンセル
@@ -52,7 +52,7 @@
         <div class="box">
           <div class="form-group row">
             <div class="col-md-12">
-              @if(Auth::check() && $duel->status == \App\Models\Duel::STATUS_READY)
+              @if(Auth::check() && $duel->status == \App\Enums\DuelStatus::READY->value)
                 @if(Auth::check() && (Auth::user()->can('eventRole',$duel->eventDuel->event->id) || Auth::id() == $duel->duelUsers[0]->user_id))
                   <div class="mb-2">
                     <form method="POST" action="/duel/swiss/{{$duel->id}}" onClick="return requestConfirm();">
@@ -82,7 +82,7 @@
                 <a href="/resume/{{$duel->duelUsers[1]->user_id}}">{{$duel->duelUsers[1]->user->name}}</a>
                   大会レート：{{$duel->eventDuel->event->eventUsers->where('user_id',$duel->duelUsers[1]->user_id)->first()->event_rate}}
 
-                @if(Auth::check() && $duel->status == \App\Models\Duel::STATUS_READY)
+                @if(Auth::check() && $duel->status == \App\Enums\DuelStatus::READY->value)
                   @if(Auth::check() && (Auth::user()->can('eventRole',$duel->eventDuel->event->id) || Auth::id() == $duel->duelUsers[1]->user_id))
                     <div class="mt-2">
                       <form method="POST" action="/duel/swiss/{{$duel->id}}" onClick="return requestConfirm();">

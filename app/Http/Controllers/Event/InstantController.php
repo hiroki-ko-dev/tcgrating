@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DB;
 use Auth;
 use App\Http\Controllers\Controller;
+use App\Enums\DuelStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\User\UserService;
@@ -98,7 +99,7 @@ class InstantController extends Controller
             $event = $this->eventService->createEvent($request);
             //event用のpostを作成
             $request->merge(['event_id' => $event->id]);
-            $request->merge(['status' => \App\Models\Duel::STATUS_READY]);
+            $request->merge(['status' => DuelStatus::READY->value]);
             $request = $this->duelService->createInstant($request);
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成

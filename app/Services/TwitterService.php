@@ -20,27 +20,27 @@ class TwitterService
     public function tweetByMakeEvent($event)
     {
         // Twitterの遊戯王アカウントでTweet
-        if($event->game_id == 1 || $event->game_id == 2){
+        if ($event->game_id == 1 || $event->game_id == 2) {
             $apiKeys = config('assets.twitter.yugioh');
             $hashTag = '#遊戯王デュエルリンクス ';
 
         // TwitterのポケモンアカウントでTweet
-        }elseif($event->game_id == 3){
+        } elseif ($event->game_id == 3) {
             $apiKeys = config('assets.twitter.pokemon');
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
         }
 
         // イベント作成によるメール文
         $tweet =
-            $event->user->name. 'さんが対戦相手を探しています' . PHP_EOL .
+            $event->user->name . 'さんが対戦相手を探しています' . PHP_EOL .
             '対戦ゲーム：' . $event->game->name . PHP_EOL .
-            '対戦日時' . date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time)) . PHP_EOL .
+            '対戦日時' . date('Y/m/d H:i', strtotime($event->date . ' ' . $event->start_time)) . PHP_EOL .
             PHP_EOL .
             '以下のURLから対戦を受けましょう!' . PHP_EOL .
             'https://hashimu.com/event/single/' . $event->id . '?selected_game_id=' . $event->game_id . ' ' . PHP_EOL .
             $hashTag;
 
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
             $this->twitterRepository->tweet($apiKeys, $tweet);
         }
     }
@@ -51,12 +51,12 @@ class TwitterService
     public function tweetByMakeInstantEvent($event)
     {
         // Twitterの遊戯王アカウントでTweet
-        if($event->game_id == 1 || $event->game_id == 2){
+        if ($event->game_id == 1 || $event->game_id == 2) {
             $apiKeys = config('assets.twitter.yugioh');
             $hashTag = '#遊戯王デュエルリンクス ';
 
             // TwitterのポケモンアカウントでTweet
-        }elseif($event->game_id == 3){
+        } elseif ($event->game_id == 3) {
             $apiKeys = config('assets.twitter.pokemon');
 //            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
             $hashTag = '';
@@ -64,7 +64,7 @@ class TwitterService
 
         // イベント作成によるメール文
         $tweet =
-            $event->user->name. 'さんが対戦相手を探しています' . PHP_EOL .
+            $event->user->name . 'さんが対戦相手を探しています' . PHP_EOL .
             '対戦ゲーム：' . $event->game->name . PHP_EOL .
             '対戦日時' . date('Y/m/d H:i', strtotime($event->date)) . PHP_EOL .
             PHP_EOL .
@@ -72,10 +72,10 @@ class TwitterService
             'URLから対戦を受けましょう!' . PHP_EOL .
             $hashTag;
 
-        if($event->rate_type == \App\Models\Event::RATE_TYPE_RATE){
+        if ($event->rate_type == \App\Models\Event::RATE_TYPE_RATE) {
             $table = 'レート対戦';
             $webHook = config('assets.discord.web_hook.rate');
-        }else{
+        } else {
             $table = 'エキシビジョン戦';
             $webHook = config('assets.discord.web_hook.exhibition');
         }
@@ -88,11 +88,10 @@ class TwitterService
             PHP_EOL .
             env('APP_URL') . '/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ';
 
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
             $this->twitterRepository->tweet($apiKeys, $tweet);
             $this->discordPost($discord, $webHook);
         }
-
     }
 
     /**
@@ -101,12 +100,12 @@ class TwitterService
     public function tweetByMatching($event)
     {
         // Twitterの遊戯王アカウントでTweet
-        if($event->game_id == 1 || $event->game_id == 2){
+        if ($event->game_id == 1 || $event->game_id == 2) {
             $apiKeys = config('assets.twitter.yugioh');
             $hashTag = '#遊戯王デュエルリンクス ';
 
             // TwitterのポケモンアカウントでTweet
-        }elseif($event->game_id == 3){
+        } elseif ($event->game_id == 3) {
             $apiKeys = config('assets.twitter.pokemon');
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
         }
@@ -122,7 +121,7 @@ class TwitterService
             'https://hashimu.com/event/single/' . $event->id . '?selected_game_id=' . $event->game_id . ' ' . PHP_EOL .
             $hashTag;
 
-        if(config('assets.common.appEnv') == 'production') {
+        if (config('assets.common.appEnv') == 'production') {
             $this->twitterRepository->tweet($apiKeys, $tweet);
         }
     }
@@ -178,36 +177,36 @@ class TwitterService
     public function tweetByDuelFinish($duel)
     {
         // Twitterの遊戯王アカウントでTweet
-        if($duel->game_id == 1 || $duel->game_id == 2){
+        if ($duel->game_id == 1 || $duel->game_id == 2) {
             $apiKeys = config('assets.twitter.yugioh');
             $hashTag = '#遊戯王デュエルリンクス ';
 
             // TwitterのポケモンアカウントでTweet
-        }elseif($duel->game_id == 3){
+        } elseif ($duel->game_id == 3) {
             $apiKeys = config('assets.twitter.pokemon');
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
         }
 
-        if($duel->duelUsers[0]->duelUserResults->sum('rating') > $duel->duelUsers[1]->duelUserResults->sum('rating')){
+        if ($duel->duelUsers[0]->duelUserResults->sum('rating') > $duel->duelUsers[1]->duelUserResults->sum('rating')) {
             $result = $duel->duelUsers[0]->user->name . 'さんの勝利です。' . PHP_EOL;
-        }elseif($duel->duelUsers[0]->duelUserResults->sum('rating') < $duel->duelUsers[1]->duelUserResults->sum('rating')){
+        } elseif ($duel->duelUsers[0]->duelUserResults->sum('rating') < $duel->duelUsers[1]->duelUserResults->sum('rating')) {
             $result = $duel->duelUsers[1]->user->name . 'さんの勝利です。' . PHP_EOL;
-        }else{
+        } else {
             $result = 'ドローです。' . PHP_EOL;
         }
 
         // 対戦マッチング  によるメール文
         $tweet =
             '対戦が完了いたしました！' . PHP_EOL .
-            '勝負の結果は'. $result . PHP_EOL .
+            '勝負の結果は' . $result . PHP_EOL .
             'お疲れ様でした！' . PHP_EOL .
              PHP_EOL .
             '対戦ゲーム：' . $duel->game->name . PHP_EOL .
-            '対戦日時' . date('Y/m/d H:i', strtotime($duel->eventDuel->event->date.' '. $duel->eventDuel->event->start_time)) . PHP_EOL .
+            '対戦日時' . date('Y/m/d H:i', strtotime($duel->eventDuel->event->date . ' ' . $duel->eventDuel->event->start_time)) . PHP_EOL .
             'https://hashimu.com/event/single/' . $duel->eventDuel->event->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
             $hashTag;
 
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
             $this->twitterRepository->tweet($apiKeys, $tweet);
         }
     }
@@ -215,24 +214,24 @@ class TwitterService
     public function tweetByInstantDuelFinish($duel)
     {
         // Twitterの遊戯王アカウントでTweet
-        if($duel->game_id == 1 || $duel->game_id == 2){
+        if ($duel->game_id == 1 || $duel->game_id == 2) {
             $apiKeys = config('assets.twitter.yugioh');
             $hashTag = '#遊戯王デュエルリンクス ';
 
             // TwitterのポケモンアカウントでTweet
-        }elseif($duel->game_id == 3){
+        } elseif ($duel->game_id == 3) {
             $apiKeys = config('assets.twitter.pokemon');
 //            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ #discordポケカ';
             $hashTag = '';
         }
 
-        if($duel->duelUsers[0]->duelUserResults->sum('rating') > $duel->duelUsers[1]->duelUserResults->sum('rating')){
+        if ($duel->duelUsers[0]->duelUserResults->sum('rating') > $duel->duelUsers[1]->duelUserResults->sum('rating')) {
             $result = $duel->duelUsers[0]->user->name . 'さんの勝利です。' . PHP_EOL;
             $rate = $duel->duelUsers[0]->duelUserResults->sum('rating');
-        }elseif($duel->duelUsers[0]->duelUserResults->sum('rating') < $duel->duelUsers[1]->duelUserResults->sum('rating')){
+        } elseif ($duel->duelUsers[0]->duelUserResults->sum('rating') < $duel->duelUsers[1]->duelUserResults->sum('rating')) {
             $result = $duel->duelUsers[1]->user->name . 'さんの勝利です。' . PHP_EOL;
             $rate = $duel->duelUsers[1]->duelUserResults->sum('rating');
-        }else{
+        } else {
             $result = 'ドローです。' . PHP_EOL;
             $rate = 0;
         }
@@ -240,16 +239,16 @@ class TwitterService
         // 対戦マッチング  によるメール文
         $tweet =
             '対戦が完了いたしました！' . PHP_EOL .
-            '勝負の結果は'. $result . PHP_EOL .
+            '勝負の結果は' . $result . PHP_EOL .
             'レートが' . $rate . 'ポイント上昇します。' . PHP_EOL .
             'お疲れ様でした！' . PHP_EOL .
             PHP_EOL .
             'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
             '対戦ゲーム：' . $duel->game->name . PHP_EOL .
-            '対戦日時' . date('Y/m/d H:i', strtotime($duel->eventDuel->event->date.' '. $duel->eventDuel->event->start_time)) . PHP_EOL .
+            '対戦日時' . date('Y/m/d H:i', strtotime($duel->eventDuel->event->date . ' ' . $duel->eventDuel->event->start_time)) . PHP_EOL .
             $hashTag;
 
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
             $this->twitterRepository->tweet($apiKeys, $tweet);
         }
     }
@@ -261,27 +260,27 @@ class TwitterService
     public function tweetByEventPostNotice($event, $users)
     {
         // Twitterの遊戯王アカウントでTweet
-        if($event->game_id == 1 || $event->game_id == 2){
+        if ($event->game_id == 1 || $event->game_id == 2) {
             $apiKeys = config('assets.twitter.yugioh');
             $hashTag = '#遊戯王デュエルリンクス ';
 
         // TwitterのポケモンアカウントでTweet
-        }elseif($event->game_id == 3){
+        } elseif ($event->game_id == 3) {
             $apiKeys = config('assets.twitter.pokemon');
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
         }
 
-        foreach ($users as $user){
+        foreach ($users as $user) {
             // 対戦マッチング  によるメール文
             $tweet =
                 '@' . $user->twitter_nickname . PHP_EOL .
                 '参加しているイベント受付掲示板が更新されました。確認しましょう。' . PHP_EOL .
                 PHP_EOL .
                 '対戦ゲーム：' . $event->game->name . PHP_EOL .
-                '対戦日時' . date('Y/m/d H:i', strtotime($event->date.' '.$event->start_time)) . PHP_EOL .
+                '対戦日時' . date('Y/m/d H:i', strtotime($event->date . ' ' . $event->start_time)) . PHP_EOL .
                 'https://hashimu.com/event/single/' . $event->id . '?selected_game_id=' . $event->game_id . ' ' . PHP_EOL .
                 $hashTag;
-            if(config('assets.common.appEnv') == 'production'){
+            if(config('assets.common.appEnv') == 'production') {
                 $this->twitterRepository->tweet($apiKeys, $tweet);
             }
         }
@@ -294,18 +293,17 @@ class TwitterService
     public function tweetByDuelPostNotice($duel, $users)
     {
         // Twitterの遊戯王アカウントでTweet
-        if($duel->game_id == 1 || $duel->game_id == 2){
+        if ($duel->game_id == 1 || $duel->game_id == 2) {
             $apiKeys = config('assets.twitter.yugioh');
             $hashTag = '#遊戯王デュエルリンクス ';
 
             // TwitterのポケモンアカウントでTweet
-        }elseif($duel->game_id == 3){
+        } elseif ($duel->game_id == 3) {
             $apiKeys = config('assets.twitter.pokemon');
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
         }
 
         foreach ($users as $user) {
-
             // 対戦マッチング  によるメール文
             $tweet =
                 '@' . $user->twitter_nickname . PHP_EOL .
@@ -316,7 +314,7 @@ class TwitterService
                 'https://hashimu.com/duel/single/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' . PHP_EOL .
                 $hashTag;
 
-            if(config('assets.common.appEnv') == 'production'){
+            if (config('assets.common.appEnv') == 'production') {
                 $this->twitterRepository->tweet($apiKeys, $tweet);
             }
         }
@@ -333,21 +331,21 @@ class TwitterService
         $webHook = config('assets.discord.web_hook.tournament');
 
         // 大会が開催された時の告知
-        if($phase == 'create'){
+        if ($phase == 'create') {
             $content = 'https://hashimu.com/event/swiss/' . $event->id . PHP_EOL;
             $content = $content . PHP_EOL .
               'スイスドロー3戦の大会が開催されます。' . PHP_EOL .
               'URLから参加申し込みをしましょう！' . PHP_EOL .
                PHP_EOL .
               '対戦日時' . date('Y/m/d H:i', strtotime($event->date . ' ' . $event->start_time . ' ~ ' . $event->end_time));
-        }else if($phase == 'attendance'){
+        } elseif ($phase == 'attendance') {
             $content = 'https://hashimu.com/event/swiss/' . $event->id . PHP_EOL;
             $content = $content . PHP_EOL .
               '大会の出欠をとります。' . PHP_EOL .
               '参加者はURLより出席ボタンを押してください。' . PHP_EOL .
               '開始までに出席ボタンを幼かった場合、参加できませんので注意してください。';
 
-        }else if($phase == 'duel'){
+        } elseif ($phase == 'duel') {
             $content = 'https://hashimu.com/event/swiss/' . $event->id . '?match_number=1' . PHP_EOL;
             $content = $content . PHP_EOL .
               '1回線の組み合わせが決まりました' . PHP_EOL .
@@ -355,7 +353,7 @@ class TwitterService
               '・対戦相手がそろったら開始' . PHP_EOL .
               '・5分以内に相手が来なければ不戦勝' . PHP_EOL .
               '・試合が終わったら勝利者が「勝利」ボタンを押す';
-        }else if($phase == 'finish'){
+        } elseif ($phase == 'finish') {
             $content = 'https://hashimu.com/event/swiss/' . $event->id . PHP_EOL;
             $content = $content . PHP_EOL .
               '大会が終了いたしました。' . PHP_EOL .
@@ -363,10 +361,7 @@ class TwitterService
               'お疲れ様でした！';
         }
 
-
-
-
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
             $this->discordPost($content, $webHook);
             $content = $content . PHP_EOL . $hashTag;
             $this->twitterRepository->tweet($apiKeys, $content);
@@ -379,7 +374,7 @@ class TwitterService
      */
     public function tweetByStorePost($post)
     {
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
             $apiKeys = config('assets.twitter.pokeka_info');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
@@ -395,7 +390,7 @@ class TwitterService
 
             $this->twitterRepository->tweet($apiKeys, $tweet);
 
-            if($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_FREE){
+            if ($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_FREE) {
                 $webHook = config('assets.discord.web_hook.chat');
                 $discord =
                     'ポケカ掲示板に以下のトークが投稿されました。' . PHP_EOL .
@@ -404,8 +399,7 @@ class TwitterService
                     $post->title . PHP_EOL .
                     PHP_EOL .
                     $link;
-
-            }elseif($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_DECK){
+            } elseif ($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_DECK) {
                 $webHook = config('assets.discord.web_hook.deck');
                 $discord =
                     'ポケカ掲示板に以下のデッキ相談が投稿されました。' . PHP_EOL .
@@ -414,7 +408,7 @@ class TwitterService
                     '【デッキ相談】' . $post->title . PHP_EOL .
                     PHP_EOL .
                     $link;
-            }elseif($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_RULE) {
+            } elseif ($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_RULE) {
                 $webHook = config('assets.discord.web_hook.rule');
                 $discord =
                     'ポケカ掲示板に以下のルール質問が投稿されました。' . PHP_EOL .
@@ -433,7 +427,7 @@ class TwitterService
      */
     public function tweetByBlog($blog)
     {
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
             $apiKeys = config('assets.twitter.pokeka_info');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
@@ -467,7 +461,7 @@ class TwitterService
      */
     public function tweetByAffiliate($blog)
     {
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
 
@@ -512,7 +506,7 @@ class TwitterService
      */
     public function tweetPromotion()
     {
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
             $apiKeys = config('assets.twitter.pokemon');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
@@ -521,15 +515,14 @@ class TwitterService
             $tweet  =  config('assets.tweet.promotion.promotion')[$randKey];
 
             // 画像付きTweetの場合はこっち
-            if($randKey > 1000){
+            if ($randKey > 1000) {
                 // 対戦マッチング  によるメール文
                 $tweet =
                     $tweet . PHP_EOL .
                     $hashTag
                 ;
                 $this->twitterRepository->imageTweet($apiKeys, $tweet);
-
-            }else{
+            } else {
                 // 対戦マッチング  によるメール文
                 $tweet =
                     $tweet .
@@ -540,7 +533,6 @@ class TwitterService
 
                 $this->twitterRepository->tweet($apiKeys, $tweet);
             }
-
         }
     }
 
@@ -550,7 +542,7 @@ class TwitterService
      */
     public function tweetSpreadAffiliate($spreadSheet, $apiKeys)
     {
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
 
             $randKey  =  array_rand($spreadSheet);
 
@@ -583,7 +575,7 @@ class TwitterService
     public function tweetSpreadNormal($spreadSheet, $apiKeys)
     {
 
-        if(config('assets.common.appEnv') == 'production'){
+        if (config('assets.common.appEnv') == 'production') {
 
             $randKey  =  array_rand($spreadSheet);
 
@@ -594,7 +586,6 @@ class TwitterService
 
             $tweet = Str::limit($tweet, 250, '...');
             $this->twitterRepository->tweet($apiKeys, $tweet);
-
         }
     }
 
