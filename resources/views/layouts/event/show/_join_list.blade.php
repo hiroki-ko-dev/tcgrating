@@ -21,13 +21,13 @@
                 <tr>
                   <td>{{$eventUser->user_id}}</td>
                   <td>{{$eventUser->user->name}}</td>
-                  @if($eventUser->status == \App\Models\EventUser::STATUS_REQUEST)
+                  @if($eventUser->status == \App\Enums\EventUser::REQUEST->value)
                     <td>参加申込中</td>
-                  @elseif($eventUser->status == \App\Models\EventUser::STATUS_APPROVAL)
+                  @elseif($eventUser->status == \App\Enums\EventUser::APPROVAL->value)
                     <td>参加確定</td>
-                  @elseif($eventUser->status == \App\Models\EventUser::STATUS_REJECT)
+                  @elseif($eventUser->status == \App\Enums\EventUser::REJECT->value)
                     <td>キャンセル</td>
-                  @elseif($eventUser->status == \App\Models\EventUser::STATUS_MASTER)
+                  @elseif($eventUser->status == \App\Enums\EventUser::MASTER->value)
                     <td>主催者</td>
                   @endif
                   @can('eventRole',$event->id)

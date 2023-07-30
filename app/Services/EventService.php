@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Collection;
 use App\Enums\EventStatus;
+use App\Enums\EventUserStatus;
 use App\Repositories\EventRepository;
 use App\Repositories\EventUserRepository;
 use App\Repositories\GameUserRepository;
@@ -71,7 +72,7 @@ class EventService
         // イベントのステータスを完了に更新
         $event = $this->updateEventStatus($event_id, EventStatus::FINISH->value);
         // 大会レートを本レートに反映
-        $eventUsers = $event->eventUsers->where('status', \App\Models\EventUser::STATUS_APPROVAL);
+        $eventUsers = $event->eventUsers->where('status', EventUserStatus::APPROVAL->value);
         foreach ($eventUsers as $eventUser) {
             $rate = $eventUser->user->rate + $eventUser->event_rate;
             if ($rate < 0) {
@@ -120,7 +121,7 @@ class EventService
             $eventUserRequest->id = $eventUser->id;
             $eventUserRequest->attendance = $request->attendance;
 
-            if ($eventUser->status == \App\Models\EventUser::STATUS_APPROVAL) {
+            if ($eventUser->status == EventUserStatus::APPROVAL->value) {
                 if ($request->attendance == \App\Models\EventUser::ATTENDANCE_READY) {
                     // 出欠取り始めの処理
                     if ($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_PREPARING) {

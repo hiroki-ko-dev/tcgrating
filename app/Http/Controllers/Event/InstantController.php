@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DB;
 use Auth;
 use App\Http\Controllers\Controller;
+use App\Enums\EventUserStatus;
 use App\Enums\DuelStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
@@ -85,7 +86,7 @@ class InstantController extends Controller
         $request->merge(['now_match_number'  => 1]);
         $request->merge(['max_member'        => 2]);
         $request->merge(['title'             => '1vs1対戦']);
-        $request->merge(['status'            => \App\Models\EventUser::STATUS_APPROVAL]);
+        $request->merge(['status'            => EventUserStatus::APPROVAL->value]);
         $request->merge(['role'              => \App\Models\EventUser::ROLE_ADMIN]);
         $request->merge(['is_personal'       => 1]);
         $request->merge(['body'       => 'LINEからの対戦作成']);

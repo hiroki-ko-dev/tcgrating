@@ -8,6 +8,7 @@ use DB;
 use Mail;
 use Illuminate\Http\Request;
 use App\Enums\EventStatus;
+use App\Enums\EventUserStatus;
 use App\Enums\DuelStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
@@ -51,7 +52,7 @@ class UserController extends Controller
 
             if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE) {
                 // 1vs1対戦ならそのまま対戦も作成
-                $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
+                $request->merge(['status'  => EventUserStatus::APPROVAL->value]);
                 $this->eventService->createUser($request) ;
                 $this->duelService->createUser($request) ;
                 $this->eventService->updateEventStatus($request->event_id, EventStatus::READY->value);
@@ -83,7 +84,7 @@ class UserController extends Controller
                     $gameUser = $this->userService->updateGameUser($event->game_id, $gameUser->toArray());
                 }
 
-                $request->merge(['status'  => \App\Models\EventUser::STATUS_REQUEST]);
+                $request->merge(['status'  => EventUserStatus::REQUEST->value]);
                 $this->eventService->createUser($request) ;
             }
         });
@@ -107,11 +108,11 @@ class UserController extends Controller
         $message = DB::transaction(function () use ($request) {
             // イベントステータスを変更
             if ($request->has('approval')) {
-                $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
+                $request->merge(['status'  => EventUserStatus::APPROVAL->value]);
                 $message = '参加確定にしました';
                 $this->eventService->updateEventUserByUserIdAndGameId($request);
             } elseif ($request->has('reject')) {
-                $request->merge(['status'  => \App\Models\EventUser::STATUS_REJECT]);
+                $request->merge(['status'  => EventUserStatus::REJECT->value]);
                 $message = '参加キャンセルをしました';
                 $this->eventService->updateEventUserByUserIdAndGameId($request);
             } elseif ($request->has('attended')) {
@@ -147,7 +148,7 @@ class UserController extends Controller
 
         //追加
         $request->merge(['user_id' => Auth::id()]);
-        $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
+        $request->merge(['status'  => EventUserStatus::APPROVAL->value]);
         $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
 
         $message = DB::transaction(function () use ($request) {
@@ -202,7 +203,7 @@ class UserController extends Controller
 
         //追加
         $request->merge(['user_id' => Auth::id()]);
-        $request->merge(['status'  => \App\Models\EventUser::STATUS_REQUEST]);
+        $request->merge(['status'  => EventUserStatus::REQUEST->value]);
 
         if ($request->has('group_id_0')) {
             $request->merge(['group_id' => 0]);

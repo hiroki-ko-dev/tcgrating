@@ -34,14 +34,14 @@
                   </button>
               </form>
             @else
-              @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REJECT)
+              @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Enums\EventUserStatus::REJECT->value)
                 キャンセル済です
               @else
-                @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REQUEST)
+                @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Enums\EventUserStatus::REQUEST->value)
                   すでに申込済です
-                @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_APPROVAL)
+                @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Enums\EventUserStatus::APPROVAL->value)
                   参加確定しました
-                @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_MASTER)
+                @elseif($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Enums\EventUserStatus::MASTER->value)
                   主催者モード
                 @endif
                   <form method="POST" action="/event/user/{{$event->id}}">
@@ -54,7 +54,7 @@
             @endif
           {{--参加募集していない場合--}}
           @else
-            @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Models\EventUser::STATUS_REJECT)
+            @if($event->eventUsers->where('user_id',Auth::id())->first()->status == \App\Enums\EventUserStatus::REJECT->value)
               キャンセル済です
             @else
               既に参加を締め切っています。

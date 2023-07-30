@@ -8,6 +8,7 @@ use Auth;
 use Mail;
 use App\Http\Controllers\Controller;
 use App\Enums\EventStatus;
+use App\Enums\EventUserStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\User\UserService;
@@ -95,7 +96,7 @@ class SwissController extends Controller
     public function store(Request $request)
     {
         //アカウント認証しているユーザーのみ新規作成可能
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return back()->with('flash_message', '新規決闘作成を行うにはログインしてください');
         }
 
@@ -108,7 +109,7 @@ class SwissController extends Controller
         $request->merge(['now_match_number'   => 0]);
 
         $request->merge(['max_member'        => $request->max_member]);
-        $request->merge(['status'            => \App\Models\EventUser::STATUS_APPROVAL]);
+        $request->merge(['status'            => EventUserStatus::APPROVAL->value]);
         $request->merge(['role'              => \App\Models\EventUser::ROLE_ADMIN]);
         $request->merge(['is_personal'       => 0]);
 

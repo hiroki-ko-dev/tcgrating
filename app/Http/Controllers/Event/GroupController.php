@@ -91,7 +91,7 @@ class GroupController extends Controller
         $request->merge(['user_id'           => Auth::id()]);
         $request->merge(['number_of_games'   => $request->number_of_games]);
         $request->merge(['max_member'        => $request->max_member]);
-        $request->merge(['status'            => \App\Models\EventUser::STATUS_MASTER]);
+        $request->merge(['status'            => EventStatusUser::MASTER->value]);
         $request->merge(['is_personal'       => 0]);
 
         $event = DB::transaction(function () use($request) {

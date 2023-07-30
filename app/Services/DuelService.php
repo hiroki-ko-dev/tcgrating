@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Enums\EventStatus;
+use App\Enums\EventUserStatus;
 use App\Enums\DuelStatus;
 use App\Repositories\DuelRepository;
 use App\Repositories\DuelUserRepository;
@@ -265,11 +266,14 @@ class DuelService
     {
         $event = $this->eventRepository->find($request->event_id);
         // 主催者含む
-        // $eventUsers = $event->eventUsers->whereIn('status',[\App\Models\EventUser::STATUS_APPROVAL,\App\Models\EventUser::STATUS_MASTER])->shuffle();
+        // $eventUsers = $event->eventUsers->whereIn('status',[EventUserStatus::APPROVAL->value,EventUserStatus::MASTER->value])->shuffle();
         // 主催者抜き
-        $eventUsers = $event->eventUsers->whereIn('status',[\App\Models\EventUser::STATUS_APPROVAL,\App\Models\EventUser::STATUS_MASTER])->shuffle();
+        $eventUsers = $event->eventUsers->whereIn('status', [
+            EventUserStatus::APPROVAL->value,
+            EventUserStatus::MASTER->value,
+        ])->shuffle();
 
-        foreach($eventUsers as $eventUser){
+        foreach ($eventUsers as $eventUser) {
             $eventUser->append('now_event_rate');
             $eventUser->now_event_rate = $eventUser->event_rate;
         }
