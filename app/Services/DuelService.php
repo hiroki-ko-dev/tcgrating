@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Enums\EventStatus;
 use App\Enums\EventUserStatus;
 use App\Enums\DuelStatus;
+use App\Enums\DuelUserStatus;
 use App\Repositories\DuelRepository;
 use App\Repositories\DuelUserRepository;
 use App\Repositories\DuelUserResultRepository;
@@ -13,7 +14,6 @@ use App\Repositories\EventRepository;
 use App\Repositories\EventUserRepository;
 use App\Repositories\GameUserRepository;
 use App\Repositories\UserRepository;
-use Illuminate\Http\Request;
 
 class DuelService
 {
@@ -113,27 +113,27 @@ class DuelService
     public function createSingleResult($request)
     {
         //すでに結果報告が終わっていないかチェック
-        $duelUserResult = $this->duelUserResultRepository->findAllByDuelUserId($request->duel->duelUsers->where('user_id',$request->user_id)->first()->id);
+        $duelUserResult = $this->duelUserResultRepository->findAllByDuelUserId($request->duel->duelUsers->where('user_id', $request->user_id)->first()->id);
 
         //相手より2回以上報告が多くならない制御
-        if($duelUserResult->isNotEmpty()){
+        if ($duelUserResult->isNotEmpty()) {
             //自分のデュエル結果
-            $myDuelUserResult    = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->duelUserResults;
+            $myDuelUserResult = $request->duel->duelUsers->where('user_id', $request->user_id)->first()->duelUserResults;
 
             //相手の報告がない場合、今回報告をすると+2の差がつくのでエラー
-            if(!isset($request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResults)){
+            if(!isset($request->duel->duelUsers->whereNotIn('user_id', [$request->user_id])->first()->duelUserResults)) {
                 throw new \Exception("相手の報告より2回以上多い報告はできません");
             }
             //相手のデュエル結果
-            $otherDuelUserResult = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->duelUserResults;
+            $otherDuelUserResult = $request->duel->duelUsers->whereNotIn('user_id', [$request->user_id])->first()->duelUserResults;
 
             //すでに試合が終了した後の報告をエラーとする
-            if($myDuelUserResult->count() == $otherDuelUserResult->count() && $request->duel->status <> DuelStatus::READY->value) {
+            if ($myDuelUserResult->count() == $otherDuelUserResult->count() && $request->duel->status <> DuelStatus::READY->value) {
                 throw new \Exception("終了した試合です");
             }
 
             //自分がまだ報告していない場合は報告してOK
-            if($myDuelUserResult->isNotEmpty()) {
+            if ($myDuelUserResult->isNotEmpty()) {
                 //すでに1回以上報告差がある場合に同じくエラー
                 if ($myDuelUserResult->max('games_number') > $otherDuelUserResult->max('games_number')) {
                     throw new \Exception("相手の報告より2回以上多い報告はできません");
@@ -146,31 +146,31 @@ class DuelService
         }
 
         $duelUserResultObj = new \stdClass();
-        $duelUserResultObj->duel_user_id = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->id ;
-        $duelUserResultObj->duel_user_id = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->id ;
-        if($duelUserResult->isEmpty()){
+        $duelUserResultObj->duel_user_id = $request->duel->duelUsers->where('user_id', $request->user_id)->first()->id ;
+        $duelUserResultObj->duel_user_id = $request->duel->duelUsers->where('user_id', $request->user_id)->first()->id ;
+        if ($duelUserResult->isEmpty()) {
             $duelUserResultObj->games_number = 1;
-        }else{
+        } else {
             $duelUserResultObj->games_number = $duelUserResult->count() + 1 ;
         }
 
-        if($request->has('win')){
+        if ($request->has('win')) {
             $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_WIN ;
             $duelUserResultObj->ranking = 1 ;
             $duelUserResultObj->rating  = 1000 ;
-        }elseif($request->has('lose')){
+        } elseif ($request->has('lose')) {
             $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_LOSE ;
             $duelUserResultObj->ranking = 2 ;
             $duelUserResultObj->rating  = -1000 ;
-        }elseif($request->has('draw')){
+        } elseif ($request->has('draw')) {
             $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_DRAW ;
             $duelUserResultObj->ranking = 0 ;
             $duelUserResultObj->rating  = 0 ;
-        }elseif($request->has('invalid')){
+        } elseif ($request->has('invalid')) {
             $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_INVALID ;
             $duelUserResultObj->ranking = 0 ;
             $duelUserResultObj->rating  = 0 ;
-        }else{
+        } else {
             return false;
         }
 
@@ -187,19 +187,19 @@ class DuelService
      */
     public function createInstantResult($request)
     {
-        $duelUserResult = $this->duelUserResultRepository->findAllByDuelUserId($request->duel->duelUsers->where('user_id',$request->user_id)->first()->id);
-        if(empty($duelUserResult)){
+        $duelUserResult = $this->duelUserResultRepository->findAllByDuelUserId($request->duel->duelUsers->where('user_id', $request->user_id)->first()->id);
+        if (empty($duelUserResult)) {
             $number_of_games = 1;
-        }else{
+        } else {
             $number_of_games = $duelUserResult->max('games_number') + 1;
         }
 
         $myDuelUserResult = new \stdClass();
-        $myDuelUserResult->duel_user_id = $request->duel->duelUsers->where('user_id',$request->user_id)->first()->id ;
+        $myDuelUserResult->duel_user_id = $request->duel->duelUsers->where('user_id', $request->user_id)->first()->id ;
         $myDuelUserResult->games_number = $number_of_games;
 
         $otherDuelUserResult = new \stdClass();
-        $otherDuelUserResult->duel_user_id = $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->id ;
+        $otherDuelUserResult->duel_user_id = $request->duel->duelUsers->whereNotIn('user_id', [$request->user_id])->first()->id ;
         $otherDuelUserResult->games_number = $number_of_games;
 
         // 試合数を更新
@@ -208,12 +208,12 @@ class DuelService
         $duelRequest->number_of_games = $number_of_games;
         $this->updateDuel($duelRequest);
 
-        if($request->has('win')){
+        if ($request->has('win')) {
             $myDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_WIN ;
             $myDuelUserResult->ranking = 1 ;
             $myDuelUserResult->rating  = 1000 ;
 
-            $gameUser = $this->gameUserRepository->findByGameIdAndUserId($request->duel->game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id);
+            $gameUser = $this->gameUserRepository->findByGameIdAndUserId($request->duel->game_id, $request->duel->duelUsers->whereNotIn('user_id', [$request->user_id])->first()->user_id);
 
             $otherDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_LOSE ;
             $otherDuelUserResult->ranking = 2 ;
@@ -230,8 +230,7 @@ class DuelService
 //            }else{
 //                $otherDuelUserResult->rating = -1000;
 //            }
-
-        }elseif($request->has('draw')) {
+        } elseif ($request->has('draw')) {
             $myDuelUserResult->result = \App\Models\DuelUserResult::RESULT_DRAW;
             $myDuelUserResult->ranking = 0;
             $myDuelUserResult->rating = 0;
@@ -239,7 +238,7 @@ class DuelService
             $otherDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_DRAW ;
             $otherDuelUserResult->ranking = 0 ;
             $otherDuelUserResult->rating  = 0 ;
-        }else{
+        } else {
             return false;
         }
 
@@ -249,7 +248,7 @@ class DuelService
 
 
         // ユーザーレートの更新
-        if($request->duel->duel_category_id == \App\Models\DuelCategory::CATEGORY_SINGLE) {
+        if ($request->duel->duel_category_id == \App\Models\DuelCategory::CATEGORY_SINGLE) {
             $game_id = $request->duel->eventDuel->event->game_id;
             $this->updateUserRate($game_id, $request->user_id, $myDuelUserResult->rating);
             $this->updateUserRate($game_id, $request->duel->duelUsers->whereNotIn('user_id', [$request->user_id])->first()->user_id, $otherDuelUserResult->rating);
@@ -285,8 +284,7 @@ class DuelService
         $room_id = 1;
         // ユーザー取り出しに利用する変数
         $i = 0;
-        while($i + 1 <= count($eventUsers)) {
-
+        while ($i + 1 <= count($eventUsers)) {
             $duelRequest = new \stdClass();
             $duelRequest->game_id          = $event->game_id;
             $duelRequest->duel_category_id = \App\Models\DuelCategory::CATEGORY_SINGLE;
@@ -300,7 +298,7 @@ class DuelService
             $duelRequest->tool_code        = config('assets.duel.discordPokemonCardServerUrl');
 
             //不戦勝の処理
-            if($i + 1 == count($eventUsers)) {
+            if ($i + 1 == count($eventUsers)) {
                 $duelRequest->status           = DuelStatus::FINISH->value;
             }
 
@@ -314,11 +312,11 @@ class DuelService
 
             // 対戦一人目の作成
             $duelRequest->user_id = $eventUsers[$i]->user_id;
-            $duelRequest->status = \App\Models\DuelUser::STATUS_APPROVAL;
+            $duelRequest->status = DuelUserStatus::APPROVAL->value;
             $duelUser = $this->duelUserRepository->create($duelRequest);
 
             //不戦勝の処理
-            if($i + 1 == count($eventUsers)) {
+            if ($i + 1 == count($eventUsers)) {
                 $duelUserResult = new \stdClass();
                 $duelUserResult->duel_user_id = $duelUser->id ;
                 $duelUserResult->games_number = $request->now_match_number;
@@ -328,8 +326,8 @@ class DuelService
                 $this->duelUserResultRepository->create($duelUserResult);
 
             // 対戦二人目の作成
-            }else{
-                $duelRequest->user_id = $eventUsers[$i+1]->user_id;
+            } else {
+                $duelRequest->user_id = $eventUsers[$i + 1]->user_id;
                 $this->duelUserRepository->create($duelRequest);
 
                 $duels[] = $duel;

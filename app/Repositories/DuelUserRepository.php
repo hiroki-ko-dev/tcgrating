@@ -1,14 +1,12 @@
 <?php
 
 namespace App\Repositories;
-use App\Models\DuelUser;
 
+use App\Models\DuelUser;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class DuelUserRepository
 {
-
     public function create($request)
     {
         $duelUser = new DuelUser();
@@ -24,9 +22,8 @@ class DuelUserRepository
         return $duelUser;
     }
 
-    public function find($id){
+    public function find($id)
+    {
         return DuelUser::find($id);
     }
-
-
 }
