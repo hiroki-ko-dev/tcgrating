@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services;
+
+use App\Enums\EventStatus;
 use App\Repositories\DuelRepository;
 use App\Repositories\DuelUserRepository;
 use App\Repositories\DuelUserResultRepository;
@@ -410,7 +412,7 @@ class DuelService
                 $request->merge(['message' => '無効試合が選択されたので試合が無効になりました']);
 
                 $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::STATUS_INVALID) ;
-                $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::STATUS_INVALID) ;
+                $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, EventStatus::INVALID->value) ;
 
                 return $request ;
             }elseif(
@@ -424,7 +426,7 @@ class DuelService
             ){
                 $request->merge(['message' => 'お互いの勝敗報告が矛盾したので試合が無効になりました']);
                 $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::STATUS_INVALID) ;
-                $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::STATUS_INVALID) ;
+                $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, EventStatus::INVALID->value) ;
 
                 return $request ;
             }
@@ -436,7 +438,7 @@ class DuelService
         ) {
             // 試合終了に伴うステータスの更新
             $duel = $this->duelRepository->updateStatus($request->duel->id, \App\Models\Duel::STATUS_FINISH) ;
-            $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, \App\Models\Event::STATUS_FINISH) ;
+            $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, EventStatus::FINISH->value);
 
             // 試合終了に伴うユーザーレートの更新
             $game_id = $request->duel->eventDuel->event->game_id;

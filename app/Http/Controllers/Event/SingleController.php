@@ -192,13 +192,13 @@ class SingleController extends Controller
         $request->merge(['event_id' => $event_id]);
         $request->merge(['user_id' => Auth::id()]);
 
-        DB::transaction(function () use($request) {
+        DB::transaction(function () use ($request) {
             //イベントがキャンセルさせる場合
-            if($request->has('event_cancel')){
-                $event = $this->event_service->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
+            if ($request->has('event_cancel')) {
+                $event = $this->event_service->updateEventStatus($request->event_id, EventStatus::CANCEL->value);
                 $this->duel_service->updateDuelStatus($event->eventDuels[0]->duel_id, \App\Models\Duel::STATUS_CANCEL);
             //配信URLを更新する場合
-            }elseif($request->has('event_add_user')) {
+            } elseif ($request->has('event_add_user')) {
                 $this->event_service->updateEventUserByUserIdAndGameId($request);
             }
         });

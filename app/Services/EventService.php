@@ -2,24 +2,19 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Collection;
+use App\Enums\EventStatus;
 use App\Repositories\EventRepository;
 use App\Repositories\EventUserRepository;
 use App\Repositories\GameUserRepository;
 
 class EventService
 {
-    protected $gameUserRepository;
-    protected $eventRepository;
-    protected $eventUserRepository;
-
-
-    public function __construct(GameUserRepository $gameUserRepository,
-                                EventRepository $eventRepository,
-                                EventUserRepository $eventUserRepository)
-    {
-        $this->gameUserRepository = $gameUserRepository;
-        $this->eventRepository = $eventRepository;
-        $this->eventUserRepository  = $eventUserRepository;
+    public function __construct(
+        private readonly GameUserRepository $gameUserRepository,
+        private readonly EventRepository $eventRepository,
+        private readonly EventUserRepository $eventUserRepository
+    ) {
     }
 
     /**
@@ -74,12 +69,12 @@ class EventService
     public function updateSwissEventByFinish($event_id)
     {
         // イベントのステータスを完了に更新
-        $event = $this->updateEventStatus($event_id, \App\Models\Event::STATUS_FINISH);
+        $event = $this->updateEventStatus($event_id, EventStatus::FINISH->value);
         // 大会レートを本レートに反映
         $eventUsers = $event->eventUsers->where('status', \App\Models\EventUser::STATUS_APPROVAL);
-        foreach($eventUsers as $eventUser){
+        foreach ($eventUsers as $eventUser) {
             $rate = $eventUser->user->rate + $eventUser->event_rate;
-            if($rate < 0){
+            if ($rate < 0) {
                 $rate = 0;
             }
             $gameUser = $this->gameUserRepository->findByGameIdAndUserId($event->game_id, $eventUser->user_id);
@@ -120,21 +115,19 @@ class EventService
         $beforeEventUsers = $this->getEvent($request->event_id)->eventUsers;
         $afterEventUsers = [];
 
-        foreach($beforeEventUsers as $eventUser) {
-
+        foreach ($beforeEventUsers as $eventUser) {
             $eventUserRequest = new \stdClass();
             $eventUserRequest->id = $eventUser->id;
             $eventUserRequest->attendance = $request->attendance;
 
             if ($eventUser->status == \App\Models\EventUser::STATUS_APPROVAL) {
-                if ($request->attendance == \App\Models\EventUser::ATTENDANCE_READY){
+                if ($request->attendance == \App\Models\EventUser::ATTENDANCE_READY) {
                     // 出欠取り始めの処理
                     if ($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_PREPARING) {
                         // 出欠準備のユーザーだけ更新
                         $afterEventUsers[] = $this->updateEventUser($eventUserRequest);
                     }
-                }
-                elseif ($request->attendance == \App\Models\EventUser::ATTENDANCE_ABSENT){
+                } elseif ($request->attendance == \App\Models\EventUser::ATTENDANCE_ABSENT) {
                     // 出欠終了の処理
                     if ($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_READY) {
                         // 出欠準備のユーザーだけ更新
@@ -146,21 +139,16 @@ class EventService
         return $afterEventUsers;
     }
 
-    public function getEvent($event_id){
+    public function getEvent($event_id) {
         return $this->eventRepository->find($event_id);
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param [type] $request
-     * @return array Event
-     */
-    public function getEvents($request){
-        return $this->eventRepository->findAll($request);
+    public function getEvents(array $filters): Collection
+    {
+        return $this->eventRepository->findAll($filters);
     }
 
-    public function findEventWithUserAndDuel($event_id){
+    public function findEventWithUserAndDuel($event_id) {
         return $this->eventRepository->findWithUserAndDuel($event_id);
     }
 
@@ -169,8 +157,8 @@ class EventService
         $events = $this->getEvents($request);
 
         $json_events = '[';
-        foreach($events as $i => $event){
-            if($i > 0){
+        foreach ($events as $i => $event) {
+            if ($i > 0) {
                 $json_events = $json_events . ',';
             }
 
@@ -179,7 +167,7 @@ class EventService
               '{' .
               '"url":"/supplier/bookings/' . $event->id . '/edit",' .
               '"id":"' . $event->id . '",' .
-              '"title":"' .'大会ID：' . $event->id . '",' .
+              '"title":"' . '大会ID：' . $event->id . '",' .
               '"date":"' . $event->date . '"' .
 //              '"day":"' . date('d', strtotime($event->date)) . '"' .
 //              '"start":"'.$event->starts_at->format('Y-m-d').'T'.$event->starts_at->format('H:i:s').'",' .
@@ -207,6 +195,11 @@ class EventService
         return $this->eventRepository->findAllByUserId($user_id);
     }
 
+    public function paginateEvents($filters, $row)
+    {
+        return $this->eventRepository->paginate($filters, $row);
+    }
+
     public function getEventsByIndexForApi($request, $paginate)
     {
         return $this->eventRepository->findAllForApi($request, $paginate);
@@ -216,5 +209,4 @@ class EventService
     {
         return $this->eventRepository->findForApi($id);
     }
-
 }

@@ -2,37 +2,26 @@
 
 namespace App\Http\Controllers\Event;
 
-
 use Carbon\Carbon;
 use DB;
 use Auth;
 use Mail;
-
 use App\Http\Controllers\Controller;
+use App\Enums\EventStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\User\UserService;
 use App\Services\TwitterService;
-
 use Illuminate\Http\Request;
 
 class SwissController extends Controller
 {
-
-    protected $eventService;
-    protected $duelService;
-    protected $userService;
-    protected $twitterService;
-
-    public function __construct(EventService $eventService,
-                                DuelService $duelService,
-                                UserService $userService,
-                                TwitterService $twitterService)
-    {
-        $this->eventService = $eventService ;
-        $this->duelService  = $duelService ;
-        $this->userService  = $userService ;
-        $this->twitterService = $twitterService;
+    public function __construct(
+        private readonly EventService $eventService,
+        private readonly DuelService $duelService,
+        private readonly UserService $userService,
+        private readonly TwitterService $twitterService
+    ) {
     }
 
     /**
@@ -178,11 +167,11 @@ class SwissController extends Controller
                 $event = $this->eventService->updateEvent($request);
             }elseif($request->has('ready')) {
                 // 参加締め切りする場合
-                $event = $this->eventService->updateEventStatus($request->event_id, \App\Models\Event::STATUS_READY);
+                $event = $this->eventService->updateEventStatus($request->event_id, EventStatus::READY->value);
 
             }elseif($request->has('cancel')){
                 // イベントがキャンセルさせる場合
-                $event = $this->eventService->updateEventStatus($request->event_id, \App\Models\Event::STATUS_CANCEL);
+                $event = $this->eventService->updateEventStatus($request->event_id, EventStatus::CANCEL->value);
 
             }elseif($request->has('finish')) {
                 // イベント完了時

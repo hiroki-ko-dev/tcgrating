@@ -3,20 +3,20 @@
     <div class="box">
       <div class="d-flex flex-row mb-3">
         <div class="w-30 font-weight-bold">イベントステータス</div>
-        @if($event->status == \APP\Models\Event::STATUS_RECRUIT )
+        @if($event->status == \App\Enums\EventStatus::RECRUIT->value )
           <span class="post-user w-70">{{ __('参加申込受付中') }}</span>
-        @elseif($event->status == \APP\Models\Event::STATUS_READY )
+        @elseif($event->status == \App\Enums\EventStatus::READY->value )
           <span class="post-user w-70">{{ __('参加締切済') }}</span>
-        @elseif($event->status == \APP\Models\Event::STATUS_FINISH )
+        @elseif($event->status == \App\Enums\EventStatus::FINISH->value )
           <span class="post-user w-70">{{ __('イベント終了') }}</span>
-        @elseif($event->status == \APP\Models\Event::STATUS_CANCEL )
+        @elseif($event->status == \App\Enums\EventStatus::CANCEL->value )
           <span class="post-user w-70">{{ __('イベントキャンセル') }}</span>
-        @elseif($event->status == \APP\Models\Event::STATUS_INVALID )
+        @elseif($event->status == \App\Enums\EventStatus::INVALID->value )
           <span class="post-user w-70">{{ __('イベント無効') }}</span>
         @endif
       </div>
       {{-- 対戦相手を募集している段階ではキャンセルができる --}}
-      @if($event->status == \APP\Models\Event::STATUS_RECRUIT && Auth::id() == $event->user_id)
+      @if($event->status == \App\Enums\EventStatus::RECRUIT->value && Auth::id() == $event->user_id)
         {{--1vs1対戦の時のボタン--}}
         @if($event->event_category_id == \App\Models\EventCategory::CATEGORY_SINGLE)
           <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">

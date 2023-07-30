@@ -42,15 +42,15 @@
       <span class="mouseover">クリックで詳細へ</span>
       <div class="row bg-light p-2">
         <div class="col-4 m-0 p-0 text-left">
-          @if($event->status == \APP\Models\Event::STATUS_RECRUIT )
+          @if($event->status == \App\Enums\EventStatus::RECRUIT->value )
             <div class="post-user text-danger justify-content-start">[{{ __('対戦受付中') }}]</div>
-          @elseif($event->status == \APP\Models\Event::STATUS_READY )
+          @elseif($event->status == \App\Enums\EventStatus::READY->value )
             <div class="post-user text-warning justify-content-start">[{{ __('マッチング済') }}]</div>
-          @elseif($event->status == \APP\Models\Event::STATUS_FINISH )
+          @elseif($event->status == \App\Enums\EventStatus::FINISH->value )
             <div class="text-secondary font-weight-bold justify-content-start">[{{ __('対戦完了') }}]</div>
-          @elseif($event->status == \APP\Models\Event::STATUS_CANCEL )
+          @elseif($event->status == \App\Enums\EventStatus::CANCEL->value )
             <div class="text-secondary font-weight-bold justify-content-start">[{{ __('キャンセル') }}]</div>
-          @elseif($event->status == \APP\Models\Event::STATUS_INVALID )
+          @elseif($event->status == \App\Enums\EventStatus::INVALID->value )
             <div class="text-secondary font-weight-bold justify-content-start">[{{ __('無効試合') }}]</div>
           @endif
         </div>

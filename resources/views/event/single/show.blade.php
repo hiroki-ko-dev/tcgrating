@@ -39,7 +39,7 @@
             @endisset
           </div>
           <div class="col-md-12">
-            @if($event->user_id <> Auth::id() && $event->status == \APP\Models\Event::STATUS_RECRUIT)
+            @if($event->user_id <> Auth::id() && $event->status == \App\Enums\EventStatus::RECRUIT->value)
               <form method="POST" action="/event/user" onClick="return requestConfirm();">
                 @csrf
                 <input type="hidden" name="event_id" value="{{$event->id}}">
@@ -60,20 +60,20 @@
       <div class="box">
         <div class="d-flex flex-row mb-3">
           <div class="w-30 font-weight-bold">状態</div>
-            @if($event->status == \APP\Models\Event::STATUS_RECRUIT )
+            @if($event->status == \App\Enums\EventStatus::RECRUIT->value )
               <span class="post-user w-70">{{ __('：対戦受付中') }}</span>
-            @elseif($event->status == \APP\Models\Event::STATUS_READY )
+            @elseif($event->status == \App\Enums\EventStatus::READY->value )
               <span class="post-user w-70">{{ __('マッチング済') }}</span>
-            @elseif($event->status == \APP\Models\Event::STATUS_FINISH )
+            @elseif($event->status == \App\Enums\EventStatus::FINISH->value )
               <span class="post-user w-70">{{ __('対戦完了') }}</span>
-            @elseif($event->status == \APP\Models\Event::STATUS_CANCEL )
+            @elseif($event->status == \App\Enums\EventStatus::CANCEL->value )
               <span class="post-user w-70">{{ __('対戦キャンセル') }}</span>
-            @elseif($event->status == \APP\Models\Event::STATUS_INVALID )
+            @elseif($event->status == \App\Enums\EventStatus::INVALID->value )
               <span class="post-user w-70">{{ __('無効試合') }}</span>
             @endif
           </div>
         {{-- 対戦相手を募集している段階ではキャンセルができる --}}
-        @if($event->status == \APP\Models\Event::STATUS_RECRUIT && Auth::id() == $event->user_id)
+        @if($event->status == \App\Enums\EventStatus::RECRUIT->value && Auth::id() == $event->user_id)
           <form method="POST" action="/event/single/{{$event->id}}" onClick="return requestConfirm();">
             @csrf
             @method('PUT')
@@ -105,7 +105,7 @@
         <div class="d-flex flex-row mb-3">
           <div class="small">※必ず対戦開始前に「<a href="/site/how_to_use/normal">1vs1対戦の使い方</a>」動画を視聴してください</div>
         </div>
-          @if($event->status <> \App\Models\Event::STATUS_RECRUIT && $event->status <> \App\Models\Event::STATUS_CANCEL )
+          @if($event->status <> \App\Enums\EventStatus::RECRUIT->value && $event->status <> \App\Enums\EventStatus::CANCEL->value )
           <div class="d-flex flex-row mb-3">
             <div class="small">※対戦開始日時になったら対戦ページへ移動してください</div>
           </div>

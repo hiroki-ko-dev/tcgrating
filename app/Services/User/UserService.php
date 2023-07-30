@@ -143,7 +143,7 @@ class UserService
         return $selectedGameId;
     }
 
-    public function updateGameUser($id, array $attrs): GameUser
+    public function updateGameUser(int $id, array $attrs): GameUser
     {
         return DB::transaction(function () use ($id, $attrs) {
             return $this->gameUserRepository->update($id, $attrs);

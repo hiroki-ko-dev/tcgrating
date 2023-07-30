@@ -1,4 +1,4 @@
-@if($event->status == \App\Models\Event::STATUS_FINISH)
+@if($event->status == \App\Enums\EventStatus::FINISH->value)
   <div class="row justify-content-center mb-4">
     <div class="col-md-12">
       <div class="box">

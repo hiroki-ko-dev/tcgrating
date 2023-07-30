@@ -6,7 +6,7 @@
          {{--まだ参加募集している場合--}}
           @if(!(Auth::check()))
             参加にはログインが必要です
-          @elseif($event->status == \App\Models\Event::STATUS_RECRUIT)
+          @elseif($event->status == \App\Enums\EventStatus::RECRUIT->value)
             @if($event->eventUsers->where('user_id',Auth::id())->isEmpty())
               <form method="POST" action="/event/user">
                 @csrf

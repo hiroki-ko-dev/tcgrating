@@ -2,47 +2,27 @@
 
 namespace App\Http\Controllers\Api\Event;
 
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
-use Auth;
 use Carbon\Carbon;
 use DB;
+use App\Enums\EventStatus;
 use App\Services\User\UserService;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\ApiService;
 use App\Services\TwitterService;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class SingleController extends Controller
 {
-
-    protected $userService;
-    protected $eventService;
-    protected $duelService;
-    protected $apiService;
-    protected $twitterService;
-
-    /**
-     * SingleController constructor.
-     * @param UserService $userService
-     * @param EventService $eventService
-     * @param DuelService $duelService
-     * @param ApiService $apiService
-     * @param TwitterService $twitterService
-     */
-    public function __construct(UserService $userService,
-                                EventService $eventService,
-                                DuelService $duelService,
-                                ApiService $apiService,
-                                TwitterService $twitterService)
-    {
-        $this->userService  = $userService;
-        $this->eventService = $eventService;
-        $this->duelService = $duelService;
-        $this->apiService = $apiService;
-        $this->twitterService = $twitterService;
+    public function __construct(
+        private readonly UserService $userService,
+        private readonly EventService $eventService,
+        private readonly DuelService $duelService,
+        private readonly ApiService $apiService,
+        private readonly TwitterService $twitterService
+    ) {
     }
 
     public function test()
@@ -54,7 +34,7 @@ class SingleController extends Controller
                 'id'     => $user->id,
                 'name'   => $user->name
             ];
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $result = [
                 'result' => false,
                 'error' => [
@@ -71,10 +51,8 @@ class SingleController extends Controller
         try {
             $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
             $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
-
             $events = $this->eventService->getEventsByIndexForApi($request, 10);
-
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $events = [
                 'result' => false,
                 'error' => [
@@ -114,7 +92,7 @@ class SingleController extends Controller
             $request->merge(['match_number'      => 1]);
             $request->merge(['rate_type'      => $request->rate_type]);
 
-            DB::transaction(function () use($request) {
+            DB::transaction(function () use ($request) {
 
                 $event = $this->eventService->createEvent($request);
                 //event用のpostを作成
@@ -125,8 +103,7 @@ class SingleController extends Controller
                 //twitterに投稿
                 $this->twitterService->tweetByMakeInstantEvent($event);
             });
-
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $event = [
                 'result' => false,
                 'error' => [
@@ -147,8 +124,7 @@ class SingleController extends Controller
             // 勝利報告処理
             // 対戦完了ボタンでなければレートを更新
             $event = $this->eventService->getEventForApi($event_id);
-
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $event = [
                 'error' => [
                     'messages' => [$e->getMessage()]
@@ -163,27 +139,27 @@ class SingleController extends Controller
     public function update(Request $request)
     {
         try {
-            $event = DB::transaction(function () use($request) {
+            $event = DB::transaction(function () use ($request) {
 
                 $event = $this->eventService->getEvent($request->event_id);
 
                 // 勝利報告処理
-                if($request->status == 11){
+                if ($request->status == 11) {
                     // 対戦完了ボタンでなければレートを更新
-                    if($event->status <> \App\Models\Event::STATUS_READY){
+                    if ($event->status <> EventStatus::READY->value) {
                         throw new \Exception('すでに対戦が終了しています');
                     }
 
                     $request->merge(['duel'  => $event->eventDuels[0]->duel]);
                     $request->merge(['win'  => true]);
                     $this->duelService->createInstantResult($request);
-                }else{
-                    if($request->status == \App\Models\Event::STATUS_READY) {
-                        if ($event->status <> \App\Models\Event::STATUS_RECRUIT) {
+                } else {
+                    if ($request->status == EventStatus::READY->value) {
+                        if ($event->status <> EventStatus::RECRUIT->value) {
                             throw new \Exception('すでに対戦相手が決定しています');
                         }
-                    }elseif($request->status == \App\Models\Event::STATUS_FINISH){
-                        if ($event->status <> \App\Models\Event::STATUS_READY) {
+                    } elseif ($request->status == EventStatus::FINISH->value) {
+                        if ($event->status <> EventStatus::READY->value) {
                             throw new \Exception('すでに対戦が終了しています');
                         }
                     }
@@ -191,14 +167,12 @@ class SingleController extends Controller
                     $event = $this->eventService->updateEventStatus($request->event_id, $request->status);
                     $duel = $this->duelService->updateDuelStatus($event->eventDuels[0]->duel_id, $request->status);
 
-                    if($request->status == \APP\Models\Event::STATUS_READY){
-
+                    if ($request->status == EventStatus::READY->value) {
                         $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
                         // 対戦申し込みの処理の場合はメンバー追加
                         $request->merge(['status'  => \App\Models\EventUser::STATUS_APPROVAL]);
                         $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
                         $this->eventService->createUser($request) ;
-
                         $this->duelService->createUser($request) ;
 
                         // 送信
@@ -211,8 +185,7 @@ class SingleController extends Controller
                     return $event;
                 }
             });
-
-        } catch(\Exception $e){
+        } catch (\Exception $e) {
             $event = [
                 'error' => [
                     'messages' => [$e->getMessage()]
@@ -226,17 +199,13 @@ class SingleController extends Controller
         return $this->apiService->resConversionJson($event);
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function badge(Request $request)
+    public function badge(Request $request): JsonResponse
     {
-
         try {
-            $request->merge(['status'  => \App\Models\Event::STATUS_READY]);
-            $events = $this->eventService->getEvents($request);
-        } catch(\Exception $e){
+            $eventFilters = $request->all();
+            $eventFilters['status'] = EventStatus::READY->value;
+            $events = $this->eventService->getEvents($eventFilters);
+        } catch (\Exception $e) {
             $event = [
                 'error' => [
                     'messages' => [$e->getMessage()]

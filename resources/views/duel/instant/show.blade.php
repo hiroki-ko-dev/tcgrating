@@ -43,14 +43,12 @@
     <div class="col-12">
       <div class="box">
         @if(!Auth::check())
-          {{--ログインしている場合--}}
           <div class="font-weight-bold text-left">{{ __('対戦申込にはTwitterログインをしてください') }}</div>
           <div class="col-sm-4">
             <a href="/auth/twitter/login"><img class="img-fluid" src="{{ asset('/images/site/twitter/relation.png') }}" alt="hashimu-icon"></a>
           </div>
         @else
-          {{--ログインしていない場合--}}
-          @if($duel->eventDuel->event->status == \App\Models\Event::STATUS_RECRUIT)
+          @if($duel->eventDuel->event->status == \App\Enums\EventStatus::RECRUIT->value)
             {{--対戦相手募集中の場合--}}
             @if(Auth::id() == $duel->user_id)
               {{--対戦作成者の場合--}}
@@ -98,7 +96,7 @@
                 <div class="font-weight-bold text-danger">{{ __('「対戦申込」を押してください') }}</div>
               </form>
             @endif
-          @elseif($duel->eventDuel->event->status == \App\Models\Event::STATUS_READY)
+          @elseif($duel->eventDuel->event->status == \App\Enums\EventStatus::READY->value)
             {{--対戦相手募集が完了している場合--}}
             @if($duel->duelUsers->where('user_id',Auth::id())->isNotEmpty() || (Auth::check() && Auth::id() ==1))
               {{--対戦者同士の場合--}}
@@ -139,7 +137,7 @@
                 </div>
               </div>
             @endif
-          @elseif($duel->eventDuel->event->status == \App\Models\Event::STATUS_CANCEL)
+          @elseif($duel->eventDuel->event->status == \App\Enums\EventStatus::CANCEL->value)
             <div class="row justify-content-center mb-4">
               <div class="col-md-12">
                 {{ __('対戦がキャンセルされました') }}
@@ -232,7 +230,7 @@
 
   </div>
 
-  @if($duel->eventDuel->event->status == \App\Models\Event::STATUS_RECRUIT &&
+  @if($duel->eventDuel->event->status == \App\Enums\EventStatus::RECRUIT->value &&
     Auth::check() && (Auth::id() == $duel->user_id || Auth::id() == 1))
     <div class="row justify-content-center mb-4">
       <div class="col-12">
@@ -253,7 +251,7 @@
 
   @include('layouts.common.discord._join')
 
-  @if($duel->game_id == config('assets.site.game_ids.pokemon_card') && $duel->eventDuel->event->status == \App\Models\Event::STATUS_RECRUIT)
+  @if($duel->game_id == config('assets.site.game_ids.pokemon_card') && $duel->eventDuel->event->status == \App\Enums\EventStatus::RECRUIT->value)
     <div class="row justify-content-center mb-2">
       <div class="col-md-12">
         <div class="box">

@@ -3,7 +3,7 @@
     <div class="col-12">
       <div class="box">
         <div class="row justify-content-center">
-          @if($event->status == \App\Models\Event::STATUS_READY)
+          @if($event->status == \App\Enums\EventStatus::READY->value)
             <div class="col-sm-2">
               <form method="POST" action="/event/swiss/{{$event->id}}">
                 @csrf

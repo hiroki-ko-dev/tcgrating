@@ -11,21 +11,6 @@ class Event extends Model
     protected $guarded = [];
 
     //定数の定義
-    const STATUS_RECRUIT   = 0;
-    const STATUS_READY     = 1;
-    const STATUS_FINISH    = 2;
-    const STATUS_CANCEL    = 3;
-    const STATUS_INVALID   = 4;
-
-    const STATUS = [
-        'recruit'  => self::STATUS_RECRUIT,
-        'ready'    => self::STATUS_READY,
-        'finish'   => self::STATUS_FINISH,
-        'cancel'   => self::STATUS_CANCEL,
-        'invalid'  => self::STATUS_INVALID,
-    ];
-
-    //定数の定義
     const RATE_TYPE_RATE = 0;
     const RATE_TYPE_EXHIBITION = 1;
 

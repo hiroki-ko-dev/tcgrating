@@ -1,34 +1,25 @@
 <?php
 
 namespace App\Http\Controllers\Duel;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
+use App\Enums\EventStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\PostService;
 use App\Services\TwitterService;
-
 use Auth;
 use DB;
-
 use Illuminate\Http\Request;
 
 class InstantController extends Controller
 {
-    protected $eventService;
-    protected $duelService;
-    protected $postService;
-    protected $twitterService;
-
-    public function __construct(EventService $eventService,
-                                DuelService $duelService,
-                                PostService $postService,
-                                TwitterService $twitterService)
-    {
-        $this->eventService = $eventService ;
-        $this->duelService = $duelService ;
-        $this->postService = $postService ;
-        $this->twitterService = $twitterService;
+    public function __construct(
+        private readonly EventService $eventService,
+        private readonly DuelService $duelService,
+        private readonly PostService $postService,
+        private readonly TwitterService $twitterService
+    ) {
     }
 
     /**
@@ -40,9 +31,9 @@ class InstantController extends Controller
     public function show($duel_id)
     {
         $duel     = $this->duelService->findDuelWithUserAndEvent($duel_id);
-        session(['loginAfterRedirectUrl' => env('APP_URL').'/duel/instant/'.$duel_id]);
+        session(['loginAfterRedirectUrl' => env('APP_URL') . '/duel/instant/'.$duel_id]);
 
-        return view('duel.instant.show',compact('duel'));
+        return view('duel.instant.show', compact('duel'));
     }
 
     /**
@@ -71,7 +62,7 @@ class InstantController extends Controller
                 // レートを更新
                 $this->duelService->createInstantResult($request);
                 // 対戦完了ステータスを更新
-                $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::STATUS_FINISH);
+                $this->eventService->updateEventStatus($duel->eventDuel->event->id, EventStatus::FINISH->value);
                 $this->duelService->updateDuelStatus($duel->id, \App\Models\Duel::STATUS_FINISH);
                 $this->twitterService->tweetByInstantDuelFinish($duel);
                 $message = '試合が完了しました';
@@ -79,7 +70,7 @@ class InstantController extends Controller
                 return $message;
             });
 
-            return redirect('/duel/instant/'.$request->duel_id)->with('flash_message', $message);
+            return redirect('/duel/instant/' . $request->duel_id)->with('flash_message', $message);
 
 
         } catch (\Exception $e) {
@@ -92,13 +83,13 @@ class InstantController extends Controller
      * @param Request $request
      * @param $duel_id
      */
-    public function update(Request $request,$duel_id)
+    public function update(Request $request, $duel_id)
     {
         try {
-            if($request->event_cancel == 1){
+            if ($request->event_cancel == 1){
                 DB::transaction(function () use($request, $duel_id) {
                     $duel = $this->duelService->findDuelWithUserAndEvent($duel_id);
-                    $this->eventService->updateEventStatus($duel->eventDuel->event->id,\App\Models\Event::STATUS_CANCEL);
+                    $this->eventService->updateEventStatus($duel->eventDuel->event->id, EventStatus::CANCEL->value);
                     $this->duelService->updateDuelStatus($duel_id, \App\Models\Duel::STATUS_CANCEL);
                 });
             }
