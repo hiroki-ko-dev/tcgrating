@@ -6,10 +6,10 @@ namespace App\Enums;
 
 enum EventUserStatus: int
 {
-    case REQUEST   = 0;
-    case APPROVAL  = 1;
-    case REJECT    = 2;
-    case MASTER    = 3;
+    case REQUEST   = 1;
+    case APPROVAL  = 2;
+    case REJECT    = 3;
+    case MASTER    = 4;
 
     public function description(): string
     {

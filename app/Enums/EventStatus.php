@@ -6,11 +6,11 @@ namespace App\Enums;
 
 enum EventStatus: int
 {
-    case RECRUIT = 0;
-    case READY = 1;
-    case FINISH = 2;
-    case CANCEL = 3;
-    case INVALID = 4;
+    case RECRUIT = 1;
+    case READY = 2;
+    case FINISH = 3;
+    case CANCEL = 4;
+    case INVALID = 5;
 
     public function description(): string
     {
