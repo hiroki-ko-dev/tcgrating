@@ -11,20 +11,6 @@ class Event extends Model
 
     protected $guarded = [];
 
-    //定数の定義
-    const CARD_TYPE_NORMAL = 0;
-    const CARD_TYPE_PROXY = 1;
-
-    const CARD_TYPE = [
-        'normal'  => self::CARD_TYPE_NORMAL,
-        'proxy' => self::CARD_TYPE_PROXY,
-    ];
-
-    const CARD_TYPE_STR = [
-        self::CARD_TYPE_NORMAL  => 'なし',
-        self::CARD_TYPE_PROXY  => 'あり',
-    ];
-
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
