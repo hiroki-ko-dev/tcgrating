@@ -50,7 +50,7 @@ class UserController extends Controller
             $event = $this->eventService->getEvent($request->event_id);
             $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
 
-            if($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE) {
+            if ($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE) {
                 // 1vs1対戦ならそのまま対戦も作成
                 $request->merge(['status'  => EventUserStatus::APPROVAL->value]);
                 $this->eventService->createUser($request) ;
@@ -78,7 +78,7 @@ class UserController extends Controller
 
                 // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
                 $gameUser = $this->userService->createGameUser($request->all());
-                if($gameUser->discord_name <> $request->discord_name) {
+                if ($gameUser->discord_name <> $request->discord_name) {
                     $gameUser->discord_name = $request->discord_name;
                     // discord_nameを更新
                     $gameUser = $this->userService->updateGameUser($event->game_id, $gameUser->toArray());

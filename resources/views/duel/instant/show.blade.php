@@ -212,7 +212,7 @@
       </div>
       <div class="col-6">
         <h5 class="font-weight-bold">
-          {{\App\Models\Event::REGULATION_TYPE_STR[$duel->eventDuel->event->regulation_type]}}
+          {{\App\Enums\EventRegulationType::from($duel->eventDuel->event->regulation_type)->description()}}
         </h5>
       </div>
     </div>
@@ -223,7 +223,7 @@
       </div>
       <div class="col-4">
         <h5 class="font-weight-bold">
-            {{\App\Models\Event::CARD_TYPE_STR[$duel->eventDuel->event->card_type]}}
+            {{\App\Enums\EventCardType::from($duel->eventDuel->event->card_type)->description()}}
         </h5>
       </div>
     </div>

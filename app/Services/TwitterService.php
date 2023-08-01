@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Enums\EventRateType;
 use App\Repositories\UserRepository;
 use App\Repositories\TwitterRepository;
 use Illuminate\Support\Str;
@@ -72,7 +73,7 @@ class TwitterService
             'URLから対戦を受けましょう!' . PHP_EOL .
             $hashTag;
 
-        if ($event->rate_type == \App\Models\Event::RATE_TYPE_RATE) {
+        if ($event->rate_type == EventRateType::RATE->value) {
             $table = 'レート対戦';
             $webHook = config('assets.discord.web_hook.rate');
         } else {
@@ -150,7 +151,7 @@ class TwitterService
             '対戦の準備をしましょう！' . PHP_EOL .
             $hashTag;
 
-        if ($duel->eventDuel->event->rate_type == \App\Models\Event::RATE_TYPE_RATE) {
+        if ($duel->eventDuel->event->rate_type == EventRateType::RATE->value) {
             $table = 'レート対戦';
             $webHook = config('assets.discord.web_hook.rate');
         } else {
