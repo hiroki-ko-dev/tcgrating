@@ -38,14 +38,14 @@
                     </td>
                   @endcan
                   <td>
-                    @if($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_READY)
+                    @if($eventUser->attendance == \App\Enums\EventUserAttendance::READY->value)
                       @if(Auth::check() && (Auth::user()->can('eventRole',$event->id) || Auth::id() == $eventUser->user_id))
                         <input type="hidden" name="event_user_id" value="{{$eventUser->id}}">
                         <input type="submit" name="attended" class="btn btn-primary" value="出席">
                       @endif
-                    @elseif($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_ATTENDED)
+                    @elseif($eventUser->attendance == \App\Enums\EventUserAttendance::ATTENDED->value)
                       出席
-                    @elseif($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_ABSENT)
+                    @elseif($eventUser->attendance == \App\Enums\EventUserAttendance::ABSENT->value)
                       欠席
                     @else
                     @endif

@@ -8,6 +8,7 @@ use Mail;
 use App\Http\Controllers\Controller;
 use App\Enums\EventStatus;
 use App\Enums\EventUserStatus;
+use App\Enums\EventUserRole;
 use App\Enums\DuelStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
@@ -97,7 +98,7 @@ class SingleController extends Controller
         $request->merge(['max_member'        => 2]);
         $request->merge(['title'             => '1vs1対戦']);
         $request->merge(['status'            => EventUserStatus::APPROVAL->value]);
-        $request->merge(['role'              => \App\Models\EventUser::ROLE_ADMIN]);
+        $request->merge(['role'              => EventUserRole::ADMIN->value]);
         $request->merge(['is_personal'       => 0]);
 
         $request->merge(['match_number'      => 1]);

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use DB;
 use App\Enums\EventStatus;
 use App\Enums\EventUserStatus;
+use App\Enums\EventUserRole;
 use App\Enums\DuelStatus;
 use App\Services\User\UserService;
 use App\Services\EventService;
@@ -83,7 +84,7 @@ class SingleController extends Controller
             $request->merge(['max_member'        => 2]);
             $request->merge(['title'             => '1vs1対戦']);
             $request->merge(['status'            => EventStatus::RECRUIT->value]);
-            $request->merge(['role'              => \App\Models\EventUser::ROLE_ADMIN]);
+            $request->merge(['role'              => EventUserRole::ADMIN->value]);
             $request->merge(['is_personal'       => 1]);
 
             $request->merge(['body'       => 'LINEからの対戦作成']);
@@ -173,7 +174,7 @@ class SingleController extends Controller
                         $request->merge(['duel_id'  => $event->eventDuels[0]->duel_id]);
                         // 対戦申し込みの処理の場合はメンバー追加
                         $request->merge(['status'  => EventUserStatus::APPROVAL->value]);
-                        $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
+                        $request->merge(['role'    => EventUserRole::USER->value]);
                         $this->eventService->createUser($request) ;
                         $this->duelService->createUser($request) ;
 

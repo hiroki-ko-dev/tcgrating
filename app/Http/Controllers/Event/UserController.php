@@ -9,6 +9,8 @@ use Mail;
 use Illuminate\Http\Request;
 use App\Enums\EventStatus;
 use App\Enums\EventUserStatus;
+use App\Enums\EventUserRole;
+use App\Enums\EventUsersAttendance;
 use App\Enums\DuelStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
@@ -48,7 +50,7 @@ class UserController extends Controller
         DB::transaction(function () use ($request) {
 
             $event = $this->eventService->getEvent($request->event_id);
-            $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
+            $request->merge(['role'    => EventUserRole::USER->value]);
 
             if ($event->event_category_id === \App\Models\EventCategory::CATEGORY_SINGLE) {
                 // 1vs1対戦ならそのまま対戦も作成
@@ -118,7 +120,7 @@ class UserController extends Controller
             } elseif ($request->has('attended')) {
                 // 出席へステータス変更
                 $request->merge(['id' => $request->event_user_id]);
-                $request->merge(['attendance' => \App\Models\EventUser::ATTENDANCE_ATTENDED]);
+                $request->merge(['attendance' => EventUserAttendance::ATTENDED->value]);
                 $message = '出席確定しました';
                 $eventUser = $this->eventService->updateEventUser($request);
             }
@@ -149,7 +151,7 @@ class UserController extends Controller
         //追加
         $request->merge(['user_id' => Auth::id()]);
         $request->merge(['status'  => EventUserStatus::APPROVAL->value]);
-        $request->merge(['role'    => \App\Models\EventUser::ROLE_USER]);
+        $request->merge(['role'    => EventUserRole::USER->value]);
 
         $message = DB::transaction(function () use ($request) {
             $this->eventService->createUser($request) ;

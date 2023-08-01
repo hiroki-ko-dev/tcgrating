@@ -9,6 +9,8 @@ use Mail;
 use App\Http\Controllers\Controller;
 use App\Enums\EventStatus;
 use App\Enums\EventUserStatus;
+use App\Enums\EventUserRole;
+use App\Enums\EventUsersAttendance;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\User\UserService;
@@ -110,7 +112,7 @@ class SwissController extends Controller
 
         $request->merge(['max_member'        => $request->max_member]);
         $request->merge(['status'            => EventUserStatus::APPROVAL->value]);
-        $request->merge(['role'              => \App\Models\EventUser::ROLE_ADMIN]);
+        $request->merge(['role'              => EventUserRole::ADMIN->value]);
         $request->merge(['is_personal'       => 0]);
 
         $event = DB::transaction(function () use($request) {
@@ -185,13 +187,13 @@ class SwissController extends Controller
 
             }elseif($request->has('start_attendance')) {
                 // 出席取り開始
-                $request->merge(['attendance' => \App\Models\EventUser::ATTENDANCE_READY]);
+                $request->merge(['attendance' => EventUserAttendance::READY->value]);
                 $eventUsers = $this->eventService->updateSwissEventUsersAttendance($request);
                 $this->twitterService->tweetBySwissEvent($eventUsers[0]->event, 'attendance');
 
             }elseif($request->has('end_attendance')) {
                 // 出席取り終了
-                $request->merge(['attendance' => \App\Models\EventUser::ATTENDANCE_ABSENT]);
+                $request->merge(['attendance' => EventUserAttendance::ABSENT->value]);
                 $eventUsers = $this->eventService->updateSwissEventUsersAttendance($request);
             }elseif($request->has('finish')) {
                 // イベント完了時

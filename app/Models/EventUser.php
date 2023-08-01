@@ -11,25 +11,6 @@ class EventUser extends Model
 
     protected $guarded = [];
 
-    //定数の定義
-    public const ATTENDANCE_PREPARING = 0;
-    public const ATTENDANCE_READY     = 1;
-    public const ATTENDANCE_ATTENDED  = 2;
-    public const ATTENDANCE_ABSENT    = 3;
-    public const ATTENDANCE = [
-        'preparing'  => self::ATTENDANCE_PREPARING,
-        'ready'      => self::ATTENDANCE_READY,
-        'attended'   => self::ATTENDANCE_ATTENDED,
-        'absent'     => self::ATTENDANCE_ABSENT,
-    ];
-
-    public const ROLE_USER   = 0;
-    public const ROLE_ADMIN  = 1;
-    public const ROLE = [
-        'user'  => self::ROLE_USER,
-        'admin' => self::ROLE_ADMIN,
-    ];
-
     public function getEventRateAttribute()
     {
         if (in_array($this->event->now_match_number, [0,1])) {

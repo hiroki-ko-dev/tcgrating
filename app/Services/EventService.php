@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Collection;
 use App\Enums\EventStatus;
 use App\Enums\EventUserStatus;
+use App\Enums\EventUsersAttendance;
 use App\Repositories\EventRepository;
 use App\Repositories\EventUserRepository;
 use App\Repositories\GameUserRepository;
@@ -122,15 +123,15 @@ class EventService
             $eventUserRequest->attendance = $request->attendance;
 
             if ($eventUser->status == EventUserStatus::APPROVAL->value) {
-                if ($request->attendance == \App\Models\EventUser::ATTENDANCE_READY) {
+                if ($request->attendance == EventUserAttendance::READY->value) {
                     // 出欠取り始めの処理
-                    if ($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_PREPARING) {
+                    if ($eventUser->attendance == EventUserAttendance::PREPARING->value) {
                         // 出欠準備のユーザーだけ更新
                         $afterEventUsers[] = $this->updateEventUser($eventUserRequest);
                     }
-                } elseif ($request->attendance == \App\Models\EventUser::ATTENDANCE_ABSENT) {
+                } elseif ($request->attendance == EventUserAttendance::ABSENT->value) {
                     // 出欠終了の処理
-                    if ($eventUser->attendance == \App\Models\EventUser::ATTENDANCE_READY) {
+                    if ($eventUser->attendance == EventUserAttendance::READY->value) {
                         // 出欠準備のユーザーだけ更新
                         $afterEventUsers[] = $this->updateEventUser($eventUserRequest);
                     }
