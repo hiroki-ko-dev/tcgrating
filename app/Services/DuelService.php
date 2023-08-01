@@ -6,6 +6,7 @@ use App\Enums\EventStatus;
 use App\Enums\EventUserStatus;
 use App\Enums\DuelStatus;
 use App\Enums\DuelUserStatus;
+use App\Enums\DuelUserResult;
 use App\Repositories\DuelRepository;
 use App\Repositories\DuelUserRepository;
 use App\Repositories\DuelUserResultRepository;
@@ -155,19 +156,19 @@ class DuelService
         }
 
         if ($request->has('win')) {
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_WIN ;
+            $duelUserResultObj->result  = DuelUserResult::WIN ;
             $duelUserResultObj->ranking = 1 ;
             $duelUserResultObj->rating  = 1000 ;
         } elseif ($request->has('lose')) {
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_LOSE ;
+            $duelUserResultObj->result  = DuelUserResult::LOSE ;
             $duelUserResultObj->ranking = 2 ;
             $duelUserResultObj->rating  = -1000 ;
         } elseif ($request->has('draw')) {
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_DRAW ;
+            $duelUserResultObj->result  = DuelUserResult::DRAW ;
             $duelUserResultObj->ranking = 0 ;
             $duelUserResultObj->rating  = 0 ;
         } elseif ($request->has('invalid')) {
-            $duelUserResultObj->result  = \App\Models\DuelUserResult::RESULT_INVALID ;
+            $duelUserResultObj->result  = DuelUserResult::INVALID ;
             $duelUserResultObj->ranking = 0 ;
             $duelUserResultObj->rating  = 0 ;
         } else {
@@ -209,13 +210,13 @@ class DuelService
         $this->updateDuel($duelRequest);
 
         if ($request->has('win')) {
-            $myDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_WIN ;
+            $myDuelUserResult->result  = DuelUserResult::WIN ;
             $myDuelUserResult->ranking = 1 ;
             $myDuelUserResult->rating  = 1000 ;
 
             $gameUser = $this->gameUserRepository->findByGameIdAndUserId($request->duel->game_id, $request->duel->duelUsers->whereNotIn('user_id', [$request->user_id])->first()->user_id);
 
-            $otherDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_LOSE ;
+            $otherDuelUserResult->result  = DuelUserResult::LOSE ;
             $otherDuelUserResult->ranking = 2 ;
             $otherDuelUserResult->rating = 0;
 
@@ -231,11 +232,11 @@ class DuelService
 //                $otherDuelUserResult->rating = -1000;
 //            }
         } elseif ($request->has('draw')) {
-            $myDuelUserResult->result = \App\Models\DuelUserResult::RESULT_DRAW;
+            $myDuelUserResult->result = DuelUserResult::DRAW;
             $myDuelUserResult->ranking = 0;
             $myDuelUserResult->rating = 0;
 
-            $otherDuelUserResult->result  = \App\Models\DuelUserResult::RESULT_DRAW ;
+            $otherDuelUserResult->result  = DuelUserResult::DRAW ;
             $otherDuelUserResult->ranking = 0 ;
             $otherDuelUserResult->rating  = 0 ;
         } else {
@@ -320,7 +321,7 @@ class DuelService
                 $duelUserResult = new \stdClass();
                 $duelUserResult->duel_user_id = $duelUser->id ;
                 $duelUserResult->games_number = $request->now_match_number;
-                $duelUserResult->result  = \App\Models\DuelUserResult::RESULT_WIN ;
+                $duelUserResult->result  = DuelUserResult::WIN ;
                 $duelUserResult->ranking = 1 ;
                 $duelUserResult->rating  = 1000 ;
                 $this->duelUserResultRepository->create($duelUserResult);
@@ -395,21 +396,21 @@ class DuelService
 
             //無効試合かを判定
             //どちらかが無効試合が選択していたら無効
-            if($my_result == \App\Models\DuelUserResult::RESULT_INVALID || $other_result == \App\Models\DuelUserResult::RESULT_INVALID){
+            if ($my_result == DuelUserResult::INVALID || $other_result == DuelUserResult::INVALID) {
                 $request->merge(['message' => '無効試合が選択されたので試合が無効になりました']);
 
                 $duel = $this->duelRepository->updateStatus($request->duel->id, DuelStatus::INVALID->value) ;
                 $this->eventRepository->updateStatus($request->duel->eventDuel->event->id, EventStatus::INVALID->value) ;
 
                 return $request ;
-            }elseif(
+            } elseif (
             //お互いドロー選択でないのに同じ選択をしていたら無効
-                (!($my_result == \App\Models\DuelUserResult::RESULT_DRAW && $other_result == \App\Models\DuelUserResult::RESULT_DRAW) &&
+                (!($my_result == DuelUserResult::DRAW && $other_result == DuelUserResult::DRAW) &&
                     $my_result == $other_result) ||
             //自分がドローで相手がドローでない
-                ($my_result == \App\Models\DuelUserResult::RESULT_DRAW && $other_result <> \App\Models\DuelUserResult::RESULT_DRAW) ||
+                ($my_result == DuelUserResult::DRAW && $other_result <> DuelUserResult::DRAW) ||
             //相手がドローで自分がドローでない
-                ($my_result <> \App\Models\DuelUserResult::RESULT_DRAW && $other_result == \App\Models\DuelUserResult::RESULT_DRAW)
+                ($my_result <> DuelUserResult::DRAW && $other_result == DuelUserResult::DRAW)
             ){
                 $request->merge(['message' => 'お互いの勝敗報告が矛盾したので試合が無効になりました']);
                 $duel = $this->duelRepository->updateStatus($request->duel->id, DuelStatus::INVALID->value) ;
@@ -420,7 +421,7 @@ class DuelService
         }
 
         //お互いが最終戦報告が終わったらレートを更新
-        if($myDuelUserResult->where('games_number', $request->duel->number_of_games)->isNotEmpty() &&
+        if ($myDuelUserResult->where('games_number', $request->duel->number_of_games)->isNotEmpty() &&
             $otherDuelUserResult->where('games_number', $request->duel->number_of_games)->isNotEmpty()
         ) {
             // 試合終了に伴うステータスの更新
@@ -430,7 +431,7 @@ class DuelService
             // 試合終了に伴うユーザーレートの更新
             $game_id = $request->duel->eventDuel->event->game_id;
             $this->updateUserRate($game_id, $request->user_id, $myDuelUserResult->sum('rating'));
-            $this->updateUserRate($game_id, $request->duel->duelUsers->whereNotIn('user_id',[$request->user_id])->first()->user_id, $otherDuelUserResult->sum('rating'));
+            $this->updateUserRate($game_id, $request->duel->duelUsers->whereNotIn('user_id', [$request->user_id])->first()->user_id, $otherDuelUserResult->sum('rating'));
             $request->merge(['message' => '試合が終了しました']);
         }
 
@@ -447,7 +448,7 @@ class DuelService
     {
         $gameUser = $this->gameUserRepository->findByGameIdAndUserId($game_id, $user_id);
 
-        if(is_null($gameUser)){
+        if (is_null($gameUser)) {
             $gameUser = new \stdClass();
             $gameUser->game_id      = $game_id;
             $gameUser->user_id      = $user_id;
@@ -455,7 +456,7 @@ class DuelService
         }
 
         // レートがプラスまたはユーザーレートが0以上となる場合のみ更新
-        if($addRate > 0 || ($gameUser->rate + $addRate) >= 0){
+        if ($addRate > 0 || ($gameUser->rate + $addRate) >= 0) {
             $this->gameUserRepository->updateRate($gameUser->id, $addRate);
         }
 

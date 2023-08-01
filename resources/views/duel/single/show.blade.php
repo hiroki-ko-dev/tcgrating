@@ -74,13 +74,13 @@
                                     <td>{{$i}}</td>
                                     @isset($duel->duelUsers[0]->duelUserResults->where('games_number',$i)->first()->result)
                                         @switch($duel->duelUsers[0]->duelUserResults->where('games_number',$i)->first()->result)
-                                            @case(\App\Models\DuelUserResult::RESULT_WIN)
+                                            @case(\App\Enums\EventUserResult::WIN)
                                             <td>{{ __('勝利') }}</td>
                                             @break
-                                            @case(\App\Models\DuelUserResult::RESULT_LOSE)
+                                            @case(\App\Enums\EventUserResult::LOSE)
                                             <td>{{ __('敗北') }}</td>
                                             @break
-                                            @case(\App\Models\DuelUserResult::RESULT_DRAW)
+                                            @case(\App\Enums\EventUserResult::DRAW)
                                             <td>{{ __('ドロー') }}</td>
                                             @break
                                             @default
@@ -91,13 +91,13 @@
                                     @endif
                                     @isset($duel->duelUsers[1]->duelUserResults->where('games_number',$i)->first()->result)
                                         @switch($duel->duelUsers[1]->duelUserResults->where('games_number',$i)->first()->result)
-                                            @case(\App\Models\DuelUserResult::RESULT_WIN)
+                                            @case(\App\Enums\EventUserResult::WIN)
                                             <td>{{ __('勝利') }}</td>
                                             @break
-                                            @case(\App\Models\DuelUserResult::RESULT_LOSE)
+                                            @case(\App\Enums\EventUserResult::LOSE)
                                             <td>{{ __('敗北') }}</td>
                                             @break
-                                            @case(\App\Models\DuelUserResult::RESULT_DRAW)
+                                            @case(\App\Enums\EventUserResult::DRAW)
                                             <td>{{ __('ドロー') }}</td>
                                             @break
                                             @default

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DuelUserResult extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     //定数の定義
