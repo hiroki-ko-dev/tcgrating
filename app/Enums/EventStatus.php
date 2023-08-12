@@ -17,7 +17,7 @@ enum EventStatus: int
         return match ($this) {
             self::RECRUIT => '参加者募集中',
             self::READY => '準備完了',
-            self::FINISH => '完了',
+            self::FINISH => '対戦完了',
             self::CANCEL => 'キャンセル',
             self::INVALID => '無効',
         };

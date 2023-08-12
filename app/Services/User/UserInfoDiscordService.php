@@ -24,7 +24,7 @@ final class UserInfoDiscordService extends UserService
                 $user = $this->updateUser($discordUser->user->id, $userAttrs);
                 $this->updateUserDiscord($user->id, $userAttrs);
             } else {
-                $user = $this->findByUser('email', $discordAuthInfoDto->email);
+                $user = $this->findUserBy('email', $discordAuthInfoDto->email);
                 if (!$user) {
                     $userAttrs['password'] = Hash::make($discordAuthInfoDto->id . 'hash_pass');
                     $user = $this->createUser($userAttrs);

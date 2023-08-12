@@ -19,10 +19,12 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        \Log::debug([$request->game_id, $request->user_id]);
+
         try {
             $gameUser = $this->userService->getGameUserByGameIdAndUserId($request->game_id, $request->user_id);
             // 選択しているゲームでフィルタ
-            $gameUserAttrs['expo_push_token'] = $request->expo_push_token;
+            // $gameUserAttrs['expo_push_token'] = $request->expo_push_token;
             $gameUserAttrs['game_id'] = config('assets.site.game_ids.pokemon_card');
             $gameUser = $this->userService->updateGameUser($gameUser->id, $gameUserAttrs);
             return response()->json(

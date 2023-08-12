@@ -15,6 +15,7 @@ use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\ApiService;
 use App\Services\TwitterService;
+use App\Presenters\Api\Event\SinglePresenter;
 use Illuminate\Http\Request;
 
 class SingleController extends Controller
@@ -24,7 +25,8 @@ class SingleController extends Controller
         private readonly EventService $eventService,
         private readonly DuelService $duelService,
         private readonly ApiService $apiService,
-        private readonly TwitterService $twitterService
+        private readonly TwitterService $twitterService,
+        private readonly SinglePresenter $singlePresenter,
     ) {
     }
 
@@ -49,23 +51,29 @@ class SingleController extends Controller
         return $this->resConversionJson($result);
     }
 
-    public function index(Request $request)
+    public function index()
     {
         try {
-            $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
-            $request->merge(['event_category_id' => \App\Models\EventCategory::CATEGORY_SINGLE]);
-            $events = $this->eventService->getEventsByIndexForApi($request, 10);
+            $eventFilters['game_id'] = config('assets.site.game_ids.pokemon_card');
+            $eventFilters['event_category_id'] = \App\Models\EventCategory::CATEGORY_SINGLE;
+            return response()->json(
+                new ResponseDto(
+                    data: $this->singlePresenter->index(
+                        $this->eventService->getEvents($eventFilters, 50),
+                    ),
+                    code: 200,
+                    message: '',
+                )
+            );
         } catch (\Exception $e) {
-            $events = [
-                'result' => false,
-                'error' => [
-                    'messages' => [$e->getMessage()]
-                ],
-            ];
-            return $this->apiService->resConversionJson($events, $e->getCode());
+            return response()->json(
+                new ResponseDto(
+                    data: [],
+                    code: $e->getCode(),
+                    message: $e->getMessage(),
+                )
+            );
         }
-
-        return $this->apiService->resConversionJson($events);
     }
 
     public function store(Request $request)
@@ -144,7 +152,7 @@ class SingleController extends Controller
         try {
             $event = DB::transaction(function () use ($request) {
 
-                $event = $this->eventService->getEvent($request->event_id);
+                $event = $this->eventService->findEvent($request->event_id);
 
                 // 勝利報告処理
                 if ($request->status == 11) {

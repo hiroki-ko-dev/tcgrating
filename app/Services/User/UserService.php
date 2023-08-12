@@ -65,7 +65,7 @@ class UserService
         return $this->userRepository->find($id);
     }
 
-    public function findByUser(string $column, int | string $value)
+    public function findUserBy(string $column, int | string $value)
     {
         return $this->userRepository->findBy($column, $value);
     }
@@ -73,11 +73,6 @@ class UserService
     public function getUserByTwitterId($id)
     {
         return $this->userRepository->findByTwitterId($id);
-    }
-
-    public function getUserByAppleCode($appleCode)
-    {
-        return $this->userRepository->findByAppleCode($appleCode);
     }
 
     public function getGameUser($id)

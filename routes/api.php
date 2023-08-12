@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [Auth\AuthController::class, 'login']);
-    Route::post('/logout', [Auth\AuthController::class, 'logout']);
+    Route::get('/logout', [Auth\AuthController::class, 'logout']);
 });
 
 // AppleコールバックURL

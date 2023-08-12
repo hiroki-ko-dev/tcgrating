@@ -114,7 +114,7 @@ class EventService
      */
     public function updateSwissEventUsersAttendance($request)
     {
-        $beforeEventUsers = $this->getEvent($request->event_id)->eventUsers;
+        $beforeEventUsers = $this->findEvent($request->event_id)->eventUsers;
         $afterEventUsers = [];
 
         foreach ($beforeEventUsers as $eventUser) {
@@ -141,7 +141,7 @@ class EventService
         return $afterEventUsers;
     }
 
-    public function getEvent($event_id)
+    public function findEvent($event_id)
     {
         return $this->eventRepository->find($event_id);
     }

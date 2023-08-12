@@ -133,11 +133,6 @@ final class UserRepository
         return User::where('twitter_id', $id)->first();
     }
 
-    public function findByAppleCode($code)
-    {
-        return User::where('apple_code', $code)->first();
-    }
-
     public function composeWhereClause($attrs)
     {
         $query = User::query();

@@ -122,6 +122,9 @@ class EventRepository
         if (isset($filters['event_category_id'])) {
             $query->where('event_category_id', $filters['event_category_id']);
         }
+        if (isset($filters['game_id'])) {
+            $query->where('game_id', $filters['game_id']);
+        }
         if (isset($filters['status'])) {
             $query->where('status', $filters['status']);
         }
