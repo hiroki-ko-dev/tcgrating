@@ -8,7 +8,7 @@ use App\Enums\PostCategory;
 use App\Services\PostService;
 use App\Presenters\Api\Post\PostPresenter;
 use App\Dto\Http\ResponseDto;
-use DB;
+use App\Http\Requests\Api\Post\SaveRequest;
 
 class PostController extends Controller
 {
@@ -18,15 +18,16 @@ class PostController extends Controller
     ) {
     }
 
-    public function index()
+    public function index(Request $request)
     {
         try {
             $postFilters['post_category_id'] = PostCategory::CATEGORY_FREE;
             $postFilters['game_id'] = config('assets.site.game_ids.pokemon_card');
+            $page = $request->get('page', 1);
             return response()->json(
                 new ResponseDto(
                     data: $this->postPresenter->index(
-                        $this->postService->paginatePosts($postFilters, 20),
+                        $this->postService->paginatePosts($postFilters, 20, $page),
                     ),
                     code: 200,
                     message: '',
@@ -43,28 +44,29 @@ class PostController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(saveRequest $request)
     {
         try {
-            $posts = DB::transaction(function () use ($request) {
-
-                $request->merge(['game_id' => config('assets.site.game_ids.pokemon_card')]);
-                $request->merge(['post_category_id' => \App\Models\PostCategory::CATEGORY_FREE]);
-
-                $this->postService->createPost($request);
-
-                return $this->postService->getPostsForApi($request, 20);
-            });
+            $postAttrs = $request->all();
+            $postAttrs['game_id'] = config('assets.site.game_ids.pokemon_card');
+            $postAttrs['post_category_id'] = \App\Models\PostCategory::CATEGORY_FREE;
+            $post = $this->postService->createPost($postAttrs);
+            return response()->json(
+                new ResponseDto(
+                    data: ['postId' => $post->id],
+                    code: 200,
+                    message: '',
+                )
+            );
         } catch (\Exception $e) {
-            $posts = [
-                'result' => false,
-                'error' => [
-                    'messages' => [$e->getMessage()]
-                ],
-            ];
-            return $this->apiService->resConversionJson($posts, $e->getCode());
+            return response()->json(
+                new ResponseDto(
+                    data: [],
+                    code: $e->getCode(),
+                    message: $e->getMessage(),
+                )
+            );
         }
-        return $this->apiService->resConversionJson($posts);
     }
 
     public function show(int $postId)

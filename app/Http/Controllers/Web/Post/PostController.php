@@ -89,12 +89,12 @@ class PostController extends Controller
         //チーム募集掲示板の処理
         $request->merge(['team_id' => $request->team_id]);
 
-        DB::transaction(function () use($request){
-            $post = $this->post_service->createPost($request);
+        DB::transaction(function () use ($request) {
+            $post = $this->post_service->createPost($request->all());
             $this->twitterService->tweetByStorePost($post);
         });
 
-        return redirect('/post?post_category_id='.$request->input('post_category_id'))->with('flash_message', '新規投稿を行いました');
+        return redirect('/post?post_category_id=' . $request->input('post_category_id'))->with('flash_message', '新規投稿を行いました');
     }
 
     /**

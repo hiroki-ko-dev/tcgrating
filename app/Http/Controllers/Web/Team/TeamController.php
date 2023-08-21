@@ -81,7 +81,7 @@ class TeamController extends Controller
             $request->merge(['title'             => 'チーム掲示板']);
             $request->merge(['body'              => 'チームへの質問・雑談を話しましょう']);
             $request->merge(['is_personal'       => 0]);
-            $this->post_service->createPost($request);
+            $this->post_service->createPost($request->all());
         });
 
         return redirect('/team?user_id='.Auth::id())->with('flash_message', '新規チームを作成しました');

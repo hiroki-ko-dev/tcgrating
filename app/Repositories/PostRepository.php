@@ -8,42 +8,30 @@ use App\Models\Post;
 
 class PostRepository
 {
-    public function create($request)
+    public function create(array $attrs)
     {
         $post = new Post();
-        if (isset($request->game_id)) {
-            $post->game_id = $request->game_id;
+
+        $fields = [
+            'game_id',
+            'post_category_id',
+            'sub_category_id',
+            'user_id',
+            'duel_id',
+            'team_id',
+            'event_id',
+            'title',
+            'body',
+            'image_url',
+            'is_personal',
+        ];
+
+        foreach ($fields as $field) {
+            if (array_key_exists($field, $attrs)) {
+                $post->$field = $attrs[$field];
+            }
         }
-        if (isset($request->post_category_id)) {
-            $post->post_category_id = $request->post_category_id;
-        }
-        if (isset($request->sub_category_id)) {
-            $post->sub_category_id = $request->sub_category_id;
-        }
-        if (isset($request->user_id)) {
-            $post->user_id = $request->user_id;
-        }
-        if (isset($request->duel_id)) {
-            $post->duel_id = $request->duel_id;
-        }
-        if (isset($request->team_id)) {
-            $post->team_id = $request->team_id;
-        }
-        if (isset($request->event_id)) {
-            $post->event_id = $request->event_id;
-        }
-        if (isset($request->title)) {
-            $post->title = $request->title;
-        }
-        if (isset($request->body)) {
-            $post->body = $request->body;
-        }
-        if (isset($request->image_url)) {
-            $post->image_url = $request->image_url;
-        }
-        if (isset($request->is_personal)) {
-            $post->is_personal = $request->is_personal;
-        }
+
         $post->save();
 
         return $post;
@@ -132,7 +120,7 @@ class PostRepository
         return $query->paginate($paginate);
     }
 
-    public function paginate(array $filters, int $row): LengthAwarePaginator
+    public function paginate(array $filters, int $row, int $page): LengthAwarePaginator
     {
         $query = Post::query();
         foreach ($filters as $key => $filter) {
@@ -140,7 +128,7 @@ class PostRepository
         }
         $query->OrderBy('id', 'desc');
 
-        return $query->paginate($row);
+        return $query->paginate($row, ['*'], 'page', $page);
     }
 
     public function findForApi($request)

@@ -19,8 +19,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        \Log::debug([$request->game_id, $request->user_id]);
-
         try {
             $gameUser = $this->userService->getGameUserByGameIdAndUserId($request->game_id, $request->user_id);
             // 選択しているゲームでフィルタ

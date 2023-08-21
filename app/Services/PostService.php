@@ -6,6 +6,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\Post;
 use App\Repositories\PostRepository;
 use App\Repositories\PostCommentRepository;
+use DB;
 
 class PostService
 {
@@ -15,9 +16,9 @@ class PostService
     ) {
     }
 
-    public function createPost($request)
+    public function createPost(array $attrs)
     {
-        return $this->postRepository->create($request);
+        return $this->postRepository->create($attrs);
     }
 
     public function createComment($attrs)
@@ -80,9 +81,9 @@ class PostService
         return $this->postRepository->findAllAndCommentCountWithPagination($request, $paginate);
     }
 
-    public function paginatePosts(array $attrs, int $row): LengthAwarePaginator
+    public function paginatePosts(array $attrs, int $row, int $page): LengthAwarePaginator
     {
-        return $this->postRepository->paginate($attrs, $row);
+        return $this->postRepository->paginate($attrs, $row, $page);
     }
 
     public function getPostForApi($request, $paginate)

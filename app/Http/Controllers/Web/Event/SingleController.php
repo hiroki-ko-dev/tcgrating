@@ -96,7 +96,6 @@ class SingleController extends Controller
         $request->merge(['now_match_number'  => 1]);
 
         $request->merge(['max_member'        => 2]);
-        $request->merge(['title'             => '1vs1対戦']);
         $request->merge(['status'            => EventUserStatus::APPROVAL->value]);
         $request->merge(['role'              => EventUserRole::ADMIN->value]);
         $request->merge(['is_personal'       => 0]);
@@ -107,19 +106,21 @@ class SingleController extends Controller
 
             $event = $this->event_service->createEvent($request);
             //event用のpostを作成
-            $request->merge(['event_id' => $event->id]);
-
-            $request->merge(['body' => '1vs1対戦に関する質問・雑談をコメントしましょう']);
-            $this->post_service->createPost($request);
+            $postAttrs['user_id'] = Auth::id();
+            $postAttrs['event_id'] = $event->id;
+            $postAttrs['title'] = '1vs1対戦';
+            $postAttrs['body'] = '1vs1対戦に関する質問・雑談をコメントしましょう';
+            $this->post_service->createPost($postAttrs);
             $event_id = $request->event_id;
 
+            $request->merge(['event_id' => $event->id]);
             $request->merge(['status' => DuelStatus::READY->value]);
             $request = $this->duel_service->createSingle($request);
             //duel用のpostを作成
             $request->merge(['post_category_id'  => \App\Models\PostCategory::CATEGORY_DUEL]);
             $request->merge(['event_id' => null]);
             $request->merge(['body' => 'この掲示板は自分と対戦相手のみ見えます。対戦についてコミュニケーションをとりましょう']);
-            $this->post_service->createPost($request);
+            $this->post_service->createPost($request->all());
 //            Mail::send(new AdminNoticeCreateEventSingleMail('/event/single/'.$event_id));
 
             // もしイベント作成ユーザーが選択ゲームでgameUserがなかったら作成
