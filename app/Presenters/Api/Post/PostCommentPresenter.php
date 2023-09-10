@@ -25,15 +25,18 @@ final class PostCommentPresenter
 
     private function getPaginateData(LengthAwarePaginator $postComments): Collection
     {
-        return $postComments->getCollection()->transform(function ($postComment) {
+        $startNo = ($postComments->currentPage() - 1) * $postComments->perPage() + 1;
+
+        return $postComments->getCollection()->transform(function ($postComment) use (&$startNo) {
             return [
+                'no' => $startNo++,
                 'id' => $postComment->id,
                 'referralId' => $postComment->referral_id,
                 'postId' => $postComment->post_id,
                 'number' => $postComment->number,
                 'userId' => $postComment->user_id,
                 'body' => $postComment->body,
-                'imageUrl' => $postComment->image,
+                'imageUrl' => $postComment->image_url,
                 'createdAt' => $postComment->created_at,
                 'user' => [
                     'name' => $postComment->user->name,

@@ -25,7 +25,7 @@ class PostCommentController extends Controller
             return response()->json(
                 new ResponseDto(
                     data: $this->postCommentPresenter->index(
-                        $this->postService->paginatePostComment($postCommentFilters, 50),
+                        $this->postService->paginatePostComment($postCommentFilters, 5),
                     ),
                     code: 200,
                     message: '',

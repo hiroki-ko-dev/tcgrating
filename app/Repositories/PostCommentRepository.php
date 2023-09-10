@@ -37,7 +37,7 @@ class PostCommentRepository
         foreach ($filters as $key => $filter) {
             $query->where($key, $filter);
         }
-        $query->OrderBy('id', 'desc');
+        $query->OrderBy('id', 'asc');
 
         return $query->paginate($row);
     }
