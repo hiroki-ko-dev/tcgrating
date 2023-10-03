@@ -10,7 +10,7 @@ use App\Services\User\UserInfoDiscordService;
 use App\Dto\Auth\DiscordAuthResponseDto;
 use Auth;
 use DB;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class DiscordController extends Controller
@@ -33,7 +33,7 @@ class DiscordController extends Controller
         return Socialite::driver('discord')->redirect();
     }
 
-    public function handleProviderCallback(): View | Redirect
+    public function handleProviderCallback(): View | RedirectResponse
     {
         try {
             // ユーザー詳細情報の取得
