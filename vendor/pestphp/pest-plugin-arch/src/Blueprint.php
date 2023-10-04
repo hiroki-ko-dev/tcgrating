@@ -8,11 +8,14 @@ use Pest\Arch\Collections\Dependencies;
 use Pest\Arch\Factories\LayerFactory;
 use Pest\Arch\Options\LayerOptions;
 use Pest\Arch\Repositories\ObjectsRepository;
+use Pest\Arch\Support\AssertLocker;
 use Pest\Arch\Support\Composer;
+use Pest\Arch\Support\PhpCoreExpressions;
 use Pest\Arch\ValueObjects\Dependency;
 use Pest\Arch\ValueObjects\Targets;
 use Pest\Arch\ValueObjects\Violation;
 use Pest\TestSuite;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Name;
 use PHPUnit\Architecture\ArchitectureAsserts;
 use PHPUnit\Architecture\Elements\ObjectDescription;
@@ -59,8 +62,10 @@ final class Blueprint
      */
     public function expectToUse(LayerOptions $options, callable $failure): void
     {
+        AssertLocker::incrementAndLock();
+
         foreach ($this->target->value as $targetValue) {
-            $targetLayer = $this->layerFactory->make($options, $targetValue);
+            $targetLayer = $this->layerFactory->make($options, $targetValue, false);
 
             foreach ($this->dependencies->values as $dependency) {
                 $dependencyLayer = $this->layerFactory->make($options, $dependency->value);
@@ -74,6 +79,8 @@ final class Blueprint
                 $failure($targetValue, $dependency->value);
             }
         }
+
+        AssertLocker::unlock();
     }
 
     /**
@@ -85,6 +92,8 @@ final class Blueprint
      */
     public function targeted(callable $callback, LayerOptions $options, callable $failure, callable $lineFinder): void
     {
+        AssertLocker::incrementAndLock();
+
         foreach ($this->target->value as $targetValue) {
             $targetLayer = $this->layerFactory->make($options, $targetValue);
 
@@ -96,8 +105,6 @@ final class Blueprint
                 }
 
                 if ($callback($object)) {
-                    self::assertTrue(true);
-
                     continue;
                 }
 
@@ -108,6 +115,8 @@ final class Blueprint
                 $failure(new Violation($path, $line, $line));
             }
         }
+
+        AssertLocker::unlock();
     }
 
     /**
@@ -117,6 +126,8 @@ final class Blueprint
      */
     public function expectToOnlyUse(LayerOptions $options, callable $failure): void
     {
+        AssertLocker::incrementAndLock();
+
         foreach ($this->target->value as $targetValue) {
             $allowedUses = array_merge(
                 ...array_map(fn (Layer $layer): array => array_map(
@@ -140,9 +151,9 @@ final class Blueprint
                     }
                 }
             }
-
-            self::assertTrue(true);
         }
+
+        AssertLocker::unlock();
     }
 
     /**
@@ -152,8 +163,10 @@ final class Blueprint
      */
     public function expectToOnlyBeUsedIn(LayerOptions $options, callable $failure): void
     {
+        AssertLocker::incrementAndLock();
+
         foreach (Composer::userNamespaces() as $namespace) {
-            $namespaceLayer = $this->layerFactory->make($options, $namespace);
+            $namespaceLayer = $this->layerFactory->make($options, $namespace, false);
 
             foreach ($this->dependencies->values as $dependency) {
                 $namespaceLayer = $namespaceLayer->excludeByNameStart($dependency->value);
@@ -172,6 +185,8 @@ final class Blueprint
                 }
             }
         }
+
+        AssertLocker::unlock();
     }
 
     /**
@@ -204,7 +219,7 @@ final class Blueprint
         Assert::assertEquals($expected, $actual, $message);
     }
 
-    private function getUsagePathAndLines(Layer $layer, string $objectName, string $target): null|Violation
+    private function getUsagePathAndLines(Layer $layer, string $objectName, string $target): ?Violation
     {
         $dependOnObjects = array_filter(
             $layer->getIterator()->getArrayCopy(), //@phpstan-ignore-line
@@ -214,14 +229,20 @@ final class Blueprint
         /** @var ObjectDescription $dependOnObject */
         $dependOnObject = array_pop($dependOnObjects);
 
-        $names = ServiceContainer::$nodeFinder->findInstanceOf(
+        $class = PhpCoreExpressions::getClass($target) ?? Name::class;
+
+        $nodes = ServiceContainer::$nodeFinder->findInstanceOf(
             $dependOnObject->stmts,
-            Name::class,
+            $class,
         );
 
-        /** @var array<int, Name> $names */
+        /** @var array<int, Name|Expr> $nodes */
         $names = array_values(array_filter(
-            $names, static fn (Name $name): bool => $name->toString() === $target, // @phpstan-ignore-line
+            $nodes, static function ($node) use ($target): bool {
+                $name = $node instanceof Name ? $node->toString() : PhpCoreExpressions::getName($node);
+
+                return $name === $target;
+            }
         ));
 
         if ($names === []) {

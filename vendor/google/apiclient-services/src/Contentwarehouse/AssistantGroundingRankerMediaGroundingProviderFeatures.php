@@ -28,6 +28,14 @@ class AssistantGroundingRankerMediaGroundingProviderFeatures extends \Google\Mod
    */
   public $ambiguityClassifier;
   /**
+   * @var string
+   */
+  public $entityMid;
+  /**
+   * @var bool
+   */
+  public $hasCastVideoDeeplink;
+  /**
    * @var bool
    */
   public $hasTypeSemanticEdge;
@@ -35,6 +43,10 @@ class AssistantGroundingRankerMediaGroundingProviderFeatures extends \Google\Mod
    * @var bool
    */
   public $isCastVideo;
+  /**
+   * @var bool
+   */
+  public $isExclusiveOriginalProvider;
   /**
    * @var bool
    */
@@ -100,6 +112,34 @@ class AssistantGroundingRankerMediaGroundingProviderFeatures extends \Google\Mod
     return $this->ambiguityClassifier;
   }
   /**
+   * @param string
+   */
+  public function setEntityMid($entityMid)
+  {
+    $this->entityMid = $entityMid;
+  }
+  /**
+   * @return string
+   */
+  public function getEntityMid()
+  {
+    return $this->entityMid;
+  }
+  /**
+   * @param bool
+   */
+  public function setHasCastVideoDeeplink($hasCastVideoDeeplink)
+  {
+    $this->hasCastVideoDeeplink = $hasCastVideoDeeplink;
+  }
+  /**
+   * @return bool
+   */
+  public function getHasCastVideoDeeplink()
+  {
+    return $this->hasCastVideoDeeplink;
+  }
+  /**
    * @param bool
    */
   public function setHasTypeSemanticEdge($hasTypeSemanticEdge)
@@ -126,6 +166,20 @@ class AssistantGroundingRankerMediaGroundingProviderFeatures extends \Google\Mod
   public function getIsCastVideo()
   {
     return $this->isCastVideo;
+  }
+  /**
+   * @param bool
+   */
+  public function setIsExclusiveOriginalProvider($isExclusiveOriginalProvider)
+  {
+    $this->isExclusiveOriginalProvider = $isExclusiveOriginalProvider;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsExclusiveOriginalProvider()
+  {
+    return $this->isExclusiveOriginalProvider;
   }
   /**
    * @param bool

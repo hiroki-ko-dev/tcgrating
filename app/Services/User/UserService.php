@@ -19,7 +19,7 @@ class UserService
         private readonly UserRepository $userRepository,
         private readonly GameUserRepository $gameUserRepository,
         private readonly GameUserCheckRepository $gameUserCheckRepository,
-        private readonly UserInfoDiscordRepository $userDiscordRepository,
+        private readonly UserInfoDiscordRepository $userInfoDiscordRepository,
     ) {
     }
 

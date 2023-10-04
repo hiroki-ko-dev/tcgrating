@@ -64,6 +64,10 @@ class AssistantApiSupportedFeatures extends \Google\Model
   /**
    * @var bool
    */
+  public $conversationalCareSupported;
+  /**
+   * @var bool
+   */
   public $crossDeviceBroadcastSupported;
   /**
    * @var string
@@ -181,6 +185,10 @@ class AssistantApiSupportedFeatures extends \Google\Model
    * @var bool
    */
   public $readMessagesTtsTaperingSupported;
+  /**
+   * @var bool
+   */
+  public $readNotificationSummarizationSupported;
   /**
    * @var bool
    */
@@ -417,6 +425,20 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public function getConfirmationBeforeReadingMultipleMessagesSupported()
   {
     return $this->confirmationBeforeReadingMultipleMessagesSupported;
+  }
+  /**
+   * @param bool
+   */
+  public function setConversationalCareSupported($conversationalCareSupported)
+  {
+    $this->conversationalCareSupported = $conversationalCareSupported;
+  }
+  /**
+   * @return bool
+   */
+  public function getConversationalCareSupported()
+  {
+    return $this->conversationalCareSupported;
   }
   /**
    * @param bool
@@ -865,6 +887,20 @@ class AssistantApiSupportedFeatures extends \Google\Model
   public function getReadMessagesTtsTaperingSupported()
   {
     return $this->readMessagesTtsTaperingSupported;
+  }
+  /**
+   * @param bool
+   */
+  public function setReadNotificationSummarizationSupported($readNotificationSummarizationSupported)
+  {
+    $this->readNotificationSummarizationSupported = $readNotificationSummarizationSupported;
+  }
+  /**
+   * @return bool
+   */
+  public function getReadNotificationSummarizationSupported()
+  {
+    return $this->readNotificationSummarizationSupported;
   }
   /**
    * @param bool

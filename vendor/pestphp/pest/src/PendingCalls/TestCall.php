@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace Pest\PendingCalls;
 
 use Closure;
-use InvalidArgumentException;
+use Pest\Exceptions\InvalidArgumentException;
 use Pest\Factories\Covers\CoversClass;
 use Pest\Factories\Covers\CoversFunction;
 use Pest\Factories\Covers\CoversNothing;
 use Pest\Factories\TestCaseMethodFactory;
+use Pest\PendingCalls\Concerns\Describable;
 use Pest\Plugins\Only;
 use Pest\Support\Backtrace;
 use Pest\Support\Exporter;
 use Pest\Support\HigherOrderCallables;
 use Pest\Support\NullClosure;
+use Pest\Support\Str;
 use Pest\TestSuite;
 use PHPUnit\Framework\TestCase;
 
@@ -25,10 +27,12 @@ use PHPUnit\Framework\TestCase;
  */
 final class TestCall
 {
+    use Describable;
+
     /**
      * The Test Case Factory.
      */
-    private readonly TestCaseMethodFactory $testCaseMethod;
+    public readonly TestCaseMethodFactory $testCaseMethod;
 
     /**
      * If test call is descriptionLess.
@@ -48,7 +52,9 @@ final class TestCall
 
         $this->descriptionLess = $description === null;
 
-        $this->testSuite->beforeEach->get($filename)[0]($this);
+        $this->describing = DescribeCall::describing();
+
+        $this->testSuite->beforeEach->get($this->filename)[0]($this);
     }
 
     /**
@@ -204,9 +210,23 @@ final class TestCall
      */
     private function skipOn(string $osFamily, string $message): self
     {
-        return PHP_OS_FAMILY === $osFamily
+        return $osFamily === PHP_OS_FAMILY
             ? $this->skip($message)
             : $this;
+    }
+
+    /**
+     * Repeats the current test the given number of times.
+     */
+    public function repeat(int $times): self
+    {
+        if ($times < 1) {
+            throw new InvalidArgumentException('The number of repetitions must be greater than 0.');
+        }
+
+        $this->testCaseMethod->repetitions = $times;
+
+        return $this;
     }
 
     /**
@@ -316,12 +336,14 @@ final class TestCall
     private function addChain(string $file, int $line, string $name, array $arguments = null): self
     {
         $exporter = Exporter::default();
+
         $this->testCaseMethod
             ->chains
             ->add($file, $line, $name, $arguments);
 
         if ($this->descriptionLess) {
             Exporter::default();
+
             if ($this->testCaseMethod->description !== null) {
                 $this->testCaseMethod->description .= ' → ';
             }
@@ -338,6 +360,11 @@ final class TestCall
      */
     public function __destruct()
     {
+        if (! is_null($this->describing)) {
+            $this->testCaseMethod->describing = $this->describing;
+            $this->testCaseMethod->description = Str::describe($this->describing, $this->testCaseMethod->description); // @phpstan-ignore-line
+        }
+
         $this->testSuite->tests->set($this->testCaseMethod);
     }
 }

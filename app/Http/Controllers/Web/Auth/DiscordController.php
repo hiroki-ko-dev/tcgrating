@@ -16,7 +16,7 @@ use Illuminate\View\View;
 class DiscordController extends Controller
 {
     public function __construct(
-        private readonly UserInfoDiscordService $userDiscordService,
+        private readonly UserInfoDiscordService $userInfoDiscordService,
     ) {
     }
 
@@ -35,7 +35,7 @@ class DiscordController extends Controller
 
     public function handleProviderCallback(): View | RedirectResponse
     {
-        try {
+        // try {
             // ユーザー詳細情報の取得
             $discordUser = Socialite::driver('discord')->user();
             $user = $this->userInfoDiscordService->login(
@@ -50,13 +50,13 @@ class DiscordController extends Controller
             $redirectUrl = $this->userInfoDiscordService->getRedirectUrl($user->id);
             Auth::login($user, true);
             return redirect($redirectUrl);
-        } catch (\Exception $e) {
-            if (session('api')) {
-                session()->forget('api');
-                $loginId = 0;
-                return view('auth.api_logined', compact('loginId'));
-            }
-            return redirect('/login')->with('flash_message', 'エラーが発生しました');
-        }
+        // } catch (\Exception $e) {
+        //     if (session('api')) {
+        //         session()->forget('api');
+        //         $loginId = 0;
+        //         return view('auth.api_logined', compact('loginId'));
+        //     }
+        //     return redirect('/login')->with('flash_message', 'エラーが発生しました');
+        // }
     }
 }

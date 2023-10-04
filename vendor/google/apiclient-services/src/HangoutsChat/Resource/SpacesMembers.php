@@ -38,19 +38,17 @@ class SpacesMembers extends \Google\Service\Resource
    * policy turned off, then they're invited, and must accept the space invitation
    * before joining. Otherwise, creating a membership adds the member directly to
    * the specified space. Requires [user
-   * authentication](https://developers.google.com/chat/api/guides/auth/users) and
-   * the `chat.memberships` (for human membership) or `chat.memberships.app` (for
-   * app membership) scope. To specify the member to add, set the
-   * `membership.member.name` in the `CreateMembershipRequest`: - To add the
-   * calling app to a space or a direct message between two human users, use
-   * `users/app`. Unable to add other apps to the space. - To add a human user,
-   * use `users/{user}`, where `{user}` is either the `{person_id}` for the
-   * [person](https://developers.google.com/people/api/rest/v1/people) from the
-   * People API, or the `id` for the [user](https://developers.google.com/admin-
-   * sdk/directory/reference/rest/v1/users) in the Directory API. For example, if
-   * the People API `Person` `resourceName` is `people/123456789`, you can add the
-   * user to the space by setting the `membership.member.name` to
-   * `users/123456789`. (members.create)
+   * authentication](https://developers.google.com/chat/api/guides/auth/users). To
+   * specify the member to add, set the `membership.member.name` in the
+   * `CreateMembershipRequest`: - To add the calling app to a space or a direct
+   * message between two human users, use `users/app`. Unable to add other apps to
+   * the space. - To add a human user, use `users/{user}`, where `{user}` can be
+   * the email address for the user. For users in the same Workspace organization
+   * `{user}` can also be the `{person_id}` for the person from the People API, or
+   * the `id` for the user in the Directory API. For example, if the People API
+   * Person `resourceName` for `user@example.com` is `people/123456789`, you can
+   * add the user to the space by setting the `membership.member.name` to
+   * `users/user@example.com` or `users/123456789`. (members.create)
    *
    * @param string $parent Required. The resource name of the space for which to
    * create the membership. Format: spaces/{space}
@@ -68,17 +66,18 @@ class SpacesMembers extends \Google\Service\Resource
    * Deletes a membership. For an example, see [Delete a
    * membership](https://developers.google.com/chat/api/guides/v1/members/delete).
    * Requires [user
-   * authentication](https://developers.google.com/chat/api/guides/auth/users) and
-   * the `chat.memberships` or `chat.memberships.app` authorization scope.
+   * authentication](https://developers.google.com/chat/api/guides/auth/users).
    * (members.delete)
    *
    * @param string $name Required. Resource name of the membership to delete. Chat
    * apps can delete human users' or their own memberships. Chat apps can't delete
    * other apps' memberships. When deleting a human membership, requires the
-   * `chat.memberships` scope and `spaces/{space}/members/{member}` format. When
-   * deleting an app membership, requires the `chat.memberships.app` scope and
-   * `spaces/{space}/members/app` format. Format:
-   * `spaces/{space}/members/{member}` or `spaces/{space}/members/app`
+   * `chat.memberships` scope and `spaces/{space}/members/{member}` format. You
+   * can use the email as an alias for `{member}`. For example,
+   * `spaces/{space}/members/example@gmail.com` where `example@gmail.com` is the
+   * email of the Google Chat user. When deleting an app membership, requires the
+   * `chat.memberships.app` scope and `spaces/{space}/members/app` format. Format:
+   * `spaces/{space}/members/{member}` or `spaces/{space}/members/app`.
    * @param array $optParams Optional parameters.
    * @return Membership
    */
@@ -98,14 +97,17 @@ class SpacesMembers extends \Google\Service\Resource
    * accounts) and [user
    * authentication](https://developers.google.com/chat/api/guides/auth/users).
    * [User
-   * authentication](https://developers.google.com/chat/api/guides/auth/users)
-   * requires the `chat.memberships` or `chat.memberships.readonly` authorization
-   * scope. (members.get)
+   * authentication](https://developers.google.com/chat/api/guides/auth/users).
+   * (members.get)
    *
    * @param string $name Required. Resource name of the membership to retrieve. To
    * get the app's own membership, you can optionally use
    * `spaces/{space}/members/app`. Format: `spaces/{space}/members/{member}` or
-   * `spaces/{space}/members/app`
+   * `spaces/{space}/members/app` When [authenticated as a
+   * user](https://developers.google.com/chat/api/guides/auth/users), you can use
+   * the user's email as an alias for `{member}`. For example,
+   * `spaces/{space}/members/example@gmail.com` where `example@gmail.com` is the
+   * email of the Google Chat user.
    * @param array $optParams Optional parameters.
    * @return Membership
    */
@@ -132,9 +134,8 @@ class SpacesMembers extends \Google\Service\Resource
    * accounts) and [user
    * authentication](https://developers.google.com/chat/api/guides/auth/users).
    * [User
-   * authentication](https://developers.google.com/chat/api/guides/auth/users)
-   * requires the `chat.memberships` or `chat.memberships.readonly` authorization
-   * scope. (members.listSpacesMembers)
+   * authentication](https://developers.google.com/chat/api/guides/auth/users).
+   * (members.listSpacesMembers)
    *
    * @param string $parent Required. The resource name of the space for which to
    * fetch a membership list. Format: spaces/{space}
@@ -152,16 +153,16 @@ class SpacesMembers extends \Google\Service\Resource
    * following queries are invalid: ``` member.type = "HUMAN" AND member.type =
    * "BOT" role = "ROLE_MANAGER" AND role = "ROLE_MEMBER" ``` Invalid queries are
    * rejected by the server with an `INVALID_ARGUMENT` error.
-   * @opt_param int pageSize The maximum number of memberships to return. The
-   * service might return fewer than this value. If unspecified, at most 100
-   * memberships are returned. The maximum value is 1,000. If you use a value more
-   * than 1,000, it's automatically changed to 1,000. Negative values return an
-   * `INVALID_ARGUMENT` error.
-   * @opt_param string pageToken A page token, received from a previous call to
-   * list memberships. Provide this parameter to retrieve the subsequent page.
-   * When paginating, all other parameters provided should match the call that
-   * provided the page token. Passing different values to the other parameters
-   * might lead to unexpected results.
+   * @opt_param int pageSize Optional. The maximum number of memberships to
+   * return. The service might return fewer than this value. If unspecified, at
+   * most 100 memberships are returned. The maximum value is 1,000. If you use a
+   * value more than 1,000, it's automatically changed to 1,000. Negative values
+   * return an `INVALID_ARGUMENT` error.
+   * @opt_param string pageToken Optional. A page token, received from a previous
+   * call to list memberships. Provide this parameter to retrieve the subsequent
+   * page. When paginating, all other parameters provided should match the call
+   * that provided the page token. Passing different values to the other
+   * parameters might lead to unexpected results.
    * @opt_param bool showInvited Optional. When `true`, also returns memberships
    * associated with invited members, in addition to other types of memberships.
    * If a filter is set, invited memberships that don't match the filter criteria

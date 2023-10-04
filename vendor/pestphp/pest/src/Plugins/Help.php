@@ -6,9 +6,10 @@ namespace Pest\Plugins;
 
 use Pest\Contracts\Plugins\HandlesArguments;
 use Pest\Support\View;
-use function Pest\version;
 use PHPUnit\TextUI\Help as PHPUnitHelp;
 use Symfony\Component\Console\Output\OutputInterface;
+
+use function Pest\version;
 
 /**
  * @internal
@@ -106,6 +107,10 @@ final class Help implements HandlesArguments
             [
                 'arg' => '--parallel',
                 'desc' => 'Run tests in parallel',
+            ],
+            [
+                'arg' => '--update-snapshots',
+                'desc' => 'Update snapshots for tests using the "toMatchSnapshot" expectation',
             ],
         ], ...$content['Execution']];
 

@@ -78,6 +78,10 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
    */
   public $intentNamePauis;
   /**
+   * @var string
+   */
+  public $intentType;
+  /**
    * @var bool
    */
   public $isFeasible;
@@ -105,6 +109,14 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
    * @var bool
    */
   public $isPodcastIntent;
+  /**
+   * @var bool
+   */
+  public $isSageDisabledIntent;
+  /**
+   * @var bool
+   */
+  public $isSageInNageIntent;
   /**
    * @var bool
    */
@@ -154,6 +166,10 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
    * @var string
    */
   public $phase;
+  /**
+   * @var bool
+   */
+  public $platinumSource;
   public $pq2tVsAssistantIbstCosine;
   public $pq2tVsIbstCosine;
   /**
@@ -174,6 +190,8 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
    * @var string
    */
   public $subIntentType;
+  protected $tiebreakingMetadataType = AssistantPfrTiebreakingMetadata::class;
+  protected $tiebreakingMetadataDataType = '';
   /**
    * @var float
    */
@@ -412,6 +430,20 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
     return $this->intentNamePauis;
   }
   /**
+   * @param string
+   */
+  public function setIntentType($intentType)
+  {
+    $this->intentType = $intentType;
+  }
+  /**
+   * @return string
+   */
+  public function getIntentType()
+  {
+    return $this->intentType;
+  }
+  /**
    * @param bool
    */
   public function setIsFeasible($isFeasible)
@@ -508,6 +540,34 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
   public function getIsPodcastIntent()
   {
     return $this->isPodcastIntent;
+  }
+  /**
+   * @param bool
+   */
+  public function setIsSageDisabledIntent($isSageDisabledIntent)
+  {
+    $this->isSageDisabledIntent = $isSageDisabledIntent;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsSageDisabledIntent()
+  {
+    return $this->isSageDisabledIntent;
+  }
+  /**
+   * @param bool
+   */
+  public function setIsSageInNageIntent($isSageInNageIntent)
+  {
+    $this->isSageInNageIntent = $isSageInNageIntent;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsSageInNageIntent()
+  {
+    return $this->isSageInNageIntent;
   }
   /**
    * @param bool
@@ -719,6 +779,20 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
   {
     return $this->phase;
   }
+  /**
+   * @param bool
+   */
+  public function setPlatinumSource($platinumSource)
+  {
+    $this->platinumSource = $platinumSource;
+  }
+  /**
+   * @return bool
+   */
+  public function getPlatinumSource()
+  {
+    return $this->platinumSource;
+  }
   public function setPq2tVsAssistantIbstCosine($pq2tVsAssistantIbstCosine)
   {
     $this->pq2tVsAssistantIbstCosine = $pq2tVsAssistantIbstCosine;
@@ -804,6 +878,20 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
   public function getSubIntentType()
   {
     return $this->subIntentType;
+  }
+  /**
+   * @param AssistantPfrTiebreakingMetadata
+   */
+  public function setTiebreakingMetadata(AssistantPfrTiebreakingMetadata $tiebreakingMetadata)
+  {
+    $this->tiebreakingMetadata = $tiebreakingMetadata;
+  }
+  /**
+   * @return AssistantPfrTiebreakingMetadata
+   */
+  public function getTiebreakingMetadata()
+  {
+    return $this->tiebreakingMetadata;
   }
   /**
    * @param float

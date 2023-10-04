@@ -51,7 +51,7 @@ final class Str
             return true;
         }
 
-        return substr($target, -$length) === $search;
+        return $search === substr($target, -$length);
     }
 
     /**
@@ -91,5 +91,21 @@ final class Str
     public static function after(string $subject, string $search): string
     {
         return $search === '' ? $subject : array_reverse(explode($search, $subject, 2))[0];
+    }
+
+    /**
+     * Determine if a given value is a valid UUID.
+     */
+    public static function isUuid(string $value): bool
+    {
+        return preg_match('/^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/iD', $value) > 0;
+    }
+
+    /**
+     * Creates a describe block as `$describeDescription` → `$testDescription` format.
+     */
+    public static function describe(string $describeDescription, string $testDescription): string
+    {
+        return sprintf('`%s` → %s', $describeDescription, $testDescription);
     }
 }

@@ -4,15 +4,9 @@ declare(strict_types=1);
 
 namespace Pest\Plugins\Parallel\Paratest;
 
-use function array_merge;
-use function array_merge_recursive;
-use function array_shift;
-use function assert;
-use function count;
 use const DIRECTORY_SEPARATOR;
-use function dirname;
-use function file_get_contents;
-use function max;
+
+use NunoMaduro\Collision\Adapters\Phpunit\Support\ResultReflection;
 use ParaTest\Coverage\CoverageMerger;
 use ParaTest\JUnit\LogMerger;
 use ParaTest\JUnit\Writer;
@@ -23,16 +17,26 @@ use ParaTest\WrapperRunner\WrapperWorker;
 use Pest\Result;
 use Pest\TestSuite;
 use PHPUnit\Event\Facade as EventFacade;
+use PHPUnit\Event\TestRunner\WarningTriggered;
 use PHPUnit\Runner\CodeCoverage;
 use PHPUnit\TestRunner\TestResult\Facade as TestResultFacade;
 use PHPUnit\TestRunner\TestResult\TestResult;
 use PHPUnit\TextUI\Configuration\CodeCoverageFilterRegistry;
 use PHPUnit\Util\ExcludeList;
-use function realpath;
 use SebastianBergmann\Timer\Timer;
 use SplFileInfo;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\PhpExecutableFinder;
+
+use function array_merge;
+use function array_merge_recursive;
+use function array_shift;
+use function assert;
+use function count;
+use function dirname;
+use function file_get_contents;
+use function max;
+use function realpath;
 use function unlink;
 use function unserialize;
 use function usleep;
@@ -250,11 +254,11 @@ final class WrapperRunner implements RunnerInterface
 
     private function destroyWorker(int $token): void
     {
-        // Mutation Testing tells us that the following `unset()` already destroys
-        // the `WrapperWorker`, which destroys the Symfony's `Process`, which
-        // automatically calls `Process::stop` within `Process::__destruct()`.
-        // But we prefer to have an explicit stops.
         $this->workers[$token]->stop();
+        // We need to wait for ApplicationForWrapperWorker::end to end
+        while ($this->workers[$token]->isRunning()) {
+            usleep(self::CYCLE_SLEEP);
+        }
 
         unset($this->workers[$token]);
     }
@@ -272,7 +276,7 @@ final class WrapperRunner implements RunnerInterface
             assert($testResult instanceof TestResult);
 
             $testResultSum = new TestResult(
-                $testResultSum->numberOfTests() + $testResult->numberOfTests(),
+                (int) $testResultSum->hasTests() + (int) $testResult->hasTests(),
                 $testResultSum->numberOfTestsRun() + $testResult->numberOfTestsRun(),
                 $testResultSum->numberOfAssertions() + $testResult->numberOfAssertions(),
                 array_merge_recursive($testResultSum->testErroredEvents(), $testResult->testErroredEvents()),
@@ -281,23 +285,23 @@ final class WrapperRunner implements RunnerInterface
                 array_merge_recursive($testResultSum->testSuiteSkippedEvents(), $testResult->testSuiteSkippedEvents()),
                 array_merge_recursive($testResultSum->testSkippedEvents(), $testResult->testSkippedEvents()),
                 array_merge_recursive($testResultSum->testMarkedIncompleteEvents(), $testResult->testMarkedIncompleteEvents()),
-                array_merge_recursive($testResultSum->testTriggeredDeprecationEvents(), $testResult->testTriggeredDeprecationEvents()),
-                array_merge_recursive($testResultSum->testTriggeredPhpDeprecationEvents(), $testResult->testTriggeredPhpDeprecationEvents()),
                 array_merge_recursive($testResultSum->testTriggeredPhpunitDeprecationEvents(), $testResult->testTriggeredPhpunitDeprecationEvents()),
-                array_merge_recursive($testResultSum->testTriggeredErrorEvents(), $testResult->testTriggeredErrorEvents()),
-                array_merge_recursive($testResultSum->testTriggeredNoticeEvents(), $testResult->testTriggeredNoticeEvents()),
-                array_merge_recursive($testResultSum->testTriggeredPhpNoticeEvents(), $testResult->testTriggeredPhpNoticeEvents()),
-                array_merge_recursive($testResultSum->testTriggeredWarningEvents(), $testResult->testTriggeredWarningEvents()),
-                array_merge_recursive($testResultSum->testTriggeredPhpWarningEvents(), $testResult->testTriggeredPhpWarningEvents()),
                 array_merge_recursive($testResultSum->testTriggeredPhpunitErrorEvents(), $testResult->testTriggeredPhpunitErrorEvents()),
                 array_merge_recursive($testResultSum->testTriggeredPhpunitWarningEvents(), $testResult->testTriggeredPhpunitWarningEvents()),
                 array_merge_recursive($testResultSum->testRunnerTriggeredDeprecationEvents(), $testResult->testRunnerTriggeredDeprecationEvents()),
                 array_merge_recursive($testResultSum->testRunnerTriggeredWarningEvents(), $testResult->testRunnerTriggeredWarningEvents()),
+                array_merge_recursive($testResultSum->errors(), $testResult->errors()),
+                array_merge_recursive($testResultSum->deprecations(), $testResult->deprecations()),
+                array_merge_recursive($testResultSum->notices(), $testResult->notices()),
+                array_merge_recursive($testResultSum->warnings(), $testResult->warnings()),
+                array_merge_recursive($testResultSum->phpDeprecations(), $testResult->phpDeprecations()),
+                array_merge_recursive($testResultSum->phpNotices(), $testResult->phpNotices()),
+                array_merge_recursive($testResultSum->phpWarnings(), $testResult->phpWarnings()),
             );
         }
 
         $testResultSum = new TestResult(
-            $testResultSum->numberOfTests(),
+            ResultReflection::numberOfTests($testResultSum),
             $testResultSum->numberOfTestsRun(),
             $testResultSum->numberOfAssertions(),
             $testResultSum->testErroredEvents(),
@@ -306,18 +310,21 @@ final class WrapperRunner implements RunnerInterface
             $testResultSum->testSuiteSkippedEvents(),
             $testResultSum->testSkippedEvents(),
             $testResultSum->testMarkedIncompleteEvents(),
-            $testResultSum->testTriggeredDeprecationEvents(),
-            $testResultSum->testTriggeredPhpDeprecationEvents(),
             $testResultSum->testTriggeredPhpunitDeprecationEvents(),
-            $testResultSum->testTriggeredErrorEvents(),
-            $testResultSum->testTriggeredNoticeEvents(),
-            $testResultSum->testTriggeredPhpNoticeEvents(),
-            $testResultSum->testTriggeredWarningEvents(),
-            $testResultSum->testTriggeredPhpWarningEvents(),
             $testResultSum->testTriggeredPhpunitErrorEvents(),
             $testResultSum->testTriggeredPhpunitWarningEvents(),
             $testResultSum->testRunnerTriggeredDeprecationEvents(),
-            array_values(array_filter($testResultSum->testRunnerTriggeredWarningEvents(), fn ($event): bool => ! str_contains($event->message(), 'No tests found'))),
+            array_values(array_filter(
+                $testResultSum->testRunnerTriggeredWarningEvents(),
+                fn (WarningTriggered $event): bool => ! str_contains($event->message(), 'No tests found')
+            )),
+            $testResultSum->errors(),
+            $testResultSum->deprecations(),
+            $testResultSum->notices(),
+            $testResultSum->warnings(),
+            $testResultSum->phpDeprecations(),
+            $testResultSum->phpNotices(),
+            $testResultSum->phpWarnings(),
         );
 
         $this->printer->printResults(

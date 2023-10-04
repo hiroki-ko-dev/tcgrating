@@ -9,7 +9,9 @@ use Pest\Repositories\AfterAllRepository;
 use Pest\Repositories\AfterEachRepository;
 use Pest\Repositories\BeforeAllRepository;
 use Pest\Repositories\BeforeEachRepository;
+use Pest\Repositories\SnapshotRepository;
 use Pest\Repositories\TestRepository;
+use Pest\Support\Str;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -48,6 +50,11 @@ final class TestSuite
     public AfterAllRepository $afterAll;
 
     /**
+     * Holds the snapshots repository.
+     */
+    public SnapshotRepository $snapshots;
+
+    /**
      * Holds the root path.
      */
     public string $rootPath;
@@ -69,8 +76,11 @@ final class TestSuite
         $this->tests = new TestRepository();
         $this->afterEach = new AfterEachRepository();
         $this->afterAll = new AfterAllRepository();
-
         $this->rootPath = (string) realpath($rootPath);
+        $this->snapshots = new SnapshotRepository(
+            implode(DIRECTORY_SEPARATOR, [$this->rootPath, $this->testPath]),
+            implode(DIRECTORY_SEPARATOR, ['.pest', 'snapshots']),
+        );
     }
 
     /**
@@ -95,5 +105,29 @@ final class TestSuite
         }
 
         return self::$instance;
+    }
+
+    public function getFilename(): string
+    {
+        assert($this->test instanceof TestCase);
+
+        return (fn () => self::$__filename)->call($this->test, $this->test::class); // @phpstan-ignore-line
+    }
+
+    public function getDescription(): string
+    {
+        assert($this->test instanceof TestCase);
+
+        $description = str_replace('__pest_evaluable_', '', $this->test->name());
+        $datasetAsString = str_replace('__pest_evaluable_', '', Str::evaluable($this->test->dataSetAsStringWithData()));
+
+        return str_replace(' ', '_', $description.$datasetAsString);
+    }
+
+    public function registerSnapshotChange(string $message): void
+    {
+        assert($this->test instanceof TestCase);
+
+        (fn (): string => $this->__snapshotChanges[] = $message)->call($this->test, $this->test::class); // @phpstan-ignore-line
     }
 }
