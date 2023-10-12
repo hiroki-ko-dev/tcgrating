@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\AppleController;
 use App\Http\Controllers\Web\ProxyController;
+use App\Http\Controllers\Web\SiteController;
 
 require __DIR__ . '/auth.php';
 
@@ -30,14 +31,14 @@ Route::namespace('Web')->group(function () {
     Route::get('/site/inquiry', function () {return view('site.inquiry');}); //お問い合わせ用の動画を表示
     Route::get('/site/how_to_use/normal', function () {return view('site.how_to_use.normal');}); //動画ページを表示
     Route::get('/site/how_to_use/instant', function () {return view('site.how_to_use.instant');}); //動画ページを表示
-    Route::post('/site/update_selected_game', [App\Http\Controllers\SiteController::class, 'updateSelectedGame']); //管理人を表示
-    Route::get('/site/test', [App\Http\Controllers\SiteController::class, 'test']); //管理人を表示
+    Route::post('/site/update_selected_game', [SiteController::class, 'updateSelectedGame']); //管理人を表示
+    Route::get('/site/test', [SiteController::class, 'test']); //管理人を表示
     //プライバシーポリシー
     Route::get('/site/privacy', function () {return view('site.privacy');});
 
     // ランディングページ系
     Route::get('/site/landing/pokemon_card', function () {return view('site.landing.03_pokemon_card');});
-    Route::get('/site/landing/resume', [App\Http\Controllers\SiteController::class, 'resume']);
+    Route::get('/site/landing/resume', [SiteController::class, 'resume']);
 
     // プロキシページ系
     Route::get('/proxy', function () {return view('proxy.show');}); //管理人を表示
