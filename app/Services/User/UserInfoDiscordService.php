@@ -30,7 +30,7 @@ final class UserInfoDiscordService extends UserService
                     $user = $this->createUser($userAttrs);
                 }
                 $userDiscordAttrs['user_id'] = $user->id;
-                $this->createUserDiscord($userDiscordAttrs);
+                $this->createUserInfoDiscord($userDiscordAttrs);
             }
             return $user;
         });
