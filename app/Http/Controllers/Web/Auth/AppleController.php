@@ -87,24 +87,19 @@ class AppleController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            \Log::debug('bb');
             if (session('api')) {
-                \Log::debug('cc');
                 session()->forget('api');
                 $loginId = 0;
                 return view('auth.api_logined', compact('loginId'));
             }
-            \Log::debug('dd');
             return redirect('/login')->with('flash_message', 'エラーが発生しました');
         }
         Auth::login($user, true);
         if (session('api')) {
-            \Log::debug('ee');
             session()->forget('api');
             $loginId = Auth::id();
             return view('auth.api_logined', compact('loginId'));
         }
-        \Log::debug('ff');
         return redirect('/user/' . Auth::user()->id);
     }
 }

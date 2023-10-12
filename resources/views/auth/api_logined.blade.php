@@ -8,7 +8,7 @@
 </body>
 
 <script type="text/javascript">
-  window.ReactNativeWebView.postMessage({{$loginId}});
+  window.ReactNativeWebView.postMessage(JSON.stringify({ loginId: {{$loginId}} }));
 </script>
 
 </html>
