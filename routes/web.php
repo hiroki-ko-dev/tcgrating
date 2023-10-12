@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\AppleController;
+use App\Http\Controllers\Web\ProxyController;
 
 require __DIR__ . '/auth.php';
 
@@ -40,7 +41,7 @@ Route::namespace('Web')->group(function () {
 
     // プロキシページ系
     Route::get('/proxy', function () {return view('proxy.show');}); //管理人を表示
-    Route::post('/proxy/pdf', [App\Http\Controllers\ProxyController::class, 'pdf']); //管理人を表示
+    Route::post('/proxy/pdf', [ProxyController::class, 'pdf']); //管理人を表示
 
     //ページ更新処理
     Route::get('/reload', function () {return back();});
