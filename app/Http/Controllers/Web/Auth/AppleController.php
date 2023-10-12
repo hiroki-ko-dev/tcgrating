@@ -19,6 +19,7 @@ class AppleController extends Controller
 
     public function redirectToProvider()
     {
+        session(['web' => true]);
         $url = 'https://appleid.apple.com/auth/authorize?';
         $url .= 'client_id=' . config('services.apple.client_id');
         $url .= '&scope=name email';
@@ -47,7 +48,9 @@ class AppleController extends Controller
     // Appleコールバック https://hashimu.com/api/auth/apple/redirect
     public function handleProviderCallback(Request $request)
     {
-        \Log::debug('aa');
+        if (!session('api') && !session('web')) {
+            session(['api' => true]);
+        }
         try {
             // ユーザー詳細情報の取得
             $id_token = $request->id_token;
