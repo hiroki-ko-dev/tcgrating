@@ -47,6 +47,7 @@ class AppleController extends Controller
     // Appleコールバック
     public function handleProviderCallback(Request $request)
     {
+        \Log::debug('aa');
         try {
             // ユーザー詳細情報の取得
             $id_token = $request->id_token;
@@ -83,19 +84,24 @@ class AppleController extends Controller
                 }
             }
         } catch (\Exception $e) {
+            \Log::debug('bb');
             if (session('api')) {
+                \Log::debug('cc');
                 session()->forget('api');
                 $loginId = 0;
                 return view('auth.api_logined', compact('loginId'));
             }
+            \Log::debug('dd');
             return redirect('/login')->with('flash_message', 'エラーが発生しました');
         }
         Auth::login($user, true);
         if (session('api')) {
+            \Log::debug('ee');
             session()->forget('api');
             $loginId = Auth::id();
             return view('auth.api_logined', compact('loginId'));
         }
+        \Log::debug('ff');
         return redirect('/user/' . Auth::user()->id);
     }
 }
