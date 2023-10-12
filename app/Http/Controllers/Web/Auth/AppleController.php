@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
-use DB;
 use App\Services\User\UserService;
 
 class AppleController extends Controller
@@ -48,7 +47,6 @@ class AppleController extends Controller
     // Appleコールバック
     public function handleProviderCallback(Request $request)
     {
-        \Log::debug(['aa','aa']);
         try {
             // ユーザー詳細情報の取得
             $id_token = $request->id_token;
@@ -61,13 +59,11 @@ class AppleController extends Controller
 
             $user = null;
             if ($sub) {
-                \Log::debug(['sub',$sub]);
                 $user = $this->userService->findUserBy('apple_code', $sub);
             }
             if (is_null($user)) {
                 $userAttrs['apple_core'] = $sub;
                 if (Auth::check()) {
-                    \Log::debug(['apple_core',$sub]);
                     $user = $this->userService->updateUser(Auth::id(), $userAttrs);
                 } else {
                     $game_id = config('assets.site.game_ids.pokemon_card');
@@ -84,11 +80,9 @@ class AppleController extends Controller
                     $userAttrs['twitter_simple_image_url'] = '/images/icon/default-account.png';
                         // 新規ユーザー作成
                     $user = $this->userService->createUser($userAttrs);
-                    \Log::debug(['create',$sub]);
                 }
             }
         } catch (\Exception $e) {
-            \Log::debug(['error',$sub]);
             if (session('api')) {
                 session()->forget('api');
                 $loginId = 0;
@@ -98,7 +92,6 @@ class AppleController extends Controller
         }
         Auth::login($user, true);
         if (session('api')) {
-            \Log::debug(['login',$sub]);
             session()->forget('api');
             $loginId = Auth::id();
             return view('auth.api_logined', compact('loginId'));

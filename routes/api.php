@@ -24,7 +24,7 @@ Route::prefix('auth')->group(function () {
 });
 
 // AppleコールバックURL
-Route::post('/auth/apple/redirect', 'Auth\AppleController@handleProviderCallback');
+Route::post('/auth/apple/redirect', 'Web\Auth\AppleController@handleProviderCallback');
 Route::get('/user/{user_id}', 'Api\Auth\AuthController@index');
 Route::get('/single/test', 'Api\Event\SingleController@test');
 Route::resources(['event/single' => Api\Event\SingleController::class]);

@@ -2,17 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\Web\Auth\AppleController;
 
 require __DIR__ . '/auth.php';
 
@@ -82,12 +72,12 @@ Route::namespace('Web')->group(function () {
         });
         Route::prefix('apple')->group(function () {
             // TwitterログインURL
-            Route::get('/login', 'Auth\AppleController@redirectToProvider');
+            Route::get('/login', [AppleController::class, 'redirectToProvider']);
             // API用TwitterログインURL
-            Route::get('/api/login', 'Auth\AppleController@redirectToProviderForApi');
-            Route::post('/callback', 'Auth\AppleController@handleProviderCallback');
+            Route::get('/api/login', [AppleController::class, 'redirectToProviderForApi']);
+            Route::post('/callback', [AppleController::class, 'handleProviderCallback']);
             // TwitterログアウトURL
-            Route::get('/logout', 'Auth\AppleController@logout');
+            Route::get('/logout', [AppleController::class, 'logout']);
         });
     });
 
