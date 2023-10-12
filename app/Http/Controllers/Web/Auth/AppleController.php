@@ -44,7 +44,7 @@ class AppleController extends Controller
         return redirect($url);
     }
 
-    // Appleコールバック
+    // Appleコールバック https://hashimu.com/api/auth/apple/redirect
     public function handleProviderCallback(Request $request)
     {
         \Log::debug('aa');
