@@ -4,7 +4,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9246343628014182"
      crossorigin="anonymous"></script>
     @if(config('assets.common.appEnv') == 'production')
-      @yield('tag_manager_header')
+      {{-- @yield('tag_manager_header') --}}
       @yield('analitics')
     @endif
 
