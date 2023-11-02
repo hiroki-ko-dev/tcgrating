@@ -1,6 +1,8 @@
 <!DOCTYPE html >
 <html class="no-js no-svg" lang="ja">
   <head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9246343628014182"
+     crossorigin="anonymous"></script>
     @if(config('assets.common.appEnv') == 'production')
       @yield('tag_manager_header')
       @yield('analitics')
@@ -18,11 +20,11 @@
   </head>
   <body class="bg-light">
       @if(config('assets.common.appEnv') == 'production')
-        @yield('tag_manager_body')
+        {{-- @yield('tag_manager_body') --}}
       @endif
       @yield('bodyHeader')
       @if(config('assets.common.appEnv') == 'production')
-        @yield('adsense')
+        {{-- @yield('adsense') --}}
       @endif
     <main class="py-4" id="main">
       @yield('content')
