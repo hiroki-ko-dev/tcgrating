@@ -29,10 +29,11 @@ return [
     ],
 
     'gravure' => [
-        'API_KEY'                 => '0YkezJ1ZCKmU6xpe7KxkO1Omn',
-        'API_SECRET'              => 'XX1sDXWMEy9wl3MqjtoVcwgleNOpvRcCDPu87BtHQqnXksF3VI',
-        'API_ACCESS_TOKEN'        => '1575010027093434368-DZ7tlsBrhfgZAVKdgg7Tu9cHV39SjS',
-        'API_ACCESS_TOKEN_SECRET' => 'ua5vBfHaeE13tR1AKi6yOMKUI2DElcVz2qvdmsNT5X2mr',
+        'API_KEY'                 => 'sYzYgmqA5LQfE3YGYc8enyP6C',
+        'API_SECRET'              => 'lIMmZxLhBpg0VmQlLzYFiuoUACHLd7AVramqIpNGLwoqBCUewC',
+        'API_ACCESS_TOKEN'        => '1575010027093434368-laLd0LoBOIe2BTxdwP5xE2LYHD4w5F',
+        'API_ACCESS_TOKEN_SECRET' => 'CUrkuUXAsCAprzc19Mo5rHkjb2Q1quFPup1WBRtwIxYMc',
+        'Bearer_Token' => 'AAAAAAAAAAAAAAAAAAAAAJtMqwEAAAAATnsNe3r4QmPugDBiNF9Q5patCJM%3DKXn1nQyG8lsvOY6XpMjRKq02Z9ICWVa4BwS6wtVxPePkgG4sTR',
     ],
 
 ];
