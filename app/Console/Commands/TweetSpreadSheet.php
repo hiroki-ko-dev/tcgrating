@@ -30,7 +30,7 @@ class TweetSpreadSheet extends Command
      * @param GoogleService $googleService
      * @param TwitterService $twitterService
      */
-    public function __construct(GoogleService $googleService,TwitterService $twitterService)
+    public function __construct(GoogleService $googleService, TwitterService $twitterService)
     {
         parent::__construct();
         $this->googleService = $googleService;
