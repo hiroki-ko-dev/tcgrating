@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-require_once "vendor/autoload.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 class TwitterRepository
@@ -27,7 +26,6 @@ class TwitterRepository
 
         // HTTPステータスコードを取得
         $httpCode = $twitter->getLastHttpCode();
-        \Log::debug(print_r($httpCode, true));
         // 成功した場合、HTTPステータスコードは200になります
         if ($httpCode == 200) {
             // ツイートが成功した
@@ -35,12 +33,6 @@ class TwitterRepository
         } else {
             // エラーが発生した場合、詳細を取得
             $error = $twitter->getLastBody();
-
-            // エラーメッセージをログに記録するか、適切に処理する
-            // error_log(print_r($error, true)); // PHPのerror_logを使う場合
-            // Laravelの場合はLogファサードを使用できます:
-            \Log::debug(print_r($error, true));
-
             // エラーの内容を返すか、例外を投げる
             return $error;
         }
