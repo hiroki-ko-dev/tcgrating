@@ -46,11 +46,11 @@ class TweetSpreadSheet extends Command
         $type = $this->argument("type");
 
         //アフェリエイトツイート
-        if($type == 'affiliate'){
-            $sheetName = config('assets.google.spread_sheet.sheet_name.yugioh');
-            $spreadSheet = $this->googleService->getValue($sheetName);
-            $apiKeys = config('assets.twitter.yugioh');
-            $this->twitterService->tweetSpreadAffiliate($spreadSheet, $apiKeys);
+        if ($type == 'affiliate') {
+            // $sheetName = config('assets.google.spread_sheet.sheet_name.yugioh');
+            // $spreadSheet = $this->googleService->getValue($sheetName);
+            // $apiKeys = config('assets.twitter.yugioh');
+            // $this->twitterService->tweetSpreadAffiliate($spreadSheet, $apiKeys);
 
             $sheetName = config('assets.google.spread_sheet.sheet_name.book');
             $spreadSheet = $this->googleService->getValue($sheetName);
@@ -63,11 +63,11 @@ class TweetSpreadSheet extends Command
             $this->twitterService->tweetSpreadAffiliate($spreadSheet, $apiKeys);
 
         //通常ツイート
-        }elseif ($type == 'normal'){
-            $sheetName = config('assets.google.spread_sheet.sheet_name.yugioh') . '_通常';
-            $spreadSheet = $this->googleService->getValue($sheetName);
-            $apiKeys = config('assets.twitter.yugioh');
-            $this->twitterService->tweetSpreadNormal($spreadSheet, $apiKeys);
+        } elseif ($type == 'normal') {
+            // $sheetName = config('assets.google.spread_sheet.sheet_name.yugioh') . '_通常';
+            // $spreadSheet = $this->googleService->getValue($sheetName);
+            // $apiKeys = config('assets.twitter.yugioh');
+            // $this->twitterService->tweetSpreadNormal($spreadSheet, $apiKeys);
 
             $sheetName = config('assets.google.spread_sheet.sheet_name.book') . '_通常';
             $spreadSheet = $this->googleService->getValue($sheetName);
