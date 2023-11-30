@@ -1,3 +1,21 @@
-h1{font-size:24px;font-weight:700}@media screen and (max-width:800px){h1{font-size:16px}}.post-user{color:green;font-weight:700}.post-text{font-size:16px}
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
 
-/*# sourceMappingURL=show.css.map*/
+@media screen and (max-width: 800px) {
+  h1 {
+    font-size: 16px;
+  }
+}
+
+.post-user {
+  font-weight: bold;
+  color: #008000;
+}
+
+.post-text {
+  font-size: 16px;
+}
+
+
