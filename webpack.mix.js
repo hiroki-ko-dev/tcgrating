@@ -53,6 +53,7 @@ mix.js('resources/js/event/full-calendar.js', 'public/js/event/full-calendar.js'
 
 mix.js('resources/js/sample.js', 'public/js/sample').react()
   // .js('resources/js/common/_selected_game.js', 'public/js/common/selected_game.js')
+  .js('resources/js/post/show.js', 'public/js/post/show.js')
   .js('resources/js/duel/duel.js', 'public/js/duel/duel.js')
   .js('resources/js/item/index.js', 'public/js/item/index.js')
   .js('resources/js/item/cart/index.js', 'public/js/item/cart/index.js')

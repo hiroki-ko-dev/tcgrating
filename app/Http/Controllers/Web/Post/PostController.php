@@ -46,7 +46,7 @@ class PostController extends Controller
         return view('post.index', compact('posts', 'post_category_id'));
     }
 
-    public function create(Request $request): View
+    public function create(Request $request): View | RedirectResponse
     {
         //アカウント認証しているユーザーのみ新規作成可能
         if (!Auth::check()) {

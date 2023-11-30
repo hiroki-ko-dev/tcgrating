@@ -18,10 +18,10 @@
           {{ __('1vs1対戦') }}
     </div>
     <div class="col-6">
-      <btton class="btn site-color text-white btn-outline-secondary text-center w-100"
+      <button class="btn site-color text-white btn-outline-secondary text-center w-100"
              onclick="location.href='/event/instant/create'">
         {{ __('+ 新規対戦作成') }}
-      </btton>
+      </button>
     </div>
   </div>
 
