@@ -30,7 +30,7 @@
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108878672-4"></script>
+    {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108878672-4"></script>
     <script>
         //トラッキングコード
         window.dataLayer = window.dataLayer || [];
@@ -52,6 +52,16 @@
             ga('send', 'pageview');
         @endif
 
+    </script> --}}
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BB8S0QLFQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7BB8S0QLFQ');
     </script>
 
 @endsection
