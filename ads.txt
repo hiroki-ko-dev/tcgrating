@@ -1,0 +1,2 @@
+// google adsense ファイル
+google.com, pub-9246343628014182, DIRECT, f08c47fec0942fa0
