@@ -1,7 +1,7 @@
 
 <article>
   <div class="row justify-content-center mb-4">
-    <div class="col-12">
+    <div class="col-md-10 col-12">
       <div class="box text-left">
         <section>
           <div class="pb-2">

@@ -23,10 +23,10 @@
     <div class="col-sm-6">
       <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
       @if($post_category_id <> \App\Models\PostCategory::CATEGORY_TEAM_WANTED)
-        <btton class="btn site-color text-white btn-outline-secondary text-center w-100"
+        <button class="btn site-color text-white btn-outline-secondary text-center w-100"
                onclick="location.href='/post/create?post_category_id={{$post_category_id}}'">
           {{ __('+ 新スレッド作成') }}
-        </btton>
+        </button>
       @endif
     </div>
   </div>
