@@ -7,57 +7,56 @@ use App\Services\PostService;
 use App\Services\TwitterService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use DB;
+use Illuminate\Contracts\View\View;
 
 class PostController extends Controller
 {
-    protected $post_service;
+    protected $postService;
     protected $twitterService;
 
-    public function __construct(PostService $post_service,
-                                TwitterService $twitterService)
-    {
-        $this->post_service = $post_service;
+    public function __construct(
+        PostService $postService,
+        TwitterService $twitterService
+    ) {
+        $this->postService = $postService;
         $this->twitterService = $twitterService;
     }
 
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         // 選択しているゲームでフィルタ
-        if(Auth::check()) {
-            $request->merge(['game_id' => Auth::user()->selected_game_id]);
-        }else{
-            $request->merge(['game_id' => session('selected_game_id')]);
+        if (Auth::check()) {
+            $gameId = Auth::user()->selected_game_id;
+        } else {
+            $gameId = session('selected_game_id');
         }
 
-        $request->merge(['post_category_id' => $request->query('post_category_id')]);
-
-        $posts =  $this->post_service->getPostAndCommentCountWithPagination($request,20);
+        $postFilters['post_category_id'] = $request->query('post_category_id');
+        if ($request->query('sub_category_id')) {
+            $postFilters['sub_category_id'] = $request->query('sub_category_id');
+        }
+        $postFilters['game_id'] = $gameId;
+        $page = $request->get('page', 1);
+        $posts = $this->postService->paginatePosts($postFilters, 20, $page);
 
         $post_category_id = $request->query('post_category_id');
 
-        return view('post.index',compact('posts','post_category_id'));
+        return view('post.index', compact('posts', 'post_category_id'));
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function create(Request $request)
+    public function create(Request $request): View
     {
         //アカウント認証しているユーザーのみ新規作成可能
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return back()->with('flash_message', '新規投稿を行うにはログインしてください');
         }
 
         //チーム募集掲示板の処理
-        if(\App\Models\PostCategory::CATEGORY_TEAM_WANTED == $request->post_category_id){
+        if (\App\Models\PostCategory::CATEGORY_TEAM_WANTED == $request->post_category_id) {
             $team_id = $request->query('team_id');
-        }else{
+        } else {
             $team_id = null;
         }
 
@@ -65,13 +64,7 @@ class PostController extends Controller
         return view('post.create', compact('post_category_id', 'team_id'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         //アカウント認証しているユーザーのみ新規作成可能
         $this->middleware('auth');
@@ -81,7 +74,7 @@ class PostController extends Controller
         $request->merge(['game_id' => Auth::user()->selected_game_id]);
 
         // ユーザーIDをアドミンでは選べるようにする
-        if(empty($request->user_id)){
+        if (empty($request->user_id)) {
             $request->merge(['user_id' => Auth::guard()->user()->id]);
         }
 
@@ -90,58 +83,18 @@ class PostController extends Controller
         $request->merge(['team_id' => $request->team_id]);
 
         DB::transaction(function () use ($request) {
-            $post = $this->post_service->createPost($request->all());
+            $post = $this->postService->createPost($request->all());
             $this->twitterService->tweetByStorePost($post);
         });
 
         return redirect('/post?post_category_id=' . $request->input('post_category_id'))->with('flash_message', '新規投稿を行いました');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $post_id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($post_id)
+    public function show($post_id): View
     {
-        $post     = $this->post_service->findPostWithUser($post_id);
-        $comments = $this->post_service->findAllPostCommentWithUserByPostIdAndPagination($post_id,100);
+        $post     = $this->postService->findPostWithUser($post_id);
+        $comments = $this->postService->findAllPostCommentWithUserByPostIdAndPagination($post_id, 100);
 
-        return view('post.show',compact('post','comments'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('post.show', compact('post', 'comments'));
     }
 }

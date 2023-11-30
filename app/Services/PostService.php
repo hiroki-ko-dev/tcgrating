@@ -76,11 +76,6 @@ class PostService
         return $this->postCommentRepository->findAllWithUserByPostIdAndPagination($post_id, $paginate);
     }
 
-    public function getPostAndCommentCountWithPagination($request, $paginate)
-    {
-        return $this->postRepository->findAllAndCommentCountWithPagination($request, $paginate);
-    }
-
     public function paginatePosts(array $attrs, int $row, int $page): LengthAwarePaginator
     {
         return $this->postRepository->paginate($attrs, $row, $page);

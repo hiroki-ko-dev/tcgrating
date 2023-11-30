@@ -96,15 +96,6 @@ class PostRepository
         return Post::where('team_id', $team)->where('post_category_id', \App\Models\PostCategory::CATEGORY_TEAM)->with('user')->first();
     }
 
-    public function findAllAndCommentCountWithPagination($request, $paginate)
-    {
-        $query = $this->composeWhereClause($request);
-        return $query->withCount('postComments')
-                    ->OrderBy('updated_at', 'desc')
-                    ->paginate($paginate);
-    }
-
-
     public function updateForApi($request, $paginate)
     {
         $query = Post::query();
