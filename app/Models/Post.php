@@ -39,6 +39,6 @@ class Post extends Model
 
     public function getAttributeReplyCommentCount()
     {
-        return $this->postComments->where('referral_id', 0)->whereNotNull('referral_id')->count();
+        return $this->postComments->where('referral_id', 0)->count();
     }
 }
