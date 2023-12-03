@@ -16,7 +16,7 @@ class ChangeNullableUserIdPostsTable extends Migration
         //外部キー制約を一旦無効化
         Schema::disableForeignKeyConstraints();
         Schema::table('posts', function (Blueprint $table) {
-            $table->bigInteger('user_id')->nullable()->change();
+            $table->integer('user_id')->nullable(true)->change();
         });
         //外部キー制約を有効化
         Schema::enableForeignKeyConstraints();
@@ -32,7 +32,7 @@ class ChangeNullableUserIdPostsTable extends Migration
         //外部キー制約を一旦無効化
         Schema::disableForeignKeyConstraints();
         Schema::table('posts', function (Blueprint $table) {
-            $table->bigInteger('user_id')->nullable(false)->change();
+            $table->integer('user_id')->nullable(false)->change();
         });
         //外部キー制約を有効化
         Schema::enableForeignKeyConstraints();

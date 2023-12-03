@@ -16,7 +16,7 @@ class ChangeNullableUserIdPostCommentsTable extends Migration
         //外部キー制約を一旦無効化
         Schema::disableForeignKeyConstraints();
         Schema::table('post_comments', function (Blueprint $table) {
-            $table->bigInteger('user_id')->nullable()->change();
+            $table->bigInteger('user_id')->nullable(true)->change();
         });
         //外部キー制約を有効化
         Schema::enableForeignKeyConstraints();
