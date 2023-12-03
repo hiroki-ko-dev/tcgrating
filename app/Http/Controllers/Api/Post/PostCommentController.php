@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\ApiService;
-use App\Services\PostService;
+use App\Services\Post\PostService;
 use App\Presenters\Api\Post\PostCommentPresenter;
 use App\Dto\Http\ResponseDto;
 

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+    
     protected $guarded = [];
 
     //定数の定義
@@ -21,15 +22,23 @@ class Post extends Model
         self::SUB_CATEGORY_RULE  => 'ルール質問',
     ];
 
-    public function postComments(){
-        return $this->hasMany('App\Models\PostComment','post_id','id');
+    public function postComments()
+    {
+        return $this->hasMany('App\Models\PostComment', 'post_id', 'id');
     }
 
-    public function user(){
-        return $this->belongsTo('App\Models\User','user_id','id');
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-    public function team(){
-        return $this->belongsTo('App\Models\Team','team_id','id');
+    public function team()
+    {
+        return $this->belongsTo('App\Models\Team', 'team_id', 'id');
+    }
+
+    public function getAttributeReplyCommentCount()
+    {
+        return $this->postComments->where('referral_id', 0)->whereNotNull('referral_id')->count();
     }
 }

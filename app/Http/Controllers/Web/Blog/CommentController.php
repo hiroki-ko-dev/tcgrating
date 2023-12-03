@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Web\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Services\PostService;
+use App\Services\Post\PostService;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\User\UserService;

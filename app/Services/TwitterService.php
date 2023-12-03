@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Enums\EventRateType;
+use App\Enums\PostSubCategory;
 use App\Repositories\UserRepository;
 use App\Repositories\TwitterRepository;
 use Illuminate\Support\Str;
@@ -369,7 +370,6 @@ class TwitterService
         }
     }
 
-
     /**
      * @param $post
      */
@@ -383,7 +383,7 @@ class TwitterService
 
             // 対戦マッチング  によるメール文
             $tweet =
-                '【ポケカ掲示板】【' . \App\Models\Post::SUB_CATEGORY[$post->sub_category_id] .'】' . $post->title . PHP_EOL .
+                '【ポケカ掲示板】【' . PostSubCategory::form($post->sub_category_id)->description() . '】' . $post->title . PHP_EOL .
                 PHP_EOL .
                 $link . PHP_EOL .
                 PHP_EOL .
@@ -391,7 +391,7 @@ class TwitterService
 
             $this->twitterRepository->tweet($apiKeys, $tweet);
 
-            if ($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_FREE) {
+            if ($post->sub_category_id == PostSubCategory::FREE) {
                 $webHook = config('assets.discord.web_hook.chat');
                 $discord =
                     'ポケカ掲示板に以下のトークが投稿されました。' . PHP_EOL .
@@ -400,7 +400,7 @@ class TwitterService
                     $post->title . PHP_EOL .
                     PHP_EOL .
                     $link;
-            } elseif ($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_DECK) {
+            } elseif ($post->sub_category_id == PostSubCategory::DECK) {
                 $webHook = config('assets.discord.web_hook.deck');
                 $discord =
                     'ポケカ掲示板に以下のデッキ相談が投稿されました。' . PHP_EOL .
@@ -409,7 +409,7 @@ class TwitterService
                     '【デッキ相談】' . $post->title . PHP_EOL .
                     PHP_EOL .
                     $link;
-            } elseif ($post->sub_category_id == \App\Models\Post::SUB_CATEGORY_RULE) {
+            } elseif ($post->sub_category_id == PostSubCategory::RULE) {
                 $webHook = config('assets.discord.web_hook.rule');
                 $discord =
                     'ポケカ掲示板に以下のルール質問が投稿されました。' . PHP_EOL .

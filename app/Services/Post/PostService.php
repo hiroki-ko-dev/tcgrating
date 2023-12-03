@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Services;
+declare(strict_types=1);
+
+namespace App\Services\Post;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\Post;
-use App\Repositories\PostRepository;
+use App\Repositories\Post\PostRepository;
+use App\Repositories\Post\PostAndPaginateComment;
 use App\Repositories\PostCommentRepository;
 use DB;
 
 class PostService
 {
     public function __construct(
-        private readonly PostRepository $postRepository,
-        private readonly PostCommentRepository $postCommentRepository
+        protected readonly PostRepository $postRepository,
+        protected readonly PostCommentRepository $postCommentRepository
     ) {
     }
 
@@ -44,6 +47,11 @@ class PostService
     public function findPost(int $id): ?Post
     {
         return $this->postRepository->find($id);
+    }
+
+    public function findPostAndPaginatePostComments(int $id, int $row, int $page): PostAndPaginateComment
+    {
+        return $this->postRepository->findOrFailAndPaginatePostComments($id, $row, $page);
     }
 
     public function findOrFailPost(int $id): Post
@@ -81,12 +89,7 @@ class PostService
         return $this->postRepository->paginate($attrs, $row, $page);
     }
 
-    public function getPostForApi($request, $paginate)
-    {
-        return $this->postRepository->findForApi($request, $paginate);
-    }
-
-    public function getComment($comment_id)
+    public function findComment($comment_id)
     {
         return $this->postCommentRepository->find($comment_id);
     }
@@ -94,10 +97,5 @@ class PostService
     public function paginatePostComment(array $filters, int $row): LengthAwarePaginator
     {
         return $this->postCommentRepository->paginate($filters, $row);
-    }
-
-    public function getPostsForApi($request, $paginate)
-    {
-        return $this->postRepository->findAllForApi($request, $paginate);
     }
 }

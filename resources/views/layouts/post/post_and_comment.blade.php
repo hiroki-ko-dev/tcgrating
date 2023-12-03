@@ -3,53 +3,51 @@
   <div class="row justify-content-center mb-4">
     <div class="col-md-10 col-12">
       <div class="box text-left">
+
         <section>
           <div class="pb-2">
             <div class="bg-pink pt-2 pb-2 d-flex align-items-center">
                 <span class="text-nowrap bg-info rounded-pill text-white p-1">
-                    {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
+                  {{$post->subCategoryName}}
                 </span>
                 <h1 class="text-wrap pl-1">{{$post->title}}</h1>
             </div>
             <nav>
               <div class="form-group row">
                 <div class="col-md-12">
-                  <span class="post-user">1. [{{$post->created_at}}]</span>
+                  <span class="post-user">1. [{{$post->createdAt}}]</span>
                   <a href="/post/comment/create?post_id={{$post->id}}">返信する</a>
                 </div>
                 <div class="row pl-3">
                   <div class="col-md-12">
-                    <img src="{{$post->user->twitter_simple_image_url}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
-                    <a class="font-weight-bold" href="/resume/{{$post->user_id}}">{{$post->user->name}}</a>
+                    <img src="{{$post->user->profileImagePath}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
+                    <a class="font-weight-bold" href="/resume/{{$post->user->id}}">{{$post->user->name}}</a>
                   </div>
                 </div>
               </div>
             </nav>
-
-            @if(!empty($post->image_url))
+            @if(!empty($post->imageUrl))
               <div class="form-group row mt-2">
                 <div class="col-12">
-                デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$post->image_url}}">{{$post->image_url}}</a>
+                デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$post->imageUrl}}">{{$post->imageUrl}}</a>
                 </div>
               </div>
               <div class="form-group row mt-2">
                 <div class="col-md-12">
-                  <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$post->image_url}}" alt="{{$post->title}}">
+                  <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$post->imageUrl}}" alt="{{$post->title}}">
                 </div>
               </div>
             @endif
-
             <div class="form-group row">
                 <div class="col-md-12">
                     <div class="post-text">{!! nl2br(e($post->body)) !!}</div>
                 </div>
             </div>
-
-            @if($post->postComments->where('referral_id',0)->whereNotNull('referral_id')->count() > 0)
+            @if($post->replyCommentCount > 0)
               <nav>
                 <div class="row mt-2 pb-2">
                   <div class="bg-pink p-1 ml-3 font-weight-bold text-redPurple">
-                    <a href="/post/comment/create?post_id={{$post->id}}" class="text-redPurple">{{$post->postComments->where('referral_id',0)->whereNotNull('referral_id')->count()}}件の返信</a>
+                    <a href="/post/comment/create?post_id={{$post->id}}" class="text-redPurple">{{$post->replyCommentCount}}件の返信</a>
                   </div>
                 </div>
               </nav>
@@ -57,42 +55,42 @@
           </div>
         </section>
 
-        @if(!empty($comments))
+        @if(!empty($post->comments))
           <section>
             <div class="pb-5 mt-3">
                 <div class="card-header">{{ __('コメント一覧') }}</div>
                 <div>
-                  @if(empty($comments[0]))
+                  @if(empty($post->comments))
                     <div class="post-text text-secondary p-2">
                       現在コメントはありません
                     </div>
                   @else
-                    @foreach($comments as $comment)
+                    @foreach($post->comments as $comment)
                         <div class="pt-3">
                           <div>
-                            <span class="post-user">{{$comment->number}}. [{{$comment->created_at}}]</span>
+                            <span class="post-user">{{$comment->number}}. [{{$comment->createdAt}}]</span>
                             <a href="/post/comment/create?comment_id={{$comment->id}}">返信する</a>
                           </div>
-                          <img src="{{$comment->user->twitter_simple_image_url}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
-                          <span class="post-user"><a href="/resume/{{$comment->user_id}}">{{$comment->user->name}}</a></span>
+                          <img src="{{$comment->user->profileImagePath}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
+                          <span class="post-user"><a href="/resume/{{$comment->userId}}">{{$comment->user->name}}</a></span>
                         </div>
-                        @if(!empty($comment->image_url))
+                        @if(!empty($comment->imageUrl))
                           <div class="form-group row mt-2">
                             <div class="col-12">
-                              デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$comment->image_url}}">{{$comment->image_url}}</a>
+                              デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$comment->imageUrl}}">{{$comment->imageUrl}}</a>
                             </div>
                           </div>
                           <div class="form-group row mt-2">
                             <div class="col-md-12">
-                              <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$comment->image_url}}" alt="{{$post->title}}">
+                              <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$comment->imageUrl}}" alt="{{$post->title}}">
                             </div>
                           </div>
                         @endif
-                        @if(!is_null($comment->referral_id))
+                        @if($comment->isReferralPost || $comment->referralComment )
                           <div class="row mt-2">
                             <div class="bg-skyblue p-1 ml-3 font-weight-bold text-primary">
-                              @if($comment->referral_id == 0)
-                                <a href="/post/comment/create?post_id={{$post->id}}">>>1</a>
+                              @if($comment->isReferralPost)
+                                <a href="/post/comment/create?post_id={{$comment->postId}}">>>1</a>
                               @else
                                 <a href="/post/comment/create?comment_id={{$comment->referralComment->id}}">>>{{$comment->referralComment->number}}</a>
                               @endif
@@ -102,10 +100,10 @@
                         <div class="post-text pb-2">
                             {!! nl2br(e($comment->body)) !!}
                         </div>
-                        @if($comment->replyComments->count() > 0)
+                        @if($comment->replyCommentCount)
                           <div class="row mt-2 pb-2">
                             <div class="bg-pink p-1 ml-3 font-weight-bold">
-                              <a href="/post/comment/create?comment_id={{$comment->id}}" class="text-redPurple">{{$comment->replyComments->count()}}件の返信</a>
+                              <a href="/post/comment/create?comment_id={{$comment->id}}" class="text-redPurple">{{$comment->replyCommentCount}}件の返信</a>
                             </div>
                           </div>
                         @endif
@@ -117,7 +115,7 @@
           </section>
         @endif
 
-        {{$comments->links('pagination::bootstrap-4')}}
+        {{$post->comments->links('pagination::bootstrap-4')}}
         <div class="card-header">
             {{ __('コメントを投稿する' )}}
         </div>

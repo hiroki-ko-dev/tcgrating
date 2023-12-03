@@ -25,27 +25,48 @@ Route::namespace('Web')->group(function () {
     });
 
     //サイトの情報ページ
-    Route::get('/sample', function () {return view('sample');});     //直接TOPページを表示
-    Route::get('/', function () {return view('site.index');});     //直接TOPページを表示
-    Route::get('/site/administrator', function () {return view('site.administrator');}); //管理人を表示
-    Route::get('/site/inquiry', function () {return view('site.inquiry');}); //お問い合わせ用の動画を表示
-    Route::get('/site/how_to_use/normal', function () {return view('site.how_to_use.normal');}); //動画ページを表示
-    Route::get('/site/how_to_use/instant', function () {return view('site.how_to_use.instant');}); //動画ページを表示
+    Route::get('/sample', function () {
+        return view('sample');
+    });
+    //直接TOPページを表示
+    Route::get('/', function () {
+        return view('site.index');
+    });     //直接TOPページを表示
+    Route::get('/site/administrator', function () {
+        return view('site.administrator');
+    }); //管理人を表示
+    Route::get('/site/inquiry', function () {
+        return view('site.inquiry');
+    }); //お問い合わせ用の動画を表示
+    Route::get('/site/how_to_use/normal', function () {
+        return view('site.how_to_use.normal');
+    }); //動画ページを表示
+    Route::get('/site/how_to_use/instant', function () {
+        return view('site.how_to_use.instant');
+    }); //動画ページを表示
     Route::post('/site/update_selected_game', [SiteController::class, 'updateSelectedGame']); //管理人を表示
     Route::get('/site/test', [SiteController::class, 'test']); //管理人を表示
     //プライバシーポリシー
-    Route::get('/site/privacy', function () {return view('site.privacy');});
+    Route::get('/site/privacy', function () {
+        return view('site.privacy');
+    });
 
     // ランディングページ系
-    Route::get('/site/landing/pokemon_card', function () {return view('site.landing.03_pokemon_card');});
+    Route::get('/site/landing/pokemon_card', function () {
+        return view('site.landing.03_pokemon_card');
+    });
     Route::get('/site/landing/resume', [SiteController::class, 'resume']);
 
     // プロキシページ系
-    Route::get('/proxy', function () {return view('proxy.show');}); //管理人を表示
+    Route::get('/proxy', function () {
+        return view('proxy.show');
+    }); //管理人を表示
     Route::post('/proxy/pdf', [ProxyController::class, 'pdf']); //管理人を表示
 
     //ページ更新処理
-    Route::get('/reload', function () {return back();});
+    Route::get('/reload', function () {
+        return back();
+    });
 
     //権限関係
     // Auth::routes();
@@ -168,5 +189,7 @@ Route::namespace('Web')->group(function () {
     Route::get('/admin/item/transaction', 'AdminController@itemTransaction');
 
     //アプリヘルプ
-    Route::get('/app/help', function () {return view('app.help');});
+    Route::get('/app/help', function () {
+        return view('app.help');
+    });
 });

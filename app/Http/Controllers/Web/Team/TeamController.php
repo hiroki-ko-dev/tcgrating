@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web\Team;
 use DB;
 use App\Http\Controllers\Controller;
 use App\Services\TeamService;
-use App\Services\PostService;
+use App\Services\Post\PostService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

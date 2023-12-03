@@ -16,7 +16,10 @@ class PostCommentRepository
         }
         $postComment->post_id = $attrs['post_id'];
         $postComment->number  = $attrs['number'];
-        $postComment->user_id = $attrs['user_id'];
+        if (isset($attrs['user_id'])) {
+            $postComment->user_id = $attrs['user_id'];
+        }
+
         $postComment->body    = $attrs['body'];
         if (isset($attrs['image_url'])) {
             $postComment->image_url = $attrs['image_url'];

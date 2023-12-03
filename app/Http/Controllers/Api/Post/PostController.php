@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Enums\PostCategory;
-use App\Services\PostService;
+use App\Services\Post\PostService;
 use App\Presenters\Api\Post\PostPresenter;
 use App\Dto\Http\ResponseDto;
 use App\Http\Requests\Api\Post\SaveRequest;

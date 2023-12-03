@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Post;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use ModelNotFoundException;
 use App\Models\Post;
 
 class PostRepository
@@ -60,14 +59,26 @@ class PostRepository
         return $query;
     }
 
-    public function find($id)
+    public function find($id): Post | null
     {
         return Post::find($id);
     }
 
-    public function findOrFail(int $id): Post
+    public function findOrFail(int $id): Post | ModelNotFoundException
     {
         return Post::findOrFail($id);
+    }
+
+    public function findOrFailAndPaginatePostComments(
+        int $id,
+        int $row,
+        int $page,
+    ): PostAndPaginateComment | ModelNotFoundException {
+        $post = $this->findOrFail($id);
+        return new PostAndPaginateComment(
+            post: $post,
+            comments: $post->postComments()->paginate($row, ['*'], 'page', $page),
+        );
     }
 
     public function findAll($request)
@@ -94,21 +105,6 @@ class PostRepository
     public function findWithByPostCategoryTeam($team)
     {
         return Post::where('team_id', $team)->where('post_category_id', \App\Models\PostCategory::CATEGORY_TEAM)->with('user')->first();
-    }
-
-    public function updateForApi($request, $paginate)
-    {
-        $query = Post::query();
-        $query->select('id', 'user_id', 'event_id', 'duel_id', 'title', 'body', 'created_at');
-        $query->where('game_id', $request->game_id);
-        $query->where('post_category_id', $request->post_category_id);
-        if (isset($request->duel_id)) {
-            $query->where('duel_id', $request->duel_id);
-        }
-        $query->with('user:id,name,twitter_simple_image_url');
-        $query->OrderBy('id', 'desc');
-
-        return $query->paginate($paginate);
     }
 
     public function paginate(array $filters, int $row, int $page): LengthAwarePaginator
@@ -150,5 +146,4 @@ class PostRepository
 
         return $query->paginate($paginate);
     }
-
 }
