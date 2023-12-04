@@ -383,7 +383,7 @@ class TwitterService
 
             // 対戦マッチング  によるメール文
             $tweet =
-                '【ポケカ掲示板】【' . PostSubCategory::form($post->sub_category_id)->description() . '】' . $post->title . PHP_EOL .
+                '【ポケカ掲示板】【' . PostSubCategory::from($post->sub_category_id)->description() . '】' . $post->title . PHP_EOL .
                 PHP_EOL .
                 $link . PHP_EOL .
                 PHP_EOL .
