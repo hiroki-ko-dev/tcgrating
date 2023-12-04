@@ -202,7 +202,7 @@
               </div>
             </div>
             <div class="row m-1 mb-3">
-              <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$replyComment->imageUrl}}" alt="{{$replyComment->post->title}}">
+              <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$replyComment->imageUrl}}" alt="ポケモンカードデッキ診断">
             </div>
           @endif
 
