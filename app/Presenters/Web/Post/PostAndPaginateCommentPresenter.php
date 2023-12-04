@@ -47,7 +47,7 @@ final class PostAndPaginateCommentPresenter
                 'imageUrl' => $postComment->image_url,
                 'isReferralPost' => $postComment->referral_id === 0,
                 'referralComment' => $this->getReferralComment($postComment->referralComment), // この行に注目
-                'replyCommentCount' => $postComment->replyComments->count(),
+                'replyCommentCount' => $postComment->replyComments ? $postComment->replyComments->count() : 0,
                 'createdAt' => $postComment->created_at,
                 'user' => $this->getUser($postComment->user)
             ]));
@@ -88,7 +88,6 @@ final class PostAndPaginateCommentPresenter
         return json_decode(json_encode([
             'id' => $comment->id,
             'number' => $comment->number,
-            // 'count' => $comment->count(), // 注：この行が不要な場合は削除してください。
         ]));
     }
 }
