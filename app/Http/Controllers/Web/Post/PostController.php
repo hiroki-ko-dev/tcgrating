@@ -74,6 +74,11 @@ class PostController extends Controller
         $request->merge(['team_id' => $request->team_id]);
         $postAttrs = $request->all();
         $postAttrs['game_id'] = $gameId;
+        foreach ($postAttrs as $key => $value) {
+            if (is_numeric($value)) {
+                $postAttrs[$key] = (int) $value;
+            }
+        }
 
         DB::transaction(function () use ($postAttrs) {
             $post = $this->postService->createPost($postAttrs);
