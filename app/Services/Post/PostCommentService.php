@@ -20,7 +20,7 @@ final class PostCommentService extends PostService
             $comment = $this->findComment($commentId);
         }
         if (!$post && !$comment) {
-            throw new Exception("Post and comment not found", 403);
+            throw new Exception("Post and comment not found", 400);
         }
         return new ReferralPostOrComment(
             post: $post,

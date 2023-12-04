@@ -44,7 +44,7 @@ class ResumeController extends Controller
 
             return view('resume.show', compact('user', 'resumeJson', 'events'));
         } catch (Exception $e) {
-            if ($e->getCode() !== 403) {
+            if ($e->getCode() !== 400) {
                 report($e);
             }
             \Log::error("ポケカ履歴書表示ResumeController.php@show UserId:" . $userId);

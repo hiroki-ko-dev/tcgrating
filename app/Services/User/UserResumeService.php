@@ -15,7 +15,7 @@ final class UserResumeService extends UserService
         $gameId = $this->fetchSelectedGameId($userId);
         $gameUser = $this->getGameUserByGameIdAndUserId($gameId, $userId);
         if (is_null($gameUser)) {
-            throw new Exception("GameUser not found", 403);
+            throw new Exception("GameUser not found", 400);
         }
         return $gameUser;
     }
