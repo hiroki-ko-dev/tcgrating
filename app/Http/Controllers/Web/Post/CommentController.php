@@ -49,7 +49,7 @@ final class CommentController extends Controller
 
             return view('post.comment.create', compact('referralPost', 'referralComment', 'replyComments'));
         } catch (Exception $e) {
-            if ($e->getCode() !== 400) {
+            if ($e->getCode() !== 403) {
                 report($e);
             }
             \Log::error([
