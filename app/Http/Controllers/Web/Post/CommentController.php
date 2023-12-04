@@ -50,7 +50,7 @@ final class CommentController extends Controller
             if ($e->getCode() !== 403) {
                 report($e);
             }
-            \Log::error("ポケカ履歴書の表示機能バグ");
+            \Log::error("ポケカ掲示板の返信表示機能バグ：CommentController.php@create");
             \Log::error($request->all());
             abort($e->getCode());
         }
