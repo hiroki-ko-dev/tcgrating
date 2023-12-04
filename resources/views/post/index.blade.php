@@ -35,7 +35,7 @@
     <!-- フラッシュメッセージ -->
     @if (session('flash_message'))
       <div class="col-md-12">
-        <div class="text-center alert-danger rounded p-3 mb-3">
+        <div class="text-center alert-danger rounded pt-3 pb-3 mb-3">
           {{ session('flash_message') }}
         </div>
       </div>
@@ -71,7 +71,6 @@
     </div>
   </form>
 
-
   @if(!empty($posts))
     @foreach($posts as $post)
     <div class="card" onclick="location.href='/post/{{$post->id}}'">
@@ -84,10 +83,10 @@
                 {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
               </span>
             </div>
-              <h2>
+              <div class="post-title">
                 {{$post->title}}
                 @if(isset($post->team)){{$post->team->name}}@endif
-              </h2>
+              </div>
           </div>
         </div>
       </div>
