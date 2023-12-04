@@ -94,7 +94,9 @@
 
     @endforeach
   @endif
-  {{$posts->appends(['post_category_id' => $post_category_id])->links('pagination::bootstrap-4')}}
+  <div class="d-flex justify-content-center mb-4">
+    {{$posts->appends(['post_category_id' => $post_category_id])->links('pagination::bootstrap-4')}}
+  </div>
 </div>
 @endsection
 

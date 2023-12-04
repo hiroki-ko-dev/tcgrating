@@ -126,8 +126,9 @@
             </div>
           </section>
         @endif
-
-        {{$post->comments->links('pagination::bootstrap-4')}}
+        <div class="d-flex justify-content-center mb-4">
+          {{$post->comments->links('pagination::bootstrap-4')}}
+        </div>
         <div class="sub-title">コメントを投稿する</div>
         <div class="card-body">
           <form method="POST" action="/post/comment">

@@ -12,6 +12,7 @@ use App\Services\User\UserInfoTwitterService;
 use App\Services\User\UserResumeService;
 use App\Services\EventService;
 use App\Presenters\Web\Resume\ResumePresenter;
+use Exception;
 
 class ResumeController extends Controller
 {
@@ -42,7 +43,7 @@ class ResumeController extends Controller
 
             return view('resume.show', compact('user', 'resumeJson', 'events'));
         } catch (Exception $e) {
-            return false;
+            abort($e->getCode());
         }
     }
 

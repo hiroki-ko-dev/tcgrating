@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\User;
 
 use App\Models\GameUser;
+use Exception;
 
 final class UserResumeService extends UserService
 {
@@ -14,7 +15,7 @@ final class UserResumeService extends UserService
         $gameId = $this->fetchSelectedGameId($userId);
         $gameUser = $this->getGameUserByGameIdAndUserId($gameId, $userId);
         if (is_null($gameUser)) {
-            throw new \Exception("GameUser not found");
+            throw new Exception("GameUser not found", 403);
         }
         return $gameUser;
     }

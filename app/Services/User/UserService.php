@@ -65,6 +65,11 @@ class UserService
         return $this->userRepository->find($id);
     }
 
+    public function findOrFailUser($id)
+    {
+        return $this->userRepository->findOrFail($id);
+    }
+
     public function findUserBy(string $column, int | string $value)
     {
         return $this->userRepository->findBy($column, $value);

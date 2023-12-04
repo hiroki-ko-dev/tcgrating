@@ -114,6 +114,11 @@ final class UserRepository
         return User::find($id);
     }
 
+    public function findOrFail(int $id): User | ModelNotFoundException
+    {
+        return User::findOrFail($id);
+    }
+
     public function findAll($attrs)
     {
         $query = User::query();
