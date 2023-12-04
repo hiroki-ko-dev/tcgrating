@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DB;
 use Mail;
+use Exception;
 use App\Mail\PostCommentEventMail;
 use App\Mail\PostCommentDuelMail;
 use App\Presenters\Web\Post\Comment\CreatePresenter;
@@ -34,17 +35,25 @@ final class CommentController extends Controller
 
     public function create(Request $request)
     {
+        try {
+            $postId = $request->post_id ? (int)$request->post_id : null;
+            $commentId = $request->comment_id ? (int)$request->comment_id : null;
+            $data = $this->createPresenter->getResponse(
+                $this->postCommentService->getReferralPostOrComment($postId, $commentId)
+            );
+            $referralPost = $data->post;
+            $referralComment = $data->comment;
+            $replyComments = $data->replyComments;
 
-        $postId = $request->post_id ? (int)$request->post_id : null;
-        $commentId = $request->comment_id ? (int)$request->comment_id : null;
-        $data = $this->createPresenter->getResponse(
-            $this->postCommentService->getReferralPostOrComment($postId, $commentId)
-        );
-        $referralPost = $data->post;
-        $referralComment = $data->comment;
-        $replyComments = $data->replyComments;
-
-        return view('post.comment.create', compact('referralPost', 'referralComment', 'replyComments'));
+            return view('post.comment.create', compact('referralPost', 'referralComment', 'replyComments'));
+        } catch (Exception $e) {
+            if ($e->getCode() !== 403) {
+                report($e);
+            }
+            \Log::error("ポケカ履歴書の表示機能バグ");
+            \Log::error($request->all());
+            abort($e->getCode());
+        }
     }
 
     public function store(Request $request)

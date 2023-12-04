@@ -30,7 +30,7 @@ class ResumeController extends Controller
         return redirect('/resume/' . Auth::id());
     }
 
-    public function show(Request $request, int $userId): View
+    public function show(int $userId): View
     {
         try {
             $gameUser = $this->userResumeService->show($userId);
@@ -43,6 +43,10 @@ class ResumeController extends Controller
 
             return view('resume.show', compact('user', 'resumeJson', 'events'));
         } catch (Exception $e) {
+            if ($e->getCode() !== 403) {
+                report($e);
+            }
+            \Log::error("ポケカ履歴書表示UserId:" . $userId);
             abort($e->getCode());
         }
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Post;
 
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Post\Dto\ReferralPostOrComment;
 
@@ -17,6 +18,9 @@ final class PostCommentService extends PostService
         } else {
             $post = null;
             $comment = $this->findComment($commentId);
+        }
+        if (!$post && !$comment) {
+            throw new Exception("Post and comment not found", 403);
         }
         return new ReferralPostOrComment(
             post: $post,
