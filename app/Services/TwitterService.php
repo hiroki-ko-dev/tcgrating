@@ -391,7 +391,7 @@ class TwitterService
 
             $this->twitterRepository->tweet($apiKeys, $tweet);
 
-            if ($post->sub_category_id == PostSubCategory::FREE) {
+            if ($post->sub_category_id === PostSubCategory::FREE->value) {
                 $webHook = config('assets.discord.web_hook.chat');
                 $discord =
                     'ポケカ掲示板に以下のトークが投稿されました。' . PHP_EOL .
@@ -400,7 +400,7 @@ class TwitterService
                     $post->title . PHP_EOL .
                     PHP_EOL .
                     $link;
-            } elseif ($post->sub_category_id == PostSubCategory::DECK) {
+            } elseif ($post->sub_category_id === PostSubCategory::DECK->value) {
                 $webHook = config('assets.discord.web_hook.deck');
                 $discord =
                     'ポケカ掲示板に以下のデッキ相談が投稿されました。' . PHP_EOL .
@@ -409,7 +409,7 @@ class TwitterService
                     '【デッキ相談】' . $post->title . PHP_EOL .
                     PHP_EOL .
                     $link;
-            } elseif ($post->sub_category_id == PostSubCategory::RULE) {
+            } elseif ($post->sub_category_id === PostSubCategory::RULE->value) {
                 $webHook = config('assets.discord.web_hook.rule');
                 $discord =
                     'ポケカ掲示板に以下のルール質問が投稿されました。' . PHP_EOL .
