@@ -32,14 +32,18 @@
         <div class="row mb-3">
           <div class="col-md-12 mb-1">
             <img src="{{$referralPost->user->profileImagePath}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
-            <a class="font-weight-bold" href="/resume/{{$referralPost->user->id}}">{{$referralPost->user->name}}</a>
+            @if($referralPost->user->id)
+              <a class="font-weight-bold" href="/resume/{{$referralPost->user->id}}">{{$referralPost->user->name}}</a>
+            @else
+              {{$referralPost->user->name}}
+            @endif
           </div>
         </div>
 
-        @if(!empty($referralPost->image_url))
+        @if(!empty($referralPost->imageUrl))
           <div class="form-group row mt-2">
             <div class="col-12">
-              デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$referralPost->imageUrl}}">{{$referralPost->imageUrl}}</a>
+              <span class="post-text">デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$referralPost->imageUrl}}">{{$referralPost->imageUrl}}</a></span>
             </div>
           </div>
           <div class="row m-1 mb-3">
@@ -68,20 +72,24 @@
           <div class="row mb-3">
             <div class="col-md-12 mb-1">
               <img src="{{$referralComment->user->profileImagePath}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
-              <a class="font-weight-bold" href="/resume/{{$referralComment->user->id}}">{{$referralComment->user->name}}</a>
+              @if($referralComment->user->id)
+                <a class="font-weight-bold" href="/resume/{{$referralComment->user->id}}">{{$referralComment->user->name}}</a>
+              @else
+                {{$referralComment->user->name}}
+              @endif
             </div>
           </div>
 
           @if(!empty($referralComment->imageUrl))
-            <div class="form-group row mt-2">
-              <div class="col-12">
-                デッキコード：{{$referralComment->imageUrl}}
-              </div>
+          <div class="form-group row mt-2">
+            <div class="col-12">
+              <span class="post-text">デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$referralComment->imageUrl}}">{{$referralComment->imageUrl}}</a></span>
             </div>
-            <div class="row m-1 mb-3">
-              <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$referralComment->imageUrl}}" alt="{{$referralPost->title}}">
-            </div>
-          @endif
+          </div>
+          <div class="row m-1 mb-3">
+              <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$referralComment->imageUrl}}" alt="ポケモンカードデッキコード">
+          </div>
+        @endif
 
           @if(!is_null($referralComment->referralComment))
             <div class="row">

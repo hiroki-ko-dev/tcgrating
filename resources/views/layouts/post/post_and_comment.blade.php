@@ -7,7 +7,7 @@
         <section>
           <div class="pb-1">
             <div class="pt-2 pb-2 d-flex align-items-center">
-              <span class="text-nowrap bg-info rounded-pill text-white p-1">
+              <span class="text-nowrap post-tag p-1">
                 {{$post->subCategoryName}}
               </span>
               <h1 class="text-wrap post-title p-2">{{$post->title}}</h1>
@@ -35,7 +35,7 @@
             @if(!empty($post->imageUrl))
               <div class="form-group row mt-2">
                 <div class="col-12">
-                デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$post->imageUrl}}">{{$post->imageUrl}}</a>
+                  <span class="post-text">デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$post->imageUrl}}">{{$post->imageUrl}}</a></span>
                 </div>
               </div>
               <div class="form-group row mt-2">
@@ -89,7 +89,7 @@
                     @if(!empty($comment->imageUrl))
                       <div class="form-group row mt-2">
                         <div class="col-12">
-                          デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$comment->imageUrl}}">{{$comment->imageUrl}}</a>
+                          <span class="post-text">デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$comment->imageUrl}}">{{$comment->imageUrl}}</a>
                         </div>
                       </div>
                       <div class="form-group row mt-2">

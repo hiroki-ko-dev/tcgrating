@@ -48,7 +48,7 @@
       <fieldset>
         <input id="sub_category_null" class="radio-inline__input" type="radio" name="sub_category_id" value="0" @if(empty(request('sub_category_id'))) checked="checked" @endif/>
         <label class="radio-inline__label" for="sub_category_null">
-          全て
+          　全て　
         </label>
         @foreach(\App\Models\Post::SUB_CATEGORY as $key => $subCategory)
           <input id="item-{{$key}}" class="radio-inline__input" type="radio" name="sub_category_id" value="{{$key}}" @if($key == request('sub_category_id'))checked="checked"@endif/>
@@ -79,7 +79,7 @@
           <div class="card-body">
             <div class="card-text" style="white-space: nowrap;">
               <span class="post-user">[{{$post->created_at}}]</span>[{{$post->postComments->count() + 1}}]
-              <span class="bg-info rounded-pill text-white p-1">
+              <span class="post-tag p-1">
                 {{\App\Models\Post::SUB_CATEGORY[$post->sub_category_id]}}
               </span>
             </div>
