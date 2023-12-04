@@ -13,6 +13,8 @@ use App\Services\User\UserService;
 use App\Services\TwitterService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View;
 use DB;
 use Mail;
 use Exception;
@@ -33,7 +35,7 @@ final class CommentController extends Controller
     ) {
     }
 
-    public function create(Request $request)
+    public function create(Request $request): View | RedirectResponse
     {
         try {
             $postId = $request->post_id ? (int)$request->post_id : null;
@@ -50,13 +52,15 @@ final class CommentController extends Controller
             if ($e->getCode() !== 403) {
                 report($e);
             }
-            \Log::error("ポケカ掲示板の返信表示機能バグ：CommentController.php@create");
-            \Log::error($request->all());
+            \Log::error([
+                "ポケカ掲示板の返信表示機能バグ：CommentController.php@create",
+                $request->all()
+            ]);
             abort($e->getCode());
         }
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $commentAttrs = $request->all();
         foreach ($commentAttrs as $key => $value) {

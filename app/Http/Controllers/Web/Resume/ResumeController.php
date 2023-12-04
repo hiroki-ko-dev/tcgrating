@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Resume;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Auth;
 use DB;
@@ -30,7 +31,7 @@ class ResumeController extends Controller
         return redirect('/resume/' . Auth::id());
     }
 
-    public function show(int $userId): View
+    public function show(int $userId): View | RedirectResponse
     {
         try {
             $gameUser = $this->userResumeService->show($userId);
@@ -46,12 +47,12 @@ class ResumeController extends Controller
             if ($e->getCode() !== 403) {
                 report($e);
             }
-            \Log::error("ポケカ履歴書表示UserId:" . $userId);
+            \Log::error("ポケカ履歴書表示ResumeController.php@show UserId:" . $userId);
             abort($e->getCode());
         }
     }
 
-    public function edit(Request $request, $user_id)
+    public function edit(Request $request, $user_id): View | RedirectResponse
     {
         //アカウント認証しているユーザーのみ新規作成可能
         $this->middleware('auth');
@@ -82,7 +83,7 @@ class ResumeController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function update(Request $request)
+    public function update(Request $request): View | RedirectResponse
     {
         //アカウント認証しているユーザーのみ新規作成可能
         $this->middleware('auth');
