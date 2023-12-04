@@ -7,10 +7,26 @@ h1{
 }
 
 .post-user{
-    font-weight: bold;
-    color: 	#008000;
+  font-weight: bold;
+  color: 	#008000;
+  font-size: 12px;
 }
 
 .post-text{
     font-size: 16px;
+}
+
+.small-profile {
+  width: 40px;
+  height: 40px;
+}
+.post-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
+
+.sub-title{
+  font-weight: bold;
+  color: grey;
 }
