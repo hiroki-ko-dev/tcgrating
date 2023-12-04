@@ -7,7 +7,7 @@ use App\Enums\Gender;
 
 final class ResumePresenter
 {
-    public function resume(gameUser $gameUser): array
+    public function resume(gameUser $gameUser): string
     {
         $gameUserChecks = [];
         foreach ($gameUser->gameUserChecks as $gameUserCheck) {
@@ -15,7 +15,7 @@ final class ResumePresenter
             $gameUserChecks[$gameUserCheck->item_id] = true;
         }
 
-        return [
+        return json_encode([
             'user' => [
                 'id' => $gameUser->user->id,
                 'name' => $gameUser->user->name,
@@ -30,7 +30,7 @@ final class ResumePresenter
                     'gameUserChecks' => $gameUserChecks,
                 ],
             ],
-        ];
+        ]);
     }
 
     private function getGenderName(int $gender): string

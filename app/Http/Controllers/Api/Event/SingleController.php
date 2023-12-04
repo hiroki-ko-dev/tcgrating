@@ -59,7 +59,7 @@ class SingleController extends Controller
             return response()->json(
                 new ResponseDto(
                     data: $this->singlePresenter->index(
-                        $this->eventService->getEvents($eventFilters, 50),
+                        $this->eventService->paginateEvents($eventFilters, 50),
                     ),
                     code: 200,
                     message: '',
@@ -215,7 +215,7 @@ class SingleController extends Controller
         try {
             $eventFilters = $request->all();
             $eventFilters['status'] = EventStatus::READY->value;
-            $events = $this->eventService->getEvents($eventFilters);
+            $events = $this->eventService->findAllEvents($eventFilters);
         } catch (\Exception $e) {
             $event = [
                 'error' => [

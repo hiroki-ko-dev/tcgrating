@@ -133,7 +133,7 @@ class EventRepository
         }
         if (isset($filters['eventUsers'])) {
             $query->whereHas('eventUsers', function ($q) use ($filters) {
-                if (isset($filters['user_id'])) {
+                if (isset($filters['eventUsers']['user_id'])) {
                     $q->where('user_id', $filters['eventUsers']['user_id']);
                 }
             });

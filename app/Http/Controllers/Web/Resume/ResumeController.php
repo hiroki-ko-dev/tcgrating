@@ -35,10 +35,9 @@ class ResumeController extends Controller
     {
         try {
             $gameUser = $this->userResumeService->show($userId);
-            $resumeJson = json_encode(
-                $this->resumePresenter->resume($gameUser)
-            );
-            $events = $this->eventService->findAllEventByUserId($userId);
+            $resumeJson = $this->resumePresenter->resume($gameUser);
+            $eventFilters['eventUsers']['user_id'] = $userId;
+            $events = $this->eventService->findAllEvents($eventFilters);
             $user = $gameUser->user;
             $this->userInfoTwitterService->saveTwitterImage($user);
 

@@ -81,7 +81,7 @@ class EventService
             }
             $gameUser = $this->gameUserRepository->findByGameIdAndUserId($event->game_id, $eventUser->user_id);
             $gameUser->rate = $rate;
-            $gameUser = $this->gameUserRepository->update($gameUser);
+            $gameUser = $this->gameUserRepository->update($gameUser->id,);
 
             return $gameUser;
         }
@@ -146,7 +146,7 @@ class EventService
         return $this->eventRepository->find($event_id);
     }
 
-    public function getEvents(array $filters): Collection
+    public function findAllEvents(array $filters): Collection
     {
         return $this->eventRepository->findAll($filters);
     }
@@ -157,7 +157,7 @@ class EventService
 
     public function getEventsJsonsForFullCalendar($request)
     {
-        $events = $this->getEvents($request);
+        $events = $this->findAllEvents($request);
 
         $json_events = '[';
         foreach ($events as $i => $event) {

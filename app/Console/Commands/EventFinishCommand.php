@@ -38,7 +38,7 @@ final class EventFinishCommand extends Command
             $eventFilters['statuses'] = [EventStatus::RECRUIT->value, EventStatus::READY->value];
             $eventFilters['event_category_id'] = \App\Models\EventCategory::CATEGORY_SINGLE;
             $eventFilters['end_date'] = Carbon::today()->subDay(3);
-            $events = $this->eventService->getEvents($eventFilters);
+            $events = $this->eventService->findAllEvents($eventFilters);
             foreach ($events as $event) {
                 if ($event->status == EventStatus::RECRUIT->value) {
                     $eventNextStatus = EventStatus::CANCEL->value;
