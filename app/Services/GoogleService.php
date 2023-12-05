@@ -2,46 +2,27 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
-use App\Repositories\UserRepository;
-use App\Repositories\TwitterRepository;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
+use Google_Client;
+use Google_Service_Sheets;
 
 class GoogleService
 {
-    protected $userRepository;
-    protected $twitterRepository;
-
-    public function __construct(UserRepository $userRepository,
-                            TwitterRepository $twitterRepository)
+    public static function getValue($sheetName): array
     {
-        $this->userRepository = $userRepository;
-        $this->twitterRepository = $twitterRepository;
-    }
-
-    /**
-     * @param $sheetName
-     * @return array[]
-     * @throws \Google\Exception
-     */
-    public static function getValue($sheetName)
-    {
-
         // google spread sheetと接続するためのkey
         $credentials_path = storage_path('app/json/credentials.json');
         // 接続の際のクライアントのインスタンスを作成
-        $client = new \Google_Client();
+        $client = new Google_Client();
         // keyをセット
         $client->setAuthConfig($credentials_path);
         // spread sheetに接続することを宣言
-        $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
+        $client->setScopes([Google_Service_Sheets::SPREADSHEETS]);
 
         // スプレッドシートのIDをセット
         $sheet_id = config('assets.google.spread_sheet.best_sale_bot.sheet_id');
         // スプレッドシート名とレンジをセット
         $range = $sheetName . '!B3:H100';
-        $sheet = new \Google_Service_Sheets($client);
+        $sheet = new Google_Service_Sheets($client);
         // スプレッドシートの値を取得
         $response = $sheet->spreadsheets_values->get($sheet_id, $range);
 

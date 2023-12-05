@@ -12,13 +12,15 @@ use App\Enums\PostCategory;
 use App\Services\Post\PostService;
 use App\Services\TwitterService;
 use App\Presenters\Web\Post\PostAndPaginateCommentPresenter;
+use App\Presenters\Web\Post\PostLatestPresenter;
 
-class PostController extends Controller
+final class PostController extends Controller
 {
     public function __construct(
         private PostService $postService,
         private TwitterService $twitterService,
         private PostAndPaginateCommentPresenter $postAndPaginateCommentPresenter,
+        private PostLatestPresenter $postLatestPresenter,
     ) {
     }
 
@@ -34,6 +36,9 @@ class PostController extends Controller
         $postFilters['post_category_id'] = $request->query('post_category_id');
         if ($request->query('sub_category_id')) {
             $postFilters['sub_category_id'] = $request->query('sub_category_id');
+        }
+        if (!empty($request->query('search'))) {
+            $postFilters['search'] = $request->query('search');
         }
         $postFilters['game_id'] = $gameId;
         $page = $request->get('page', 1);
@@ -94,7 +99,9 @@ class PostController extends Controller
         $post = $this->postAndPaginateCommentPresenter->getResponse(
             $this->postService->findPostAndPaginatePostComments($post_id, 50, $page)
         );
-
-        return view('post.show', compact('post'));
+        $postLatests = $this->postLatestPresenter->getResponse(
+            $this->postService->findAllPosts([])
+        );
+        return view('post.show', compact('post', 'postLatests'));
     }
 }

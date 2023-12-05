@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\Post;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\PostComment;
@@ -51,5 +51,4 @@ class PostCommentRepository
                             ->where('post_id', $post_id)
                             ->paginate($paginate);
     }
-
 }

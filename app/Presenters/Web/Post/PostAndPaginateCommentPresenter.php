@@ -8,7 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\User;
 use App\Models\PostComment;
 use App\Enums\PostSubCategory;
-use App\Repositories\Post\PostAndPaginateComment;
+use App\Repositories\Post\Dto\PostAndPaginateComment;
 use stdClass;
 
 final class PostAndPaginateCommentPresenter
@@ -78,6 +78,17 @@ final class PostAndPaginateCommentPresenter
     }
 
     private function getReferralComment(?PostComment $comment): ?stdClass
+    {
+        if (!$comment) {
+            return null;
+        }
+        return json_decode(json_encode([
+            'id' => $comment->id,
+            'number' => $comment->number,
+        ]));
+    }
+
+    private function getLatestPosts(): ?stdClass
     {
         if (!$comment) {
             return null;

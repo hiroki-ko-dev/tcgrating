@@ -7,8 +7,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\Event;
 use App\Enums\EventStatus;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class EventRepository
 {

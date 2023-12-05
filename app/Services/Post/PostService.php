@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Services\Post;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use App\Models\Post;
 use App\Repositories\Post\PostRepository;
-use App\Repositories\Post\PostAndPaginateComment;
-use App\Repositories\PostCommentRepository;
+use App\Repositories\Post\Dto\PostAndPaginateComment;
+use App\Repositories\Post\PostCommentRepository;
 use DB;
 
 class PostService
@@ -77,6 +78,11 @@ class PostService
     public function findPostWithByPostCategoryTeam($team_id)
     {
         return $this->postRepository->findWithByPostCategoryTeam($team_id);
+    }
+
+    public function findAllPosts(array $attrs): Collection
+    {
+        return $this->postRepository->findAll($attrs);
     }
 
     public function findAllPostCommentWithUserByPostIdAndPagination($post_id, $paginate)

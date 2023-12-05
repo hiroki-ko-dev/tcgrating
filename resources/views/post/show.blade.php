@@ -33,7 +33,9 @@
         </div>
       @endif
     </div>
+    @include('layouts.post.post_latest')
     @include('layouts.post.post_and_comment')
+    @include('layouts.post.post_latest')
 </div>
 
 @endsection

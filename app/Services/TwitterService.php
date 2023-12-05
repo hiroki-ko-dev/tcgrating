@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
 use App\Enums\EventRateType;
 use App\Enums\PostSubCategory;
 use App\Repositories\UserRepository;
@@ -16,9 +15,7 @@ class TwitterService
         private readonly TwitterRepository $twitterRepository
     ) {
     }
-    /**
-     * @param Request $event
-     */
+
     public function tweetByMakeEvent($event)
     {
         // Twitterの遊戯王アカウントでTweet
@@ -47,9 +44,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param Request $event
-     */
     public function tweetByMakeInstantEvent($event)
     {
         // Twitterの遊戯王アカウントでTweet
@@ -96,9 +90,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param Request $event
-     */
     public function tweetByMatching($event)
     {
         // Twitterの遊戯王アカウントでTweet
@@ -255,10 +246,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param $event
-     * @param $users
-     */
     public function tweetByEventPostNotice($event, $users)
     {
         // Twitterの遊戯王アカウントでTweet
@@ -288,10 +275,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param $duel
-     * @param $user
-     */
     public function tweetByDuelPostNotice($duel, $users)
     {
         // Twitterの遊戯王アカウントでTweet
@@ -322,10 +305,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param $event
-     * @param $phase
-     */
     public function tweetBySwissEvent($event, $phase)
     {
         $apiKeys = config('assets.twitter.pokemon');
@@ -370,9 +349,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param $post
-     */
     public function tweetByStorePost($post)
     {
         if (config('assets.common.appEnv') == 'production') {
@@ -423,9 +399,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param $blog
-     */
     public function tweetByBlog($blog)
     {
         if (config('assets.common.appEnv') == 'production') {
@@ -457,9 +430,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param $blog
-     */
     public function tweetByAffiliate($blog)
     {
         if (config('assets.common.appEnv') == 'production') {
@@ -501,10 +471,6 @@ class TwitterService
         }
     }
 
-
-    /**
-     *
-     */
     public function tweetPromotion()
     {
         if (config('assets.common.appEnv') == 'production') {
@@ -537,10 +503,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param $spreadSheet
-     * @param $apiKeys
-     */
     public function tweetSpreadAffiliate($spreadSheet, $apiKeys)
     {
         if (config('assets.common.appEnv') == 'production') {
@@ -568,10 +530,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param $spreadSheet
-     * @param $apiKeys
-     */
     public function tweetSpreadNormal($spreadSheet, $apiKeys)
     {
 
@@ -589,10 +547,6 @@ class TwitterService
         }
     }
 
-    /**
-     * @param $message
-     * @param $webHook
-     */
     public function discordPost($message, $webHook)
     {
         $data = array("content" => $message, "username" => 'TCGRating');

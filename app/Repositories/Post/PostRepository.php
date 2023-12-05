@@ -2,15 +2,17 @@
 
 namespace App\Repositories\Post;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use App\Models\Post;
+use App\Repositories\Post\Dto\PostAndPaginateComment;
 
 class PostRepository
 {
     public function create(array $attrs)
     {
         $post = new Post();
-
         $fields = [
             'game_id',
             'post_category_id',
@@ -24,13 +26,11 @@ class PostRepository
             'image_url',
             'is_personal',
         ];
-
         foreach ($fields as $field) {
             if (array_key_exists($field, $attrs)) {
                 $post->$field = $attrs[$field];
             }
         }
-
         $post->save();
 
         return $post;
@@ -41,19 +41,27 @@ class PostRepository
         $this->find($id)->touch();
     }
 
-    public function composeWhereClause($request)
+    public function composeWhereClause(array $attrs): Builder
     {
         $query = Post::query();
-        $query->where('game_id', $request->game_id);
-        $query->where('post_category_id', $request->post_category_id);
-        if (isset($request->sub_category_id) && $request->sub_category_id > 0) {
-            $query->where('sub_category_id', $request->sub_category_id);
-        }
-        // 検索ワードでフィルタ
-        if (isset($request->search)) {
-            $words = preg_split('/\s|　/', $request->search);
-            foreach ($words as $word) {
-                $query->where('title', 'like', "%$word%");
+        $fields = [
+            'game_id',
+            'post_category_id',
+            'sub_category_id',
+            'search',
+        ];
+        foreach ($fields as $field) {
+            if (array_key_exists($field, $attrs)) {
+                if (isset($attrs[$field])) {
+                    if ($field === 'search') {
+                        $words = preg_split('/\s|　/', $attrs[$field]);
+                        foreach ($words as $word) {
+                            $query->where('title', 'like', "%$word%");
+                        }
+                    } else {
+                        $query->where($field, $attrs[$field]);
+                    }
+                }
             }
         }
         return $query;
@@ -81,9 +89,9 @@ class PostRepository
         );
     }
 
-    public function findAll($request)
+    public function findAll(array $attrs): Collection
     {
-        $query = $this->composeWhereClause($request);
+        $query = $this->composeWhereClause($attrs);
         return $query->get();
     }
 
@@ -110,10 +118,17 @@ class PostRepository
     public function paginate(array $filters, int $row, int $page): LengthAwarePaginator
     {
         $query = Post::query();
-        foreach ($filters as $key => $filter) {
-            $query->where($key, $filter);
+        foreach ($filters as $key => $value) {
+            if ($key === "search") {
+                $words = preg_split('/\s|　/', $value);
+                foreach ($words as $word) {
+                    $query->where('title', 'like', "%$word%");
+                }
+            } else {
+                $query->where($key, $value);
+            }
         }
-        $query->OrderBy('id', 'desc');
+        $query->OrderBy('updated_at', 'desc');
 
         return $query->paginate($row, ['*'], 'page', $page);
     }

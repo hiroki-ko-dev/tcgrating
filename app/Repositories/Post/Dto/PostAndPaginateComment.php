@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Post;
+namespace App\Repositories\Post\Dto;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\Post;
