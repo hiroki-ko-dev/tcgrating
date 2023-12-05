@@ -550,7 +550,7 @@ class TwitterService
             $title = $spreadSheet[$randKey][0];
             $url = $spreadSheet[$randKey][1];
             $content = $spreadSheet[$randKey][2];
-            $no = $spreadSheet[$randKey][3];
+            // $no = $spreadSheet[$randKey][3];
             $hashTag = $spreadSheet[$randKey][4];
 
             // メール文
@@ -565,7 +565,6 @@ class TwitterService
 
             $tweet = Str::limit($tweet, 250, '...');
             $this->twitterRepository->tweet($apiKeys, $tweet);
-
         }
     }
 
