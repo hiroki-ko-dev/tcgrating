@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-    
+
     protected $guarded = [];
 
     //定数の定義
@@ -37,8 +37,15 @@ class Post extends Model
         return $this->belongsTo('App\Models\Team', 'team_id', 'id');
     }
 
-    public function getAttributeReplyCommentCount()
+    public function replyPostComments()
     {
-        return $this->postComments->where('referral_id', 0)->count();
+        return $this->hasMany('App\Models\PostComment', 'post_id', 'id')
+            ->where('referral_id', 0)
+            ->whereNotNull('referral_id');
+    }
+
+    public function getReplyCommentCountAttribute()
+    {
+        return $this->postComments->where('referral_id', 0)->whereNotNull('referral_id')->count();
     }
 }

@@ -18,7 +18,7 @@ final class CreatePresenter
         if ($referralPostOrComment->post) {
             $post = $this->convertPost($referralPostOrComment->post);
             $comment = null;
-            $postComments = $this->convertReplyComments($referralPostOrComment->post->replyComments);
+            $postComments = $this->convertReplyComments($referralPostOrComment->post->replyPostComments);
         } else {
             $post = null;
             $comment = $this->convertComment($referralPostOrComment->comment);

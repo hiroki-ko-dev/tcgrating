@@ -26,9 +26,6 @@ final class PostAndPaginateCommentPresenter
         $post->imageUrl = $model->post->image_url;
         $post->createdAt = $model->post->created_at;
         $post->user = $this->getUser($model->post->user);
-
-
-
         $post->comments = $this->getPaginateComments($model->comments);
         return $post;
     }

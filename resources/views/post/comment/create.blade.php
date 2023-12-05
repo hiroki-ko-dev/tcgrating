@@ -20,50 +20,50 @@
 
     <div class="box text-left w-100 mb-2">
       @if($referralPost)
-      <div class="post">
-        <div class="row mb-3">
-          <div class="col-md-12 mb-1">
-            <div class="font-weight-bold">{{$referralPost->title}}</div>
-          </div>
-        </div>
-        <div class="row m-1">
-            <div class="post-user">1. [{{$referralPost->createdAt}}]</div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-12 mb-1">
-            <img src="{{$referralPost->user->profileImagePath}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
-            @if($referralPost->user->id)
-              <a class="font-weight-bold" href="/resume/{{$referralPost->user->id}}">{{$referralPost->user->name}}</a>
-            @else
-              {{$referralPost->user->name}}
-            @endif
-          </div>
-        </div>
-
-        @if(!empty($referralPost->imageUrl))
-          <div class="form-group row mt-2">
-            <div class="col-12">
-              <span class="post-text">デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$referralPost->imageUrl}}">{{$referralPost->imageUrl}}</a></span>
+        <div class="post">
+          <div class="row mb-3">
+            <div class="col-md-12 mb-1">
+              <div class="font-weight-bold">{{$referralPost->title}}</div>
             </div>
           </div>
+          <div class="row m-1">
+              <div class="post-user">1. [{{$referralPost->createdAt}}]</div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-12 mb-1">
+              <img src="{{$referralPost->user->profileImagePath}}" class="rounded-circle small-profile" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
+              @if($referralPost->user->id)
+                <span class="post-user"><a class="font-weight-bold" href="/resume/{{$referralPost->user->id}}">{{$referralPost->user->name}}</a></span>
+              @else
+                <span class="post-user">{{$referralPost->user->name}}</span>
+              @endif
+            </div>
+          </div>
+
+          @if(!empty($referralPost->imageUrl))
+            <div class="form-group row mt-2">
+              <div class="col-12">
+                <span class="post-text">デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$referralPost->imageUrl}}">{{$referralPost->imageUrl}}</a></span>
+              </div>
+            </div>
+            <div class="row m-1 mb-3">
+                <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$referralPost->imageUrl}}" alt="{{$referralPost->title}}">
+            </div>
+          @endif
+
           <div class="row m-1 mb-3">
-              <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$referralPost->imageUrl}}" alt="{{$referralPost->title}}">
+            <div class="post-text">{!! nl2br(e($referralPost->body)) !!}</div>
           </div>
-        @endif
 
-        <div class="row m-1 mb-3">
-          <div class="post-text">{!! nl2br(e($referralPost->body)) !!}</div>
-        </div>
-
-        @if($referralPost->replyCommentCount > 0)
-          <div class="row mt-2 pb-2">
-            <div class="bg-pink p-1 ml-3 font-weight-bold text-redPurple">
-              <a href="/post/comment/create?post_id={{$referralPost->id}}" class="text-redPurple">{{$referralPost->replyCommentCount}}件の返信</a>
+          @if($referralPost->replyCommentCount > 0)
+            <div class="row mt-2 pb-2">
+              <div class="bg-pink p-1 ml-3 font-weight-bold text-redPurple">
+                <a href="/post/comment/create?post_id={{$referralPost->id}}" class="text-redPurple">{{$referralPost->replyCommentCount}}件の返信</a>
+              </div>
             </div>
-          </div>
-        @endif
+          @endif
 
-      </div>
+        </div>
       @else
         <div class="comment pt-2">
           <div class="row m-1">
@@ -71,25 +71,25 @@
           </div>
           <div class="row mb-3">
             <div class="col-md-12 mb-1">
-              <img src="{{$referralComment->user->profileImagePath}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
+              <img src="{{$referralComment->user->profileImagePath}}" class="rounded-circle small-profile" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
               @if($referralComment->user->id)
-                <a class="font-weight-bold" href="/resume/{{$referralComment->user->id}}">{{$referralComment->user->name}}</a>
+                <span class="post-user"><a class="font-weight-bold" href="/resume/{{$referralComment->user->id}}">{{$referralComment->user->name}}</a></span>
               @else
-                {{$referralComment->user->name}}
+                <span class="post-user">{{$referralComment->user->name}}</span>
               @endif
             </div>
           </div>
 
           @if(!empty($referralComment->imageUrl))
-          <div class="form-group row mt-2">
-            <div class="col-12">
-              <span class="post-text">デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$referralComment->imageUrl}}">{{$referralComment->imageUrl}}</a></span>
+            <div class="form-group row mt-2">
+              <div class="col-12">
+                <span class="post-text">デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$referralComment->imageUrl}}">{{$referralComment->imageUrl}}</a></span>
+              </div>
             </div>
-          </div>
-          <div class="row m-1 mb-3">
+            <div class="row m-1 mb-3">
               <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$referralComment->imageUrl}}" alt="ポケモンカードデッキコード">
-          </div>
-        @endif
+            </div>
+          @endif
 
           @if(!is_null($referralComment->referralComment))
             <div class="row">
@@ -117,6 +117,58 @@
         </div>
       @endif
     </div>
+
+    @if($replyComments)
+      <div class="box text-left w-100 mb-2">
+        <div class="sub-title">他の返信一覧</div>
+        @foreach($replyComments as $replyComment)
+          <div class="comment border-top pt-2">
+            <div class="row m-1">
+              <span class="post-user">{{$replyComment->number}}. [{{$replyComment->createdAt}}]</span>
+              <a href="/post/comment/create?comment_id={{$replyComment->id}}">返信する</a>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <img src="{{$replyComment->user->profileImagePath}}" class="rounded-circle small-profile" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
+                <span class="post-user"><a class="font-weight-bold" href="/resume/{{$replyComment->user->id}}">{{$replyComment->user->name}}</a></span>
+              </div>
+            </div>
+
+            @if(!empty($replyComment->imageUrl))
+              <div class="form-group row mt-2">
+                <div class="col-12">
+                  デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$replyComment->imageUrl}}">{{$replyComment->imageUrl}}</a>
+                </div>
+              </div>
+              <div class="row m-1 mb-3">
+                <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$replyComment->imageUrl}}" alt="ポケモンカードデッキ診断">
+              </div>
+            @endif
+
+            <div class="row">
+              <div class="bg-skyblue p-1 ml-3 font-weight-bold text-primary">
+                @if($referralPost)
+                  <a href="/post/comment/create?post_id={{$referralPost->id}}">>>1</a>
+                @else
+                  <a href="/post/comment/create?comment_id={{$referralComment->id}}">>>{{$referralComment->number}}</a>
+                @endif
+              </div>
+            </div>
+            <div class="row m-1 mb-3">
+              <div class="post-text">{!! nl2br(e($replyComment->body)) !!}</div>
+            </div>
+
+            @if($replyComment->replyCommentCount > 0)
+              <div class="row mt-2 pb-2">
+                <div class="bg-pink p-1 ml-3 font-weight-bold">
+                  <a href="/post/comment/create?comment_id={{$replyComment->id}}" class="text-redPurple">{{$replyComment->replyCommentCount}}件の返信</a>
+                </div>
+              </div>
+            @endif
+          </div>
+        @endforeach
+      </div>
+    @endif
 
     <div class="box text-left w-100">
       <form method="POST" action="/post/comment">
@@ -181,54 +233,6 @@
       </form>
     </div>
 
-    @foreach($replyComments as $replyComment)
-      <div class="box text-left w-100 mb-2">
-        <div class="comment border-top pt-2">
-          <div class="row m-1">
-            <span class="post-user">{{$replyComment->number}}. [{{$replyComment->createdAt}}]</span>
-            <a href="/post/comment/create?comment_id={{$replyComment->id}}">返信する</a>
-          </div>
-          <div class="row mb-3">
-            <div class="col-md-12">
-              <img src="{{$replyComment->user->profileImagePath}}" class="rounded-circle" onerror="this.src='{{ asset('/images/icon/default-account.png') }}'">
-              <a class="font-weight-bold" href="/resume/{{$replyComment->user->id}}">{{$replyComment->user->name}}</a>
-            </div>
-          </div>
-
-          @if(!empty($replyComment->imageUrl))
-            <div class="form-group row mt-2">
-              <div class="col-12">
-                デッキコード：<a href="https://www.pokemon-card.com/deck/confirm.html/deckID/{{$replyComment->imageUrl}}">{{$replyComment->imageUrl}}</a>
-              </div>
-            </div>
-            <div class="row m-1 mb-3">
-              <img class="img-fluid" src="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$replyComment->imageUrl}}" alt="ポケモンカードデッキ診断">
-            </div>
-          @endif
-
-          <div class="row">
-            <div class="bg-skyblue p-1 ml-3 font-weight-bold text-primary">
-              @if($referralPost)
-                <a href="/post/comment/create?post_id={{$referralPost->id}}">>>1</a>
-              @else
-                <a href="/post/comment/create?comment_id={{$referralComment->id}}">>>{{$referralComment->number}}</a>
-              @endif
-            </div>
-          </div>
-          <div class="row m-1 mb-3">
-            <div class="post-text">{!! nl2br(e($replyComment->body)) !!}</div>
-          </div>
-
-          @if($replyComment->replyCommentCount > 0)
-            <div class="row mt-2 pb-2">
-              <div class="bg-pink p-1 ml-3 font-weight-bold">
-                <a href="/post/comment/create?comment_id={{$replyComment->id}}" class="text-redPurple">{{$replyComment->replyCommentCount}}件の返信</a>
-              </div>
-            </div>
-          @endif
-        </div>
-      </div>
-    @endforeach
   </div>
 @endsection
 
