@@ -45,7 +45,7 @@ final class PostAndPaginateCommentPresenter
                 'isReferralPost' => $postComment->referral_id === 0,
                 'referralComment' => $this->getReferralComment($postComment->referralComment), // この行に注目
                 'replyCommentCount' => $postComment->replyComments ? $postComment->replyComments->count() : 0,
-                'createdAt' => $postComment->created_at,
+                'createdAt' => (string)$postComment->created_at,
                 'user' => $this->getUser($postComment->user)
             ]));
         });

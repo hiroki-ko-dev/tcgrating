@@ -43,7 +43,7 @@ final class CreatePresenter
             'imageUrl' => $post->image_url,
             'user' => $this->getUser($post->user),
             'replyCommentCount' => $post->replyCommentCount,
-            'createdAt' => $post->created_at,
+            'createdAt' => (string)$post->created_at,
         ];
 
         return json_decode(json_encode($post));
@@ -64,7 +64,7 @@ final class CreatePresenter
             'referralId' => $postComment->referral_id,
             'referralComment' => $this->convertComment($postComment->referralComment),
             'replyCommentCount' => $postComment->replyComments ? $postComment->replyComments->count() : 0,
-            'createdAt' => $postComment->created_at,
+            'createdAt' => (string)$postComment->created_at,
             'user' => $this->getUser($postComment->user)
         ];
 
@@ -102,7 +102,7 @@ final class CreatePresenter
                 'isReferralPost' => $postComment->referral_id === 0,
                 'referralId' => $postComment->referral_id,
                 'replyCommentCount' => $postComment->replyComments ? $postComment->replyComments->count() : 0,
-                'createdAt' => $postComment->created_at,
+                'createdAt' => (string)$postComment->created_at,
                 'user' => $this->getUser($postComment->user)
             ];
         });
