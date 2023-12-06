@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Post;
 
 use App\Http\Controllers\Controller;
 use DB;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -95,13 +96,25 @@ final class PostController extends Controller
 
     public function show(Request $request, int $post_id): View
     {
-        $page = $request->get('page', 1);
-        $post = $this->postAndPaginateCommentPresenter->getResponse(
-            $this->postService->findPostAndPaginatePostComments($post_id, 50, $page)
-        );
-        $postLatests = $this->postLatestPresenter->getResponse(
-            $this->postService->findAllPosts([])
-        );
-        return view('post.show', compact('post', 'postLatests'));
+        try {
+            $page = $request->get('page', 1);
+            $post = $this->postAndPaginateCommentPresenter->getResponse(
+                $this->postService->findPostAndPaginatePostComments($post_id, 50, $page)
+            );
+            $postLatests = $this->postLatestPresenter->getResponse(
+                $this->postService->findAllPosts([])
+            );
+            return view('post.show', compact('post', 'postLatests'));
+        } catch (Exception $e) {
+            if ($e->getCode() !== 403) {
+                report($e);
+            }
+            \Log::error([
+                "ポケカ掲示板の表示機能バグ：PostController.php@show",
+                $post_id,
+                $request->all()
+            ]);
+            abort($e->getCode());
+        }
     }
 }

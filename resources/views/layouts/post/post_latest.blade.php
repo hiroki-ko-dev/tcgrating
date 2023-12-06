@@ -8,11 +8,11 @@
             <div class="mt-3">
               <div class="border-bottom"></div>
               <div>
-                @foreach($postLatests as $comment)
-                  <a href="/post/comment/create?comment_id={{ $comment->id }}" class="text-decoration-none">
+                @foreach($postLatests as $post)
+                  <a href="/post/{{ $post->id }}" class="text-decoration-none">
                     <div>
                       <div class="pt-1 pb-1">
-                        <span class="text-danger">New</span>　{{$comment->title}}
+                        <span class="text-danger">New</span>　{{$post->title}}
                       </div>
                     </div>
                     <div class="border-bottom"></div>
