@@ -8,10 +8,10 @@
 
 .header-color{
   background: radial-gradient(
-      circle 200px at center,
-      #666666 0%,
-      #333333 50%,
-      #000000 100%
+    circle 200px at center,
+    #666666 0%,
+    #333333 50%,
+    #000000 100%
   );
   width: 100%;
   justify-content: center;
@@ -66,11 +66,12 @@
 @media screen and (max-width: 700px) {
   .menu-btn {
     position: fixed;
-    top: 10px;
+    // top: 10px;
     right: 10px;
     display: flex;
-    height: 50px;
+    height: 60px;
     width: 60px;
+    border-radius: 30px;
     justify-content: center;
     align-items: center;
     z-index: 90;
@@ -83,7 +84,6 @@
       border-radius: 3px;
       background-color: #ffffff;
       position: absolute;
-
       &:before {
         content: '';
         display: block;
@@ -94,7 +94,6 @@
         position: absolute;
         bottom: 8px;
       }
-
       &:after {
         content: '';
         display: block;
@@ -117,7 +116,7 @@
     background-color: #000000;
     transition: all 0.5s; /*アニメーション設定*/
     ul {
-      padding: 70px 10px 0;
+      padding: 20px 10px 0;
       li {
         border-bottom: solid 1px #ffffff;
         list-style: none;
@@ -131,7 +130,10 @@
           text-decoration: none;
           padding: 20px 20px 20px 0;
           position: relative;
-
+          .text-yellrow {
+            color: yellow;
+            font-weight: bold;
+          }
           &::before {
             content: "";
             width: 7px;
