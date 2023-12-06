@@ -160,11 +160,11 @@
               </div>
             @endif
             <div class="form-group row mb-0">
-              <div class="col-md-6 offset-md-5">
-                <button type="submit" class="btn site-color btn-outline-secondary text-light w-40 mr-2" onClick="return requestConfirm();">
-                  {{ __('投稿') }}
+              <div class="col-md-8 offset-md-2 text-center">
+                <button class="btn bg-secondary text-white w-40 mr-2" onClick="history.back()">戻る</button>
+                <button type="submit" class="btn site-color btn-outline-secondary text-light w-40" onClick="return requestConfirm();">
+                    {{ __('投稿') }}
                 </button>
-                <button class="btn bg-secondary text-white w-40" onClick="history.back()">戻る</button>
               </div>
             </div>
           </form>
