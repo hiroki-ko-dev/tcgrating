@@ -66,10 +66,10 @@
         @endif
 
         <div class="row justify-content-center">
-          <button type="submit" class="btn btn btn-dark w-40 mr-4">
-            {{ __('投稿') }}
+          <button class="btn bg-secondary text-white w-40 mr-2" onClick="history.back()">戻る</button>
+          <button type="submit" class="btn site-color btn-outline-secondary text-light w-40" onClick="return requestConfirm();">
+              {{ __('投稿') }}
           </button>
-          <button class="btn bg-secondary text-white w-40" onClick="history.back()">戻る</button>
         </div>
       </form>
     </div>

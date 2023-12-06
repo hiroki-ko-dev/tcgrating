@@ -92,10 +92,10 @@
                     <li><a href="/proxy">プロキシ作成</a></li>
 {{--                    <li><a href="/item">商品購入</a></li>--}}
                     @if(Auth::user()->role == 1)
-                      <li><a href="/event/group">グループ対戦</a></li>
-                      <li><a href="/event/swiss">大会</a></li>
+                      {{-- <li><a href="/event/group">グループ対戦</a></li> --}}
+                      {{-- <li><a href="/event/swiss">大会</a></li> --}}
                       <li><a href="/user/{{Auth::id()}}">マイページ</a></li>
-                      <li><a href="/item">商品購入</a></li>
+                      {{-- <li><a href="/item">商品購入</a></li> --}}
                     @endif
                     <li><a href="/resume/{{Auth::id()}}">ポケカ履歴書</a></li>
                   @else
