@@ -111,6 +111,8 @@ final class PostController extends Controller
             }
             \Log::error([
                 "ポケカ掲示板の表示機能バグ：PostController.php@show",
+                'IP Address' => $request->ip(),
+                'Headers' => $request->header('User-Agent'),
                 $post_id,
                 $request->all()
             ]);

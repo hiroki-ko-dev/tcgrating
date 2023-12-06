@@ -54,6 +54,8 @@ final class CommentController extends Controller
             }
             \Log::error([
                 "ポケカ掲示板の返信表示機能バグ：CommentController.php@create",
+                'IP Address' => $request->ip(),
+                'Headers' => $request->header('User-Agent'),
                 $request->all()
             ]);
             abort($e->getCode());
