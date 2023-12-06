@@ -509,6 +509,9 @@ class TwitterService
 
             $randKey  =  array_rand($spreadSheet);
 
+            if (!isset($spreadSheet[$randKey][0], $spreadSheet[$randKey][1], $spreadSheet[$randKey][2], $spreadSheet[$randKey][4])) {
+                throw new \Exception("スプレッドシートのデータエラー: " . print_r($spreadSheet[$randKey], true), 403);
+            }
             $title = $spreadSheet[$randKey][0];
             $url = $spreadSheet[$randKey][1];
             $content = $spreadSheet[$randKey][2];
@@ -517,12 +520,12 @@ class TwitterService
 
             // メール文
             $tweet =
-              $title . PHP_EOL .
-              PHP_EOL .
-              $hashTag . PHP_EOL .
-              $url . PHP_EOL .
-              PHP_EOL .
-              $content
+                $title . PHP_EOL .
+                PHP_EOL .
+                $hashTag . PHP_EOL .
+                $url . PHP_EOL .
+                PHP_EOL .
+                $content
             ;
 
             $tweet = Str::limit($tweet, 250, '...');
