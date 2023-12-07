@@ -7,7 +7,6 @@ use App\Enums\PostSubCategory;
 use App\Repositories\UserRepository;
 use App\Repositories\TwitterRepository;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 use Yasumi\Yasumi;
 
 class TwitterService
@@ -478,9 +477,12 @@ class TwitterService
         if (config('assets.common.appEnv') == 'production') {
             $apiKeys = config('assets.twitter.pokeka_battle');
 
+            $now = now();
+            $holidays = Yasumi::create('Japan', $now->year);
+
             $dayOfWeek = date('w');
             // 月曜日は1、日曜日は0
-            if ($dayOfWeek > 0 && $dayOfWeek < 6 && !Carbon::today()->isHoliday) { // 月曜日から金曜日の場合
+            if ($dayOfWeek > 0 && $dayOfWeek < 6 && !$holidays->isHoliday($now)) { // 月曜日から金曜日の場合
                 $number = rand(120, 150);
             } else { // 土曜日または日曜日の場合
                 $number = rand(200, 250);
