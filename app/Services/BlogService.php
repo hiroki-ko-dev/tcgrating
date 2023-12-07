@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use App\Blog;
+use App\Models\Blog;
 use App\Repositories\BlogRepository;
 use App\Repositories\BlogCommentRepository;
 
@@ -35,7 +35,7 @@ class BlogService
         return $this->blogRepository->findByPreview($blog_id);
     }
 
-    public function getNextBlog($blog_id): Blog
+    public function getNextBlog($blog_id): ?Blog
     {
         return $this->blogRepository->findByNext($blog_id);
     }

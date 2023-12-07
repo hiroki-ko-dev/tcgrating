@@ -49,12 +49,12 @@ class BlogRepository
         return $query;
     }
 
-    public function find($id)
+    public function find($id): ?Blog
     {
         return Blog::find($id);
     }
 
-    public function findByPreview($id)
+    public function findByPreview($id): ?Blog
     {
         return Blog::where('id', '<=', $id)
             ->where('is_released', 1)
@@ -62,7 +62,7 @@ class BlogRepository
             ->first();
     }
 
-    public function findByNext($id)
+    public function findByNext($id): ?Blog
     {
         return Blog::where('id', '>=', $id)
             ->where('is_released', 1)
