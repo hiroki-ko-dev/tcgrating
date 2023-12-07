@@ -39,16 +39,8 @@
       <div class="row justify-content-center mb-4">
         <div class="col-sm-12">
           <div class="box">
-            <h1 class="text-left">{{$blog->title}}</h1>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="row justify-content-center mb-4">
-        <div class="col-sm-12">
-          <div class="box">
+            <h1 class="blog-title p-1 mb-4">{{$blog->title}}</h1>
+            <div class="border-bottom mb-4"></div>
             <div class="blog-body">
               @if($blog->affiliate_url)
                 <div><a href="{{$blog->affiliate_url}}">商品購入ページはこちら</a></div>

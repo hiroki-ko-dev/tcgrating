@@ -36,12 +36,20 @@ class ManagementServer extends \Google\Collection
    * @var string[]
    */
   public $labels;
+  /**
+   * @var ManagementURI
+   */
+  public $managementUri;
   protected $managementUriType = ManagementURI::class;
   protected $managementUriDataType = '';
   /**
    * @var string
    */
   public $name;
+  /**
+   * @var NetworkConfig[]
+   */
+  public $networks;
   protected $networksType = NetworkConfig::class;
   protected $networksDataType = 'array';
   /**
@@ -60,6 +68,18 @@ class ManagementServer extends \Google\Collection
    * @var string
    */
   public $updateTime;
+  /**
+   * @var WorkforceIdentityBasedManagementURI
+   */
+  public $workforceIdentityBasedManagementUri;
+  protected $workforceIdentityBasedManagementUriType = WorkforceIdentityBasedManagementURI::class;
+  protected $workforceIdentityBasedManagementUriDataType = '';
+  /**
+   * @var WorkforceIdentityBasedOAuth2ClientID
+   */
+  public $workforceIdentityBasedOauth2ClientId;
+  protected $workforceIdentityBasedOauth2ClientIdType = WorkforceIdentityBasedOAuth2ClientID::class;
+  protected $workforceIdentityBasedOauth2ClientIdDataType = '';
 
   /**
    * @param string
@@ -214,6 +234,34 @@ class ManagementServer extends \Google\Collection
   public function getUpdateTime()
   {
     return $this->updateTime;
+  }
+  /**
+   * @param WorkforceIdentityBasedManagementURI
+   */
+  public function setWorkforceIdentityBasedManagementUri(WorkforceIdentityBasedManagementURI $workforceIdentityBasedManagementUri)
+  {
+    $this->workforceIdentityBasedManagementUri = $workforceIdentityBasedManagementUri;
+  }
+  /**
+   * @return WorkforceIdentityBasedManagementURI
+   */
+  public function getWorkforceIdentityBasedManagementUri()
+  {
+    return $this->workforceIdentityBasedManagementUri;
+  }
+  /**
+   * @param WorkforceIdentityBasedOAuth2ClientID
+   */
+  public function setWorkforceIdentityBasedOauth2ClientId(WorkforceIdentityBasedOAuth2ClientID $workforceIdentityBasedOauth2ClientId)
+  {
+    $this->workforceIdentityBasedOauth2ClientId = $workforceIdentityBasedOauth2ClientId;
+  }
+  /**
+   * @return WorkforceIdentityBasedOAuth2ClientID
+   */
+  public function getWorkforceIdentityBasedOauth2ClientId()
+  {
+    return $this->workforceIdentityBasedOauth2ClientId;
   }
 }
 

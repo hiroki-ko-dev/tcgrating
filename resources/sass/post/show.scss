@@ -5,7 +5,16 @@ h1{
     font-size: 16px;
   }
 }
+.post-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+}
 
+.sub-title{
+  font-weight: bold;
+  color: grey;
+}
 .post-user{
   font-size: 12px;
   font-weight: bold;
@@ -21,18 +30,7 @@ h1{
   color: white;
   font-size: 12px;
 }
-
 .small-profile {
   width: 40px;
   height: 40px;
-}
-.post-title {
-  font-size: 16px;
-  font-weight: bold;
-  color: black;
-}
-
-.sub-title{
-  font-weight: bold;
-  color: grey;
 }

@@ -31,12 +31,22 @@ class Cluster extends \Google\Model
    * @var string
    */
   public $name;
+  /**
+   * @var NodeTypeConfig[]
+   */
+  public $nodeTypeConfigs;
   protected $nodeTypeConfigsType = NodeTypeConfig::class;
   protected $nodeTypeConfigsDataType = 'map';
   /**
    * @var string
    */
   public $state;
+  /**
+   * @var StretchedClusterConfig
+   */
+  public $stretchedClusterConfig;
+  protected $stretchedClusterConfigType = StretchedClusterConfig::class;
+  protected $stretchedClusterConfigDataType = '';
   /**
    * @var string
    */
@@ -115,6 +125,20 @@ class Cluster extends \Google\Model
   public function getState()
   {
     return $this->state;
+  }
+  /**
+   * @param StretchedClusterConfig
+   */
+  public function setStretchedClusterConfig(StretchedClusterConfig $stretchedClusterConfig)
+  {
+    $this->stretchedClusterConfig = $stretchedClusterConfig;
+  }
+  /**
+   * @return StretchedClusterConfig
+   */
+  public function getStretchedClusterConfig()
+  {
+    return $this->stretchedClusterConfig;
   }
   /**
    * @param string

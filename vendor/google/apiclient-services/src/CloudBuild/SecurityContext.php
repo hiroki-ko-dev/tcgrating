@@ -22,8 +22,58 @@ class SecurityContext extends \Google\Model
   /**
    * @var bool
    */
+  public $allowPrivilegeEscalation;
+  /**
+   * @var Capabilities
+   */
+  public $capabilities;
+  protected $capabilitiesType = Capabilities::class;
+  protected $capabilitiesDataType = '';
+  /**
+   * @var bool
+   */
   public $privileged;
+  /**
+   * @var string
+   */
+  public $runAsGroup;
+  /**
+   * @var bool
+   */
+  public $runAsNonRoot;
+  /**
+   * @var string
+   */
+  public $runAsUser;
 
+  /**
+   * @param bool
+   */
+  public function setAllowPrivilegeEscalation($allowPrivilegeEscalation)
+  {
+    $this->allowPrivilegeEscalation = $allowPrivilegeEscalation;
+  }
+  /**
+   * @return bool
+   */
+  public function getAllowPrivilegeEscalation()
+  {
+    return $this->allowPrivilegeEscalation;
+  }
+  /**
+   * @param Capabilities
+   */
+  public function setCapabilities(Capabilities $capabilities)
+  {
+    $this->capabilities = $capabilities;
+  }
+  /**
+   * @return Capabilities
+   */
+  public function getCapabilities()
+  {
+    return $this->capabilities;
+  }
   /**
    * @param bool
    */
@@ -37,6 +87,48 @@ class SecurityContext extends \Google\Model
   public function getPrivileged()
   {
     return $this->privileged;
+  }
+  /**
+   * @param string
+   */
+  public function setRunAsGroup($runAsGroup)
+  {
+    $this->runAsGroup = $runAsGroup;
+  }
+  /**
+   * @return string
+   */
+  public function getRunAsGroup()
+  {
+    return $this->runAsGroup;
+  }
+  /**
+   * @param bool
+   */
+  public function setRunAsNonRoot($runAsNonRoot)
+  {
+    $this->runAsNonRoot = $runAsNonRoot;
+  }
+  /**
+   * @return bool
+   */
+  public function getRunAsNonRoot()
+  {
+    return $this->runAsNonRoot;
+  }
+  /**
+   * @param string
+   */
+  public function setRunAsUser($runAsUser)
+  {
+    $this->runAsUser = $runAsUser;
+  }
+  /**
+   * @return string
+   */
+  public function getRunAsUser()
+  {
+    return $this->runAsUser;
   }
 }
 

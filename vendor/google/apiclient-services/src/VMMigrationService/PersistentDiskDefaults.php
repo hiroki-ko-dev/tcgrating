@@ -32,9 +32,19 @@ class PersistentDiskDefaults extends \Google\Model
    */
   public $diskType;
   /**
+   * @var Encryption
+   */
+  public $encryption;
+  protected $encryptionType = Encryption::class;
+  protected $encryptionDataType = '';
+  /**
    * @var int
    */
   public $sourceDiskNumber;
+  /**
+   * @var VmAttachmentDetails
+   */
+  public $vmAttachmentDetails;
   protected $vmAttachmentDetailsType = VmAttachmentDetails::class;
   protected $vmAttachmentDetailsDataType = '';
 
@@ -79,6 +89,20 @@ class PersistentDiskDefaults extends \Google\Model
   public function getDiskType()
   {
     return $this->diskType;
+  }
+  /**
+   * @param Encryption
+   */
+  public function setEncryption(Encryption $encryption)
+  {
+    $this->encryption = $encryption;
+  }
+  /**
+   * @return Encryption
+   */
+  public function getEncryption()
+  {
+    return $this->encryption;
   }
   /**
    * @param int

@@ -844,6 +844,7 @@ final class Expectation
 
         $string = match (true) {
             is_string($this->value) => $this->value,
+            is_object($this->value) && method_exists($this->value, 'toSnapshot') => $this->value->toSnapshot(),
             is_object($this->value) && method_exists($this->value, '__toString') => $this->value->__toString(),
             is_object($this->value) && method_exists($this->value, 'toString') => $this->value->toString(),
             $this->value instanceof \Illuminate\Testing\TestResponse => $this->value->getContent(), // @phpstan-ignore-line
@@ -967,6 +968,7 @@ final class Expectation
             }
 
             Assert::assertInstanceOf($exception, $e, $message);
+
             $callback($e);
 
             return $this;
@@ -1138,6 +1140,22 @@ final class Expectation
     {
         Assert::assertGreaterThanOrEqual($lowestValue, $this->value, $message);
         Assert::assertLessThanOrEqual($highestValue, $this->value, $message);
+
+        return $this;
+    }
+
+    /**
+     * Asserts that the value is a url
+     *
+     * @return self<TValue>
+     */
+    public function toBeUrl(string $message = ''): self
+    {
+        if ($message === '') {
+            $message = "Failed asserting that {$this->value} is a url.";
+        }
+
+        Assert::assertTrue(Str::isUrl((string) $this->value), $message);
 
         return $this;
     }

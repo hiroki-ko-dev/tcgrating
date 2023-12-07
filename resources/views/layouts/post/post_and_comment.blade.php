@@ -10,9 +10,7 @@
               <span class="text-nowrap post-tag p-1">
                 {{$post->subCategoryName}}
               </span>
-              <span>
                 <h1 class="text-wrap post-title p-2">{{$post->title}}</h1>
-              </span>
             </div>
             <nav>
               <div class="form-group row">

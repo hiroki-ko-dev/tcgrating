@@ -24,10 +24,12 @@ class DeviceSession extends \Google\Collection
    * @var string
    */
   public $activeStartTime;
+  /**
+   * @var AndroidDevice
+   */
+  public $androidDevice;
   protected $androidDeviceType = AndroidDevice::class;
   protected $androidDeviceDataType = '';
-  protected $androidDeviceListType = AndroidDeviceList::class;
-  protected $androidDeviceListDataType = '';
   /**
    * @var string
    */
@@ -52,6 +54,10 @@ class DeviceSession extends \Google\Collection
    * @var string
    */
   public $state;
+  /**
+   * @var SessionStateEvent[]
+   */
+  public $stateHistories;
   protected $stateHistoriesType = SessionStateEvent::class;
   protected $stateHistoriesDataType = 'array';
   /**
@@ -86,20 +92,6 @@ class DeviceSession extends \Google\Collection
   public function getAndroidDevice()
   {
     return $this->androidDevice;
-  }
-  /**
-   * @param AndroidDeviceList
-   */
-  public function setAndroidDeviceList(AndroidDeviceList $androidDeviceList)
-  {
-    $this->androidDeviceList = $androidDeviceList;
-  }
-  /**
-   * @return AndroidDeviceList
-   */
-  public function getAndroidDeviceList()
-  {
-    return $this->androidDeviceList;
   }
   /**
    * @param string

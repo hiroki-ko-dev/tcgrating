@@ -24,6 +24,10 @@ class StorageDatabasecenterPartnerapiV1mainDatabaseResourceHealthSignalData exte
    * @var array[]
    */
   public $additionalMetadata;
+  /**
+   * @var StorageDatabasecenterPartnerapiV1mainCompliance[]
+   */
+  public $compliance;
   protected $complianceType = StorageDatabasecenterPartnerapiV1mainCompliance::class;
   protected $complianceDataType = 'array';
   /**
@@ -62,6 +66,10 @@ class StorageDatabasecenterPartnerapiV1mainDatabaseResourceHealthSignalData exte
    * @var string
    */
   public $signalId;
+  /**
+   * @var string
+   */
+  public $signalType;
   /**
    * @var string
    */
@@ -220,6 +228,20 @@ class StorageDatabasecenterPartnerapiV1mainDatabaseResourceHealthSignalData exte
   public function getSignalId()
   {
     return $this->signalId;
+  }
+  /**
+   * @param string
+   */
+  public function setSignalType($signalType)
+  {
+    $this->signalType = $signalType;
+  }
+  /**
+   * @return string
+   */
+  public function getSignalType()
+  {
+    return $this->signalType;
   }
   /**
    * @param string

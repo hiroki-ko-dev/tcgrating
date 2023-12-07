@@ -47,8 +47,16 @@ class GoogleCloudAiplatformV1NotebookRuntime extends \Google\Model
    * @var string
    */
   public $name;
+  /**
+   * @var GoogleCloudAiplatformV1NotebookRuntimeTemplateRef
+   */
+  public $notebookRuntimeTemplateRef;
   protected $notebookRuntimeTemplateRefType = GoogleCloudAiplatformV1NotebookRuntimeTemplateRef::class;
   protected $notebookRuntimeTemplateRefDataType = '';
+  /**
+   * @var string
+   */
+  public $notebookRuntimeType;
   /**
    * @var string
    */
@@ -185,6 +193,20 @@ class GoogleCloudAiplatformV1NotebookRuntime extends \Google\Model
   public function getNotebookRuntimeTemplateRef()
   {
     return $this->notebookRuntimeTemplateRef;
+  }
+  /**
+   * @param string
+   */
+  public function setNotebookRuntimeType($notebookRuntimeType)
+  {
+    $this->notebookRuntimeType = $notebookRuntimeType;
+  }
+  /**
+   * @return string
+   */
+  public function getNotebookRuntimeType()
+  {
+    return $this->notebookRuntimeType;
   }
   /**
    * @param string

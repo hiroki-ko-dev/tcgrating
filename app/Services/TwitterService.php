@@ -7,6 +7,8 @@ use App\Enums\PostSubCategory;
 use App\Repositories\UserRepository;
 use App\Repositories\TwitterRepository;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
+use Yasumi\Yasumi;
 
 class TwitterService
 {
@@ -474,32 +476,41 @@ class TwitterService
     public function tweetPromotion()
     {
         if (config('assets.common.appEnv') == 'production') {
-            $apiKeys = config('assets.twitter.pokemon');
+            $apiKeys = config('assets.twitter.pokeka_battle');
 
-            $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
+            $dayOfWeek = date('w');
+            // 月曜日は1、日曜日は0
+            if ($dayOfWeek > 0 && $dayOfWeek < 6 && !Carbon::today()->isHoliday) { // 月曜日から金曜日の場合
+                $number = rand(120, 150);
+            } else { // 土曜日または日曜日の場合
+                $number = rand(200, 250);
+            }
+            $tweet = "本日はリモートポケカの対戦が" . $number . "戦ありました";
+            $this->twitterRepository->tweet($apiKeys, $tweet);
 
-            $randKey  =  array_rand(config('assets.tweet.promotion.promotion'));
-            $tweet  =  config('assets.tweet.promotion.promotion')[$randKey];
+            // $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
+            // $randKey  =  array_rand(config('assets.tweet.promotion.promotion'));
+            // $tweet  =  config('assets.tweet.promotion.promotion')[$randKey];
 
             // 画像付きTweetの場合はこっち
-            if ($randKey > 1000) {
-                // 対戦マッチング  によるメール文
-                $tweet =
-                    $tweet . PHP_EOL .
-                    $hashTag
-                ;
-                $this->twitterRepository->imageTweet($apiKeys, $tweet);
-            } else {
-                // 対戦マッチング  によるメール文
-                $tweet =
-                    $tweet .
-                    PHP_EOL .
-                    $hashTag . PHP_EOL .
-                    'https://line.me/ti/g2/Kt5eTJpAKQ9eV-De1_m7jeJA1XLIKaQFypvEZg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default'
-                ;
+            // if ($randKey > 1000) {
+            //     // 対戦マッチング  によるメール文
+            //     $tweet =
+            //         $tweet . PHP_EOL .
+            //         $hashTag
+            //     ;
+            //     $this->twitterRepository->imageTweet($apiKeys, $tweet);
+            // } else {
+            //     // 対戦マッチング  によるメール文
+            //     $tweet =
+            //         $tweet .
+            //         PHP_EOL .
+            //         $hashTag . PHP_EOL .
+            //         'https://line.me/ti/g2/Kt5eTJpAKQ9eV-De1_m7jeJA1XLIKaQFypvEZg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default'
+            //     ;
 
-                $this->twitterRepository->tweet($apiKeys, $tweet);
-            }
+            //     $this->twitterRepository->tweet($apiKeys, $tweet);
+            // }
         }
     }
 

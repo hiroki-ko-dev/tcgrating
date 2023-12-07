@@ -57,6 +57,10 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
    */
   public $generatedByLegacyAquaDomain;
   public $groundabilityScore;
+  /**
+   * @var AssistantGroundingRankerGroundingProviderFeatures
+   */
+  public $groundingProviderFeatures;
   protected $groundingProviderFeaturesType = AssistantGroundingRankerGroundingProviderFeatures::class;
   protected $groundingProviderFeaturesDataType = '';
   /**
@@ -84,6 +88,10 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
   /**
    * @var bool
    */
+  public $isDummyIntent;
+  /**
+   * @var bool
+   */
   public $isFeasible;
   /**
    * @var bool
@@ -97,6 +105,10 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
    * @var bool
    */
   public $isMediaControlIntent;
+  /**
+   * @var bool
+   */
+  public $isNspIntent;
   /**
    * @var bool
    */
@@ -124,6 +136,10 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
   /**
    * @var bool
    */
+  public $isScoreBasedIntent;
+  /**
+   * @var bool
+   */
   public $isTvmIntent;
   /**
    * @var bool
@@ -137,6 +153,10 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
    * @var int
    */
   public $kscorerRank;
+  /**
+   * @var AssistantGroundingRankerLaaFeatures
+   */
+  public $laaFeatures;
   protected $laaFeaturesType = AssistantGroundingRankerLaaFeatures::class;
   protected $laaFeaturesDataType = '';
   /**
@@ -184,18 +204,30 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
    * @var string
    */
   public $searchDispatch;
+  /**
+   * @var AssistantPfrSmartHomeIntentMetadata
+   */
+  public $smarthomeIntentMetadata;
   protected $smarthomeIntentMetadataType = AssistantPfrSmartHomeIntentMetadata::class;
   protected $smarthomeIntentMetadataDataType = '';
   /**
    * @var string
    */
   public $subIntentType;
+  /**
+   * @var AssistantPfrTiebreakingMetadata
+   */
+  public $tiebreakingMetadata;
   protected $tiebreakingMetadataType = AssistantPfrTiebreakingMetadata::class;
   protected $tiebreakingMetadataDataType = '';
   /**
    * @var float
    */
   public $topHypothesisConfidence;
+  /**
+   * @var bool
+   */
+  public $usesGroundingBox;
   /**
    * @var float
    */
@@ -446,6 +478,20 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
   /**
    * @param bool
    */
+  public function setIsDummyIntent($isDummyIntent)
+  {
+    $this->isDummyIntent = $isDummyIntent;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsDummyIntent()
+  {
+    return $this->isDummyIntent;
+  }
+  /**
+   * @param bool
+   */
   public function setIsFeasible($isFeasible)
   {
     $this->isFeasible = $isFeasible;
@@ -498,6 +544,20 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
   public function getIsMediaControlIntent()
   {
     return $this->isMediaControlIntent;
+  }
+  /**
+   * @param bool
+   */
+  public function setIsNspIntent($isNspIntent)
+  {
+    $this->isNspIntent = $isNspIntent;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsNspIntent()
+  {
+    return $this->isNspIntent;
   }
   /**
    * @param bool
@@ -582,6 +642,20 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
   public function getIsSageIntent()
   {
     return $this->isSageIntent;
+  }
+  /**
+   * @param bool
+   */
+  public function setIsScoreBasedIntent($isScoreBasedIntent)
+  {
+    $this->isScoreBasedIntent = $isScoreBasedIntent;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsScoreBasedIntent()
+  {
+    return $this->isScoreBasedIntent;
   }
   /**
    * @param bool
@@ -906,6 +980,20 @@ class AssistantPrefulfillmentRankerPrefulfillmentSignals extends \Google\Model
   public function getTopHypothesisConfidence()
   {
     return $this->topHypothesisConfidence;
+  }
+  /**
+   * @param bool
+   */
+  public function setUsesGroundingBox($usesGroundingBox)
+  {
+    $this->usesGroundingBox = $usesGroundingBox;
+  }
+  /**
+   * @return bool
+   */
+  public function getUsesGroundingBox()
+  {
+    return $this->usesGroundingBox;
   }
   /**
    * @param float

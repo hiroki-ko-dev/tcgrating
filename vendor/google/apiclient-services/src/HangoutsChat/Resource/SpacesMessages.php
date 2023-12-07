@@ -68,8 +68,7 @@ class SpacesMessages extends \Google\Service\Resource
    * instead. ID for the thread. Supports up to 4000 characters. To start or add
    * to a thread, create a message and specify a `threadKey` or the thread.name.
    * For example usage, see [Start or reply to a message thread](https://developer
-   * s.google.com/chat/api/guides/crudl/messages#start_or_reply_to_a_message_threa
-   * d).
+   * s.google.com/chat/api/guides/v1/messages/create#create-message-thread).
    * @return Message
    */
   public function create($parent, Message $postBody, $optParams = [])
@@ -82,15 +81,13 @@ class SpacesMessages extends \Google\Service\Resource
    * Deletes a message. For an example, see [Delete a
    * message](https://developers.google.com/chat/api/guides/v1/messages/delete).
    * Requires
-   * [authentication](https://developers.google.com/chat/api/guides/auth). Fully
-   * supports [service account
+   * [authentication](https://developers.google.com/chat/api/guides/auth).
+   * Supports [app
    * authentication](https://developers.google.com/chat/api/guides/auth/service-
    * accounts) and [user
    * authentication](https://developers.google.com/chat/api/guides/auth/users).
-   * [User
-   * authentication](https://developers.google.com/chat/api/guides/auth/users).
-   * Requests authenticated with service accounts can only delete messages created
-   * by the calling Chat app. (messages.delete)
+   * When using app authentication, requests can only delete messages created by
+   * the calling Chat app. (messages.delete)
    *
    * @param string $name Required. Resource name of the message that you want to
    * delete, in the form `spaces/messages` Example:
@@ -101,7 +98,7 @@ class SpacesMessages extends \Google\Service\Resource
    * threaded replies. When `false`, if a message has threaded replies, deletion
    * fails. Only applies when [authenticating as a
    * user](https://developers.google.com/chat/api/guides/auth/users). Has no
-   * effect when [authenticating with a service account]
+   * effect when [authenticating as a Chat app]
    * (https://developers.google.com/chat/api/guides/auth/service-accounts).
    * @return ChatEmpty
    */
@@ -115,12 +112,10 @@ class SpacesMessages extends \Google\Service\Resource
    * Returns details about a message. For an example, see [Read a
    * message](https://developers.google.com/chat/api/guides/v1/messages/get).
    * Requires
-   * [authentication](https://developers.google.com/chat/api/guides/auth). Fully
-   * supports [service account
+   * [authentication](https://developers.google.com/chat/api/guides/auth).
+   * Supports [app
    * authentication](https://developers.google.com/chat/api/guides/auth/service-
    * accounts) and [user
-   * authentication](https://developers.google.com/chat/api/guides/auth/users).
-   * [User
    * authentication](https://developers.google.com/chat/api/guides/auth/users).
    * Note: Might return a message from a blocked member or space. (messages.get)
    *
@@ -203,15 +198,13 @@ class SpacesMessages extends \Google\Service\Resource
    * see [Update a
    * message](https://developers.google.com/chat/api/guides/v1/messages/update).
    * Requires
-   * [authentication](https://developers.google.com/chat/api/guides/auth). Fully
-   * supports [service account
+   * [authentication](https://developers.google.com/chat/api/guides/auth).
+   * Supports [app
    * authentication](https://developers.google.com/chat/api/guides/auth/service-
    * accounts) and [user
    * authentication](https://developers.google.com/chat/api/guides/auth/users).
-   * [User
-   * authentication](https://developers.google.com/chat/api/guides/auth/users).
-   * Requests authenticated with service accounts can only update messages created
-   * by the calling Chat app. (messages.patch)
+   * When using app authentication, requests can only update messages created by
+   * the calling Chat app. (messages.patch)
    *
    * @param string $name Resource name in the form `spaces/messages`. Example:
    * `spaces/AAAAAAAAAAA/messages/BBBBBBBBBBB.BBBBBBBBBBB`
@@ -224,10 +217,9 @@ class SpacesMessages extends \Google\Service\Resource
    * /messages/create#name_a_created_message) or the request fails.
    * @opt_param string updateMask Required. The field paths to update. Separate
    * multiple values with commas. Currently supported field paths: - `text` -
-   * `attachment` - `cards` (Requires [service account
+   * `attachment` - `cards` (Requires [app
    * authentication](/chat/api/guides/auth/service-accounts).) - `cards_v2`
-   * (Requires [service account authentication](/chat/api/guides/auth/service-
-   * accounts).)
+   * (Requires [app authentication](/chat/api/guides/auth/service-accounts).)
    * @return Message
    */
   public function patch($name, Message $postBody, $optParams = [])
@@ -243,15 +235,13 @@ class SpacesMessages extends \Google\Service\Resource
    * see [Update a
    * message](https://developers.google.com/chat/api/guides/v1/messages/update).
    * Requires
-   * [authentication](https://developers.google.com/chat/api/guides/auth). Fully
-   * supports [service account
+   * [authentication](https://developers.google.com/chat/api/guides/auth).
+   * Supports [app
    * authentication](https://developers.google.com/chat/api/guides/auth/service-
    * accounts) and [user
    * authentication](https://developers.google.com/chat/api/guides/auth/users).
-   * [User
-   * authentication](https://developers.google.com/chat/api/guides/auth/users).
-   * Requests authenticated with service accounts can only update messages created
-   * by the calling Chat app. (messages.update)
+   * When using app authentication, requests can only update messages created by
+   * the calling Chat app. (messages.update)
    *
    * @param string $name Resource name in the form `spaces/messages`. Example:
    * `spaces/AAAAAAAAAAA/messages/BBBBBBBBBBB.BBBBBBBBBBB`
@@ -264,10 +254,9 @@ class SpacesMessages extends \Google\Service\Resource
    * /messages/create#name_a_created_message) or the request fails.
    * @opt_param string updateMask Required. The field paths to update. Separate
    * multiple values with commas. Currently supported field paths: - `text` -
-   * `attachment` - `cards` (Requires [service account
+   * `attachment` - `cards` (Requires [app
    * authentication](/chat/api/guides/auth/service-accounts).) - `cards_v2`
-   * (Requires [service account authentication](/chat/api/guides/auth/service-
-   * accounts).)
+   * (Requires [app authentication](/chat/api/guides/auth/service-accounts).)
    * @return Message
    */
   public function update($name, Message $postBody, $optParams = [])

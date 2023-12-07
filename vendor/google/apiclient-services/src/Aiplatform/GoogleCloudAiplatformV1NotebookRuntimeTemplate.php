@@ -23,6 +23,10 @@ class GoogleCloudAiplatformV1NotebookRuntimeTemplate extends \Google\Model
    * @var string
    */
   public $createTime;
+  /**
+   * @var GoogleCloudAiplatformV1PersistentDiskSpec
+   */
+  public $dataPersistentDiskSpec;
   protected $dataPersistentDiskSpecType = GoogleCloudAiplatformV1PersistentDiskSpec::class;
   protected $dataPersistentDiskSpecDataType = '';
   /**
@@ -37,8 +41,16 @@ class GoogleCloudAiplatformV1NotebookRuntimeTemplate extends \Google\Model
    * @var string
    */
   public $etag;
+  /**
+   * @var GoogleCloudAiplatformV1NotebookEucConfig
+   */
+  public $eucConfig;
   protected $eucConfigType = GoogleCloudAiplatformV1NotebookEucConfig::class;
   protected $eucConfigDataType = '';
+  /**
+   * @var GoogleCloudAiplatformV1NotebookIdleShutdownConfig
+   */
+  public $idleShutdownConfig;
   protected $idleShutdownConfigType = GoogleCloudAiplatformV1NotebookIdleShutdownConfig::class;
   protected $idleShutdownConfigDataType = '';
   /**
@@ -49,14 +61,26 @@ class GoogleCloudAiplatformV1NotebookRuntimeTemplate extends \Google\Model
    * @var string[]
    */
   public $labels;
+  /**
+   * @var GoogleCloudAiplatformV1MachineSpec
+   */
+  public $machineSpec;
   protected $machineSpecType = GoogleCloudAiplatformV1MachineSpec::class;
   protected $machineSpecDataType = '';
   /**
    * @var string
    */
   public $name;
+  /**
+   * @var GoogleCloudAiplatformV1NetworkSpec
+   */
+  public $networkSpec;
   protected $networkSpecType = GoogleCloudAiplatformV1NetworkSpec::class;
   protected $networkSpecDataType = '';
+  /**
+   * @var string
+   */
+  public $notebookRuntimeType;
   /**
    * @var string
    */
@@ -233,6 +257,20 @@ class GoogleCloudAiplatformV1NotebookRuntimeTemplate extends \Google\Model
   public function getNetworkSpec()
   {
     return $this->networkSpec;
+  }
+  /**
+   * @param string
+   */
+  public function setNotebookRuntimeType($notebookRuntimeType)
+  {
+    $this->notebookRuntimeType = $notebookRuntimeType;
+  }
+  /**
+   * @return string
+   */
+  public function getNotebookRuntimeType()
+  {
+    return $this->notebookRuntimeType;
   }
   /**
    * @param string
