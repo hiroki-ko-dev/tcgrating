@@ -1,19 +1,16 @@
 <?php
 
 namespace App\Repositories;
-use App\Models\Blog;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Models\Blog;
 
 class BlogRepository
 {
-
-    public function composeSaveClause($blog, $request){
-        if(isset($request->game_id)){
+    public function composeSaveClause($blog, $request) {
+        if (isset($request->game_id)) {
             $blog->game_id = $request->game_id;
         }
-        if(isset($request->user_id)) {
+        if (isset($request->user_id)) {
             $blog->user_id = $request->user_id;
         }
         $blog->title   = $request->title;
@@ -46,7 +43,7 @@ class BlogRepository
     {
         $query = Blog::query();
         $query->where('game_id', $request->game_id);
-        if(isset($request->is_released)){
+        if (isset($request->is_released)) {
             $query->where('is_released', $request->is_released);
         }
         return $query;
@@ -60,16 +57,16 @@ class BlogRepository
     public function findByPreview($id)
     {
         return Blog::where('id', '<=', $id)
-                    ->where('is_released',1)
-                    ->orderBy('id','desc')
-                    ->first();
+            ->where('is_released', 1)
+            ->orderBy('id', 'desc')
+            ->first();
     }
 
     public function findByNext($id)
     {
         return Blog::where('id', '>=', $id)
-            ->where('is_released',1)
-            ->orderBy('id','desc')
+            ->where('is_released', 1)
+            ->orderBy('id', 'desc')
             ->first();
     }
 
@@ -83,8 +80,7 @@ class BlogRepository
     {
         $query = $this->composeWhereClause($request);
         return $query->withCount('blogComment')
-                    ->OrderBy('updated_at','desc')
-                    ->paginate($paginate);
+            ->OrderBy('updated_at', 'desc')
+            ->paginate($paginate);
     }
-
 }

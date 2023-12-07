@@ -34,10 +34,12 @@
     </div>
   </section>
 
+  @include('layouts.post.post_latest')
+
   <article>
     <section>
-      <div class="row justify-content-center mb-4">
-        <div class="col-sm-12">
+      <div class="row justify-content-center mb-2">
+        <div class="col-md-10 col-12">
           <div class="box">
             <h1 class="blog-title p-1 mb-4">{{$blog->title}}</h1>
             <div class="border-bottom mb-4"></div>
@@ -46,7 +48,7 @@
                 <div><a href="{{$blog->affiliate_url}}">商品購入ページはこちら</a></div>
                 <br>
               @endif
-              <div type="body" class="text-left">{!! $blog->body !!}</div>
+              <div type="body" class="blog-text">{!! $blog->body !!}</div>
             </div>
           </div>
         </div>
@@ -54,10 +56,10 @@
     </section>
 
     <nav>
-      <div class="row justify-content-center mb-4">
-        <div class="col-6">
+      <div class="row justify-content-center mb-1">
+        <div class="col-md-5 col-6 pr-1">
           <div class="box">
-            <div class="row justify-content-center mb-4 site-color text-white">
+            <div class="row justify-content-center mb-4">
               前の記事
             </div>
             @if($preview)
@@ -76,9 +78,9 @@
             @endif
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-5 col-6 pl-1">
           <div class="box">
-            <div class="row justify-content-center mb-4 site-color text-white">
+            <div class="row justify-content-center mb-4">
               次の記事
             </div>
             @if($next)
@@ -105,8 +107,8 @@
     </section>
 
     <nav>
-      <div class="row justify-content-center mb-4">
-        <div class="col-sm-12">
+      <div class="row justify-content-center mb-4 mt-1">
+        <div class="col-md-10 col-12">
           <div class="box">
             @if(Auth::check() && Auth::id() == 1)
               <button type=“button”  class="btn site-color text-white rounded-pill btn-outline-secondary text-center" onclick="location.href='/blog/{{$blog->id}}/edit'">編集する</button>
@@ -118,7 +120,7 @@
     </nav>
 
   </article>
-
+  @include('layouts.post.post_latest')
 </div>
 
 @endsection

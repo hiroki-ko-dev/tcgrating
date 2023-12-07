@@ -1,161 +1,136 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Web\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Services\BlogService;
-use App\Services\TwitterService;
-
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View;
 use App\Models\Blog;
+use App\Services\BlogService;
+use App\Services\Post\PostService;
+use App\Services\TwitterService;
+use App\Presenters\Web\Post\PostLatestPresenter;
 
-use DB;
-
-class BlogController extends Controller
+final class BlogController extends Controller
 {
-    protected $blogService;
-    protected $twitterService;
-
-    public function __construct(BlogService $blogService,
-                                TwitterService $twitterService)
-    {
-        $this->blogService = $blogService;
-        $this->twitterService = $twitterService;
+    public function __construct(
+        private readonly BlogService $blogService,
+        private readonly PostService $postService,
+        private readonly TwitterService $twitterService,
+        private readonly PostLatestPresenter $postLatestPresenter,
+    ) {
     }
 
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         // 選択しているゲームでフィルタ
-        if(Auth::check()) {
+        if (Auth::check()) {
             $request->merge(['game_id' => Auth::user()->selected_game_id]);
-        }else{
+        } else {
             $request->merge(['game_id' => session('selected_game_id')]);
         }
 
         // 管理者でなければ公開動画しか見せない
-        if(!(Auth::check() && Auth::id() == 1)){
+        if (!(Auth::check() && Auth::id() == 1)) {
             $request->merge(['is_released' => 1]);
         }
 
-        $blogs =  $this->blogService->getBlogByPaginate($request,20);
+        $blogs =  $this->blogService->getBlogByPaginate($request, 20);
 
-        return view('blog.index',compact('blogs'));
+        return view('blog.index', compact('blogs'));
     }
 
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function create(Request $request)
+    public function create(): View | RedirectResponse
     {
         // 選択しているゲームでフィルタ
-        if(!Auth::check() || Auth::id() <> 1) {
+        if (!Auth::check() || Auth::id() <> 1) {
             return back()->with('flash_message', '新規投稿を行うにはログインしてください');
         }
 
         return view('blog.create')->with(['blog' => new Blog()]);
     }
 
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function store(Request $request)
+    public function store(Request $request): View | RedirectResponse
     {
         // 選択しているゲームでフィルタ
-        if(!Auth::check() || Auth::id() <> 1) {
+        if (!Auth::check() || Auth::id() <> 1) {
             return back()->with('flash_message', '新規投稿を行うにはログインしてください');
         }
 
         try {
-            $request->merge(['user_id'=> Auth::id()]);
-            $request->merge(['game_id'=> Auth::user()->selected_game_id]);
+            $request->merge(['user_id' => Auth::id()]);
+            $request->merge(['game_id' => Auth::user()->selected_game_id]);
 
-            $blog = DB::transaction(function () use($request) {
+            $blog = DB::transaction(function () use ($request) {
                 $blog = $this->blogService->makeBlog($request);
-                if(!empty($request->is_tweeted)){
-                    if(empty($request->is_affiliate)){
+                if (!empty($request->is_tweeted)) {
+                    if (empty($request->is_affiliate)) {
                         // 通常記事の場合
                         $this->twitterService->tweetByBlog($blog);
-                    }else{
+                    } else {
                         // アフェリエイトだった場合
                         $this->twitterService->tweetByAffiliate($blog);
                     }
                 }
                 return $blog;
             });
-
-            return redirect('/blog/'.$blog->id)->with('flash_message', '記事を保存しました');
-
+            return redirect('/blog/' . $blog->id)->with('flash_message', '記事を保存しました');
         } catch (\Exception $e) {
             report($e);
             return back()->with('flash_message', $e->getMessage());
         }
     }
 
-    /**
-     * @param int $blog_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function show(int $blog_id)
+    public function show(int $blogId): View
     {
-        $blog = $this->blogService->getBlog($blog_id);
-        $preview = $this->blogService->getPreviewBlog($blog_id - 1);
-        $next = $this->blogService->getNextBlog($blog_id + 1);
+        $blog = $this->blogService->getBlog($blogId);
+        $preview = $this->blogService->getPreviewBlog($blogId - 1);
+        $next = $this->blogService->getNextBlog($blogId + 1);
 
-        return view('blog.show',compact('blog','preview', 'next'));
+        $postLatests = $this->postLatestPresenter->getResponse(
+            $this->postService->findAllPosts([])
+        );
 
+        return view('blog.show', compact('blog', 'preview', 'next', 'postLatests'));
     }
 
-    /**
-     * @param $blog_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
-     */
-    public function edit($blog_id)
+    public function edit($blogId): View | RedirectResponse
     {
         // 選択しているゲームでフィルタ
-        if(!Auth::check() || Auth::id() <> 1) {
+        if (!Auth::check() || Auth::id() <> 1) {
             return back()->with('flash_message', '新規投稿を行うにはログインしてください');
         }
 
-        $blog = $this->blogService->getBlog($blog_id);
+        $blog = $this->blogService->getBlog($blogId);
 
-        return view('blog.edit',compact('blog'));
+        return view('blog.edit', compact('blog'));
     }
 
-    /**
-     * @param Request $request
-     * @param $blog_id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function update(Request $request, $blog_id)
+    public function update(Request $request, $blogId): View | RedirectResponse
     {
         // 選択しているゲームでフィルタ
-        if(!Auth::check() || Auth::id() <> 1) {
+        if (!Auth::check() || Auth::id() <> 1) {
             return back()->with('flash_message', '新規投稿を行うにはログインしてください');
         }
 
-        $request->merge(['id' => $blog_id]);
-        DB::transaction(function () use($request){
+        $request->merge(['id' => $blogId]);
+        DB::transaction(function () use ($request) {
             $blog = $this->blogService->saveBlog($request);
-            if(!empty($request->is_tweeted)){
-                if(empty($request->is_affiliate)){
+            if (!empty($request->is_tweeted)) {
+                if (empty($request->is_affiliate)) {
                     // 通常記事の場合
                     $this->twitterService->tweetByBlog($blog);
-                }else{
+                } else {
                     // アフェリエイトだった場合
                     $this->twitterService->tweetByAffiliate($blog);
                 }
             }
         });
-
-        return redirect('/blog/' . $blog_id)->with('flash_message', '保存しました');
+        return redirect('/blog/' . $blogId)->with('flash_message', '保存しました');
     }
-
 }

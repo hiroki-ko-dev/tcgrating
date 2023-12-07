@@ -1,70 +1,46 @@
 <?php
 
 namespace App\Services;
+
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Blog;
 use App\Repositories\BlogRepository;
 use App\Repositories\BlogCommentRepository;
 
-use Illuminate\Http\Request;
-
 class BlogService
 {
-    protected $blogRepository;
-    protected $blogCommentRepository;
-
-    public function __construct(BlogRepository $blogRepository,
-                                BlogCommentRepository $blogCommentRepository)
-    {
-        $this->blogRepository         = $blogRepository;
-        $this->blogCommentRepository = $blogCommentRepository;
+    public function __construct(
+        protected readonly BlogRepository $blogRepository,
+        protected readonly BlogCommentRepository $blogCommentRepository
+    ) {
     }
 
-    /**
-     * @param $request
-     * @return \App\Repositories\Post
-     */
-    public function makeBlog($request)
+    public function makeBlog($request): Blog
     {
         return $this->blogRepository->create($request);
-
     }
 
-    /**
-     * @param $request
-     * @return mixed
-     */
-    public function saveBlog($request)
+    public function saveBlog($request): Blog
     {
         return $this->blogRepository->update($request);
     }
 
-    /**
-     * @param $blog_id
-     * @return mixed
-     */
-    public function getBlog($blog_id)
+    public function getBlog(int $blogId): ?Blog
     {
-        return $this->blogRepository->find($blog_id);
+        return $this->blogRepository->find($blogId);
     }
 
-    /**
-     * @param $blog_id
-     * @return mixed
-     */
     public function getPreviewBlog($blog_id)
     {
         return $this->blogRepository->findByPreview($blog_id);
     }
 
-    /**
-     * @param $blog_id
-     * @return mixed
-     */
-    public function getNextBlog($blog_id)
+    public function getNextBlog($blog_id): Blog
     {
         return $this->blogRepository->findByNext($blog_id);
     }
 
-    public function getBlogByPaginate($request, $paginate)
+    public function getBlogByPaginate($request, $paginate): LengthAwarePaginator
     {
         return $this->blogRepository->findAllByPaginate($request, $paginate);
     }

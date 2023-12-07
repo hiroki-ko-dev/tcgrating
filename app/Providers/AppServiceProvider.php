@@ -3,8 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Carbon\Carbon;
-use Yasumi\Yasumi;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,9 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Carbon::macro('isHoliday', function () {
-            $holidays = Yasumi::create('Japan', $this->year);
-            return $holidays->isHoliday($this->toDateTime());
-        });
+        //
     }
 }

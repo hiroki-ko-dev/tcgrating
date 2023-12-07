@@ -442,13 +442,13 @@ class TwitterService
 
             // Twitter投稿
             $content =
-              $blog->title . PHP_EOL .
-              PHP_EOL .
-              $blog->affiliate_url . PHP_EOL .
-              PHP_EOL .
-              $hashTag . PHP_EOL .
-              PHP_EOL .
-              $blog->body;
+                $blog->title . PHP_EOL .
+                PHP_EOL .
+                $blog->affiliate_url . PHP_EOL .
+                PHP_EOL .
+                $hashTag . PHP_EOL .
+                PHP_EOL .
+                $blog->body;
             $tweet = Str::limit($content, 135, '...');
 
             // remotoPokeka
@@ -461,11 +461,11 @@ class TwitterService
             // discord投稿
             $webHook = config('assets.discord.web_hook.affiliate');
             $content =
-              $blog->title . PHP_EOL .
-              PHP_EOL .
-              'https://hashimu.com/blog/' . $blog->id . PHP_EOL .
-              PHP_EOL .
-              $blog->body;
+                $blog->title . PHP_EOL .
+                PHP_EOL .
+                'https://hashimu.com/blog/' . $blog->id . PHP_EOL .
+                PHP_EOL .
+                $blog->body;
             $discord = Str::limit($content, 200, '...');
 
             $this->discordPost($discord, $webHook);

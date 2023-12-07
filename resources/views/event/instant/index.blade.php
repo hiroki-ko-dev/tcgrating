@@ -84,8 +84,10 @@
     </div>
     @endforeach
   @endif
+  <div class="d-flex justify-content-center mb-4">
     {{$events->links('layouts.common.pagination.bootstrap-4')}}
   </div>
+</div>
 @endsection
 
 @include('layouts.common.header')

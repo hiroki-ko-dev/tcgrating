@@ -18,10 +18,10 @@ use App\Presenters\Web\Post\PostLatestPresenter;
 final class PostController extends Controller
 {
     public function __construct(
-        private PostService $postService,
-        private TwitterService $twitterService,
-        private PostAndPaginateCommentPresenter $postAndPaginateCommentPresenter,
-        private PostLatestPresenter $postLatestPresenter,
+        private readonly PostService $postService,
+        private readonly TwitterService $twitterService,
+        private readonly PostAndPaginateCommentPresenter $postAndPaginateCommentPresenter,
+        private readonly PostLatestPresenter $postLatestPresenter,
     ) {
     }
 
@@ -94,12 +94,12 @@ final class PostController extends Controller
         return redirect('/post?post_category_id=' . $request->input('post_category_id'))->with('flash_message', '新規投稿を行いました');
     }
 
-    public function show(Request $request, int $post_id): View
+    public function show(Request $request, int $postId): View
     {
         try {
             $page = $request->get('page', 1);
             $post = $this->postAndPaginateCommentPresenter->getResponse(
-                $this->postService->findPostAndPaginatePostComments($post_id, 50, $page)
+                $this->postService->findPostAndPaginatePostComments($postId, 50, $page)
             );
             $postLatests = $this->postLatestPresenter->getResponse(
                 $this->postService->findAllPosts([])
@@ -113,7 +113,7 @@ final class PostController extends Controller
                 "ポケカ掲示板の表示機能バグ：PostController.php@show",
                 'IP Address' => $request->ip(),
                 'Headers' => $request->header('User-Agent'),
-                $post_id,
+                $postId,
                 $request->all()
             ]);
             abort($e->getCode());
