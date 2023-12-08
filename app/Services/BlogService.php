@@ -44,6 +44,4 @@ class BlogService
     {
         return $this->blogRepository->findAllByPaginate($request, $paginate);
     }
-
-
 }

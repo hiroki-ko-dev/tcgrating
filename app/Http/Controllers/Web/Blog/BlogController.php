@@ -99,7 +99,7 @@ final class BlogController extends Controller
         return view('blog.show', compact('blog', 'preview', 'next', 'postLatests'));
     }
 
-    public function edit($blogId): View | RedirectResponse
+    public function edit(int $blogId): View | RedirectResponse
     {
         // 選択しているゲームでフィルタ
         if (!Auth::check() || Auth::id() <> 1) {
