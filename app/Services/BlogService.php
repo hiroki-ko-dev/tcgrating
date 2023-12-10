@@ -44,4 +44,9 @@ class BlogService
     {
         return $this->blogRepository->findAllByPaginate($request, $paginate);
     }
+
+    public function deleteBlog(int $blogId): void
+    {
+        $this->blogRepository->delete($blogId);
+    }
 }

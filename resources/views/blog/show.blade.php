@@ -110,14 +110,30 @@
       <div class="row justify-content-center mb-4 mt-1">
         <div class="col-md-10 col-12">
           <div class="box">
-            @if(Auth::check() && Auth::id() == 1)
-              <button type=“button”  class="btn site-color text-white rounded-pill btn-outline-secondary text-center" onclick="location.href='/blog/{{$blog->id}}/edit'">編集する</button>
-            @endif
-              <button type=“button”  class="btn btn-secondary text-white rounded-pill btn-outline-secondary text-center" onclick="location.href='/blog'">記事一覧へ</button>
+            <form method="POST" action="{{route('blog.destroy',['blog' => $blog->id])}}">
+              <div class="btn-group w-100" role="group">
+                @if(Auth::check() && Auth::id() == 1)
+                  <button type="submit" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blog/{{$blog->id}}/edit'">
+                    {{ __('編集する') }}
+                  </button>
+                  
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn site-color btn-outline-secondary text-light w-20 m-1" onClick="return requestConfirm();">
+                      {{ __('削除する') }}
+                    </button>
+                  
+                @endif
+                <button type="submit" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blog'">
+                  {{ __('一覧へ戻る') }}
+                </button>
+            </div>
+            </form>
           </div>
         </div>
       </div>
     </nav>
+    
 
   </article>
   @include('layouts.post.post_latest')

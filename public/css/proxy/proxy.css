@@ -1,20 +1,3 @@
-@charset "UTF-8";
+#inputProxy{display:flex;flex-wrap:wrap}#inputProxyBox{width:30%}@media screen and (max-width:720px){#inputProxyBox{width:100%}}
 
-#inputProxy {
-  display: flex;
-  /* flexbox */
-  flex-wrap: wrap;
-  /* 折返し指定 */
-}
-
-#inputProxyBox {
-  width: 30%;
-}
-
-@media screen and (max-width: 720px) {
-  #inputProxyBox {
-    width: 100%;
-  }
-}
-
-
+/*# sourceMappingURL=proxy.css.map*/

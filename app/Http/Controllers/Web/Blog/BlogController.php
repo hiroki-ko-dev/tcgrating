@@ -133,4 +133,16 @@ final class BlogController extends Controller
         });
         return redirect('/blog/' . $blogId)->with('flash_message', '保存しました');
     }
+
+    public function destroy(int $blogId): RedirectResponse
+    {
+        // 選択しているゲームでフィルタ
+        if (!Auth::check() || Auth::id() <> 1) {
+            return back()->with('flash_message', '新規投稿を行うにはログインしてください');
+        }
+
+        $this->blogService->deleteBlog($blogId);
+
+        return redirect('/blog')->with('flash_message', '記事を削除しました');
+    }
 }

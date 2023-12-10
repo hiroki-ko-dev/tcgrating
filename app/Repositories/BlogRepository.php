@@ -83,4 +83,9 @@ class BlogRepository
             ->OrderBy('updated_at', 'desc')
             ->paginate($paginate);
     }
+
+    public function delete(int $id): void
+    {
+        $this->find($id)->delete();
+    }
 }
