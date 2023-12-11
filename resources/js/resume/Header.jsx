@@ -40,14 +40,14 @@ export const Header = (props) => {
         ポケカ履歴書
       </div>
       <div className="ml-auto">
-        <button
+        {/* <button
           id="download"
           className="btn site-color text-white rounded-pill btn-outline-secondary text-center"
           onClick={() => onClickExport()}>
           ダウンロード
-        </button>
-        <button id="edit" className="btn site-color text-white rounded-pill btn-outline-secondary text-center"
-                onClick={() => {location.href='/resume/' + resumeJson.user.id + '/edit'}}>
+        </button> */}
+        <button id="edit" className="btn site-color btn-outline-secondary text-light w-40 m-1"
+            onClick={() => {location.href='/resume/' + resumeJson.user.id + '/edit'}}>
           編集する
         </button>
       </div>
