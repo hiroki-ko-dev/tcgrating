@@ -48,7 +48,7 @@ mix.styles([
 //デフォルト
 
 mix.js('resources/js/proxy/proxy.jsx', 'public/js/proxy/proxy.js').react();
-mix.js('resources/js/resume/resume.jsx', 'public/js/resume/resume.js').react();
+mix.js('resources/js/resume/Resume.jsx', 'public/js/resume/resume.js').react();
 mix.js('resources/js/event/full-calendar.js', 'public/js/event/full-calendar.js').react();
 
 mix.js('resources/js/sample.js', 'public/js/sample').react()
