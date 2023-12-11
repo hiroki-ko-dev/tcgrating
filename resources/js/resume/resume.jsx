@@ -4,7 +4,7 @@ import { Header } from './Header';
 import { Content } from './Content';
 import html2canvas from 'html2canvas';
 
-const App = () => {
+const Resume = () => {
   const resumeJson = JSON.parse(document.getElementById('resumeJson').value);
   const contentRef = useRef(null);
   const [image, setImage] = useState(null);
@@ -20,7 +20,6 @@ const App = () => {
       captureContent();
     }
   }, []);
-
 
   return (
     resumeJson ? 
@@ -39,7 +38,9 @@ const App = () => {
   );
 }
 
+export default Resume;
+
 ReactDOM.render(
-  <App />,
+  <Resume />,
   document.getElementById('target-component')
 );

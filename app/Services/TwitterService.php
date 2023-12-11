@@ -483,9 +483,9 @@ class TwitterService
             $dayOfWeek = date('w');
             // 月曜日は1、日曜日は0
             if ($dayOfWeek > 0 && $dayOfWeek < 6 && !$holidays->isHoliday($now)) { // 月曜日から金曜日の場合
-                $number = rand(120, 150);
+                $number = rand(110, 160);
             } else { // 土曜日または日曜日の場合
-                $number = rand(200, 250);
+                $number = rand(200, 260);
             }
             $tweet = "本日はリモートポケカの対戦が" . $number . "戦ありました";
             $this->twitterRepository->tweet($apiKeys, $tweet);
