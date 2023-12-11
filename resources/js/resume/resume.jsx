@@ -33,7 +33,7 @@ const App = () => {
           <Content resumeJson={resumeJson} />
         </div>
       )}
-      {image && <img src={image} alt="Captured content" />}
+      {image && <img src={image} style={{ maxWidth: '100%', height: 'auto' }} alt="Captured content" />}
     </div>
     : <></>
   );
