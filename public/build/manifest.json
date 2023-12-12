@@ -5,8 +5,16 @@
     "src": "resources/css/main.css"
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-12fe9d0f.js",
+    "file": "assets/main-b7052847.js",
+    "imports": [
+      "resources/js/resume/Resume.jsx"
+    ],
     "isEntry": true,
     "src": "resources/js/main.jsx"
+  },
+  "resources/js/resume/Resume.jsx": {
+    "file": "assets/Resume-911e7592.js",
+    "isEntry": true,
+    "src": "resources/js/resume/Resume.jsx"
   }
 }

@@ -7,6 +7,7 @@ export default defineConfig({
     laravel([
       'resources/css/main.css',
       'resources/js/main.jsx',
+      'resources/js/resume/Resume.jsx'
     ]),
     react(),
   ],

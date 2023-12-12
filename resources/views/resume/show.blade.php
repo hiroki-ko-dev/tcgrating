@@ -38,7 +38,8 @@
 @endsection
 
 @section('addJs')
-  <script src="{{mix('/js/resume/resume.js')}}" defer></script>
+  {{-- <script src="{{mix('/js/resume/resume.js')}}" defer></script> --}}
+  @vite('resources/js/resume/Resume.jsx')
 @endsection
 
 @include('layouts.common.footer')
