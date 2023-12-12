@@ -6,6 +6,10 @@
   <meta name="description" content="ポケモンカードの掲示板です。雑談・デッキ相談・ルール質問まで幅広い交流を行いましょう。"/>
 @endsection
 
+@section('addJs')
+  @vite('resources/js/post/DeckPreview.tsx')
+@endsection
+
 @section('content')
 <div class="container">
   <div class="row justify-content-center m-1 mb-3">
@@ -41,6 +45,11 @@
             <strong>{{ $message }}</strong>
           </span>
           @enderror
+        </div>
+
+        <div class="form-group row">
+          <input type="hidden" id="deckUrl" value="https://www.pokemon-card.com/deck/deckView.php/deckID/">
+          <div id="target-component"></div>
         </div>
 
         <div class="row pb-4">

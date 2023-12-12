@@ -145,14 +145,18 @@
             <div class="form-group row">
               <input id="image_url" type="text" placeholder="デッキコードを書く（省略可）" class="form-control w-100 @error('image_url') is-invalid @enderror" name="image_url" value="{{ old('image_url') }}" >
             </div>
+            <div class="form-group row">
+              <input type="hidden" id="deckUrl" value="https://www.pokemon-card.com/deck/deckView.php/deckID/">
+              <div id="target-component"></div>
+            </div>
 
             @if(Auth::check() && Auth::user()->role == \App\Models\User::ROLE_ADMIN)
               <div class="form-group row">
                 <select name="user_id" class="form-control">
                   @foreach(config('assets.account.sakura') as $key => $name)
                     <option value="{{$key}}"
-                            @if(old('user_id'))
-                            selected
+                      @if(old('user_id'))
+                        selected
                       @endif
                     >{{$name}}</option>
                   @endforeach

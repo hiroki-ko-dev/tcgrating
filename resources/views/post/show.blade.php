@@ -10,6 +10,10 @@
   <link rel="stylesheet" href="{{ mix('/css/post/show.css') }}">
 @endsection
 
+@section('addJs')
+  @vite('resources/js/post/DeckPreview.tsx')
+@endsection
+
 @section('twitterHeader')
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@pokekaInfo" />

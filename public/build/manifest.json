@@ -1,19 +1,34 @@
 {
+  "_index-0e977236.js": {
+    "file": "assets/index-0e977236.js"
+  },
   "resources/css/main.css": {
     "file": "assets/main-36a2991a.css",
     "isEntry": true,
     "src": "resources/css/main.css"
   },
   "resources/js/main.jsx": {
-    "file": "assets/main-b7052847.js",
+    "file": "assets/main-711ea8d1.js",
     "imports": [
+      "_index-0e977236.js",
       "resources/js/resume/Resume.jsx"
     ],
     "isEntry": true,
     "src": "resources/js/main.jsx"
   },
+  "resources/js/post/DeckPreview.tsx": {
+    "file": "assets/DeckPreview-6d54ad4a.js",
+    "imports": [
+      "_index-0e977236.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/post/DeckPreview.tsx"
+  },
   "resources/js/resume/Resume.jsx": {
-    "file": "assets/Resume-911e7592.js",
+    "file": "assets/Resume-1c8c7f3e.js",
+    "imports": [
+      "_index-0e977236.js"
+    ],
     "isEntry": true,
     "src": "resources/js/resume/Resume.jsx"
   }
