@@ -9,6 +9,8 @@
     contentsCss: [
       '/css/blog/show.css',
     ],
+    filebrowserUploadMethod: 'POST',
+    filebrowserUploadUrl: "{{ route('images.upload.ckeditor', ['_token' => csrf_token() ]) }}",
     stylesSet: [
       { name: 'Big',              element: 'big' },
       { name: 'Small',            element: 'small' },
@@ -32,6 +34,5 @@
       },
     ],
   });
-
 
 </script>

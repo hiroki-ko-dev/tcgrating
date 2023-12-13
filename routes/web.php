@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\Auth\AppleController;
 use App\Http\Controllers\Web\ProxyController;
 use App\Http\Controllers\Web\SiteController;
+use App\Http\Controllers\Web\Image\ImageController;
 
 require __DIR__ . '/auth.php';
 
@@ -192,4 +193,6 @@ Route::namespace('Web')->group(function () {
     Route::get('/app/help', function () {
         return view('app.help');
     });
+
+    Route::post('/images/upload/ckeditor', [ImageController::class, 'ckeditorUpload'])->name('images.upload.ckeditor');
 });
