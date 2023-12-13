@@ -6,29 +6,33 @@ namespace App\Http\Controllers\Web\Image;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Services\Image\ImageService;
 
 final class ImageController extends Controller
 {
-    public function ckeditorUpload(Request $request)
+    public function __construct(
+        private ImageService $imageService
+    ) {
+    }
+
+    public function ckeditorUpload(Request $request): Response | HttpResponseException
     {
-        if ($request->hasFile('upload')) {
-            $file = $request->file('upload');
-            // 保存用ファイル名を生成
-            $storeFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME) .
-                '_' . time() . '.' .
-                $file->getClientOriginalExtension();
-
-            // アップロード処理（'public' ディスクを指定）
-            $file->storeAs('blog/images', $storeFilename, 'public');
-
-            // ckeditor.jsに返却するデータを生成する
-            $url = asset('storage/blog/images/' . $storeFilename); // URLの生成
-
-            // JSON応答を返す
-            return response()->json(['uploaded' => 1, 'fileName' => $storeFilename, 'url' => $url]);
+        if (!$request->hasFile('upload')) {
+            throw new HttpResponseException(response()->json([
+                'uploaded' => 0, 'error' => ['message' => 'アップロードファイルが見つかりません。']
+            ], Response::HTTP_BAD_REQUEST));
         }
 
-        // アップロードに失敗した場合の応答
-        return response()->json(['uploaded' => 0, 'error' => ['message' => 'ファイルをアップロードできませんでした。']]);
+        try {
+            $file = $request->file('upload');
+            [$filename, $url] = $this->imageService->save($file, 'blog/images');
+            return response()->json(['uploaded' => 1, 'fileName' => $filename, 'url' => $url]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'uploaded' => 0, 'error' => ['message' => 'ファイルをアップロードできませんでした。'
+                ]], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

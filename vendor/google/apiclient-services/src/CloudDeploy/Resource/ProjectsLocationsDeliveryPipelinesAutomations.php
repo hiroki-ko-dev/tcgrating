@@ -118,9 +118,9 @@ class ProjectsLocationsDeliveryPipelinesAutomations extends \Google\Service\Reso
    * Lists Automations in a given project and location.
    * (automations.listProjectsLocationsDeliveryPipelinesAutomations)
    *
-   * @param string $parent Required. The parent, which owns this collection of
-   * automations. Format must be `projects/{project_id}/locations/{location_name}/
-   * deliveryPipelines/{pipeline_name}`.
+   * @param string $parent Required. The parent `Delivery Pipeline`, which owns
+   * this collection of automations. Format must be `projects/{project_id}/locatio
+   * ns/{location_name}/deliveryPipelines/{pipeline_name}`.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string filter Filter automations to be returned. All fields can be
