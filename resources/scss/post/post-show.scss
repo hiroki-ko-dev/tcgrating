@@ -34,3 +34,9 @@ h1{
   width: 40px;
   height: 40px;
 }
+
+/* マウスオーバーで詳細への誘導を表示 */
+.post-latest-row:hover {
+  color: orange;
+  background-color: #82beee;
+}

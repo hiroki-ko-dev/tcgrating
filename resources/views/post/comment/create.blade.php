@@ -7,7 +7,7 @@
 @endsection
 
 @section('addCss')
-<link rel="stylesheet" href="{{ mix('/css/post/show.css') }}">
+  @vite(['resources/scss/post/post-show.scss'])
 @endsection
 
 @section('content')

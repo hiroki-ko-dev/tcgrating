@@ -31,5 +31,25 @@
     ],
     "isEntry": true,
     "src": "resources/js/resume/Resume.jsx"
+  },
+  "resources/scss/blog/blog-index.scss": {
+    "file": "assets/blog-index-784dc6dd.css",
+    "isEntry": true,
+    "src": "resources/scss/blog/blog-index.scss"
+  },
+  "resources/scss/blog/blog-show.scss": {
+    "file": "assets/blog-show.css",
+    "isEntry": true,
+    "src": "resources/scss/blog/blog-show.scss"
+  },
+  "resources/scss/post/post-index.scss": {
+    "file": "assets/post-index-32258f25.css",
+    "isEntry": true,
+    "src": "resources/scss/post/post-index.scss"
+  },
+  "resources/scss/post/post-show.scss": {
+    "file": "assets/post-show-b55c9375.css",
+    "isEntry": true,
+    "src": "resources/scss/post/post-show.scss"
   }
 }

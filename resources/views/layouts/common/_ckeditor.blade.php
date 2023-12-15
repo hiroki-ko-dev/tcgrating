@@ -7,21 +7,38 @@
 
   CKEDITOR.replace('editor', {
     contentsCss: [
-      '/css/blog/show.css',
+      '/build/assets/blog-show.css',
     ],
     filebrowserUploadMethod: 'POST',
     filebrowserUploadUrl: "{{ route('images.upload.ckeditor', ['_token' => csrf_token() ]) }}",
     stylesSet: [
-      { name: 'Big',              element: 'big' },
-      { name: 'Small',            element: 'small' },
-      { name: 'Typewriter',       element: 'tt' },
 
-      { name: 'Blue Title',       element: 'h3',      styles: { 'color': 'Blue' } },
-      { name: 'Red Title',        element: 'h3',      styles: { 'color': 'Red' } },
+      // コンテナ用のスタイル
+      {
+        name: 'Row Container',
+        element: 'div',
+        attributes: { 'class': 'row' }
+      },
+      // 列用のスタイル
+      {
+        name: 'Column (1/2)',
+        element: 'div',
+        attributes: { 'class': 'col-md-6' }
+      },
+      {
+        name: 'Column (1/3)',
+        element: 'div',
+        attributes: { 'class': 'col-md-4' }
+      },
+      {
+        name: 'Column (1/4)',
+        element: 'div',
+        attributes: { 'class': 'col-md-3' }
+      },
+      { name: 'Card Image', element: 'div', attributes: { class: 'card-image' } },
 
-      // Inline Styles
-      { name: 'Marker: Yellow',   element: 'span',    styles: { 'background-color': 'Yellow' } },
-      { name: 'Marker: Green',    element: 'span',    styles: { 'background-color': 'Lime' } },
+      { name: 'Blue Title', element: 'h3', styles: { 'color': 'Blue' } },
+      { name: 'Red Title', element: 'h3', styles: { 'color': 'Red' } },
 
       // Object Styles
       { name: 'effect', element: 'div', attributes: { class: 'effect' },
@@ -33,6 +50,18 @@
         },
       },
     ],
+    on: {
+      instanceReady: function(evt) {
+        this.dataProcessor.htmlFilter.addRules({
+          elements: {
+            img: function(el) {
+              // 画像要素からstyle属性を削除
+              el.attributes.style = '';
+            }
+          }
+        });
+      }
+    }
   });
 
 </script>

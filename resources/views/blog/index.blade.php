@@ -7,7 +7,7 @@
 @endsection
 
 @section('addCss')
-  <link rel="stylesheet" href="{{ mix('/css/blog/index.css') }}">
+  @vite(['resources/scss/blog/blog-index.scss'])
 @endsection
 
 @section('content')
@@ -42,33 +42,30 @@
       @endif
     </div>
 
-    <div class="row justify-content-center mb-4">
-      <div class="col-12">
-        <div class="box">
-          @if(!empty($blogs))
-            @foreach($blogs as $blog)
-              <div class="row justify-content-center border-bottom">
-                <div class="col-sm-12">
-                  <div class="d-flex flex-row text-left">
-                    <div class="thumbnail-w mr-2">
-                      <img class="thumbnail" src="{{ $blog->thumbnail_image_url }}" alt="hashimu-icon">
-                    </div>
-                    <div class="string-w">
-                      <div class="blog-date mb-2 mt-2">
-                        [作成日時:{{$blog->created_at}}]
-                      </div>
-                      <div class="text-break d-flex align-items-center">
-                        <span class="blog-title"><a href="/blog/{{$blog->id}}">{{$blog->title}}</a></span>
-                      </div>
-                    </div>
+    @if(!empty($blogs))
+      @foreach($blogs as $blog)
+        <div class="card" onclick="location.href='/blog/{{$blog->id}}'">
+          <div class="row justify-content-center">
+            <div class="col-sm-12">
+              <div class="d-flex flex-row text-left">
+                {{-- <div class="thumbnail-w mr-2"> --}}
+                <div class="thumbnail-box">
+                  <img class="thumbnail" src="{{ $blog->thumbnail_image_url }}" alt="hashimu-icon">
+                </div>
+                {{-- </div> --}}
+                <div class="string-w">
+                  <div class="blog-date mb-2 mt-2">
+                    [作成日時:{{$blog->created_at}}]
                   </div>
+                  <div class="blog-title">{{$blog->title}}</div>
                 </div>
               </div>
-            @endforeach
-          @endif
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      @endforeach
+    @endif
+
     <div class="d-flex justify-content-center mb-4">
       {{$blogs->links('pagination::bootstrap-4')}}
     </div>

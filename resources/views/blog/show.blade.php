@@ -7,7 +7,7 @@
 @endsection
 
 @section('addCss')
-  <link rel="stylesheet" href="{{ mix('/css/blog/show.css') }}">
+  @vite(['resources/scss/blog/blog-show.scss'])
 @endsection
 
 @section('twitterHeader')
@@ -113,18 +113,16 @@
             <form method="POST" action="{{route('blog.destroy',['blog' => $blog->id])}}">
               <div class="btn-group w-100" role="group">
                 @if(Auth::check() && Auth::id() == 1)
-                  <button type="submit" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blog/{{$blog->id}}/edit'">
+                  <button type="button" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blog/{{$blog->id}}/edit'">
                     {{ __('編集する') }}
                   </button>
-                  
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn site-color btn-outline-secondary text-light w-20 m-1" onClick="return requestConfirm();">
-                      {{ __('削除する') }}
-                    </button>
-                  
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn site-color btn-outline-secondary text-light w-20 m-1" onClick="return requestConfirm();">
+                    {{ __('削除する') }}
+                  </button>
                 @endif
-                <button type="submit" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blog'">
+                <button type="button" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blog'">
                   {{ __('一覧へ戻る') }}
                 </button>
             </div>

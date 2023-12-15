@@ -65,7 +65,7 @@ h2{
   }
 }
 
-ol{
+ol {
   padding: 0.5em 3em;
   margin: 1em 0;
   font-weight: bold;
@@ -76,6 +76,12 @@ ol{
   li {
     padding: 0.5rem
   }
+}
+
+/* マウスオーバーで詳細への誘導を表示 */
+.post-latest-row:hover {
+  color: orange;
+  background-color: #82beee;
 }
 
 .description {
@@ -95,4 +101,13 @@ ol{
   background: #dcdcdc;
   border: solid 2px #000000;
   padding: 5px;
+}
+
+div.card-image img {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  @media screen and (max-width: 700px) {
+    max-width: 200px;
+  }
 }
