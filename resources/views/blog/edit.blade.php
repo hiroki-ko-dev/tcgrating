@@ -12,6 +12,7 @@
 
 @section('addJs')
   <script src="//cdn.ckeditor.com/4.17.1/full/ckeditor.js"></script>
+  {{-- @vite(['resources/js/common/CKEditor.tsx']) --}}
 @endsection
 
 @section('content')

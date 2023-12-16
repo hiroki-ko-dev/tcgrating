@@ -15,7 +15,6 @@
     @yield('header')
     @yield('twitterHeader')
     @yield('addCss')
-
     @yield('addJs')
   </head>
   <body class="bg-light">

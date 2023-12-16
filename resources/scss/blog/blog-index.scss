@@ -27,6 +27,10 @@
 .string-w {
   flex-grow: 1; /* 余剰スペースを埋めるように設定 */
   box-sizing: border-box;
+  &:hover {
+    color: orange;
+    background-color: #82beee;
+  }
 }
 
 @media screen and (min-width: 701px) {

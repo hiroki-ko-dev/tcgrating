@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import ckeditor5 from "@ckeditor/vite-plugin-ckeditor5";
 
 export default defineConfig({
   plugins: [
@@ -10,11 +11,12 @@ export default defineConfig({
       'resources/scss/post/post-index.scss',
       'resources/scss/blog/blog-show.scss',
       'resources/scss/blog/blog-index.scss',
-      'resources/js/main.jsx',
+      // 'resources/js/common/CKEditor.tsx',
       'resources/js/resume/Resume.jsx',
       'resources/js/post/DeckPreview.tsx',
     ]),
     react(),
+    // ckeditor5({ theme: require.resolve("@ckeditor/ckeditor5-theme-lark") }),
   ],
   build: {
     rollupOptions: {
@@ -28,6 +30,7 @@ export default defineConfig({
           return 'assets/[name]-[hash][extname]'; // 通常のファイル名フォーマット
         }
       }
-    }
+    },
+    target: 'esnext', // ターゲット環境を変更
   }
 });

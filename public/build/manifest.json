@@ -1,39 +1,45 @@
 {
-  "_index-0e977236.js": {
-    "file": "assets/index-0e977236.js"
+  "_index-8c17b362.js": {
+    "file": "assets/index-8c17b362.js"
   },
   "resources/css/main.css": {
-    "file": "assets/main-36a2991a.css",
+    "file": "assets/main-179954eb.css",
     "isEntry": true,
     "src": "resources/css/main.css"
   },
-  "resources/js/main.jsx": {
-    "file": "assets/main-711ea8d1.js",
+  "resources/js/common/CKEditor.css": {
+    "file": "assets/CKEditor-5cc969fb.css",
+    "src": "resources/js/common/CKEditor.css"
+  },
+  "resources/js/common/CKEditor.tsx": {
+    "css": [
+      "assets/CKEditor-5cc969fb.css"
+    ],
+    "file": "assets/CKEditor-c5894fdc.js",
     "imports": [
-      "_index-0e977236.js",
-      "resources/js/resume/Resume.jsx"
+      "_index-8c17b362.js"
     ],
     "isEntry": true,
-    "src": "resources/js/main.jsx"
+    "src": "resources/js/common/CKEditor.tsx"
   },
   "resources/js/post/DeckPreview.tsx": {
-    "file": "assets/DeckPreview-6d54ad4a.js",
+    "file": "assets/DeckPreview-303d904c.js",
     "imports": [
-      "_index-0e977236.js"
+      "_index-8c17b362.js"
     ],
     "isEntry": true,
     "src": "resources/js/post/DeckPreview.tsx"
   },
   "resources/js/resume/Resume.jsx": {
-    "file": "assets/Resume-1c8c7f3e.js",
+    "file": "assets/Resume-e098f457.js",
     "imports": [
-      "_index-0e977236.js"
+      "_index-8c17b362.js"
     ],
     "isEntry": true,
     "src": "resources/js/resume/Resume.jsx"
   },
   "resources/scss/blog/blog-index.scss": {
-    "file": "assets/blog-index-784dc6dd.css",
+    "file": "assets/blog-index-da3fbcd6.css",
     "isEntry": true,
     "src": "resources/scss/blog/blog-index.scss"
   },
