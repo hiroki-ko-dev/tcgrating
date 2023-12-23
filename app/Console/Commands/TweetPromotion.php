@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\TwitterService;
+use App\Services\Twitter\TwitterService;
 use Illuminate\Console\Command;
 
 class TweetPromotion extends Command

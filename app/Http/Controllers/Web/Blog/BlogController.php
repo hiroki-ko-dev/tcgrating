@@ -13,7 +13,7 @@ use Illuminate\Contracts\View\View;
 use App\Models\Blog;
 use App\Services\BlogService;
 use App\Services\Post\PostService;
-use App\Services\TwitterService;
+use App\Services\Twitter\TwitterService;
 use App\Presenters\Web\Post\PostLatestPresenter;
 
 final class BlogController extends Controller

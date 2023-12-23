@@ -14,7 +14,7 @@ use App\Services\User\UserService;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\ApiService;
-use App\Services\TwitterService;
+use App\Services\Twitter\TwitterService;
 use App\Presenters\Api\Event\SinglePresenter;
 use Illuminate\Http\Request;
 

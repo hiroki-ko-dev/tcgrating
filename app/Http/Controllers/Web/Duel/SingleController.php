@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Web\Duel;
 use App\Http\Controllers\Controller;
 use App\Services\DuelService;
 use App\Services\Post\PostService;
-use App\Services\TwitterService;
+use App\Services\Twitter\TwitterService;
 use Auth;
 use DB;
 use Illuminate\Http\Request;

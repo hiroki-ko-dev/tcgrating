@@ -14,7 +14,7 @@ use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\Post\PostService;
 use App\Services\User\UserService;
-use App\Services\TwitterService;
+use App\Services\Twitter\TwitterService;
 //use App\Mail\AdminNoticeCreateEventSingleMail;
 use App\Mail\EventSingleCreateMail;
 use Illuminate\Http\Request;

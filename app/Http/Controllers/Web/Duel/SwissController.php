@@ -7,7 +7,7 @@ use App\Enums\DuelStatus;
 use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\Post\PostService;
-use App\Services\TwitterService;
+use App\Services\Twitter\TwitterService;
 use Auth;
 use DB;
 use Illuminate\Http\Request;

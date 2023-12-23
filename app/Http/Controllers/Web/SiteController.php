@@ -7,7 +7,7 @@ use Auth;
 use DB;
 use App\Services\User\UserService;
 use App\Services\GoogleService;
-use App\Services\TwitterService;
+use App\Services\Twitter\TwitterService;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller

@@ -1,20 +1,68 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Twitter;
 
 use App\Enums\EventRateType;
 use App\Enums\PostSubCategory;
-use App\Repositories\UserRepository;
-use App\Repositories\TwitterRepository;
 use Illuminate\Support\Str;
 use Yasumi\Yasumi;
+use Abraham\TwitterOAuth\TwitterOAuth;
 
 class TwitterService
 {
-    public function __construct(
-        private readonly UserRepository $userRepository,
-        private readonly TwitterRepository $twitterRepository
-    ) {
+    public function tweet($apiKeys, $tweet)
+    {
+        $twitter = new TwitterOAuth(
+            $apiKeys['API_KEY'],
+            $apiKeys['API_SECRET'],
+            $apiKeys['API_ACCESS_TOKEN'],
+            $apiKeys['API_ACCESS_TOKEN_SECRET']
+        );
+        // $twitter->setBearer($apiKeys['BEARER_TOKEN']);
+        $twitter->setApiVersion("2");
+        $twitter->post(
+            'tweets',
+            [
+                "text" => $tweet
+            ],
+            true
+        );
+
+        // HTTPステータスコードを取得
+        $httpCode = $twitter->getLastHttpCode();
+        // 成功した場合、HTTPステータスコードは200になります
+        if ($httpCode == 200) {
+            // ツイートが成功した
+            return true;
+        } else {
+            // エラーが発生した場合、詳細を取得
+            $error = $twitter->getLastBody();
+            // エラーの内容を返すか、例外を投げる
+            return $error;
+        }
+    }
+
+    public function imageTweet($apiKeys, $tweet)
+    {
+        $twitter = new TwitterOAuth(
+            $apiKeys['API_KEY'],
+            $apiKeys['API_SECRET'],
+            $apiKeys['API_ACCESS_TOKEN'],
+            $apiKeys['API_ACCESS_TOKEN_SECRET']
+        );
+
+        // ④画像をアップロードし、画像のIDを取得
+        $imageId = $twitter->upload('media/upload', ['media' => 'public/images/site/resume/pokeka-resume.png']);
+        $twitter->setBearer($apiKeys['BEARER_TOKEN']);
+        $twitter->setApiVersion("2");
+        $twitter->post("statuses/update", [
+            "status" => $tweet,
+            'media_ids' => implode(',', [  // 画像の指定
+                $imageId->media_id_string
+            ])
+        ]);
+
+        return $twitter;
     }
 
     public function tweetByMakeEvent($event)
@@ -41,7 +89,7 @@ class TwitterService
             $hashTag;
 
         if (config('assets.common.appEnv') == 'production') {
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
         }
     }
 
@@ -86,7 +134,7 @@ class TwitterService
             env('APP_URL') . '/duel/instant/' . $event->eventDuels[0]->duel_id . '?selected_game_id=' . $event->game_id . ' ';
 
         if (config('assets.common.appEnv') == 'production') {
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
             $this->discordPost($discord, $webHook);
         }
     }
@@ -116,7 +164,7 @@ class TwitterService
             $hashTag;
 
         if (config('assets.common.appEnv') == 'production') {
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
         }
     }
 
@@ -163,7 +211,7 @@ class TwitterService
             'https://hashimu.com/duel/instant/' . $duel->id . '?selected_game_id=' . $duel->game_id . ' ' ;
 
         if (config('assets.common.appEnv') == 'production') {
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
             $this->discordPost($discord, $webHook);
         }
     }
@@ -201,7 +249,7 @@ class TwitterService
             $hashTag;
 
         if (config('assets.common.appEnv') == 'production') {
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
         }
     }
 
@@ -243,7 +291,7 @@ class TwitterService
             $hashTag;
 
         if (config('assets.common.appEnv') == 'production') {
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
         }
     }
 
@@ -271,7 +319,7 @@ class TwitterService
                 'https://hashimu.com/event/single/' . $event->id . '?selected_game_id=' . $event->game_id . ' ' . PHP_EOL .
                 $hashTag;
             if(config('assets.common.appEnv') == 'production') {
-                $this->twitterRepository->tweet($apiKeys, $tweet);
+                $this->tweet($apiKeys, $tweet);
             }
         }
     }
@@ -301,7 +349,7 @@ class TwitterService
                 $hashTag;
 
             if (config('assets.common.appEnv') == 'production') {
-                $this->twitterRepository->tweet($apiKeys, $tweet);
+                $this->tweet($apiKeys, $tweet);
             }
         }
     }
@@ -346,7 +394,7 @@ class TwitterService
         if (config('assets.common.appEnv') == 'production') {
             $this->discordPost($content, $webHook);
             $content = $content . PHP_EOL . $hashTag;
-            $this->twitterRepository->tweet($apiKeys, $content);
+            $this->tweet($apiKeys, $content);
         }
     }
 
@@ -366,7 +414,7 @@ class TwitterService
                 PHP_EOL .
                 $hashTag;
 
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
 
             if ($post->sub_category_id === PostSubCategory::FREE->value) {
                 $webHook = config('assets.discord.web_hook.chat');
@@ -416,7 +464,7 @@ class TwitterService
                 PHP_EOL .
                 $hashTag;
 
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
 
                 $webHook = config('assets.discord.web_hook.blog');
                 $discord =
@@ -453,10 +501,10 @@ class TwitterService
 
             // remotoPokeka
             $apiKeys = config('assets.twitter.pokemon');
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
             // pokekaInfo
             $apiKeys = config('assets.twitter.pokeka_info');
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
 
             // discord投稿
             $webHook = config('assets.discord.web_hook.affiliate');
@@ -488,7 +536,7 @@ class TwitterService
                 $number = rand(200, 260);
             }
             $tweet = "本日はリモートポケカの対戦が" . $number . "戦ありました";
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
 
             // $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
             // $randKey  =  array_rand(config('assets.tweet.promotion.promotion'));
@@ -501,7 +549,7 @@ class TwitterService
             //         $tweet . PHP_EOL .
             //         $hashTag
             //     ;
-            //     $this->twitterRepository->imageTweet($apiKeys, $tweet);
+            //     $this->imageTweet($apiKeys, $tweet);
             // } else {
             //     // 対戦マッチング  によるメール文
             //     $tweet =
@@ -511,7 +559,7 @@ class TwitterService
             //         'https://line.me/ti/g2/Kt5eTJpAKQ9eV-De1_m7jeJA1XLIKaQFypvEZg?utm_source=invitation&utm_medium=link_copy&utm_campaign=default'
             //     ;
 
-            //     $this->twitterRepository->tweet($apiKeys, $tweet);
+            //     $this->tweet($apiKeys, $tweet);
             // }
         }
     }
@@ -542,7 +590,7 @@ class TwitterService
             ;
 
             $tweet = Str::limit($tweet, 250, '...');
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
         }
     }
 
@@ -559,7 +607,7 @@ class TwitterService
             $tweet = $content;
 
             $tweet = Str::limit($tweet, 250, '...');
-            $this->twitterRepository->tweet($apiKeys, $tweet);
+            $this->tweet($apiKeys, $tweet);
         }
     }
 

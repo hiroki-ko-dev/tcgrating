@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use App\Enums\PostCategory;
 use App\Services\Post\PostService;
-use App\Services\TwitterService;
+use App\Services\Twitter\TwitterService;
 use App\Presenters\Web\Post\PostAndPaginateCommentPresenter;
 use App\Presenters\Web\Post\PostLatestPresenter;
 

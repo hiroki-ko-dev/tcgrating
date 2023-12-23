@@ -3,17 +3,9 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Repositories\TwitterRepository;
 
 class ApiService
 {
-    protected $twitterRepository;
-
-    public function __construct(TwitterRepository $twitterRepository)
-    {
-        $this->twitterRepository = $twitterRepository;
-    }
-
     /**
      * @param $eloquent
      * @param int $statusCode
