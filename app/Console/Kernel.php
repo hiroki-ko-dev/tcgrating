@@ -41,6 +41,9 @@ class Kernel extends ConsoleKernel
 
         // リモートポケカアカウントの宣伝ツイート
         $schedule->command('command:tweetPromotion')->dailyAt('23:00');
+
+        // ポケカ公式大会の結果ツイート
+        $schedule->command('command:tweetOfficialEventResult')->dailyAt('12:00');
     }
 
     /**

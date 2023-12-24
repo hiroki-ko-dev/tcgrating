@@ -11,4 +11,13 @@ return [
         'yugioh' => '遊戯王',
         'gravure' => 'グラビア',
     ],
+
+    'pokeka_official_event' => [
+        'sheet_id'     => '1w92L_pQ4-nn6QVeN3g-RL1uspiH4GzozfXqSgT2rzB4',
+        'sheet_name' => [
+            'getEventList',
+            'getDeckList',
+            'deckTag',
+        ],
+    ],
 ];

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use DB;
 use App\Services\User\UserService;
-use App\Services\GoogleService;
+use App\Services\Google\GoogleService;
 use App\Services\Twitter\TwitterService;
 use Illuminate\Http\Request;
 

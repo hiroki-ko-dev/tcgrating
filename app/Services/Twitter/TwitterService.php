@@ -65,6 +65,63 @@ class TwitterService
         return $twitter;
     }
 
+    public function imagesTweet(array $apiKeys, string $tweet, array $images, ?string $replyToTweetId): string
+    {
+        $twitter = new TwitterOAuth(
+            $apiKeys['API_KEY'],
+            $apiKeys['API_SECRET'],
+            $apiKeys['API_ACCESS_TOKEN'],
+            $apiKeys['API_ACCESS_TOKEN_SECRET']
+        );
+    
+        $mediaIds = [];
+        foreach ($images as $imagePath) {
+            // 画像をアップロードし、各画像のIDを取得
+            $uploadedMedia = $twitter->upload('media/upload', ['media' => $imagePath]);
+            if (isset($uploadedMedia->media_id_string)) {
+                $mediaIds[] = $uploadedMedia->media_id_string;
+            }
+        }
+    
+        $postData = [
+            'text' => $tweet,
+            'media' => [
+                'media_ids' => $mediaIds
+            ]
+        ];
+        if ($replyToTweetId) {
+            $postData['reply'] =  [
+                'in_reply_to_tweet_id' => $replyToTweetId
+            ];
+        }
+
+        $tweetId = null;
+        if (!empty($mediaIds)) {
+            // 画像のIDを使ってツイートを投稿
+            $twitter->setApiVersion("2");
+            $response = $twitter->post("tweets", $postData, true);
+            if (isset($response->data) && isset($response->data->id)) {
+                $tweetId = $response->data->id;
+                \Log::debug("Tweet ID: " . $tweetId);
+            } else {
+                \Log::error(print_r($response, true));
+                \Log::error("Tweet ID not found in the response");
+            }
+        }
+
+        // // HTTPステータスコードを取得
+        // $httpCode = $twitter->getLastHttpCode();
+        // // 成功した場合、HTTPステータスコードは200になります
+        // if ($httpCode !== 200) {
+        //     // エラーが発生した場合、詳細を取得
+        //     $error = $twitter->getLastBody();
+        //     // エラーの内容を返すか、例外を投げる
+        //     return $error;
+        // }
+    
+        return (string)$tweetId;
+    }
+
     public function tweetByMakeEvent($event)
     {
         // Twitterの遊戯王アカウントでTweet

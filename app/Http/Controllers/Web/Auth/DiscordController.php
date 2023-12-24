@@ -13,7 +13,7 @@ use DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class DiscordController extends Controller
+final class DiscordController extends Controller
 {
     public function __construct(
         private readonly UserInfoDiscordService $userInfoDiscordService,

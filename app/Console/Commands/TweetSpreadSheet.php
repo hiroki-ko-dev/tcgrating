@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\GoogleService;
+use App\Services\Google\GoogleService;
 use App\Services\Twitter\TwitterService;
 use Illuminate\Console\Command;
 use Exception;
