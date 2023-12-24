@@ -42,7 +42,7 @@ class OfficialEventService
             if (!$eventRow[0]) {
                 break;
             }
-            if ($eventRow[1] !== date('Y/m/d', strtotime('-3 day'))) {
+            if ($eventRow[1] === date('Y/m/d', strtotime('-3 day'))) {
                 continue;
             }
             $attrs = [];
