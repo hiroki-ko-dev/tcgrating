@@ -58,7 +58,7 @@
           @if($referralPost->replyCommentCount > 0)
             <div class="row mt-2 pb-2">
               <div class="bg-pink p-1 ml-3 font-weight-bold text-redPurple">
-                <a href="/posts/comment/create?post_id={{$referralPost->id}}" class="text-redPurple">{{$referralPost->replyCommentCount}}件の返信</a>
+                <a href="/posts/comments/create?post_id={{$referralPost->id}}" class="text-redPurple">{{$referralPost->replyCommentCount}}件の返信</a>
               </div>
             </div>
           @endif
@@ -95,9 +95,9 @@
             <div class="row">
               <div class="bg-skyblue p-1 ml-3 font-weight-bold text-primary">
                 @if($referralComment->isReferralPost)
-                  <a href="/posts/comment/create?post_id={{$referralPost->id}}">>>1</a>
+                  <a href="/posts/comments/create?post_id={{$referralPost->id}}">>>1</a>
                 @elseif($referralComment->referralComment)
-                  <a href="/posts/comment/create?comment_id={{$referralComment->referralComment->id}}">>>{{$referralComment->referralComment->number}}</a>
+                  <a href="/posts/comments/create?comment_id={{$referralComment->referralComment->id}}">>>{{$referralComment->referralComment->number}}</a>
                 @endif
               </div>
             </div>
@@ -109,7 +109,7 @@
           @if($referralComment->replyCommentCount > 0)
             <div class="row mt-2 pb-2">
               <div class="bg-pink p-1 ml-3 font-weight-bold">
-                <a href="/posts/comment/create?comment_id={{$referralComment->id}}" class="text-redPurple">{{$referralComment->replyCommentCount}}件の返信</a>
+                <a href="/posts/comments/create?comment_id={{$referralComment->id}}" class="text-redPurple">{{$referralComment->replyCommentCount}}件の返信</a>
               </div>
             </div>
           @endif
@@ -125,7 +125,7 @@
           <div class="comment border-top pt-2">
             <div class="row m-1">
               <span class="post-user">{{$replyComment->number}}. [{{$replyComment->createdAt}}]</span>
-              <a href="/posts/comment/create?comment_id={{$replyComment->id}}">返信する</a>
+              <a href="/posts/comments/create?comment_id={{$replyComment->id}}">返信する</a>
             </div>
             <div class="row mb-3">
               <div class="col-md-12">
@@ -148,9 +148,9 @@
             <div class="row">
               <div class="bg-skyblue p-1 ml-3 font-weight-bold text-primary">
                 @if($referralPost)
-                  <a href="/posts/comment/create?post_id={{$referralPost->id}}">>>1</a>
+                  <a href="/posts/comments/create?post_id={{$referralPost->id}}">>>1</a>
                 @else
-                  <a href="/posts/comment/create?comment_id={{$referralComment->id}}">>>{{$referralComment->number}}</a>
+                  <a href="/posts/comments/create?comment_id={{$referralComment->id}}">>>{{$referralComment->number}}</a>
                 @endif
               </div>
             </div>
@@ -161,7 +161,7 @@
             @if($replyComment->replyCommentCount > 0)
               <div class="row mt-2 pb-2">
                 <div class="bg-pink p-1 ml-3 font-weight-bold">
-                  <a href="/posts/comment/create?comment_id={{$replyComment->id}}" class="text-redPurple">{{$replyComment->replyCommentCount}}件の返信</a>
+                  <a href="/posts/comments/create?comment_id={{$replyComment->id}}" class="text-redPurple">{{$replyComment->replyCommentCount}}件の返信</a>
                 </div>
               </div>
             @endif
@@ -171,7 +171,7 @@
     @endif
 
     <div class="box text-left w-100">
-      <form method="POST" action="/posts/comment">
+      <form method="POST" action="/posts/comments">
         @csrf
         @if($referralPost)
           <input type="hidden" name="post_id" value="{{ $referralPost->id }}" >

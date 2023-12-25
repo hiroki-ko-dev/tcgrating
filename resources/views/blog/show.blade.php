@@ -63,7 +63,7 @@
               前の記事
             </div>
             @if($preview)
-              <a href="/blog/{{$preview->id}}">
+              <a href="/blogs/{{$preview->id}}">
                 <div class="row justify-content-center mb-4">
                 {{$preview->title}}
                 </div>
@@ -84,9 +84,9 @@
               次の記事
             </div>
             @if($next)
-              <a href="/blog/{{$next->id}}">
+              <a href="/blogs/{{$next->id}}">
                 <div class="row justify-content-center mb-4">
-                  <a href="/blog/{{$next->id}}">{{$next->title}}</a>
+                  <a href="/blogs/{{$next->id}}">{{$next->title}}</a>
                 </div>
                 <div class="row justify-content-center mb-4">
                   <img class="thumbnail" src="{{ $next->thumbnail_image_url }}" alt="hashimu-icon">
@@ -113,7 +113,7 @@
             <form method="POST" action="{{route('blog.destroy',['blog' => $blog->id])}}">
               <div class="btn-group w-100" role="group">
                 @if(Auth::check() && Auth::id() == 1)
-                  <button type="button" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blog/{{$blog->id}}/edit'">
+                  <button type="button" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blogs/{{$blog->id}}/edit'">
                     {{ __('編集する') }}
                   </button>
                   @csrf
@@ -122,7 +122,7 @@
                     {{ __('削除する') }}
                   </button>
                 @endif
-                <button type="button" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blog'">
+                <button type="button" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blogs'">
                   {{ __('一覧へ戻る') }}
                 </button>
             </div>

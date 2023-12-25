@@ -79,7 +79,7 @@ final class BlogController extends Controller
                 }
                 return $blog;
             });
-            return redirect('/blog/' . $blog->id)->with('flash_message', '記事を保存しました');
+            return redirect('/blogs/' . $blog->id)->with('flash_message', '記事を保存しました');
         } catch (\Exception $e) {
             report($e);
             return back()->with('flash_message', $e->getMessage());
@@ -131,7 +131,7 @@ final class BlogController extends Controller
                 }
             }
         });
-        return redirect('/blog/' . $blogId)->with('flash_message', '保存しました');
+        return redirect('/blogs/' . $blogId)->with('flash_message', '保存しました');
     }
 
     public function destroy(int $blogId): RedirectResponse
@@ -143,6 +143,6 @@ final class BlogController extends Controller
 
         $this->blogService->deleteBlog($blogId);
 
-        return redirect('/blog')->with('flash_message', '記事を削除しました');
+        return redirect('/blogs')->with('flash_message', '記事を削除しました');
     }
 }

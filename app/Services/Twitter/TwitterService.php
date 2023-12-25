@@ -511,7 +511,7 @@ class TwitterService
             $apiKeys = config('assets.twitter.pokeka_info');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
-            $link = 'https://hashimu.com/blog/' . $blog->id . '?selected_game_id=' . $blog->game_id . '&remotopokeka=1';
+            $link = 'https://hashimu.com/blogs/' . $blog->id . '?selected_game_id=' . $blog->game_id . '&remotopokeka=1';
 
             // 対戦マッチング  によるメール文
             $tweet =
@@ -568,7 +568,7 @@ class TwitterService
             $content =
                 $blog->title . PHP_EOL .
                 PHP_EOL .
-                'https://hashimu.com/blog/' . $blog->id . PHP_EOL .
+                'https://hashimu.com/blogs/' . $blog->id . PHP_EOL .
                 PHP_EOL .
                 $blog->body;
             $discord = Str::limit($content, 200, '...');

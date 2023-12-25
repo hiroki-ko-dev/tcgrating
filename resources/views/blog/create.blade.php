@@ -34,7 +34,7 @@
         {{ __('記事作成') }}
       </div>
     </div>
-    <form method="POST" action="/blog">
+    <form method="POST" action="/blogs">
       @csrf
       @include('layouts.blog._form')
     </form>

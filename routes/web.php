@@ -129,7 +129,7 @@ Route::namespace('Web')->group(function () {
     Route::resources([
         'posts'         => Post\PostController::class,
     //掲示板コメント
-        'posts/comment' => Post\CommentController::class,
+        'posts/comments' => Post\CommentController::class,
     ]);
 
     // 商品
@@ -146,9 +146,9 @@ Route::namespace('Web')->group(function () {
 
     //記事
     Route::resources([
-        'blog'         => Blog\BlogController::class,
+        'blogs'         => Blog\BlogController::class,
         //掲示板コメント
-        'blog/comment' => Blog\CommentController::class,
+        'blog/comments' => Blog\CommentController::class,
     ]);
 
     //イベント系スレッド

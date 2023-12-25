@@ -34,7 +34,7 @@
         {{ __('記事編集') }}
       </div>
     </div>
-    <form method="POST" action="/blog/{{$blog->id}}">
+    <form method="POST" action="/blogs/{{$blog->id}}">
       @csrf
       @method('PUT')
 

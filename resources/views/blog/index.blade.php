@@ -22,7 +22,7 @@
           @if(Auth::check() && Auth::id() == 1)
             <div class="col-6">
               <button class="btn site-color text-white btn-outline-secondary text-center w-100"
-                onclick="location.href='/blog/create'">
+                onclick="location.href='/blogs/create'">
                 {{ __('+ 新規作成') }}
               </button>
             </div>
@@ -44,7 +44,7 @@
 
     @if(!empty($blogs))
       @foreach($blogs as $blog)
-        <div class="card" onclick="location.href='/blog/{{$blog->id}}'">
+        <div class="card" onclick="location.href='/blogs/{{$blog->id}}'">
           <div class="row justify-content-center">
             <div class="col-sm-12">
               <div class="d-flex flex-row text-left">
