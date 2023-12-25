@@ -24,7 +24,7 @@
 
   <div class="col-md-12">
     <div>
-      <form method="POST" action="/post">
+      <form method="POST" action="/posts">
         @csrf
         <input type="hidden" name="post_category_id" value="{{$post_category_id}}">
         <input type="hidden" name="team_id" value="{{$team_id}}">

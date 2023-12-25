@@ -24,7 +24,7 @@
         <!-- チーム募集掲示板はチームページから掲示板を作成させる -->
         @if($post_category_id <> \App\Models\PostCategory::CATEGORY_TEAM_WANTED)
           <button class="btn site-color text-white btn-outline-secondary text-center w-100"
-                onclick="location.href='/post/create?post_category_id={{$post_category_id}}'">
+                onclick="location.href='/posts/create?post_category_id={{$post_category_id}}'">
             {{ __('+ 新スレッド作成') }}
           </button>
         @endif
@@ -42,7 +42,7 @@
       @endif
     </div>
 
-    <form method="GET" action="/post">
+    <form method="GET" action="/posts">
       <input type="hidden" name="post_category_id" value="{{\App\Models\PostCategory::CATEGORY_FREE}}">
       <div class="row justify-content-center">
         <fieldset>
@@ -73,7 +73,7 @@
 
     @if(!empty($posts))
       @foreach($posts as $post)
-        <div class="card" onclick="location.href='/post/{{$post->id}}'">
+        <div class="card" onclick="location.href='/posts/{{$post->id}}'">
           <div class="row justify-content-center">
             <div class="col-md-12">
               <div class="card-body">

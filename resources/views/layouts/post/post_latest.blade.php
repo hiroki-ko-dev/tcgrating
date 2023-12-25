@@ -9,7 +9,7 @@
               <div class="border-bottom"></div>
               <div>
                 @foreach($postLatests as $post)
-                  <a href="/post/{{ $post->id }}" class="text-decoration-none">
+                  <a href="/posts/{{ $post->id }}" class="text-decoration-none">
                     <div class="post-latest-row">
                       <div class="pt-1 pb-1">
                         <span class="text-danger">New</span>　{{$post->title}}

@@ -91,7 +91,7 @@ final class PostController extends Controller
             $this->twitterService->tweetByStorePost($post);
         });
 
-        return redirect('/post?post_category_id=' . $request->input('post_category_id'))->with('flash_message', '新規投稿を行いました');
+        return redirect('/posts?post_category_id=' . $request->input('post_category_id'))->with('flash_message', '新規投稿を行いました');
     }
 
     public function show(Request $request, int $postId): View

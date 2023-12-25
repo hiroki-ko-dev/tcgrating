@@ -67,7 +67,7 @@
             <div class="menu-content">
               <ul>
                 <li><a href="/rank">ランキング</a></li>
-                <li><a href="/post?post_category_id={{\App\Models\PostCategory::CATEGORY_FREE}}"><span class="text-yellrow">掲示板</a></li>
+                <li><a href="/posts?post_category_id={{\App\Models\PostCategory::CATEGORY_FREE}}"><span class="text-yellrow">掲示板</a></li>
                 {{-- <li><a href="/product">商品</a></li> --}}
                 {{--                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::TEAM_WANTED}}">チームメンバー募集掲示板</a></li>--}}
                 {{--                  <li><a href="/team">チーム検索</a></li>--}}

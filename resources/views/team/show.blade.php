@@ -51,7 +51,7 @@
                 </a>
             </div>
             <div class="col-md-8 offset-md-4">
-                <a class="btn btn-link text-center" href="/post/create?post_category_id=4&team_id={{$team->id}}">
+                <a class="btn btn-link text-center" href="/posts/create?post_category_id=4&team_id={{$team->id}}">
                     {{ __('チームメンバー募集掲示板に投稿する') }}
                 </a>
             </div>

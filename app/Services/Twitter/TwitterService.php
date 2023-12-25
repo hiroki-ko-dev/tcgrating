@@ -461,7 +461,7 @@ class TwitterService
             $apiKeys = config('assets.twitter.pokeka_info');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
-            $link = 'https://hashimu.com/post/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1';
+            $link = 'https://hashimu.com/posts/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1';
 
             // 対戦マッチング  によるメール文
             $tweet =

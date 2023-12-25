@@ -125,6 +125,6 @@ final class CommentController extends Controller
             return $postComment;
         });
 
-        return redirect('/post/' . $postComment->post->id)->with('flash_message', 'コメントを行いました');
+        return redirect('/posts/' . $postComment->post->id)->with('flash_message', 'コメントを行いました');
     }
 }

@@ -127,9 +127,9 @@ Route::namespace('Web')->group(function () {
 
     //掲示板スレッド
     Route::resources([
-        'post'         => Post\PostController::class,
+        'posts'         => Post\PostController::class,
     //掲示板コメント
-        'post/comment' => Post\CommentController::class,
+        'posts/comment' => Post\CommentController::class,
     ]);
 
     // 商品
