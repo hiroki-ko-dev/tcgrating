@@ -110,7 +110,7 @@
       <div class="row justify-content-center mb-4 mt-1">
         <div class="col-md-10 col-12">
           <div class="box">
-            <form method="POST" action="{{route('blog.destroy',['blog' => $blog->id])}}">
+            <form method="POST" action="{{route('blogs.destroy',['blog' => $blog->id])}}">
               <div class="btn-group w-100" role="group">
                 @if(Auth::check() && Auth::id() == 1)
                   <button type="button" class="btn site-color btn-outline-secondary text-light w-20 m-1" onclick="location.href='/blogs/{{$blog->id}}/edit'">
