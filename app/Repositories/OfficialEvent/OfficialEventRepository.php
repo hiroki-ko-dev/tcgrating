@@ -46,7 +46,6 @@ class OfficialEventRepository
                 $deckTagDeck->save();
             }
         }
-
         return $officialEvent;
     }
 
@@ -59,4 +58,19 @@ class OfficialEventRepository
     {
         return DeckTag::where('name', $name)->first();
     }
+
+    public function deleteOfficialEvent(array $officialEventIds): void
+    {
+        $officialEvents = OfficialEvent::whereIn('id', $officialEventIds)->get();
+        foreach ($officialEvents as $officialEvent) {
+            foreach ($officialEvent->decks as $deck) {
+                // Deck に関連する DeckTagDeck レコードを削除
+                $deck->deckTags()->detach();
+                // その後、Deck レコードを削除
+                $deck->delete();
+            }
+            // 最後に、OfficialEvent レコードを削除
+            $officialEvent->delete();
+        }
+    }    
 }

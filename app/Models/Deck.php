@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\hasMany;
 
 final class Deck extends Model
 {
@@ -22,6 +23,11 @@ final class Deck extends Model
     public function deckTags(): BelongsToMany
     {
         return $this->belongsToMany(DeckTag::class, 'deck_tag_deck', 'deck_id', 'deck_tag_id');
+    }
+
+    public function deckTagDecks(): hasMany
+    {
+        return $this->hasMany(DeckTagDeck::class, 'id', 'deck_id');
     }
     
 }

@@ -64,10 +64,18 @@ class OfficialEventService
             }
             
             if (isset($attrs['decks'])) {
-                $officialEvents[] = $this->officialEventRepository->create($attrs);
+                $officialEvent = $this->officialEventRepository->create($attrs);
+                if ($officialEvent) {
+                    $officialEvents[] = $officialEvent;
+                }
             }
         }
 
         return collect($officialEvents);
+    }
+
+    public function deleteOfficialEvent(array $officialEventIds): void
+    {
+        $this->officialEventRepository->deleteOfficialEvent($officialEventIds);
     }
 }

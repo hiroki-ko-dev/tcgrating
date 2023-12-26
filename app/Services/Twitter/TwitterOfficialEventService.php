@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Services\Twitter;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\File;
 use App\Models\Deck;
 
 final class TwitterOfficialEventService extends TwitterService
@@ -14,7 +12,6 @@ final class TwitterOfficialEventService extends TwitterService
     public function tweetResult(Collection $officialEvents): void
     {
         if (config('assets.common.appEnv') == 'production') {
-
             foreach ($officialEvents as $officialEvent) {
                 $officialEvent->decks = $officialEvent->decks->sortBy('rank');
                 $decks = '';
@@ -97,7 +94,5 @@ final class TwitterOfficialEventService extends TwitterService
             // 空のディレクトリを削除
             rmdir($directory);
         }
-
     }
-    
 }
