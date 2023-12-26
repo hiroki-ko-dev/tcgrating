@@ -13,7 +13,7 @@ final class TwitterOfficialEventService extends TwitterService
 {
     public function tweetResult(Collection $officialEvents): void
     {
-        // if (config('assets.common.appEnv') == 'production') {
+        if (config('assets.common.appEnv') == 'production') {
 
             foreach ($officialEvents as $officialEvent) {
                 $officialEvent->decks = $officialEvent->decks->sortBy('rank');
@@ -43,7 +43,7 @@ final class TwitterOfficialEventService extends TwitterService
                 $tweetId = $this->imagesTweet($apiKeys, $tweet, $images, null);
                 $this->imagesTweet($apiKeys, $replyDecks, $replyImages, $tweetId);
             }
-        // }
+        }
         $this->deleteTempDirectory();
     }
 

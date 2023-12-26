@@ -50,12 +50,12 @@ class OfficialEventRepository
         return $officialEvent;
     }
 
-    public function findOfficialEventByOfficialEventId(string $name): DeckTag | null
+    public function findOfficialEventByOfficialEventId(int $officialId): ?OfficialEvent
     {
-        return DeckTag::where('name', $name)->first();
+        return OfficialEvent::where('official_id', $officialId)->first();
     }
 
-    public function findDeckTagByName(string $name): DeckTag | null
+    public function findDeckTagByName(string $name): ?DeckTag
     {
         return DeckTag::where('name', $name)->first();
     }

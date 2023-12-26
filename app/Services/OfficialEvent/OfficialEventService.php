@@ -42,28 +42,30 @@ class OfficialEventService
             if (!$eventRow[0]) {
                 break;
             }
-            if ($eventRow[1] > date('Y/m/d', strtotime('-10 day'))) {
+            if ($eventRow[1] < date('Y/m/d', strtotime('-10 day'))) {
                 continue;
             }
-            $attrs = [];
-            $attrs['official_id'] = $eventRow[0];
+            $attrs = null;
+            $attrs['official_id'] = (int)$eventRow[0];
             $attrs['name'] = $eventRow[2];
             $attrs['organizer_name'] = $eventRow[3];
             $attrs['date'] = $eventRow[1];
 
             foreach ($deckList as $i => $deckRow) {
-                if ($deckRow[1] !== $attrs['official_id']) {
+                if ((int)$deckRow[1] !== $attrs['official_id']) {
                     continue;
                 }
                 $attrs['decks'][$i]['key'] = $deckRow[0];
                 $attrs['decks'][$i]['image_url'] = $deckRow[5];
-                $attrs['decks'][$i]['rank'] = $deckRow[2];
+                $attrs['decks'][$i]['rank'] = (int)$deckRow[2];
                 foreach(explode(',', $deckRow[3]) as $j => $tag){
                     $attrs['decks'][$i]['deckTags'][$j]['name'] = $tag;
                 }
             }
-
-            $officialEvents[] = $this->officialEventRepository->create($attrs);
+            
+            if (isset($attrs['decks'])) {
+                $officialEvents[] = $this->officialEventRepository->create($attrs);
+            }
         }
 
         return collect($officialEvents);
