@@ -26,7 +26,7 @@ class OfficialEventRepository
 
         foreach ($attrs['decks'] as $deckAttrs) {
             $deck = new Deck();
-            $deck->key = $deckAttrs['key'];
+            $deck->key = $deckAttrs['code'];
             $deck->image_url = $deckAttrs['image_url'];
             $deck->official_event_id = $officialEvent->id;
             $deck->rank = $deckAttrs['rank'];

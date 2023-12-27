@@ -15,7 +15,7 @@ class CreateDecksTable extends Migration
     {
         Schema::create('decks', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
+            $table->string('code');
             $table->string('image_url')->nullable();
             $table->foreignId('official_event_id')->constrained()->nullable();
             $table->unsignedInteger('rank')->nullable();

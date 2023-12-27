@@ -55,7 +55,7 @@ class OfficialEventService
                 if ((int)$deckRow[1] !== $attrs['official_id']) {
                     continue;
                 }
-                $attrs['decks'][$i]['key'] = $deckRow[0];
+                $attrs['decks'][$i]['code'] = $deckRow[0];
                 $attrs['decks'][$i]['image_url'] = $deckRow[5];
                 $attrs['decks'][$i]['rank'] = (int)$deckRow[2];
                 foreach(explode(',', $deckRow[3]) as $j => $tag){
