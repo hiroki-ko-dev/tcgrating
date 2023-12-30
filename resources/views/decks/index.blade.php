@@ -10,6 +10,14 @@
   @vite(['resources/scss/decks/deck-index.scss'])
 @endsection
 
+@section('twitterHeader')
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@pokekaInfo" />
+  <meta name="twitter:title" content="ポケカ掲示板" />
+  <meta name="twitter:description" content="ポケカのデッキ構築を検索することができます！" />
+  <meta name="twitter:image" content="https://twitter.com/pokekaInfo/status/1741023866200506728/photo/3" />
+@endsection
+
 @section('content')
   <div class="container">
 
