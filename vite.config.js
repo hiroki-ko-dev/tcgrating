@@ -11,6 +11,7 @@ export default defineConfig({
       'resources/scss/post/post-index.scss',
       'resources/scss/blog/blog-show.scss',
       'resources/scss/blog/blog-index.scss',
+      'resources/scss/decks/deck-index.scss',
       // 'resources/js/common/CKEditor.tsx',
       'resources/js/resume/Resume.jsx',
       'resources/js/post/DeckPreview.tsx',

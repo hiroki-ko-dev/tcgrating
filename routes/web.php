@@ -151,6 +151,10 @@ Route::namespace('Web')->group(function () {
         'blog/comments' => Blog\CommentController::class,
     ]);
 
+    Route::resources([
+        'decks' => Decks\DecksController::class,
+    ]);
+
     //イベント系スレッド
     Route::resources([
         'event/single'  => Event\SingleController::class,
