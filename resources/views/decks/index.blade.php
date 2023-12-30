@@ -15,21 +15,21 @@
 
     <div class="row justify-content-center m-1 mb-3">
       <div class="col-12 page-header">
-        <div class="d-flex flex-row">
-          <div class="col-6">
-            @if ($tagName)
-              <h3>{{$tagName}}のデッキ構築</h1>
-            @else
-              <h3>{{ __('デッキ一覧') }}</h1>
-            @endif
-          </div>
-          @if(Auth::check() && Auth::id() == 1)
+        @if(Auth::check() && Auth::id() == 1)
+          <div class="col-12">
             <div class="col-6">
               <button class="btn site-color text-white btn-outline-secondary text-center w-100"
                 onclick="location.href='/decks/create'">
                 {{ __('+ 新規作成') }}
               </button>
             </div>
+          </div>
+        @endif
+        <div class="col-12">
+          @if ($tagName)
+            <h3 class="page-title">{{$tagName}}のデッキ構築</h3>
+          @else
+            <h3>{{ __('デッキ一覧') }}</h1>
           @endif
         </div>
       </div>

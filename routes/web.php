@@ -131,6 +131,9 @@ Route::namespace('Web')->group(function () {
     //掲示板コメント
         'posts/comments' => Post\CommentController::class,
     ]);
+    Route::get('/post', function () {
+        return redirect('/posts');
+    });
 
     // 商品
     Route::post('/item/charge', [App\Http\Controllers\Item\ItemController::class, 'charge']);
