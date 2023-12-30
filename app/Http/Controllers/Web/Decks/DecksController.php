@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Services\Decks\DecksService;
-use App\Presenters\Web\Decks\decksPresenter;
-use App\Presenters\Web\Decks\deckTagsPresenter;
+use App\Presenters\Web\Decks\DecksPresenter;
+use App\Presenters\Web\Decks\DeckTagsPresenter;
 
 final class DecksController extends Controller
 {
