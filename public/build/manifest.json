@@ -34,7 +34,7 @@
     "src": "resources/scss/blog/blog-show.scss"
   },
   "resources/scss/decks/deck-index.scss": {
-    "file": "assets/deck-index-58dc0996.css",
+    "file": "assets/deck-index-cbfce1ca.css",
     "isEntry": true,
     "src": "resources/scss/decks/deck-index.scss"
   },
