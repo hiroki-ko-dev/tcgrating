@@ -26,8 +26,8 @@
           </div>
         @endif
         <div class="col-12">
-          @if ($tagName)
-            <h3 class="page-title">{{$tagName}}のデッキ構築</h3>
+          @if ($selectedTagName)
+            <h3 class="page-title">{{$selectedTagName}}のデッキ構築</h3>
           @else
             <h3>{{ __('デッキ一覧') }}</h1>
           @endif
@@ -44,6 +44,12 @@
           </div>
         </div>
       @endif
+    </div>
+
+    <div class="row pb-4">
+      @foreach($deckTags as $tag)
+        <span class="deck-tag" onClick="location.href='/decks/?deck_tag_id={{$tag->id}}'">{{$tag->name}}</span>
+      @endforeach
     </div>
 
     @foreach($decks as $deck)

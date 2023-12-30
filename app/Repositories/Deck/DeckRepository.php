@@ -17,12 +17,17 @@ final class DeckRepository
         return DeckTag::find($deckTagId);
     }
 
+    public function findAllDeckTags(array $filters): Collection
+    {
+        return DeckTag::get();
+    }
+
     public function paginate(array $filters, int $row, int $page): LengthAwarePaginator
     {
         return Deck::query()
             ->when(isset($filters['deckTag']), function ($query) use ($filters) {
-                $query->whereHas('deckTags', function($query) use ($filters) {
-                    $query->when(isset($filters['deckTag']['id']), function($query) use ($filters) {
+                $query->whereHas('deckTags', function ($query) use ($filters) {
+                    $query->when(isset($filters['deckTag']['id']), function ($query) use ($filters) {
                         $query->where('id', $filters['deckTag']['id']);
                     });
                 });

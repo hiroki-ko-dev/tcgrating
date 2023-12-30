@@ -10,13 +10,13 @@ use App\Models\Deck;
 use App\Models\DeckTag;
 use stdClass;
 
-final class IndexPresenter
+final class DecksPresenter
 {
     public function getResponse(LengthAwarePaginator $decks): LengthAwarePaginator
     {
         // 各デッキデータを変換する
         $transformedData = $decks->getCollection()->map(function (Deck $deck) {
-            $deckData = new stdClass;
+            $deckData = new stdClass();
             $deckData->id = $deck->id;
             $deckData->code = $deck->code;
             $deckData->name = $deck->officialEvent->name;
@@ -38,7 +38,7 @@ final class IndexPresenter
     private function getTags(Collection $deckTags): Collection
     {
         return $deckTags->map(function (DeckTag $deckTag) {
-            $tagData = new stdClass;
+            $tagData = new stdClass();
             $tagData->id = $deckTag->id;
             $tagData->name = $deckTag->name;
             return $tagData;
