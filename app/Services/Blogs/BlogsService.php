@@ -13,7 +13,7 @@ class BlogsService
 {
     public function __construct(
         protected readonly BlogRepository $blogRepository,
-        protected readonly BlogCommentRepository $blogCommentRepository
+        protected readonly BlogCommentRepository $blogCommentRepository,
     ) {
     }
 
