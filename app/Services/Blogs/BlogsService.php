@@ -22,9 +22,9 @@ class BlogsService
         return $this->blogRepository->create($attrs);
     }
 
-    public function saveBlog($request): Blog
+    public function saveBlog(int $blogId, array $attrs): Blog
     {
-        return $this->blogRepository->update($request);
+        return $this->blogRepository->update($blogId, $attrs);
     }
 
     public function getBlog(int $blogId): ?Blog

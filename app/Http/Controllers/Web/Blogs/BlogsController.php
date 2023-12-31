@@ -117,10 +117,8 @@ final class BlogsController extends Controller
         if (!Auth::check() || Auth::id() <> 1) {
             return back()->with('flash_message', '新規投稿を行うにはログインしてください');
         }
-
-        $request->merge(['id' => $blogId]);
-        DB::transaction(function () use ($request) {
-            $blog = $this->blogService->saveBlog($request);
+        DB::transaction(function () use ($blogId, $request) {
+            $blog = $this->blogService->saveBlog((int)$blogId, $request->all());
             if (!empty($request->is_tweeted)) {
                 if (empty($request->is_affiliate)) {
                     // 通常記事の場合

@@ -31,15 +31,10 @@ class BlogRepository
         return $this->composeSaveClause($blog, $attrs);
     }
 
-    /**
-     * @param $request
-     * @return mixed
-     */
-    public function update($request)
+    public function update(int $blogId, array $attrs)
     {
-        $blog = $this->find($request->id);
-
-        return $this->composeSaveClause($blog, $request);
+        $blog = $this->find($blogId);
+        return $this->composeSaveClause($blog, $attrs);
     }
 
     public function composeWhereClause($request)

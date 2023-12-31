@@ -30,7 +30,7 @@ final class DecksController extends Controller
             $selectedTagName = $this->decksService->findDeckTag($filters['deckTag']['id'])->name;
         }
         $decks = $this->decksPresenter->getResponse(
-            $this->decksService->paginateDecks($filters, 2, $page)
+            $this->decksService->paginateDecks($filters, 20, $page)
         );
         $deckTagFilters = [];
         $deckTags = $this->deckTagsPresenter->getResponse(
