@@ -22,7 +22,7 @@ final class DecksController extends Controller
 
     public function index(Request $request): View
     {
-        $page = $request->get('page', 1);
+        $page = (int)$request->get('page', 1);
         $filters = [];
         $selectedTagName = null;
         if ($request->has('deck_tag_id')) {
@@ -30,7 +30,7 @@ final class DecksController extends Controller
             $selectedTagName = $this->decksService->findDeckTag($filters['deckTag']['id'])->name;
         }
         $decks = $this->decksPresenter->getResponse(
-            $this->decksService->paginateDecks($filters, 20, $page)
+            $this->decksService->paginateDecks($filters, 2, $page)
         );
         $deckTagFilters = [];
         $deckTags = $this->deckTagsPresenter->getResponse(
