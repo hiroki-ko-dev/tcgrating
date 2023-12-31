@@ -52,8 +52,7 @@
       <div class="text-left">{{ __('内容') }}</div>
       <div class="form-group row">
         <div class="col-md-12">
-          <div id="editor"></div>
-          <textarea id="hidden-editor" name="body" style="display: none;"></textarea>
+          <textarea id="editor" class="ckeditor form-control w-100 @error('body') is-invalid @enderror" name="body" >{{ old('body',$blog->body) }}</textarea>
           @error('body')
           <span class="invalid-feedback" role="alert">
               <strong>{{ $message }}</strong>

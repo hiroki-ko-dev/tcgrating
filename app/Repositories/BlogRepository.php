@@ -6,26 +6,29 @@ use App\Models\Blog;
 
 class BlogRepository
 {
-    public function composeSaveClause($blog, $request) {
-        if (isset($request->game_id)) {
-            $blog->game_id = $request->game_id;
+    public function composeSaveClause(Blog $blog, array $attrs)
+    {
+        if (isset($attrs['game_id'])) {
+            $blog->game_id = $attrs['game_id'];
         }
-        if (isset($request->user_id)) {
-            $blog->user_id = $request->user_id;
+        if (isset($attrs['user_id'])) {
+            $blog->user_id = $attrs['user_id'];
         }
-        $blog->title   = $request->title;
-        $blog->thumbnail_image_url    = $request->thumbnail_image_url;
-        $blog->affiliate_url = $request->affiliate_url;
-        $blog->body = $request->body;
-        $blog->is_released = $request->is_released;
+        $blog->title   = $attrs['title'];
+        $blog->thumbnail_image_url = $attrs['thumbnail_image_url'];
+        if (isset($attrs['affiliate_url'])) {
+            $blog->affiliate_url = $attrs['affiliate_url'];
+        }
+        $blog->body = $attrs['body'];
+        $blog->is_released = $attrs['is_released'];
         $blog->save();
         return $blog;
     }
 
-    public function create($request)
+    public function create(array $attrs)
     {
         $blog = new Blog();
-        return $this->composeSaveClause($blog, $request);
+        return $this->composeSaveClause($blog, $attrs);
     }
 
     /**

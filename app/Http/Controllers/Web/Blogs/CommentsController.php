@@ -8,16 +8,14 @@ use App\Services\EventService;
 use App\Services\DuelService;
 use App\Services\User\UserService;
 use App\Services\Twitter\TwitterService;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use DB;
 use Mail;
-
 use App\Mail\PostCommentEventMail;
 use App\Mail\PostCommentDuelMail;
 
-class CommentController extends Controller
+class CommentsController extends Controller
 {
     protected $post_service;
     protected $event_service;

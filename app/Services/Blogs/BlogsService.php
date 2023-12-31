@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Services;
+declare(strict_types=1);
+
+namespace App\Services\Blogs;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use App\Models\Blog;
 use App\Repositories\BlogRepository;
 use App\Repositories\BlogCommentRepository;
 
-class BlogService
+class BlogsService
 {
     public function __construct(
         protected readonly BlogRepository $blogRepository,
@@ -15,9 +17,9 @@ class BlogService
     ) {
     }
 
-    public function makeBlog($request): Blog
+    public function createBlog(array $attrs): Blog
     {
-        return $this->blogRepository->create($request);
+        return $this->blogRepository->create($attrs);
     }
 
     public function saveBlog($request): Blog
@@ -30,7 +32,7 @@ class BlogService
         return $this->blogRepository->find($blogId);
     }
 
-    public function getPreviewBlog($blog_id)
+    public function getPreviewBlog($blog_id): Blog
     {
         return $this->blogRepository->findByPreview($blog_id);
     }

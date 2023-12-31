@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Web\Blog;
+namespace App\Http\Controllers\Web\Blogs;
 
 use App\Http\Controllers\Controller;
 use DB;
@@ -11,15 +11,15 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use App\Models\Blog;
-use App\Services\BlogService;
+use App\Services\Blogs\BlogsService;
 use App\Services\Post\PostService;
 use App\Services\Twitter\TwitterService;
 use App\Presenters\Web\Post\PostLatestPresenter;
 
-final class BlogController extends Controller
+final class BlogsController extends Controller
 {
     public function __construct(
-        private readonly BlogService $blogService,
+        private readonly BlogsService $blogService,
         private readonly PostService $postService,
         private readonly TwitterService $twitterService,
         private readonly PostLatestPresenter $postLatestPresenter,
@@ -67,7 +67,7 @@ final class BlogController extends Controller
             $request->merge(['game_id' => Auth::user()->selected_game_id]);
 
             $blog = DB::transaction(function () use ($request) {
-                $blog = $this->blogService->makeBlog($request);
+                $blog = $this->blogService->createBlog($request->all());
                 if (!empty($request->is_tweeted)) {
                     if (empty($request->is_affiliate)) {
                         // 通常記事の場合

@@ -32,7 +32,7 @@ final class TwitterOfficialEventService extends TwitterService
                 '【' . $officialEvent->date . '開催】' . PHP_EOL .
                 $officialEvent->name . PHP_EOL .
                 $officialEvent->organizer_name . PHP_EOL .
-                PHP_EOL . 
+                PHP_EOL .
                 $decks;
 
                 // ツイートを投稿
@@ -47,7 +47,7 @@ final class TwitterOfficialEventService extends TwitterService
     public function getDeckName(Deck $deck): string
     {
         $name = '';
-        foreach($deck->deckTags as $deckTag) {
+        foreach ($deck->deckTags as $deckTag) {
             $name .= $deckTag->name;
         }
         return $name;
@@ -57,21 +57,21 @@ final class TwitterOfficialEventService extends TwitterService
     {
         // URLからファイル取得
         $img_downloaded = file_get_contents($deck->image_url);
-    
+
         // 保存先のディレクトリパスを設定
         $directoryPath = public_path('images/temp/official_event');
-    
+
         // ディレクトリが存在しない場合は作成
         if (!file_exists($directoryPath)) {
             mkdir($directoryPath, 0755, true);
         }
-    
+
         // 保存先のファイルパスを設定
         $filePath = $directoryPath . '/' . $file_name;
-    
+
         // 画像を直接publicディレクトリに保存
         file_put_contents($filePath, $img_downloaded);
-    
+
         // 保存したファイルへのURLを返す
         return 'public/images/temp/official_event/' . $file_name;
     }

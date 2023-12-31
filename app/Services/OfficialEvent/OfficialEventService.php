@@ -31,7 +31,7 @@ class OfficialEventService
 
         $range = '!A2:F1000';
         $sheet = new Google_Service_Sheets($client);
- 
+
         $sheetName = 'getEventList';
         $eventList = $sheet->spreadsheets_values->get($sheetConfig['sheet_id'], $sheetName . $range)->getValues();
         $sheetName = 'getDeckList';
@@ -58,11 +58,11 @@ class OfficialEventService
                 $attrs['decks'][$i]['code'] = $deckRow[0];
                 $attrs['decks'][$i]['image_url'] = $deckRow[5];
                 $attrs['decks'][$i]['rank'] = (int)$deckRow[2];
-                foreach(explode(',', $deckRow[3]) as $j => $tag){
+                foreach (explode(',', $deckRow[3]) as $j => $tag) {
                     $attrs['decks'][$i]['deckTags'][$j]['name'] = $tag;
                 }
             }
-            
+
             if (isset($attrs['decks'])) {
                 $officialEvent = $this->officialEventRepository->create($attrs);
                 if ($officialEvent) {

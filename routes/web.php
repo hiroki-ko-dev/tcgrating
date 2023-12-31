@@ -149,9 +149,9 @@ Route::namespace('Web')->group(function () {
 
     //記事
     Route::resources([
-        'blogs'         => Blog\BlogController::class,
+        'blogs'         => Blogs\BlogsController::class,
         //掲示板コメント
-        'blog/comments' => Blog\CommentController::class,
+        'blogs/comments' => Blogs\CommentsController::class,
     ]);
 
     Route::resources([
