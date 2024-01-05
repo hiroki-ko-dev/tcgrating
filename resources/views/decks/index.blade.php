@@ -15,7 +15,7 @@
   <meta name="twitter:site" content="@pokekaInfo" />
   <meta name="twitter:title" content="ポケカ掲示板" />
   <meta name="twitter:description" content="ポケカのデッキ構築を検索することができます！" />
-  <meta name="twitter:image" content="https://twitter.com/pokekaInfo/status/1741023866200506728/photo/3" />
+  <meta name="twitter:image" content="https://pbs.twimg.com/media/GClb9XRbYAAcF8m?format=jpg&name=medium" />
 @endsection
 
 @section('content')
@@ -35,9 +35,9 @@
         @endif
         <div class="col-12">
           @if ($selectedTagName)
-            <h3 class="page-title">{{$selectedTagName}}のデッキ構築</h3>
+            <h3 class="page-title">{{$selectedTagName}}の優勝デッキ構築一覧</h3>
           @else
-            <h3>{{ __('デッキ一覧') }}</h1>
+            <h3>{{ __('優勝デッキ構築一覧') }}</h1>
           @endif
         </div>
       </div>
