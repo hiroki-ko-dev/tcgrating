@@ -21,6 +21,7 @@ final class DecksPresenter
             $deckData->code = $deck->code;
             $deckData->name = $deck->officialEvent->name;
             $deckData->imageUrl = $deck->image_url;
+            $deckData->organizer_name = $deck->officialEvent->organizer_name;
             $deckData->date = $deck->officialEvent->date;
             $deckData->rank = $deck->rank;
             $deckData->tags = $this->getTags($deck->deckTags);

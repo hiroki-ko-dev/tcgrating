@@ -11,6 +11,23 @@
   line-height: 1.6; /* 行間の設定 */
   text-align: center;
   margin: 10px;
+  font-weight: bold;
+}
+
+.deck-date {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.deck-organizer {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.deck-rank {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .deck-image-box {
@@ -60,7 +77,8 @@
 
 @media screen and (min-width: 701px) {
   .card {
-    height: 430px;
+    height: 530px;
+    margin-bottom: 30px;
   }
   .deck-image {
     width: 500px;
@@ -70,7 +88,7 @@
     height: 30px;
   }
   .deck-date {
-    font-size: 14px;
+    font-size: 16px;
   }
   .deck-code {
     font-size: 15px;
@@ -80,17 +98,23 @@
 
 @media screen and (max-width: 700px) {
   .card {
-    height: 350px;
+    height: 400px;
+    margin-bottom: 20px;
   }
   .deck-image {
     width: 100%;
     max-width: 330px;
   }
   .deck-title {
-    font-size: 12px;
-    padding-left: 20px; /* 小さい画面用の左側の余白 */
+    font-size: 14px;
   }
   .deck-date {
+    font-size: 14px;
+  }
+  .deck-organizer {
     font-size: 10px;
+  }
+  .deck-rank {
+    font-size: 14px;
   }
 }

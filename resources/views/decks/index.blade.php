@@ -35,9 +35,9 @@
         @endif
         <div class="col-12">
           @if ($selectedTagName)
-            <h3 class="page-title">{{$selectedTagName}}の優勝デッキ構築一覧</h3>
+            <h3 class="page-title">{{$selectedTagName}}の大会優勝デッキ構築一覧</h3>
           @else
-            <h3>{{ __('優勝デッキ構築一覧') }}</h1>
+            <h3>{{ __('大会優勝デッキ構築一覧') }}</h1>
           @endif
         </div>
       </div>
@@ -64,7 +64,10 @@
       <div class="card">
         <div class="row justify-content-center">
           <div class="col-sm-10">
-            <div class="deck-title">{{$deck->date}} {{$deck->name}} {{$deck->rank}}位</div>
+            <div class="deck-date">{{$deck->date}}</div>
+            <div class="deck-title">{{$deck->name}}</div>
+            <div class="deck-organizer">{{$deck->organizer_name}}</div>
+            <div class="deck-rank">{{$deck->rank}}位</div>
             <div class=deck-tag-box>
               @foreach($deck->tags as $tag)
                 <span class="deck-tag" onClick="location.href='/decks/?deck_tag_id={{$tag->id}}'">{{$tag->name}}</span>
