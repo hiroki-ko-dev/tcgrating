@@ -73,7 +73,7 @@ class TwitterService
             $apiKeys['API_ACCESS_TOKEN'],
             $apiKeys['API_ACCESS_TOKEN_SECRET']
         );
-    
+
         $mediaIds = [];
         foreach ($images as $imagePath) {
             // 画像をアップロードし、各画像のIDを取得
@@ -82,7 +82,7 @@ class TwitterService
                 $mediaIds[] = $uploadedMedia->media_id_string;
             }
         }
-    
+
         $postData = [
             'text' => $tweet,
             'media' => [
@@ -118,8 +118,22 @@ class TwitterService
         //     // エラーの内容を返すか、例外を投げる
         //     return $error;
         // }
-    
+
         return (string)$tweetId;
+    }
+
+    public function discordPost($message, $webHook)
+    {
+        $data = array("content" => $message, "username" => 'TCGRating');
+        $headers[] = "Content-Type: application/json";
+
+        $curl = curl_init($webHook);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $res = curl_exec($curl);
     }
 
     public function tweetByMakeEvent($event)
@@ -666,19 +680,5 @@ class TwitterService
             $tweet = Str::limit($tweet, 250, '...');
             $this->tweet($apiKeys, $tweet);
         }
-    }
-
-    public function discordPost($message, $webHook)
-    {
-        $data = array("content" => $message, "username" => 'TCGRating');
-        $headers[] = "Content-Type: application/json";
-
-        $curl = curl_init($webHook);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-        $res = curl_exec($curl);
     }
 }

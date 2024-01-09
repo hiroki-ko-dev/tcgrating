@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 final class DeckTag extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     public function decks(): BelongsToMany

@@ -40,8 +40,21 @@ final class TwitterOfficialEventService extends TwitterService
                 $tweetId = $this->imagesTweet($apiKeys, $tweet, $images, null);
                 $this->imagesTweet($apiKeys, $replyDecks, $replyImages, $tweetId);
             }
+            $this->deleteTempDirectory();
+
+            if ($officialEvents->isNotEmpty()) {
+                // discord投稿
+                $webHook = config('assets.discord.web_hook.blog');
+                $content =
+                    '以下の入賞デッキデータを追加いたしました。' . PHP_EOL .
+                    PHP_EOL .
+                    '【' . $officialEvents[0]->date . '開催分】' . PHP_EOL .
+                    $officialEvents[0]->name . PHP_EOL .
+                    PHP_EOL .
+                    url('/decks');
+                $this->discordPost($content, $webHook);
+            }
         }
-        $this->deleteTempDirectory();
     }
 
     public function getDeckName(Deck $deck): string
