@@ -30,6 +30,8 @@ class OfficialEventRepository
             $deck->image_url = $deckAttrs['image_url'];
             $deck->official_event_id = $officialEvent->id;
             $deck->rank = $deckAttrs['rank'];
+            $deck->regulation_from = $deckAttrs['regulation_from'];
+            $deck->regulation_to = $deckAttrs['regulation_to'];
             $deck->save();
 
             foreach ($deckAttrs['deckTags'] as $deckTagAttrs) {
