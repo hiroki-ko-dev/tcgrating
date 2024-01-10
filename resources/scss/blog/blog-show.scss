@@ -52,19 +52,6 @@ h2{
   }
 }
 
-.blog-body img {
-  width: 60%;
-  height: 60%;
-}
-
-@media screen and (max-width: 700px) {
-  /* 480px以下に適用されるCSS（スマホ用） */
-  .blog-body img {
-    width: 100%;
-    height: 100%;
-  }
-}
-
 ol {
   padding: 0.5em 3em;
   margin: 1em 0;
@@ -92,10 +79,6 @@ ol {
   border: solid 1px #000000;/*線*/
 }
 
-.blog-image {
-  width: 300px!important;
-}
-
 .effect {
   color: #000000;
   background: #dcdcdc;
@@ -103,11 +86,31 @@ ol {
   padding: 5px;
 }
 
-div.card-image img {
-  width: 100%;
-  height: auto;
-  max-width: 400px;
-  @media screen and (max-width: 700px) {
-    max-width: 200px;
+.card {
+  margin: 10px;
+  padding: 10px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  .card-rank {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .card-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .card-price {
+    font-size: 16px;
+  }
+  .card-image {
+    margin: 10px;
+    width: 300px;
+    height: auto;
+    @media screen and (max-width: 700px) {
+      max-width: 300px;
+    }
   }
 }

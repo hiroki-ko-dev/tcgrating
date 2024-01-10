@@ -75,10 +75,18 @@ final class BlogsPriceRankService extends BlogsService
     private function makeBody(array $elements): string
     {
         $html = '<div class="card-container">';
-        foreach ($elements as $element) {
+        $currentRank = 1;
+        $previousPrice = null;
+        foreach ($elements as $index => $element) {
+            // 価格が前の要素と異なる場合のみランクを更新
+            if ($previousPrice !== $element['mercari_price']) {
+                $currentRank = $index + 1;
+                $previousPrice = $element['mercari_price'];
+            }
             $html .= '<div class="card">';
+            $html .= '<div class="card-rank">' . htmlspecialchars((string)$currentRank) . '位</div>';
             $html .= '<img class="card-image" src="' . htmlspecialchars($element['saved_image_path']) . '" alt="' . htmlspecialchars($element['title']) . '">';
-            $html .= '<div class="card-title">' . htmlspecialchars($element['title']) . '</h3>';
+            $html .= '<div class="card-title">' . htmlspecialchars($element['title']) . '</div>';
             $html .= '<div class="card-price">価格: ' . htmlspecialchars(number_format($element['mercari_price'])) . '円</div>';
             $html .= '</div>';
         }
