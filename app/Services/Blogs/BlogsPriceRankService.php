@@ -77,9 +77,9 @@ final class BlogsPriceRankService extends BlogsService
         $html = '<div class="card-container">';
         foreach ($elements as $element) {
             $html .= '<div class="card">';
-            $html .= '<img src="' . htmlspecialchars($element['saved_image_path']) . '" alt="' . htmlspecialchars($element['title']) . '">';
-            $html .= '<h3>' . htmlspecialchars($element['title']) . '</h3>';
-            $html .= '<p>価格: ' . htmlspecialchars(number_format($element['mercari_price'])) . '円</p>';
+            $html .= '<img class="card-image" src="' . htmlspecialchars($element['saved_image_path']) . '" alt="' . htmlspecialchars($element['title']) . '">';
+            $html .= '<div class="card-title">' . htmlspecialchars($element['title']) . '</h3>';
+            $html .= '<div class="card-price">価格: ' . htmlspecialchars(number_format($element['mercari_price'])) . '円</div>';
             $html .= '</div>';
         }
         $html .= '</div>';
