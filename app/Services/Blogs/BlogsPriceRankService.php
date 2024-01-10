@@ -77,20 +77,34 @@ final class BlogsPriceRankService extends BlogsService
         $html = '<div class="card-container">';
         $currentRank = 1;
         $previousPrice = null;
+        $rankGroupStarted = false;
+
         foreach ($elements as $index => $element) {
-            // 価格が前の要素と異なる場合のみランクを更新
+            // 価格が前の要素と異なる場合、新しいランクグループを開始
             if ($previousPrice !== $element['mercari_price']) {
+                if ($rankGroupStarted) {
+                    $html .= '</div>'; // 前のグループを閉じる
+                }
                 $currentRank = $index + 1;
                 $previousPrice = $element['mercari_price'];
+                $html .= '<div class="rank-group">'; // 新しいグループを開始
+                $html .= '<div class="rank-group-info">';
+                $html .= '<div class="rank-number">' . htmlspecialchars((string)$currentRank) . '位</div>';
+                $html .= '<div class="rank-price">価格: ' . htmlspecialchars(number_format($element['mercari_price'])) . '円</div>';
+                $html .= '</div>'; // rank-group-infoを閉じる
+                $rankGroupStarted = true;
             }
+            // カードの内容
             $html .= '<div class="card">';
-            $html .= '<div class="card-rank">' . htmlspecialchars((string)$currentRank) . '位</div>';
             $html .= '<img class="card-image" src="' . htmlspecialchars($element['saved_image_path']) . '" alt="' . htmlspecialchars($element['title']) . '">';
             $html .= '<div class="card-title">' . htmlspecialchars($element['title']) . '</div>';
-            $html .= '<div class="card-price">価格: ' . htmlspecialchars(number_format($element['mercari_price'])) . '円</div>';
-            $html .= '</div>';
+            $html .= '</div>'; // cardを閉じる
         }
-        $html .= '</div>';
+        if ($rankGroupStarted) {
+            $html .= '</div>'; // 最後のグループを閉じる
+        }
+
+        $html .= '</div>'; // card-containerを閉じる
         return $html;
     }
 }

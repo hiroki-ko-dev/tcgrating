@@ -87,30 +87,56 @@ ol {
 }
 
 .card {
+  border: none;
   margin: 10px;
-  padding: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  text-align: center;
-  .card-rank {
-    font-size: 20px;
-    font-weight: bold;
-  }
+  width: 250px; /* カードの幅 */
   .card-title {
     font-size: 20px;
     font-weight: bold;
   }
-  .card-price {
-    font-size: 16px;
-  }
   .card-image {
     margin: 10px;
-    width: 300px;
+    width: 100%;
     height: auto;
     @media screen and (max-width: 700px) {
       max-width: 300px;
     }
   }
+}
+
+@media screen and (max-width: 700px) {
+  .card {
+    width: 100%; /* スマートフォン用の幅調整 */
+  }
+}
+
+/* ランクグループのスタイリング */
+.rank-group {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  border: 1px solid #dcdcdc;
+  .rank-number {
+    font-size: 30px;
+    font-weight: bold;
+    color: red;
+    margin: 10px;
+  }
+  .rank-price {
+    font-size: 20px;
+  }
+}
+
+/* ランクと価格の共通表示 */
+.rank-group-info {
+  flex-basis: 100%; /* 全幅を取る */
+  text-align: center;
+  margin-bottom: 10px;
 }
