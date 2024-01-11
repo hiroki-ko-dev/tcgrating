@@ -15,6 +15,7 @@ use App\Services\Blogs\BlogsService;
 use App\Services\Post\PostService;
 use App\Services\Twitter\TwitterService;
 use App\Presenters\Web\Post\PostLatestPresenter;
+use App\Presenters\Web\Blogs\BlogsLatestPresenter;
 
 final class BlogsController extends Controller
 {
@@ -23,6 +24,7 @@ final class BlogsController extends Controller
         private readonly PostService $postService,
         private readonly TwitterService $twitterService,
         private readonly PostLatestPresenter $postLatestPresenter,
+        private readonly BlogsLatestPresenter $blogsLatestPresenter,
     ) {
     }
 
@@ -40,7 +42,7 @@ final class BlogsController extends Controller
             $request->merge(['is_released' => 1]);
         }
 
-        $blogs =  $this->blogService->getBlogByPaginate($request, 20);
+        $blogs =  $this->blogService->paginateBlogs($request->all(), 20);
 
         return view('blog.index', compact('blogs'));
     }
@@ -95,8 +97,11 @@ final class BlogsController extends Controller
         $postLatests = $this->postLatestPresenter->getResponse(
             $this->postService->findAllPosts([])
         );
+        $blogsLatests = $this->blogsLatestPresenter->getResponse(
+            $this->blogService->findAllBlogs([])
+        );
 
-        return view('blog.show', compact('blog', 'preview', 'next', 'postLatests'));
+        return view('blog.show', compact('blog', 'preview', 'next', 'postLatests', 'blogsLatests'));
     }
 
     public function edit(int $blogId): View | RedirectResponse

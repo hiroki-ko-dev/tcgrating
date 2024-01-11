@@ -34,7 +34,13 @@
     </div>
   </section>
 
-  @include('layouts.post.post_latest')
+  <section>
+    @include('layouts.post.post_latest')
+  </section>
+
+  <section>
+    @include('layouts.blog.latest')
+  </section>
 
   <section>
     @include('layouts.blog.before_next')
@@ -53,7 +59,7 @@
               <img class="thumbnail" src="{{$blog->thumbnail_image_url}}" alt="{{$blog->title}}">
               <h1 class="thumbnail-title">{{$blog->title}}</h1>
             </div>
-            <h1 class="blog-title">{{$blog->title}}</h1>
+            <h2 class="blog-title">{{$blog->title}}</h1>
             <div class="border-bottom mb-4"></div>
             <div class="blog-body">
               @if($blog->affiliate_url)

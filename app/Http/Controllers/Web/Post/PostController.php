@@ -11,17 +11,21 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use App\Enums\PostCategory;
 use App\Services\Post\PostService;
+use App\Services\Blogs\BlogsService;
 use App\Services\Twitter\TwitterService;
 use App\Presenters\Web\Post\PostAndPaginateCommentPresenter;
 use App\Presenters\Web\Post\PostLatestPresenter;
+use App\Presenters\Web\Blogs\BlogsLatestPresenter;
 
 final class PostController extends Controller
 {
     public function __construct(
         private readonly PostService $postService,
+        private readonly BlogsService $blogService,
         private readonly TwitterService $twitterService,
         private readonly PostAndPaginateCommentPresenter $postAndPaginateCommentPresenter,
         private readonly PostLatestPresenter $postLatestPresenter,
+        private readonly BlogsLatestPresenter $blogsLatestPresenter,
     ) {
     }
 
@@ -104,7 +108,10 @@ final class PostController extends Controller
             $postLatests = $this->postLatestPresenter->getResponse(
                 $this->postService->findAllPosts([])
             );
-            return view('post.show', compact('post', 'postLatests'));
+            $blogsLatests = $this->blogsLatestPresenter->getResponse(
+                $this->blogService->findAllBlogs([])
+            );
+            return view('post.show', compact('post', 'postLatests', 'blogsLatests'));
         } catch (Exception $e) {
             if ($e->getCode() !== 403) {
                 report($e);

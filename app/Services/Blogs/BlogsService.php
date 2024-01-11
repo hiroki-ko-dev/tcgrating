@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Blogs;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use App\Models\Blog;
 use App\Repositories\BlogRepository;
 use App\Repositories\BlogCommentRepository;
@@ -32,19 +33,24 @@ class BlogsService
         return $this->blogRepository->find($blogId);
     }
 
-    public function getPreviewBlog($blog_id): Blog
+    public function findAllBlogs(array $filters): Collection
     {
-        return $this->blogRepository->findByPreview($blog_id);
+        return $this->blogRepository->findAll($filters);
     }
 
-    public function getNextBlog($blog_id): ?Blog
+    public function getPreviewBlog($blogId): Blog
     {
-        return $this->blogRepository->findByNext($blog_id);
+        return $this->blogRepository->findByPreview($blogId);
     }
 
-    public function getBlogByPaginate($request, $paginate): LengthAwarePaginator
+    public function getNextBlog($blogId): ?Blog
     {
-        return $this->blogRepository->findAllByPaginate($request, $paginate);
+        return $this->blogRepository->findByNext($blogId);
+    }
+
+    public function paginateBlogs(array $filters, int $row): LengthAwarePaginator
+    {
+        return $this->blogRepository->paginate($filters, $row);
     }
 
     public function deleteBlog(int $blogId): void

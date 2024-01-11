@@ -37,12 +37,15 @@ class BlogRepository
         return $this->composeSaveClause($blog, $attrs);
     }
 
-    public function composeWhereClause($request)
+    public function composeWhereClause(array $filters)
     {
         $query = Blog::query();
-        $query->where('game_id', $request->game_id);
-        if (isset($request->is_released)) {
-            $query->where('is_released', $request->is_released);
+
+        if (isset($filters['game_id'])) {
+            $query->where('game_id', $filters['game_id']);
+        }
+        if (isset($filters['is_released'])) {
+            $query->where('is_released', $filters['is_released']);
         }
         return $query;
     }
@@ -68,18 +71,18 @@ class BlogRepository
             ->first();
     }
 
-    public function findAll($request)
+    public function findAll($filters)
     {
-        $query = $this->composeWhereClause($request);
+        $query = $this->composeWhereClause($filters);
         return $query->get();
     }
 
-    public function findAllByPaginate($request, $paginate)
+    public function paginate($filters, $row)
     {
-        $query = $this->composeWhereClause($request);
+        $query = $this->composeWhereClause($filters);
         return $query->withCount('blogComment')
             ->OrderBy('updated_at', 'desc')
-            ->paginate($paginate);
+            ->paginate($row);
     }
 
     public function delete(int $id): void

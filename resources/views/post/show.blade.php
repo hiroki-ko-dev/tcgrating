@@ -37,9 +37,27 @@
         </div>
       @endif
     </div>
-    @include('layouts.post.post_latest')
-    @include('layouts.post.post_and_comment')
-    @include('layouts.post.post_latest')
+    <section>
+      @include('layouts.post.post_latest')
+    </section>
+    <section>
+      @include('layouts.blog.latest')
+    </section>
+    <section>
+      @include('layouts.common.line')
+    </section>
+    <section>
+      @include('layouts.post.post_and_comment')
+    </section>
+    <section>
+      @include('layouts.common.line')
+    </section>
+    <section>
+      @include('layouts.post.post_latest')
+    </section>
+    <section>
+      @include('layouts.blog.latest')
+    </section>
 </div>
 
 @endsection
