@@ -109,7 +109,7 @@ final class PostController extends Controller
                 $this->postService->findAllPosts([])
             );
             $blogsLatests = $this->blogsLatestPresenter->getResponse(
-                $this->blogService->findAllBlogs([])
+                $this->blogService->findAllBlogs(['is_released' => 1])
             );
             return view('post.show', compact('post', 'postLatests', 'blogsLatests'));
         } catch (Exception $e) {

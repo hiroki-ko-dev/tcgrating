@@ -98,7 +98,7 @@ final class BlogsController extends Controller
             $this->postService->findAllPosts([])
         );
         $blogsLatests = $this->blogsLatestPresenter->getResponse(
-            $this->blogService->findAllBlogs([])
+            $this->blogService->findAllBlogs(['is_released' => 1])
         );
 
         return view('blog.show', compact('blog', 'preview', 'next', 'postLatests', 'blogsLatests'));
