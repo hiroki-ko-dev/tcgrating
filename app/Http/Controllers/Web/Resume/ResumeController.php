@@ -45,13 +45,14 @@ class ResumeController extends Controller
         } catch (Exception $e) {
             if ($e->getCode() !== 403) {
                 report($e);
+                abort($e->getCode());
             }
             \Log::error([
                 "ポケカ履歴書表示ResumeController.php@show UserId:" . $userId,
                 'IP Address' => $request->ip(),
                 'Headers' => $request->header('User-Agent'),
             ]);
-            abort($e->getCode());
+            return back()->with('flash_message', '表示できないページです');
         }
     }
 
