@@ -15,7 +15,7 @@
   <meta name="twitter:site" content="@pokekaInfo" />
   <meta name="twitter:title" content="ポケカ掲示板" />
   <meta name="twitter:description" content="ポケカのデッキ構築を検索することができます！" />
-  <meta name="twitter:image" content="{{ asset('images/decks/twitter_card.jpg') }}" />
+  <meta name="twitter:image" content="{!! asset('images/decks/twitter_card.jpg') !!}" />
 @endsection
 
 @section('content')

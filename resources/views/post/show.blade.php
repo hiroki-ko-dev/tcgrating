@@ -22,7 +22,7 @@
   @if($post->imageUrl)
     <meta name="twitter:image" content="https://www.pokemon-card.com/deck/deckView.php/deckID/{{$post->imageUrl}}" />
   @else
-    <meta name="twitter:image" content="{{env('APP_URL')}}/images/post/twitter_thumb.png" />
+    <meta name="twitter:image" content="{!! asset('/images/post/twitter_thumb.png') !!}"/>
   @endif
 @endsection
 
