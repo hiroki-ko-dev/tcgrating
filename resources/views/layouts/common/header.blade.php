@@ -68,7 +68,7 @@
               <ul>
                 <li><a href="/rank">ランキング</a></li>
                 <li><a href="/posts?post_category_id={{\App\Models\PostCategory::CATEGORY_FREE}}"><span class="text-yellrow">掲示板</a></li>
-                <li><a href="/decks">デッキ一覧</a></li>
+                <li><a href="/decks"><span class="text-yellrow">デッキ一覧</span></a></li>
                 {{-- <li><a href="/product">商品</a></li> --}}
                 {{--                  <li><a href="/post?post_category_id={{\App\Models\PostCategory::TEAM_WANTED}}">チームメンバー募集掲示板</a></li>--}}
                 {{--                  <li><a href="/team">チーム検索</a></li>--}}
@@ -77,7 +77,7 @@
                   @if(session('selected_game_id') == 3)
                     <li><a href="/site/how_to_use/instant">使い方</a></li>
                     <li><a href="/event/instant">1vs1対戦</a></li>
-                      <li><a href="/blogs">記事</a></li>
+                      <li><a href="/blogs"><span class="text-yellrow">記事</span></a></li>
                     <li><a href="/proxy">プロキシ作成</a></li>
 {{--                    <li><a href="/item">商品購入</a></li>--}}
                   @else
@@ -89,7 +89,7 @@
                   @if(Auth::user()->selected_game_id == 3)
                     <li><a href="/site/how_to_use/instant">使い方</a></li>
                     <li><a href="/event/instant">1vs1対戦</a></li>
-                      <li><a href="/blogs">記事</a></li>
+                      <li><a href="/blogs"><span class="text-yellrow">記事</span></a></li>
                     <li><a href="/proxy">プロキシ作成</a></li>
 {{--                    <li><a href="/item">商品購入</a></li>--}}
                     @if(Auth::user()->role == 1)

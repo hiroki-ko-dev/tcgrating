@@ -40,12 +40,20 @@
     @include('layouts.blog.before_next')
   </section>
 
+  <section>
+    @include('layouts.common.line')
+  </section>
+
   <article>
     <section>
       <div class="row justify-content-center mb-2">
         <div class="col-md-10 col-12">
           <div class="box">
-            <h1 class="blog-title p-1 mb-4">{{$blog->title}}</h1>
+            <div class="thumbnail-container">
+              <img class="thumbnail" src="{{$blog->thumbnail_image_url}}" alt="{{$blog->title}}">
+              <h1 class="thumbnail-title">{{$blog->title}}</h1>
+            </div>
+            <h1 class="blog-title">{{$blog->title}}</h1>
             <div class="border-bottom mb-4"></div>
             <div class="blog-body">
               @if($blog->affiliate_url)
@@ -60,11 +68,11 @@
     </section>
 
     <section>
-      @include('layouts.blog.before_next')
+      @include('layouts.common.line')
     </section>
 
     <section>
-      @include('layouts.common.line')
+      @include('layouts.blog.before_next')
     </section>
 
     <nav>

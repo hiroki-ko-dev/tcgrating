@@ -108,6 +108,34 @@ ol {
   }
 }
 
+/* サムネイルとタイトルを含むコンテナ */
+.thumbnail-container {
+  position: relative; /* 相対位置 */
+  width: 100%;
+  display: flex; /* Flex コンテナにする */
+  align-items: center; /* 垂直方向の中央に配置 */
+  justify-content: center; /* 水平方向の中央に配置 */
+}
+
+.thumbnail {
+  width: 100%;
+  max-height: 300px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+/* サムネイル上のタイトル */
+.thumbnail-title {
+  position: absolute; /* 絶対位置 */
+  width: 100%; /* コンテナの幅に合わせる */
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明の背景色 */
+  color: white; /* 白色のテキスト */
+  padding: 20px; /* パディング */
+  box-sizing: border-box; /* ボックスサイズ調整 */
+  text-align: center; /* テキストを中央揃え */
+}
+
 @media screen and (max-width: 700px) {
   .card {
     width: 100%; /* スマートフォン用の幅調整 */
