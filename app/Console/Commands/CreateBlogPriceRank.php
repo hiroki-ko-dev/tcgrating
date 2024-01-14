@@ -9,6 +9,7 @@ use App\Services\Blogs\BlogsPriceRankService;
 
 final class CreateBlogPriceRank extends Command
 {
+    // url例： https://osomatsusan.hatenablog.com/entry/shinytreasureexA
     protected $signature = 'command:createBlogPriceRank {url}';
     protected $description = 'ポケカの価格相場をBlogに取り込む';
 

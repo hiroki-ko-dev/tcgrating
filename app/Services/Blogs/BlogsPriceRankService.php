@@ -21,7 +21,7 @@ final class BlogsPriceRankService extends BlogsService
         parent::__construct($blogRepository, $blogCommentRepository);
     }
 
-    public function createBlogsPriceRank(string $url)
+    public function createBlogsPriceRank(string $url): Blog
     {
         $elements = [];
 

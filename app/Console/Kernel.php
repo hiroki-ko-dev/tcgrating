@@ -43,7 +43,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('command:tweetPromotion')->dailyAt('23:00');
 
         // ポケカ公式大会の結果ツイート
-        $schedule->command('command:tweetOfficialEventResult')->dailyAt('18:10');
+        $schedule->command('command:tweetOfficialEventResult')->dailyAt('19:10');
     }
 
     /**
