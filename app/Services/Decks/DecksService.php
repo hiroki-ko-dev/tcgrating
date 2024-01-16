@@ -18,6 +18,11 @@ class DecksService
     ) {
     }
 
+    public function createDeckTagDeck(array $attrs): void
+    {
+        $this->deckRepository->createDeckTagDeck($attrs);
+    }
+
     public function findDeck(int $deckId): Deck
     {
         return $this->deckRepository->findDeck($deckId);

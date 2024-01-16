@@ -118,6 +118,25 @@
     </form>
   @endforeach
 
+  <form method="POST" action="/decks/deck-tag-deck">
+    @csrf
+    <input type="hidden" name="deck_id" value="{{$deck->id}}">
+    <div class="row justify-content-center mb-4">
+      <div class="col-5">新規でリレーションを追加</div>
+      <div class="col-5">
+        <select name="deck_tag_id" class="form-control">
+          @foreach($deckTags as $deckTag)
+            <option value="{{ $deckTag->id }}" {{ $tag->id == $deckTag->id ? 'selected' : '' }}>{{ $deckTag->name }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="col-2">
+        <button type="submit" class="btn site-color btn-outline-secondary text-light w-40">
+          {{ __('保存する') }}
+        </button>
+      </div>
+    </div>
+  </form>
 
   <div class="row justify-content-center  mb-0">
     <button type="submit" class="btn site-color btn-outline-secondary text-light w-40" onClick="return requestConfirm();">

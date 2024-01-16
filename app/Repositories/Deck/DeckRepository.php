@@ -41,6 +41,12 @@ final class DeckRepository
             ->paginate($row, ['*'], 'page', $page);
     }
 
+    public function createDeckTagDeck(array $attrs)
+    {
+        $deck = $this->findDeck($attrs['deck_id']);
+        $deck->deckTags()->attach($attrs['deck_tag_id']);
+    }
+
     public function updateDeckTagDeck(int $deckId, int $deckTagId, array $attrs): void
     {
         $deck = $this->findDeck($deckId);

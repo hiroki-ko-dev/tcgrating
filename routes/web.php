@@ -156,6 +156,7 @@ Route::namespace('Web')->group(function () {
         'blogs/comments' => Blogs\CommentsController::class,
     ]);
 
+    Route::post('decks/deck-tag-deck', [DeckTagDeckController::class, 'store']);
     Route::put('decks/deck-tag-deck/{deckId}/{deckTagId}', [DeckTagDeckController::class, 'update']);
     Route::resources([
         'decks' => DecksController::class,
