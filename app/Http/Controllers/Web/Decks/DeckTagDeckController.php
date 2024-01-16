@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Controllers\Web\Decks;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Services\Decks\DecksService;
+
+final class DeckTagDeckController extends Controller
+{
+    public function __construct(
+        private readonly DecksService $decksService,
+    ) {
+    }
+
+    public function update(Request $request, int $deckId, int $deckTagId)
+    {
+        $attrs['deck_tag_id'] = $request->deck_tag_id;
+        $this->decksService->updateDeckTagDeck($deckId, $deckTagId, $attrs);
+
+        // 更新完了後のリダイレクト（例：デッキの詳細ページへ）
+        return redirect('/decks/' . $deckId . '/edit')->with('flash_message', 'デッキのタグが更新されました。');
+    }
+}

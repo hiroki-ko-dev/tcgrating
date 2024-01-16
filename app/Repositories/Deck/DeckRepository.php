@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace App\Repositories\Deck;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use App\Models\Deck;
 use App\Models\DeckTag;
+use App\Models\DeckTagDeck;
 
 final class DeckRepository
 {
+    public function findDeck(int $deckId): Deck
+    {
+        return Deck::find($deckId);
+    }
+
     public function findDeckTag(int $deckTagId): ?DeckTag
     {
         return DeckTag::find($deckTagId);
@@ -34,5 +39,13 @@ final class DeckRepository
             })
             ->OrderBy('updated_at', 'desc')
             ->paginate($row, ['*'], 'page', $page);
+    }
+
+    public function updateDeckTagDeck(int $deckId, int $deckTagId, array $attrs): void
+    {
+        $deck = $this->findDeck($deckId);
+        $deck->deckTags()->updateExistingPivot($deckTagId, [
+            'deck_tag_id' => $attrs['deck_tag_id'],
+        ]);
     }
 }

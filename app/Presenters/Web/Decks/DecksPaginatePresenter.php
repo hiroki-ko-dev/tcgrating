@@ -10,7 +10,7 @@ use App\Models\Deck;
 use App\Models\DeckTag;
 use stdClass;
 
-final class DecksPresenter
+final class DecksPaginatePresenter
 {
     public function getResponse(LengthAwarePaginator $decks): LengthAwarePaginator
     {

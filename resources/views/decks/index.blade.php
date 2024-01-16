@@ -62,6 +62,9 @@
 
     @foreach($decks as $deck)
       <div class="card">
+        @if (auth()->user() && auth()->user()->role === 1)
+          <a href="/decks/{{$deck->id}}/edit">編集する</a>
+        @endif
         <div class="row justify-content-center">
           <div class="col-sm-10">
             <div class="deck-date">{{$deck->date}}</div>

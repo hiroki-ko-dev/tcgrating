@@ -6,6 +6,8 @@ use App\Http\Controllers\Web\Auth\AppleController;
 use App\Http\Controllers\Web\ProxyController;
 use App\Http\Controllers\Web\SiteController;
 use App\Http\Controllers\Web\Image\ImageController;
+use App\Http\Controllers\Web\Decks\DecksController;
+use App\Http\Controllers\Web\Decks\DeckTagDeckController;
 
 require __DIR__ . '/auth.php';
 
@@ -154,8 +156,9 @@ Route::namespace('Web')->group(function () {
         'blogs/comments' => Blogs\CommentsController::class,
     ]);
 
+    Route::put('decks/deck-tag-deck/{deckId}/{deckTagId}', [DeckTagDeckController::class, 'update']);
     Route::resources([
-        'decks' => Decks\DecksController::class,
+        'decks' => DecksController::class,
     ]);
 
     //イベント系スレッド
