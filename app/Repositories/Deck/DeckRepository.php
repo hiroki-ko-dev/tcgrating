@@ -54,4 +54,10 @@ final class DeckRepository
             'deck_tag_id' => $attrs['deck_tag_id'],
         ]);
     }
+
+    public function deleteDeckTagDeck(int $deckId, int $deckTagId): void
+    {
+        $deck = $this->findDeck($deckId);
+        $deck->deckTags()->detach($deckTagId);
+    }
 }

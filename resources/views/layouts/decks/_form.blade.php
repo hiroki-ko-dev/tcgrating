@@ -96,26 +96,39 @@
   </div>
 
   @foreach($deck->tags as $tag)
-    <form method="POST" action="/decks/deck-tag-deck/{{$deck->id}}/{{$tag->id}}">
-      @csrf
-      @method('PUT')
-      <div class="row justify-content-center mb-4">
+    <div class="row justify-content-center mb-4">
         <div class="col-2">{{$tag->id}}</div>
         <div class="col-3">{{$tag->name}}</div>
         <div class="col-5">
-          <select name="deck_tag_id" class="form-control">
-            @foreach($deckTags as $deckTag)
-              <option value="{{ $deckTag->id }}" {{ $tag->id == $deckTag->id ? 'selected' : '' }}>{{ $deckTag->name }}</option>
-            @endforeach
-          </select>
+            <form method="POST" action="/decks/deck-tag-deck/{{$deck->id}}/{{$tag->id}}">
+                @csrf
+                @method('PUT')
+                <div class="row justify-content-center">
+                  <div class="col-6">
+                    <select name="deck_tag_id" class="form-control">
+                        @foreach($deckTags as $deckTag)
+                            <option value="{{ $deckTag->id }}" {{ $tag->id == $deckTag->id ? 'selected' : '' }}>{{ $deckTag->name }}</option>
+                        @endforeach
+                    </select>
+                  </div>
+                  <div class="col-6">
+                    <button type="submit" class="btn site-color btn-outline-secondary text-light" onClick="return requestConfirm();">
+                        {{ __('保存する') }}
+                    </button>
+                  </div>
+                </div>
+            </form>
         </div>
         <div class="col-2">
-          <button type="submit" class="btn site-color btn-outline-secondary text-light w-40">
-            {{ __('保存する') }}
-          </button>
+            <form method="POST" action="/decks/deck-tag-deck/{{$deck->id}}/{{$tag->id}}">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger" onClick="return requestConfirm();">
+                    {{ __('削除する') }}
+                </button>
+            </form>
         </div>
-      </div>
-    </form>
+    </div>
   @endforeach
 
   <form method="POST" action="/decks/deck-tag-deck">
@@ -131,7 +144,7 @@
         </select>
       </div>
       <div class="col-2">
-        <button type="submit" class="btn site-color btn-outline-secondary text-light w-40">
+        <button type="submit" class="btn site-color btn-outline-secondary text-light w-40" onClick="return requestConfirm();">
           {{ __('保存する') }}
         </button>
       </div>

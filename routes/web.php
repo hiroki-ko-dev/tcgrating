@@ -158,6 +158,7 @@ Route::namespace('Web')->group(function () {
 
     Route::post('decks/deck-tag-deck', [DeckTagDeckController::class, 'store']);
     Route::put('decks/deck-tag-deck/{deckId}/{deckTagId}', [DeckTagDeckController::class, 'update']);
+    Route::delete('decks/deck-tag-deck/{deckId}/{deckTagId}', [DeckTagDeckController::class, 'destroy']);
     Route::resources([
         'decks' => DecksController::class,
     ]);

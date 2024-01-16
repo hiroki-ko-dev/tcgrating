@@ -47,4 +47,9 @@ class DecksService
     {
         $this->deckRepository->updateDeckTagDeck($deckId, $deckTagId, $attrs);
     }
+
+    public function deleteDeckTagDeck(int $deckId, int $deckTagId): void
+    {
+        $this->deckRepository->deleteDeckTagDeck($deckId, $deckTagId);
+    }
 }
