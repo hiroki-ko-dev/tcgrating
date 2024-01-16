@@ -86,7 +86,7 @@
     @endforeach
 
     <div class="d-flex justify-content-center mb-4">
-      {{$decks->links('pagination::bootstrap-4')}}
+      {{$decks->appends(['deck_tag_id' => request()->deck_tag_id])->links('pagination::bootstrap-4')}}
     </div>
   </div>
 @endsection
