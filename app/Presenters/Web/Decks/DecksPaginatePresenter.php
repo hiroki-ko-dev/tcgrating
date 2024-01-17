@@ -24,6 +24,8 @@ final class DecksPaginatePresenter
             $deckData->organizer_name = $deck->officialEvent->organizer_name;
             $deckData->date = $deck->officialEvent->date;
             $deckData->rank = $deck->rank;
+            $deckData->regulationFrom = $deck->regulation_from;
+            $deckData->regulationTo = $deck->regulation_to;
             $deckData->tags = $this->getTags($deck->deckTags);
             $deckData->createdAt = $deck->created_at;
             $deckData->updatedAt = $deck->updated_at;

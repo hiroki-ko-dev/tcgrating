@@ -76,6 +76,9 @@
                 <span class="deck-tag" onClick="location.href='/decks/?deck_tag_id={{$tag->id}}'">{{$tag->name}}</span>
               @endforeach
             </div>
+            <div class="deck-regulation">
+              レギュレーション：{{$deck->regulationFrom}} - {{$deck->regulationTo}}
+            </div>
             <div class="deck-image-box">
               <img class="deck-image" src="{{$deck->imageUrl}}" alt="hashimu-icon">
             </div>
