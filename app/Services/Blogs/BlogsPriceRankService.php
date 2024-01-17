@@ -90,6 +90,9 @@ final class BlogsPriceRankService extends BlogsService
                 $html .= '<div class="rank-group">'; // 新しいグループを開始
                 $html .= '<div class="rank-group-info">';
                 $html .= '<div class="rank-number">' . htmlspecialchars((string)$currentRank) . '位</div>';
+                if (is_null($element['mercari_price'])) {
+                    $element['mercari_price'] = 0;
+                }
                 $html .= '<div class="rank-price">価格: ' . htmlspecialchars(number_format($element['mercari_price'])) . '円</div>';
                 $html .= '</div>'; // rank-group-infoを閉じる
                 $rankGroupStarted = true;
