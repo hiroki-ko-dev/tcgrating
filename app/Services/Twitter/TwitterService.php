@@ -490,17 +490,12 @@ class TwitterService
             if ($post->sub_category_id === PostSubCategory::FREE->value) {
                 $webHook = config('assets.discord.web_hook.chat');
                 $discord =
-                    'ポケカ掲示板に以下のトークが投稿されました。' . PHP_EOL .
-                    'みんなでトークを開始しましょう！' . PHP_EOL .
-                    PHP_EOL .
                     $post->title . PHP_EOL .
                     PHP_EOL .
                     $link;
             } elseif ($post->sub_category_id === PostSubCategory::DECK->value) {
                 $webHook = config('assets.discord.web_hook.deck');
                 $discord =
-                    'ポケカ掲示板に以下のデッキ相談が投稿されました。' . PHP_EOL .
-                    'デッキ構築が上手い人は迷える子羊を救ってあげましょう！' . PHP_EOL .
                     PHP_EOL .
                     '【デッキ相談】' . $post->title . PHP_EOL .
                     PHP_EOL .
@@ -508,8 +503,6 @@ class TwitterService
             } elseif ($post->sub_category_id === PostSubCategory::RULE->value) {
                 $webHook = config('assets.discord.web_hook.rule');
                 $discord =
-                    'ポケカ掲示板に以下のルール質問が投稿されました。' . PHP_EOL .
-                    'ルールに詳しい人は迷える子羊を救ってあげましょう！' . PHP_EOL .
                     PHP_EOL .
                     '【ルール質問】' . $post->title . PHP_EOL .
                     PHP_EOL .
@@ -539,9 +532,6 @@ class TwitterService
 
                 $webHook = config('assets.discord.web_hook.blog');
                 $discord =
-                    'ポケカ記事が更新されました。' . PHP_EOL .
-                    '最新情報をチェックしましょう！！' . PHP_EOL .
-                    PHP_EOL .
                     '【ポケカ記事】' . $blog->title . PHP_EOL .
                     PHP_EOL .
                     $link;
