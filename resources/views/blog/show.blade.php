@@ -106,10 +106,15 @@
         </div>
       </div>
     </nav>
-    
-
   </article>
-  @include('layouts.post.post_latest')
+
+  <section>
+    @include('layouts.post.post_latest')
+  </section>
+
+  <section>
+    @include('layouts.blog.latest')
+  </section>
 </div>
 
 @endsection

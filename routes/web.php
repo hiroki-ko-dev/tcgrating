@@ -13,10 +13,6 @@ require __DIR__ . '/auth.php';
 
 Route::namespace('Web')->group(function () {
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
-
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
@@ -32,9 +28,7 @@ Route::namespace('Web')->group(function () {
         return view('sample');
     });
     //直接TOPページを表示
-    Route::get('/', function () {
-        return view('site.index');
-    });     //直接TOPページを表示
+    Route::get('/', [SiteController::class, 'home']);
     Route::get('/site/administrator', function () {
         return view('site.administrator');
     }); //管理人を表示

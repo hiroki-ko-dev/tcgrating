@@ -16,7 +16,15 @@
       </div>
     @else
       <div class="row justify-content-center mb-2">
-        <div class="col-md-12">
+        <div class="col-12">
+          <section>
+            @include('layouts.post.post_latest')
+          </section>
+          
+          <section>
+            @include('layouts.blog.latest')
+          </section>
+        </div>
           <div class="box">
             <div class="row"><div class="col-12">LINEオープンチャット参加でマッチング率が飛躍的に上昇します!!</div></div>
             <div class="row">

@@ -8,15 +8,34 @@ use DB;
 use App\Services\User\UserService;
 use App\Services\Google\GoogleService;
 use App\Services\Twitter\TwitterService;
+use App\Services\Blogs\BlogsService;
+use App\Services\Post\PostService;
 use Illuminate\Http\Request;
+use App\Presenters\Web\Post\PostLatestPresenter;
+use App\Presenters\Web\Blogs\BlogsLatestPresenter;
 
 class SiteController extends Controller
 {
     public function __construct(
+        private readonly BlogsService $blogService,
+        private readonly PostService $postService,
         private readonly UserService $userService,
         private readonly GoogleService $googleService,
-        private readonly TwitterService $twitterService
+        private readonly TwitterService $twitterService,
+        private readonly PostLatestPresenter $postLatestPresenter,
+        private readonly BlogsLatestPresenter $blogsLatestPresenter,
     ) {
+    }
+
+    public function home()
+    {
+        $postLatests = $this->postLatestPresenter->getResponse(
+            $this->postService->findAllPosts([])
+        );
+        $blogsLatests = $this->blogsLatestPresenter->getResponse(
+            $this->blogService->findAllBlogs(['is_released' => 1])
+        );
+        return view('site.index', compact('blogsLatests', 'postLatests'));
     }
 
     public function administrator()
@@ -29,7 +48,7 @@ class SiteController extends Controller
         //ログインしている場合はuserテーブルのselected_game_idも更新
         if (Auth::check() == true) {
             DB::transaction(function () use ($request) {
-                $request->merge(['id'=> Auth::id()]);
+                $request->merge(['id' => Auth::id()]);
                 $this->userService->updateSelectedGameId($request);
             });
         }
