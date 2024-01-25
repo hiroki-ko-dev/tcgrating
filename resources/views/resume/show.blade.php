@@ -4,7 +4,7 @@
 @include('layouts.common.google')
 
 @section('addCss')
-  <link rel="stylesheet" href="{{ mix('/css/resume/resume.css') }}">
+  @vite(['resources/scss/resumes/resumes-show.scss'])
 @endsection
 
 @section('content')

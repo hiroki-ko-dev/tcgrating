@@ -72,7 +72,7 @@
         width: 180px;
         height: 180px;
         border-radius: 50%;
-        border: 4px solid #2f82c6;
+        border: 3px solid #2f82c6;
       }
     }
     .name{
@@ -81,60 +81,40 @@
         font-size: 30px;
         font-weight: bold;
         text-align: center;
-        border: 4px solid #2f82c6;
+        border: 3px solid #2f82c6;
       }
     }
-    .rate{
+
+    .area{
       .body{
         height: 50px;
         font-size: 30px;
         font-weight: bold;
-        border: 4px solid #2f82c6;
-        text-align: right;
-        .number{
-          position: absolute;
-          top: 20px;
-          left: 70px;
-          font-size: 55px;
-          color: #FF0000;
-          text-shadow:1px 1px 0 #000, -1px -1px 0 #000,
-          -1px 1px 0 #000, 1px -1px 0 #000,
-          0px 1px 0 #000,  0-1px 0 #000,
-          -1px 0 0 #000, 1px 0 0 #000;
-        }
-        .staring{
-          margin-right: 10px;
-        }
+        text-align: center;
+        border: 3px solid #2f82c6;
       }
     }
+
     .gender{
       .body{
         height: 50px;
         font-size: 30px;
         font-weight: bold;
         text-align: center;
-        border: 4px solid #2f82c6;
+        border: 3px solid #2f82c6;
       }
     }
     .experience{
       margin-left: 10px;
       .body{
-        height: 60px;
+        height: 70px;
         font-size: 30px;
         font-weight: bold;
         text-align: center;
-        border: 4px solid #2f82c6;
+        border: 3px solid #2f82c6;
       }
     }
-    .area{
-      .body{
-        height: 60px;
-        font-size: 30px;
-        font-weight: bold;
-        text-align: center;
-        border: 4px solid #2f82c6;
-      }
-    }
+
 
     .pokemon{
       margin-left: 10px;
@@ -145,16 +125,17 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 4px solid #2f82c6;
+        border: 3px solid #2f82c6;
       }
     }
 
     .regulation{
+      margin-left: 10px;
       .body{
-        height: 70px;
+        height: 50px;
         font-size: 20px;
         font-weight: bold;
-        border: 4px solid #2f82c6;
+        border: 3px solid #2f82c6;
         .standard{
           margin-left: 20px;
         }
@@ -170,11 +151,12 @@
     .playStyle{
       margin-left: 10px;
       .body{
+        padding-left: 20px;
         width: 555px;
         height: 70px;
         font-size: 16px;
         font-weight: bold;
-        border: 4px solid #2f82c6;
+        border: 3px solid #2f82c6;
       }
     }
 
@@ -187,7 +169,7 @@
         font-size: 30px;
         font-weight: bold;
         white-space: pre-line;
-        border: 4px solid #2f82c6;
+        border: 3px solid #2f82c6;
       }
     }
   }

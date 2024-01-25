@@ -2,6 +2,14 @@
   "_index-8c17b362.js": {
     "file": "assets/index-8c17b362.js"
   },
+  "public/fonts/HuiFontP29.ttf": {
+    "file": "assets/HuiFontP29-8e1010b6.ttf",
+    "src": "public/fonts/HuiFontP29.ttf"
+  },
+  "public/images/site/resume/03_pokemon_card.jpg": {
+    "file": "assets/03_pokemon_card-8c8c176b.jpg",
+    "src": "public/images/site/resume/03_pokemon_card.jpg"
+  },
   "resources/css/main.css": {
     "file": "assets/main-179954eb.css",
     "isEntry": true,
@@ -16,7 +24,7 @@
     "src": "resources/js/post/DeckPreview.tsx"
   },
   "resources/js/resume/Resume.jsx": {
-    "file": "assets/Resume-e098f457.js",
+    "file": "assets/Resume-012b7cd0.js",
     "imports": [
       "_index-8c17b362.js"
     ],
@@ -47,5 +55,10 @@
     "file": "assets/post-show-b55c9375.css",
     "isEntry": true,
     "src": "resources/scss/post/post-show.scss"
+  },
+  "resources/scss/resumes/resumes-show.scss": {
+    "file": "assets/resumes-show-e017458d.css",
+    "isEntry": true,
+    "src": "resources/scss/resumes/resumes-show.scss"
   }
 }

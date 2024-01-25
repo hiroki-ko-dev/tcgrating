@@ -34,13 +34,11 @@ export const Content = (props) => {
               </div>
             </div>
 
-              <div className="row">
-              <div className="rate col-8">
-                  <div className="title">ランキング</div>
+            <div className="row">
+              <div className="area col-8">
+                  <div className="title">活動地域</div>
                   <div className="body">
-                  <span className="number">{resumeJson.user.gameUser.rank}</span>
-                  <span className="staring">位</span>
-
+                      {resumeJson.user.gameUser.area}
                   </div>
               </div>
               <div className="gender col-4">
@@ -49,8 +47,8 @@ export const Content = (props) => {
                   {resumeJson.user.gender}
                   </div>
               </div>
-              </div>
-          </div>
+            </div>
+            </div>
           </div>
 
           <div className="like row">
@@ -63,18 +61,6 @@ export const Content = (props) => {
               </div>
           </div>
           <div className="col-6">
-              <div className="area">
-              <div className="title">活動地域</div>
-              <div className="body">
-                  {resumeJson.user.gameUser.area}
-              </div>
-              </div>
-          </div>
-          </div>
-
-          <div className="like row">
-
-          <div className="col-6">
               <div className="pokemon">
               <div className="title">好きなポケモン</div>
               <div className="body">
@@ -82,26 +68,33 @@ export const Content = (props) => {
               </div>
               </div>
           </div>
+          </div>
 
-          <div className="col-6">
+          <div className="like row">
+
+          <div className="col-12">
               <div className="regulation">
               <div className="title">レギュレーション</div>
               <div className="body">
                   <div className="row">
-                  {gameUserChecks(resumeJson)[1]
-                      ? <div className='standard'>✅ スタンダード</div>
-                      : <div className='standard fontGrey'>⬜︎ スタンダード</div>
-                  }
-                  {gameUserChecks(resumeJson)[2]
-                      ? <div className='legend'>✅ 殿堂</div>
-                      : <div className='legend fontGrey'>⬜︎ 殿堂</div>
-                  }
-                  </div>
-                  <div className="row">
-                  {gameUserChecks(resumeJson)[3]
-                      ? <div className='extra'>✅ エクストラ</div>
-                      : <div className='extra fontGrey'>⬜︎ エクストラ</div>
-                  }
+                    <div className="col-4">
+                      {gameUserChecks(resumeJson)[1]
+                          ? <div className='standard'>✅ スタンダード</div>
+                          : <div className='standard fontGrey'>⬜︎ スタンダード</div>
+                      }
+                    </div>
+                    <div className="col-4">
+                    {gameUserChecks(resumeJson)[2]
+                        ? <div className='legend'>✅ 殿堂</div>
+                        : <div className='legend fontGrey'>⬜︎ 殿堂</div>
+                    }
+                    </div>
+                    <div className="col-4">
+                      {gameUserChecks(resumeJson)[3]
+                          ? <div className='extra'>✅ エクストラ</div>
+                          : <div className='extra fontGrey'>⬜︎ エクストラ</div>
+                      }
+                    </div>
                   </div>
               </div>
               </div>
