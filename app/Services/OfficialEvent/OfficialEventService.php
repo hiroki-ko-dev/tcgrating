@@ -58,8 +58,8 @@ class OfficialEventService
                 $attrs['decks'][$i]['code'] = $deckRow[0];
                 $attrs['decks'][$i]['image_url'] = $deckRow[5];
                 $attrs['decks'][$i]['rank'] = (int)$deckRow[2];
-                $attrs['decks'][$i]['regulation_from'] = 'E';
-                $attrs['decks'][$i]['regulation_to'] = 'G';
+                $attrs['decks'][$i]['regulation_from'] = 'F';
+                $attrs['decks'][$i]['regulation_to'] = 'H';
                 foreach (explode(',', $deckRow[3]) as $j => $tag) {
                     $attrs['decks'][$i]['deckTags'][$j]['name'] = $tag;
                 }
