@@ -39,6 +39,7 @@ final class TwitterOfficialEventService extends TwitterService
                 $apiKeys = config('assets.twitter.pokeka_info');
                 $tweetId = $this->imagesTweet($apiKeys, $tweet, $images, null);
                 $this->imagesTweet($apiKeys, $replyDecks, $replyImages, $tweetId);
+                sleep(10);
             }
             $this->deleteTempDirectory();
 
