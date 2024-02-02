@@ -22,9 +22,9 @@ final class TweetOfficialEventResult extends Command
 
     public function handle(): int
     {
-        $this->twitterOfficialEventService->tweetResult(
-            $this->officialEventService->saveResult()
-        );
+        // $this->twitterOfficialEventService->tweetResult(
+            $this->officialEventService->saveResult();
+        // );
         return 0;
     }
 }
