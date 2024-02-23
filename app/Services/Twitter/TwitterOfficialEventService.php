@@ -21,10 +21,10 @@ final class TwitterOfficialEventService extends TwitterService
                 foreach ($officialEvent->decks as $i => $deck) {
                     if ($deck->rank <= 3) {
                         $decks .= $deck->rank . '位 ' . $this->getDeckName($deck) . PHP_EOL;
-                        $images[] = $this->saveDeckImage($officialEvent->id . '_' .$i . '.png', $deck);
+                        $images[] = $this->saveDeckImage($officialEvent->id . '_' . $i . '.png', $deck);
                     } else {
                         $replyDecks .= $deck->rank . '位 ' . $this->getDeckName($deck) . PHP_EOL;
-                        $replyImages[] = $this->saveDeckImage($officialEvent->id . '_' .$i . '.png', $deck);
+                        $replyImages[] = $this->saveDeckImage($officialEvent->id . '_' . $i . '.png', $deck);
                     }
                 }
 
@@ -36,7 +36,7 @@ final class TwitterOfficialEventService extends TwitterService
                 $decks;
 
                 // ツイートを投稿
-                $apiKeys = config('assets.twitter.pokeka_info');
+                $apiKeys = config('assets.twitter.pokeka_battle');
                 $tweetId = $this->imagesTweet($apiKeys, $tweet, $images, null);
                 $this->imagesTweet($apiKeys, $replyDecks, $replyImages, $tweetId);
                 sleep(10);
