@@ -34,6 +34,16 @@
     </div>
   </section>
 
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-10 col-12">
+      <div class="box text-left">
+        <div class="pt-2 pb-2 d-flex align-items-center">
+          <h1 class="text-wrap post-title p-2">{{$blog->title}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <section>
     @include('layouts.post.post_latest')
   </section>

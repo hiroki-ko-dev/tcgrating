@@ -37,6 +37,18 @@
         </div>
       @endif
     </div>
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-10 col-12">
+        <div class="box text-left">
+          <div class="pt-2 pb-2 d-flex align-items-center">
+            <span class="text-nowrap post-tag p-1">
+              {{$post->subCategoryName}}
+            </span>
+            <h1 class="text-wrap post-title p-2">{{$post->title}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
     <section>
       @include('layouts.post.post_latest')
     </section>
