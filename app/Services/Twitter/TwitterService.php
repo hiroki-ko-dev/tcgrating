@@ -472,7 +472,7 @@ class TwitterService
     public function tweetByStorePost($post)
     {
         if (config('assets.common.appEnv') == 'production') {
-            $apiKeys = config('assets.twitter.pokeka_info');
+            $apiKeys = config('assets.twitter.pokeka_battle');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
             $link = 'https://hashimu.com/posts/' . $post->id . '?selected_game_id=' . $post->game_id . '&remotopokeka=1';
@@ -515,7 +515,7 @@ class TwitterService
     public function tweetByBlog($blog)
     {
         if (config('assets.common.appEnv') == 'production') {
-            $apiKeys = config('assets.twitter.pokeka_info');
+            $apiKeys = config('assets.twitter.pokeka_battle');
 
             $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
             $link = 'https://hashimu.com/blogs/' . $blog->id . '?selected_game_id=' . $blog->game_id . '&remotopokeka=1';
@@ -564,7 +564,7 @@ class TwitterService
             $apiKeys = config('assets.twitter.pokemon');
             $this->tweet($apiKeys, $tweet);
             // pokekaInfo
-            $apiKeys = config('assets.twitter.pokeka_info');
+            $apiKeys = config('assets.twitter.pokeka_battle');
             $this->tweet($apiKeys, $tweet);
 
             // discord投稿
