@@ -28,12 +28,15 @@ final class TwitterOfficialEventService extends TwitterService
                     }
                 }
 
+                // 初回ツイートは大会名・サイトURLをつけて加工
                 $tweet =
                 '【' . $officialEvent->date . '開催】' . PHP_EOL .
                 $officialEvent->name . PHP_EOL .
                 $officialEvent->organizer_name . PHP_EOL .
                 PHP_EOL .
-                $decks;
+                $decks . PHP_EOL .
+                '#ポケカ #ポケモンカード' . PHP_EOL .
+                url('/decks');
 
                 // ツイートを投稿
                 $apiKeys = config('assets.twitter.pokeka_battle');
