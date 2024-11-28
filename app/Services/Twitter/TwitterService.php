@@ -596,7 +596,9 @@ class TwitterService
             } else { // 土曜日または日曜日の場合
                 $number = rand(200, 260);
             }
-            $tweet = "本日はリモートポケカの対戦が" . $number . "戦ありました";
+            $tweet = "本日はリモートポケカの対戦が" . $number . "戦ありました" . PHP_EOL .
+                'リモートポケカ募集のオープンチャットへの参加は固定ツイートから' . PHP_EOL .
+                '#ポケカ #ポケモンカード';
             $this->tweet($apiKeys, $tweet);
 
             // $hashTag = '#ポケモンカード #ポケカ #リモートポケカ';
