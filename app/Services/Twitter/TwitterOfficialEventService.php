@@ -35,8 +35,9 @@ final class TwitterOfficialEventService extends TwitterService
                 $officialEvent->organizer_name . PHP_EOL .
                 PHP_EOL .
                 $decks . PHP_EOL .
-                '#ポケカ #ポケモンカード' . PHP_EOL .
-                url('/decks');
+                url('/decks') . PHP_EOL .
+                PHP_EOL .
+                '#ポケカ #ポケモンカード';
 
                 // ツイートを投稿
                 $apiKeys = config('assets.twitter.pokeka_battle');
