@@ -42,6 +42,7 @@ final class TwitterOfficialEventService extends TwitterService
                 // ツイートを投稿
                 $apiKeys = config('assets.twitter.pokeka_battle');
                 $tweetId = $this->imagesTweet($apiKeys, $tweet, $images, null);
+                sleep(10);
                 $this->imagesTweet($apiKeys, $replyDecks, $replyImages, $tweetId);
                 sleep(10);
             }
