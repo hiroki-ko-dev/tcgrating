@@ -11,13 +11,14 @@ final class TwitterOfficialEventService extends TwitterService
 {
     public function tweetResult(Collection $officialEvents): void
     {
-        if (config('assets.common.appEnv') == 'production') {
+        if (config('assets.common.appEnv') === 'production') {
             foreach ($officialEvents as $officialEvent) {
                 $officialEvent->decks = $officialEvent->decks->sortBy('rank');
                 $decks = '';
                 $replyDecks = '';
                 $images = [];
                 $replyImages = [];
+
                 foreach ($officialEvent->decks as $i => $deck) {
                     if ($deck->rank <= 3) {
                         $decks .= $deck->rank . '位 ' . $this->getDeckName($deck) . PHP_EOL;
@@ -28,28 +29,41 @@ final class TwitterOfficialEventService extends TwitterService
                     }
                 }
 
-                // 初回ツイートは大会名・サイトURLをつけて加工
+                // 初回ツイート内容を作成
                 $tweet =
-                '【' . $officialEvent->date . '開催】' . PHP_EOL .
-                $officialEvent->name . PHP_EOL .
-                $officialEvent->organizer_name . PHP_EOL .
-                PHP_EOL .
-                $decks . PHP_EOL .
-                url('/decks') . PHP_EOL .
-                PHP_EOL .
-                '#ポケカ #ポケモンカード';
+                    '【' . $officialEvent->date . '開催】' . PHP_EOL .
+                    $officialEvent->name . PHP_EOL .
+                    $officialEvent->organizer_name . PHP_EOL .
+                    PHP_EOL .
+                    $decks . PHP_EOL .
+                    url('/decks') . PHP_EOL .
+                    PHP_EOL .
+                    '#ポケカ #ポケモンカード';
 
                 // ツイートを投稿
                 $apiKeys = config('assets.twitter.pokeka_battle');
-                $tweetId = $this->imagesTweet($apiKeys, $tweet, $images, null);
-                sleep(10);
-                $this->imagesTweet($apiKeys, $replyDecks, $replyImages, $tweetId);
-                sleep(10);
+
+                try {
+                    $tweetId = $this->imagesTweet($apiKeys, $tweet, $images, null);
+
+                    if ($tweetId) {
+                        // 前のツイートに返信する形式で追加ツイートを投稿
+                        sleep(5); // API制限回避のための待機時間
+                        $this->imagesTweet($apiKeys, $replyDecks, $replyImages, $tweetId);
+                    } else {
+                        \Log::error('初回ツイートの投稿に失敗しました: ' . $tweet);
+                    }
+                } catch (\Exception $e) {
+                    \Log::error('ツイート投稿中にエラーが発生しました: ' . $e->getMessage());
+                }
+
+                sleep(10); // 次の公式イベント処理まで待機
             }
+
             $this->deleteTempDirectory();
 
             if ($officialEvents->isNotEmpty()) {
-                // discord投稿
+                // Discordへの通知
                 $webHook = config('assets.discord.web_hook.blog');
                 $content =
                     '以下の入賞デッキデータを追加いたしました。' . PHP_EOL .
