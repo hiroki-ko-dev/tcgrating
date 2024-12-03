@@ -81,7 +81,7 @@ class TwitterService
             if (isset($uploadedMedia->media_id_string)) {
                 $mediaIds[] = $uploadedMedia->media_id_string;
             }
-            sleep(2);
+            sleep(5);
         }
 
         $postData = [
