@@ -76,12 +76,19 @@ class TwitterService
 
         $mediaIds = [];
         foreach ($images as $imagePath) {
-            // 画像をアップロードし、各画像のIDを取得
             $uploadedMedia = $twitter->upload('media/upload', ['media' => $imagePath]);
             if (isset($uploadedMedia->media_id_string)) {
                 $mediaIds[] = $uploadedMedia->media_id_string;
+                // メディアの処理が完了するまで待機
+                $status = null;
+                do {
+                    sleep(1); // 1秒待機
+                    $status = $twitter->get('media/upload', [
+                        'command' => 'STATUS',
+                        'media_id' => $uploadedMedia->media_id_string
+                    ]);
+                } while (isset($status->processing_info) && $status->processing_info->state === 'pending');
             }
-            sleep(2);
         }
 
         $postData = [
